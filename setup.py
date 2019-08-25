@@ -78,7 +78,8 @@ with open(os.path.join('oarepo', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
 
-assert version == INVENIO_VERSION
+iversion = '.'.join(version.split('.')[:3])
+assert iversion == INVENIO_VERSION
 
 setup(
     name='oarepo',
