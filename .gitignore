@@ -54,3 +54,6 @@ target/
 
 # Vagrant
 .vagrant
+
+# ide
+.idea/
