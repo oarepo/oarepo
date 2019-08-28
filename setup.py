@@ -26,8 +26,18 @@ extras_require = {
         'invenio-oarepo>=1.0.7,<1.1.0',
         'invenio-oarepo-ui>=1.0.0',
     ],
+    'deploy-files': [
+        'invenio[base,auth,metadata,postgresql,elasticsearch6,files]~={0}'.format(INVENIO_VERSION),
+        'invenio-oarepo>=1.0.7,<1.1.0',
+        'invenio-oarepo-ui>=1.0.0',
+    ],
     'deploy-es7': [
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
+        'invenio-oarepo>=1.0.7,<1.1.0',
+        'invenio-oarepo-ui>=1.0.0',
+    ],
+    'deploy-es7-files': [
+        'invenio[base,auth,metadata,postgresql,elasticsearch7,files]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo>=1.0.7,<1.1.0',
         'invenio-oarepo-ui>=1.0.0',
     ],
