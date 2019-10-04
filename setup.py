@@ -64,6 +64,9 @@ extras_require = {
     ],
     'draft': [
         'oarepo-invenio-records-draft>=1.2.0,<2.0.0'
+    ],
+    'iiif': [
+        'invenio-iiif>=1.0.0,<1.1.0'
     ]
 }
 
