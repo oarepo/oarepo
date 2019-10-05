@@ -63,7 +63,7 @@ extras_require = {
         'invenio[tests]~={0}'.format(INVENIO_VERSION),
     ],
     'draft': [
-        'oarepo-invenio-records-draft>=1.2.0,<2.0.0'
+        'oarepo-invenio-records-draft>=1.2.2,<2.0.0'
     ],
     'iiif': [
         'invenio-iiif>=1.0.0,<1.1.0'
