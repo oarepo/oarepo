@@ -57,3 +57,5 @@ target/
 
 # ide
 .idea/
+
+.envrc
