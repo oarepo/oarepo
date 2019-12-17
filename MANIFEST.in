@@ -1,0 +1,5 @@
+recursive-include oarepo *.py
+
+prune tests
+exclude *.sh
+exclude pytest.ini
