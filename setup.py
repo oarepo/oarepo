@@ -17,6 +17,7 @@ readme = open('README.rst').read()
 INVENIO_VERSION = '3.1.1'
 
 tests_require = [
+    'check-manifest>=0.25',
     'invenio[tests]~={0}'.format(INVENIO_VERSION)
 ]
 
