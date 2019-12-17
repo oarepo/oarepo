@@ -28,8 +28,8 @@ env:
     - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
 
 python:
-  - "3.6"
   - "3.7"
+  - "3.8"
 
 matrix:
   fast_finish: true
