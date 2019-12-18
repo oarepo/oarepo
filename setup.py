@@ -63,6 +63,8 @@ extras_require = {
     ],
     'tests': [
         'invenio[tests]~={0}'.format(INVENIO_VERSION),
+        'check-manifest~=0.25',
+        'isort~=4.3',
     ],
     'draft': [
         'oarepo-invenio-records-draft>=1.2.2,<2.0.0'
