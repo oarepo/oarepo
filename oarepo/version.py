@@ -1,4 +1,5 @@
 from __future__ import absolute_import, print_function
 
 # the first 3 numbers of version here must be the same as invenio version in setup.py
-__version__ = "3.2.0a9.0"
+# if the version ends with a*, add this to the first 3 numbers
+__version__ = "3.2.0.0a9"

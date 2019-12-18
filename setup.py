@@ -90,7 +90,14 @@ with open(os.path.join('oarepo', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
 
-iversion = '.'.join(version.split('.')[:3])
+split_version = version.split('.')
+iversion = '.'.join(split_version[:3])
+
+if 'a' in split_version[-1]:
+    iversion = iversion + 'a' + split_version[-1].split('a')[1]
+elif 'b' in split_version[-1]:
+    iversion = iversion + 'b' + split_version[-1].split('a')[1]
+
 assert iversion == INVENIO_VERSION
 
 setup(
