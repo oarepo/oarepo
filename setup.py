@@ -14,7 +14,7 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-INVENIO_VERSION = '3.1.1'
+INVENIO_VERSION = '3.2.0a9'
 
 tests_require = [
     'check-manifest>=0.25',
@@ -24,12 +24,12 @@ tests_require = [
 extras_require = {
     'deploy': [
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
-        'invenio-oarepo>=1.0.7,<1.1.0',
+        'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
     ],
     'deploy-es7': [
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
-        'invenio-oarepo>=1.0.7,<1.1.0',
+        'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
     ],
     'openid': [
