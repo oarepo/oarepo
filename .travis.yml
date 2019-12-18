@@ -43,7 +43,9 @@ before_install:
   - "travis_retry pip install --upgrade pip setuptools py pip-tools"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
   - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.in"
-  - "pip-compile -U -o .travis-release-requirements.txt .travis-release-requirements.in"
+  - "cat .travis-release-requirements.in"
+  - "pip-compile -U -o --verbose .travis-release-requirements.txt .travis-release-requirements.in"
+  - "cat .travis-release-requirements.txt"
   - "psql -c 'CREATE DATABASE invenio;' -U postgres"
 
 install:
