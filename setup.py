@@ -24,12 +24,12 @@ tests_require = [
 extras_require = {
     'deploy': [
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
-        'invenio-oarepo>=1.0.7,<1.1.0',
+        'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
     ],
     'deploy-es7': [
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
-        'invenio-oarepo>=1.0.7,<1.1.0',
+        'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
     ],
     'openid': [
