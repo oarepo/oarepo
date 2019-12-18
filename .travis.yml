@@ -23,9 +23,9 @@ env:
     - ES_HOST=127.0.0.1
   matrix:
     # ES6 + PostgreSQL
-    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=deploy,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES6_DOWNLOAD_URL
     # ES7 + PostgreSQL
-    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
+    - REQUIREMENTS=release EXTRAS=deploy-es7,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
 
 python:
   - "3.7"
@@ -40,10 +40,12 @@ before_install:
   - "mkdir /tmp/elasticsearch"
   - "wget -O - ${ES_URL} | tar xz --directory=/tmp/elasticsearch --strip-components=1"
   - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
-  - "travis_retry pip install --upgrade pip setuptools py"
+  - "travis_retry pip install --upgrade pip setuptools py pip-tools"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
-  - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.txt"
-  - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.txt"
+  - "requirements-builder -e $EXTRAS --level=min setup.py > .travis-lowest-requirements.in"
+  - "pip-compile -o -U .travis-lowest-requirements.txt .travis-lowest-requirements.in"
+  - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.in"
+  - "pip-compile -o -U .travis-release-requirements.txt .travis-release-requirements.in"
   - "psql -c 'CREATE DATABASE invenio;' -U postgres"
 
 install:
