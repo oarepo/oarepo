@@ -70,6 +70,7 @@ setup_requires = [
 install_requires = [
 ]
 
+
 def add_tests(extra_test_reqs):
     def transform_req(req):
         if req.startswith('invenio['):
