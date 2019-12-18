@@ -88,8 +88,6 @@ add_tests([
     'isort~=4.3',
 ])
 
-print(extras_require)
-
 setup_requires = [
     'pytest-runner>=3.0.0,<5',
 ]
