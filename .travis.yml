@@ -67,9 +67,7 @@ deploy:
     secure: "CMcphJspwvPXZse8X5BIUDSrPWFS4MmrA60y6SwWJG31gsw6i3WEsNDCoUf0h6ckvTAbQdwg3bNMM+PtqAWGuLD2ZwMMOXtZeIhvueNpseznbDK2JCyXBKhO7qq9l0avYWgpHyDU3xlJE8FHhR9Vys0Z/0KUFR5sUlecJahtfaEirYwRfQO1fTqg3+8OEc+S1rHftoizPnQhdqBZkl7H1tzitfg3a8vcA6kode85w0sXzaA/QKKjLmN07yVw0BFbWugzuNTrHZdfHBLp/8/KaqZ247C8yOkJVqzUDHDYkkROapBciNycZ/iRbL8N1s6NsAmjjnOFS+WEJQkPMGuCcognh9Dsf/Wk5/+i/WDwZY0xj3QQHO4THEIKvepLZfCPrWH+m18zOn1OfDF6vb6urssR1attO6CzDdcjNHWJxbGjWEwg4IMAiL+IrZMo+4ENuPJq4yqX6HTTo1BfdPO2Bph0Tr7yIchMhS+8maso2XZ8lOUt1JIL4lWcZ0uqsRtJfBDEV5NYJevkXSX/Ct2hxbn05asVF4Jq/jhSi8U+BmuqIEJU5QucDAziLuAWCZ+Q0VkUZijEGOfvVVQd6h/8uaYs6t+fIgUlUKoDgGofSbwokkMV1sfE5vd6IXA5huTiexFmrC/RTcVyeYi6xusakQFJBO/k8R2gOpxcXaOq+Z8="
   on:
     tags: true
-  branch:
-    - master
-    - invenio-3.2
+  all_branches: true
   distributions: "sdist bdist_wheel"
   skip_existing: true
 
