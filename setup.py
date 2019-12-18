@@ -16,11 +16,6 @@ readme = open('README.rst').read()
 
 INVENIO_VERSION = '3.1.1'
 
-tests_require = [
-    'check-manifest>=0.25',
-    'invenio[tests]~={0}'.format(INVENIO_VERSION)
-]
-
 extras_require = {
     'deploy': [
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
@@ -60,9 +55,6 @@ extras_require = {
     'taxonomies': [
         'flask-taxonomies>=6.2.1'
     ],
-    'tests': [
-        'invenio[tests]~={0}'.format(INVENIO_VERSION),
-    ],
     'draft': [
         'oarepo-invenio-records-draft>=1.2.2,<2.0.0'
     ],
@@ -77,6 +69,28 @@ setup_requires = [
 
 install_requires = [
 ]
+
+def add_tests(extra_test_reqs):
+    def transform_req(req):
+        if req.startswith('invenio['):
+            req = 'invenio[tests,' + req[len('invenio['):]
+        return req
+
+    for r, _packages in list(extras_require.items()):
+        if not r.startswith('deploy'):
+            continue
+        suffix = r[6:]
+        tests = [
+            transform_req(k) for k in _packages
+        ]
+        tests.extend(extra_test_reqs)
+        extras_require['tests' + suffix] = tests
+
+
+add_tests([
+    'check-manifest~=0.25',
+    'isort~=4.3',
+])
 
 packages = find_packages()
 
@@ -107,7 +121,7 @@ setup(
     extras_require=extras_require,
     install_requires=install_requires,
     setup_requires=setup_requires,
-    tests_require=tests_require,
+    tests_require=extras_require['tests'],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
