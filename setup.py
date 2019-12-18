@@ -16,20 +16,15 @@ readme = open('README.rst').read()
 
 INVENIO_VERSION = '3.2.0a9'
 
-tests_require = [
-    'check-manifest>=0.25',
-    'invenio[tests]~={0}'.format(INVENIO_VERSION)
-]
-
 extras_require = {
     'deploy': [
-        'flask-celeryext==0.3.1',       # required as a workaround
+        'flask-celeryext==0.3.1',  # required as a workaround
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui~=1.0',
     ],
     'deploy-es7': [
-        'flask-celeryext==0.3.1',       # required as a workaround
+        'flask-celeryext==0.3.1',  # required as a workaround
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
@@ -62,11 +57,6 @@ extras_require = {
     'taxonomies': [
         'flask-taxonomies>=6.2.1'
     ],
-    'tests': [
-        'invenio[tests]~={0}'.format(INVENIO_VERSION),
-        'check-manifest~=0.25',
-        'isort~=4.3',
-    ],
     'draft': [
         'oarepo-invenio-records-draft>=1.2.2,<2.0.0'
     ],
@@ -74,6 +64,31 @@ extras_require = {
         'invenio-iiif>=1.0.0,<1.1.0'
     ]
 }
+
+
+def add_tests(extra_test_reqs):
+    def transform_req(req):
+        if req.startswith('invenio['):
+            req = 'invenio[tests,' + req[len('invenio['):]
+        return req
+
+    for r, _packages in list(extras_require.items()):
+        if not r.startswith('deploy'):
+            continue
+        suffix = r[6:]
+        tests = [
+            transform_req(k) for k in _packages
+        ]
+        tests.extend(extra_test_reqs)
+        extras_require['tests' + suffix] = tests
+
+
+add_tests([
+    'check-manifest~=0.25',
+    'isort~=4.3',
+])
+
+print(extras_require)
 
 setup_requires = [
     'pytest-runner>=3.0.0,<5',
@@ -118,7 +133,7 @@ setup(
     extras_require=extras_require,
     install_requires=install_requires,
     setup_requires=setup_requires,
-    tests_require=tests_require,
+    tests_require=extras_require['tests'],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
