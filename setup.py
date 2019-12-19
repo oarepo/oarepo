@@ -86,6 +86,7 @@ def add_tests(extra_test_reqs):
 add_tests([
     'check-manifest~=0.25',
     'isort~=4.3',
+    'Sphinx>=1.5.1',
 ])
 
 setup_requires = [
