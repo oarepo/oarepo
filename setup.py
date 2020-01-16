@@ -14,7 +14,7 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-INVENIO_VERSION = '3.2.0a9'
+INVENIO_VERSION = '3.2.0'
 
 extras_require = {
     'deploy': [
