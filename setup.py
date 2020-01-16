@@ -18,13 +18,11 @@ INVENIO_VERSION = '3.2.0'
 
 extras_require = {
     'deploy': [
-        'flask-celeryext==0.3.1',  # required as a workaround
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui~=1.0',
     ],
     'deploy-es7': [
-        'flask-celeryext==0.3.1',  # required as a workaround
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
