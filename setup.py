@@ -65,6 +65,9 @@ extras_require = {
     ],
     'iiif': [
         'invenio-iiif>=1.0.0,<1.1.0'
+    ],
+    'references': [
+        'oarepo-references~=1.4.0'
     ]
 }
 
