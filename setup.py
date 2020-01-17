@@ -30,7 +30,7 @@ extras_require = {
         'invenio-oarepo-ui>=1.0.0',
     ],
     'openid': [
-        'invenio-openid-connect>=1.0.0,<1.1.0',
+        'invenio-openid-connect>=1.1.0',
     ],
     'multisum': [
         'invenio-files-multisum-storage>=1.0.0,<1.1.0',
