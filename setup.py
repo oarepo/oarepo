@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Invenio.
-# Copyright (C) 2015-2019 CERN.
+# This file is part of OArepo.
+# Copyright (C) 2020 CESNET.
 #
-# Invenio is free software; you can redistribute it and/or modify it
+# OArepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio Digital Library Framework."""
+"""CESNET, UCT Prague and NTK wrapper around Invenio v3."""
 
 import os
 
@@ -30,6 +30,9 @@ extras_require = {
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
+    ],
+    'heartbeat': [
+        'oarepo-heartbeat>=1.0.0',
     ],
     'openid': [
         'invenio-openid-connect>=1.1.0',
