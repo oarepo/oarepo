@@ -33,6 +33,7 @@ extras_require = {
     ],
     'heartbeat': [
         'oarepo-heartbeat>=1.0.0',
+        'oarepo-heartbeat-common>=1.0.0',
     ],
     'openid': [
         'invenio-openid-connect>=1.1.0',
