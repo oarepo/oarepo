@@ -44,7 +44,7 @@ extras_require = {
     ],
     'files': [
         'invenio-files-rest>=1.0.0,<1.1.0',
-        'invenio-records-files>=1.1.0,<1.2.0'
+        'invenio-records-files>=1.1.0,<=1.2.1'
     ],
     'acls': [
         'invenio-explicit-acls>=4.4.0',
