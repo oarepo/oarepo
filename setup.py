@@ -12,7 +12,7 @@ import os
 
 from setuptools import find_packages, setup
 
-readme = open('README.rst').read()
+readme = open('README.md').read()
 
 INVENIO_VERSION = '3.2.1'
 
@@ -23,6 +23,7 @@ extras_require = {
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui~=1.0',
+        'oarepo-micro-api>=1.0.0'
     ],
     'deploy-es7': [
         'Flask-CeleryExt>=0.3.4',
@@ -30,6 +31,7 @@ extras_require = {
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
+        'oarepo-micro-api>=1.0.0'
     ],
     'heartbeat': [
         'oarepo-heartbeat>=1.0.0',
@@ -41,6 +43,9 @@ extras_require = {
     'multisum': [
         'invenio-files-multisum-storage>=1.0.0,<1.1.0',
         'invenio-oarepo-files-rest>=1.0.0',
+    ],
+    'micro-api': [
+        'oarepo-micro-api>=1.0.0'
     ],
     'files': [
         'invenio-files-rest>=1.0.0,<1.1.0',
@@ -129,6 +134,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
+    long_description_content_type='text/markdown',
     keywords='oarepo invenio',
     license='MIT',
     author='UCT Prague, CESNET z.s.p.o., NTK',

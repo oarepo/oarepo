@@ -1,10 +1,23 @@
 CESNET, UCT Prague and NTK wrapper around invenio v3
 ====================================================
 
-This library contains a curated set of dependencies to invenio libraries.
-The library is versioned according to invenio versions. For invenio
-version 3.2.0, versions of the library will be 3.2.0.0, 3.2.0.1, ...
+This meta-package contains a curated and tested set of dependencies on Invenio and OArepo libraries.
+It should be considered as a base building block for creating any OA repository applications.
 
+The package contains the following dependency bundles:
+
+
+
+| Bundle name | Description  |
+------------------------------
+| deploy      |              |
+| deploy-es7  |              |
+
+They could be installed, depending on needs of each repository application, by running:
+
+```
+pip install oarepo[bundle-name]
+```
 
 .. image:: https://img.shields.io/travis/oarepo/oarepo.svg
         :target: https://travis-ci.org/oarepo/oarepo
