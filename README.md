@@ -15,19 +15,19 @@ The package contains the following dependency bundles:
 
 | Bundle name | Description  |
 |-------------|--------------|
-| deploy      |              |
-| deploy-es7  |              |
-| openid      |              |
-| multisum    |              |
-| files       |              |
-| acls        |              |
-| links       |              |
-| models      |              |
-| includes    |              |
-| taxonomies  |              |
-| tests       |              |
-| draft       |              |
-| iiif        |              |
+| deploy      | All the dependencies needed for a basic repository deployment                            |
+| deploy-es7  | All the ElasticSearch 7 compatible dependencies needed for a basic repository deployment |
+| openid      | Dependencies needed for openid authentication                                            |
+| multisum    | Support for multiple file checksums (deprecated)                                         |
+| files       | Support for uploading files                                                              |
+| acls        | ACLs support                                                                             |
+| links       | Enable linking to another records                                                        |
+| models      | Includes all the common data models (DCObject, multilingual fields, Invenio model,...)   |
+| includes    | Adds support to compose ES mappings by including another mappings                        |
+| taxonomies  | Adds support for taxonomic trees                                                         |
+| tests       | Includes test dependencies                                                               |
+| draft       | Adds support for draft records                                                           |
+| iiif        | Adds support for file (image) preview generation                                         |
 
 
 They could be installed, depending on needs of each repository application, by running:
