@@ -1,47 +1,55 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Invenio.
-# Copyright (C) 2015-2019 CERN.
+# This file is part of OArepo.
+# Copyright (C) 2020 CESNET.
 #
-# Invenio is free software; you can redistribute it and/or modify it
+# OArepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio Digital Library Framework."""
+"""CESNET, UCT Prague and NTK wrapper around Invenio v3."""
 
 import os
 
 from setuptools import find_packages, setup
 
-readme = open('README.rst').read()
+readme = open('README.md').read()
 
-INVENIO_VERSION = '3.1.1'
-
-tests_require = [
-    'check-manifest>=0.25',
-    'invenio[tests]~={0}'.format(INVENIO_VERSION)
-]
+INVENIO_VERSION = '3.2.1'
 
 extras_require = {
     'deploy': [
+        'Flask-CeleryExt>=0.3.4',
+        'marshmallow~=3.0',
         'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
-        'invenio-oarepo-ui>=1.0.0',
+        'invenio-oarepo-ui~=1.0',
+        'oarepo-micro-api>=1.0.0'
     ],
     'deploy-es7': [
+        'Flask-CeleryExt>=0.3.4',
+        'marshmallow~=3.0',
         'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
         'invenio-oarepo~=1.1',
         'invenio-oarepo-ui>=1.0.0',
+        'oarepo-micro-api>=1.0.0'
+    ],
+    'heartbeat': [
+        'oarepo-heartbeat>=1.0.0',
+        'oarepo-heartbeat-common>=1.0.0',
     ],
     'openid': [
-        'invenio-openid-connect>=1.0.0,<1.1.0',
+        'invenio-openid-connect>=1.1.0',
     ],
     'multisum': [
         'invenio-files-multisum-storage>=1.0.0,<1.1.0',
         'invenio-oarepo-files-rest>=1.0.0',
     ],
+    'micro-api': [
+        'oarepo-micro-api>=1.0.0'
+    ],
     'files': [
         'invenio-files-rest>=1.0.0,<1.1.0',
-        'invenio-records-files>=1.1.0,<1.2.0'
+        'invenio-records-files>=1.1.0,<=1.2.1'
     ],
     'acls': [
         'invenio-explicit-acls>=4.4.0',
@@ -50,6 +58,7 @@ extras_require = {
         'invenio-records-links>=1.0.0',
     ],
     'models': [
+        'marshmallow~=3.0',
         'invenio-oarepo-dc>=1.1.0',
         'invenio-oarepo-invenio-model>=1.1.0',
         'invenio-oarepo-multilingual>=1.0.0',
@@ -60,16 +69,40 @@ extras_require = {
     'taxonomies': [
         'flask-taxonomies>=6.2.1'
     ],
-    'tests': [
-        'invenio[tests]~={0}'.format(INVENIO_VERSION),
-    ],
     'draft': [
-        'oarepo-invenio-records-draft>=1.2.2,<2.0.0'
+        'oarepo-invenio-records-draft~=4.0'
     ],
     'iiif': [
         'invenio-iiif>=1.0.0,<1.1.0'
+    ],
+    'references': [
+        'oarepo-references~=1.4.0'
     ]
 }
+
+
+def add_tests(extra_test_reqs):
+    def transform_req(req):
+        if req.startswith('invenio['):
+            req = 'invenio[tests,' + req[len('invenio['):]
+        return req
+
+    for r, _packages in list(extras_require.items()):
+        if not r.startswith('deploy'):
+            continue
+        suffix = r[6:]
+        tests = [
+            transform_req(k) for k in _packages
+        ]
+        tests.extend(extra_test_reqs)
+        extras_require['tests' + suffix] = tests
+
+
+add_tests([
+    'check-manifest~=0.25',
+    'isort~=4.3',
+    'Sphinx>=1.5.1',
+])
 
 setup_requires = [
     'pytest-runner>=3.0.0,<5',
@@ -86,7 +119,14 @@ with open(os.path.join('oarepo', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
 
-iversion = '.'.join(version.split('.')[:3])
+split_version = version.split('.')
+iversion = '.'.join(split_version[:3])
+
+if 'a' in split_version[-1]:
+    iversion = iversion + 'a' + split_version[-1].split('a')[1]
+elif 'b' in split_version[-1]:
+    iversion = iversion + 'b' + split_version[-1].split('a')[1]
+
 assert iversion == INVENIO_VERSION
 
 setup(
@@ -94,6 +134,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
+    long_description_content_type='text/markdown',
     keywords='oarepo invenio',
     license='MIT',
     author='UCT Prague, CESNET z.s.p.o., NTK',
@@ -107,7 +148,7 @@ setup(
     extras_require=extras_require,
     install_requires=install_requires,
     setup_requires=setup_requires,
-    tests_require=tests_require,
+    tests_require=extras_require['tests'],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
