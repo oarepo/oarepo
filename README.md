@@ -28,7 +28,7 @@ The package contains the following dependency bundles:
 | tests       | Includes test dependencies                                                               |
 | draft       | Adds support for draft records                                                           |
 | iiif        | Adds support for file (image) preview generation                                         |
-
+| micro-api   | A WSGI app to serve API-only apps under the `/api` prefix                                |
 
 They could be installed, depending on needs of each repository application, by running:
 
