@@ -23,12 +23,13 @@ env:
     - ES_HOST=127.0.0.1
   matrix:
     # ES6 + PostgreSQL
-    - REQUIREMENTS=release EXTRAS=deploy,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES6_DOWNLOAD_URL
+#    - REQUIREMENTS=release EXTRAS=deploy,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES6_DOWNLOAD_URL
     # ES7 + PostgreSQL
-    - REQUIREMENTS=release EXTRAS=deploy-es7,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
+#    - REQUIREMENTS=release EXTRAS=deploy-es7,tests SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
+    - REQUIREMENTS=release EXTRAS=deploy SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
 
 python:
-  - "3.7"
+#  - "3.7"
   - "3.8"
 
 matrix:
