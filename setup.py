@@ -191,7 +191,7 @@ install_requires = [
   'Pygments==2.6.1',
   'pynpm==0.1.2',
   'pyparsing==2.4.2',
-  'pytest==5.2.1',
+#  'pytest==5.2.1',
   'python-dateutil==2.8.1',
   'python-editor==1.0.4',
   'pytz==2020.1',
@@ -214,7 +214,7 @@ install_requires = [
   'webassets==2.0',
   'webencodings==0.5.1',
   'Werkzeug==0.16.1',
-  'WTForms==2.3.1'
+  'WTForms==2.3.1',
 ]
 
 packages = find_packages()
