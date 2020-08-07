@@ -102,6 +102,8 @@ add_tests([
     'check-manifest~=0.25',
     'isort~=4.3',
     'Sphinx>=1.5.1',
+    'pytest==5.2.1',
+    'Flask==1.1.2',
 ])
 
 setup_requires = [
