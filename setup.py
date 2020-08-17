@@ -78,7 +78,9 @@ extras_require = {
     'references': [
         'oarepo-references~=1.4.0'
     ],
-    'tests': []
+    'tests': [
+        'invenio[tests]~={0}'.format(INVENIO_VERSION)
+    ]
 }
 
 setup_requires = [
