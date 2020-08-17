@@ -77,7 +77,8 @@ extras_require = {
     ],
     'references': [
         'oarepo-references~=1.4.0'
-    ]
+    ],
+    'tests': []
 }
 
 setup_requires = [
