@@ -43,14 +43,14 @@ before_install:
   - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
   - "travis_retry pip install --upgrade pip setuptools py pip-tools"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
-  - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.in"
-  - "cat .travis-release-requirements.in 2>&1"
-  - "pip-compile -U --verbose -o .travis-release-requirements.txt .travis-release-requirements.in"
-  - "cat .travis-release-requirements.txt 2>&1"
+#  - "requirements-builder -e $EXTRAS --level=pypi setup.py > .travis-release-requirements.in"
+#  - "cat .travis-release-requirements.in 2>&1"
+#  - "pip-compile -U --verbose -o .travis-release-requirements.txt .travis-release-requirements.in"
+#  - "cat .travis-release-requirements.txt 2>&1"
   - "psql -c 'CREATE DATABASE invenio;' -U postgres"
 
 install:
-  - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
+#  - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
   - "travis_retry pip install -e .[${EXTRAS}]"
 
 script:
