@@ -196,8 +196,6 @@ install_requires = [
   'pytest-invenio>=1.3.2,<1.4.0'
 ]
 
-add_tests(install_requires)
-
 packages = find_packages()
 
 # Get the version string. Cannot be done with import!
