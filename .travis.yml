@@ -51,7 +51,8 @@ before_install:
 
 install:
 #  - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
-  - "travis_retry pip install -e .[${EXTRAS}]"
+  - "echo Extras: ${EXTRAS}"
+  - "travis_retry pip install --force-reinstall -e .[${EXTRAS}]"
 
 script:
   - /tmp/elasticsearch/bin/elasticsearch --version

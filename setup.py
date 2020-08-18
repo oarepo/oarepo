@@ -83,24 +83,6 @@ extras_require = {
     ]
 }
 
-
-def add_tests(extra_test_reqs):
-    def transform_req(req):
-        if req.startswith('invenio['):
-            req = 'invenio[tests,' + req[len('invenio['):]
-        return req
-
-    for r, _packages in list(extras_require.items()):
-        if not r.startswith('deploy'):
-            continue
-        suffix = r[6:]
-        tests = [
-            transform_req(k) for k in _packages
-        ]
-        tests.extend(extra_test_reqs)
-        extras_require['tests' + suffix] = tests
-
-
 setup_requires = [
     'pytest-runner>=3.0.0,<5',
 ]
