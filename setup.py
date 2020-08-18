@@ -77,6 +77,9 @@ extras_require = {
     ],
     'references': [
         'oarepo-references~=1.4.0'
+    ],
+    'tests': [
+        'pytest-invenio>=1.3.2,<1.4.0'
     ]
 }
 
