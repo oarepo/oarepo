@@ -193,7 +193,6 @@ install_requires = [
   'webencodings==0.5.1',
   'Werkzeug==0.16.1',
   'WTForms==2.3.3',
-  'pytest-invenio>=1.3.2,<1.4.0'
 ]
 
 packages = find_packages()
