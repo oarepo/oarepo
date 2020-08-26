@@ -9,4 +9,4 @@
 
 # isort -rc -c -df **/*.py && \       # metapackage, isort not needed
 check-manifest --ignore ".travis-*" && \
-python setup.py test
+pytest
