@@ -14,72 +14,9 @@ from setuptools import find_packages, setup
 
 readme = open('README.md').read()
 
-INVENIO_VERSION = '3.2.2'
-
 extras_require = {
-    'deploy': [
-        'Flask-CeleryExt>=0.3.4',
-        'marshmallow~=3.0',
-        'invenio[base,auth,metadata,postgresql,elasticsearch6]~={0}'.format(INVENIO_VERSION),
-        'invenio-oarepo~=1.1',
-        'invenio-oarepo-ui~=1.0',
-        'oarepo-micro-api>=1.0.0'
-    ],
-    'deploy-es7': [
-        'Flask-CeleryExt>=0.3.4',
-        'marshmallow~=3.0',
-        'invenio[base,auth,metadata,postgresql,elasticsearch7]~={0}'.format(INVENIO_VERSION),
-        'invenio-oarepo~=1.1',
-        'invenio-oarepo-ui>=1.0.0',
-        'oarepo-micro-api>=1.0.0'
-    ],
-    'heartbeat': [
-        'oarepo-heartbeat>=1.0.0',
-        'oarepo-heartbeat-common>=1.0.0',
-    ],
-    'openid': [
-        'invenio-openid-connect>=1.1.0',
-    ],
-    'multisum': [
-        'invenio-files-multisum-storage>=1.0.0,<1.1.0',
-        'invenio-oarepo-files-rest>=1.0.0',
-    ],
-    'micro-api': [
-        'oarepo-micro-api>=1.0.0'
-    ],
-    'files': [
-        'invenio-files-rest>=1.0.0,<1.1.0',
-        'invenio-records-files>=1.1.0,<=1.2.1'
-    ],
-    'acls': [
-        'invenio-explicit-acls>=4.4.0',
-    ],
-    'links': [
-        'invenio-records-links>=1.0.0',
-    ],
-    'models': [
-        'marshmallow~=3.0',
-        'invenio-oarepo-dc>=1.1.0',
-        'invenio-oarepo-invenio-model>=1.1.0',
-        'invenio-oarepo-multilingual>=1.0.0',
-    ],
-    'includes': [
-        'invenio-oarepo-mapping-includes>=1.1.0',
-    ],
-    'taxonomies': [
-        'flask-taxonomies>=6.2.1'
-    ],
-    'draft': [
-        'oarepo-invenio-records-draft~=4.0'
-    ],
-    'iiif': [
-        'invenio-iiif>=1.0.0,<1.1.0'
-    ],
-    'references': [
-        'oarepo-references~=1.4.0'
-    ],
     'tests': [
-        'pytest-invenio>=1.3.2,<1.4.0'
+        'pytest-invenio[docs]>=1.3.2'
     ]
 }
 
@@ -202,16 +139,6 @@ g = {}
 with open(os.path.join('oarepo', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
-
-split_version = version.split('.')
-iversion = '.'.join(split_version[:3])
-
-if 'a' in split_version[-1]:
-    iversion = iversion + 'a' + split_version[-1].split('a')[1]
-elif 'b' in split_version[-1]:
-    iversion = iversion + 'b' + split_version[-1].split('a')[1]
-
-assert iversion == INVENIO_VERSION
 
 setup(
     name='oarepo',
