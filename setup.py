@@ -45,7 +45,7 @@ install_requires = [
   'cffi==1.14.2',
   'click==7.1.2',
   'click-default-group==1.2.2',
-  'cryptography==3.0',
+  'cryptography==3.1',
   'decorator==4.4.2',
   'defusedxml==0.6.0',
   'dnspython==2.0.0',
