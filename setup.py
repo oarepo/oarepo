@@ -107,7 +107,7 @@ install_requires = [
   'invenio-previewer==1.2.1',
   'invenio-records==1.3.2',
   'invenio-records-files==1.2.1',
-  'invenio-records-rest==1.7.1',
+  'invenio-records-rest==1.7.2',
   'invenio-records-ui==1.1.0',
   'invenio-rest==1.2.1',
   'invenio-search==1.3.1',
