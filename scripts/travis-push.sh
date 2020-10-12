@@ -14,6 +14,7 @@ git config --global user.name oarepo-bot
 git config --global user.email noreply@cesnet.cz
 
 git clone -q -b "$BRANCH" https://oarepo-bot:${OAR_BOT}@github.com/oarepo/oarepo-micro-api.git \
+ && cd oarepo-micro-api \
  && date '+%y%m%d-%H%M%S' >> tests/.trig.txt \
  && git add tests/.trig.txt \
  && git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)" -m "[skip ci]" \
