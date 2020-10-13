@@ -62,3 +62,6 @@ deploy:
   distributions: "sdist bdist_wheel"
   skip_existing: true
 
+after_deploy:
+  - "echo 'after_deploy'"
+#  - "./scripts/travis-push.sh"
