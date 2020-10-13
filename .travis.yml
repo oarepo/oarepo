@@ -20,6 +20,8 @@ env:
   global:
     - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.0-linux-x86_64.tar.gz"
     - ES_HOST=127.0.0.1
+    # oarepo_2_oarepo_micro_api (OAR_BOT)
+    - secure: "kDPWQ8n6zFS/jwt1jnz1GLYJpzf+ThcuGZmC6arsEX1IwYvc8i0k8aMLQEBu5O1bJXReaf+PPkFQC1ucCpAZT9vZMGdt9altXSRnPL7Zzm3gs9hjvjgopM79IT8hANVsGQLquZX8vOaTSgvXw60flgQDJTPQHZ2rKsbZqrVliZgGwNlEt1fA4632HDYlbLmofDvWUJYLUTsSz7D95ALhChsmvwV/2KkMzPyBu1jPRenSsppEGW0pbT7TdPWLKbDaovuP0u5zivQh6R5foSJazk5eQONaqcPUrNEhzRTeCBKBk/YxFnZKdkFwnc1WdzYy2HgHKDRtaaqWrLqi7/kvAiGecswNusYv5k8ptU0uqspjhWJAm7ULwgngOPF1sTOqOvmxTVrd9DXqxPVu09cgr44ao7hzdgOizlKmPNbIx7p6ubMRaPzhHe9mXwz9Y1ViWudhXeoNd0UJ9mR92wSkARqysFkL5n6ZtaFg8MpX2GNd6NoeLt/FrsJP3B9/gsaP1q9BPH2Mvqvytvk2/Aj9S2aXnhk4KyY4rtlLVWiUx/mgLCUxNYM7l/uuRpUjJgtklwgqN82LDx9g7Nw7H2cXfxhGeYrDmLMmKdbxVwr65E+f5bGj1eflL/cs24VaDfCKJCKdPvWBkMmugugDTCSzigNtYXPCeSfrUqTDVCYSMeY="
   matrix:
     # ES7 + PostgreSQL
     - SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio" ES_URL=$ES7_DOWNLOAD_URL
@@ -57,3 +59,5 @@ deploy:
   distributions: "sdist bdist_wheel"
   skip_existing: true
 
+after_deploy:
+  - "./scripts/travis-push.sh"
