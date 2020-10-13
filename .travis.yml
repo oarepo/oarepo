@@ -48,8 +48,8 @@ script:
   - wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200 || cat /tmp/local-es.log
   - "./run-tests.sh"
 
-after_success:
-  - "./scripts/travis-push.sh"
+#after_success:
+#  - "./scripts/travis-push.sh"
 
 deploy:
   provider: pypi
@@ -63,5 +63,4 @@ deploy:
   skip_existing: true
 
 after_deploy:
-  - "echo 'after_deploy'"
-#  - "./scripts/travis-push.sh"
+  - "./scripts/travis-push.sh"

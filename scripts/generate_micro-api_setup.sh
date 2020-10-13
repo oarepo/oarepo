@@ -14,7 +14,6 @@ SETUP_PY='oarepo-micro-api/setup.py'
 TRAVIS_YML='oarepo-micro-api/.travis.yml'
 NEWVER=${1:?Version string expected}
 
-#    /'oarepo\(\[[a-z]\+\]\)\?~={version}'\.format(/ s/'oarepo\(\[[a-z]\+\]\)\?~={version}'\.format(/'oarepo\1=={version}'.format(/
 sed -i "
     /^OAREPO_VERSION/ s/os.environ.get('OAREPO_VERSION', '[0-9\.a-z]\+')/os.environ.get('OAREPO_VERSION', '$NEWVER')/
   " ${SETUP_PY}

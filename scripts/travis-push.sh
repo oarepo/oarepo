@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2020 CESNET.
+#
+# Oarepo is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
 
 set -e
 
@@ -23,7 +29,6 @@ git config --global user.email noreply@cesnet.cz
   && ./scripts/generate_micro-api_setup.sh "$NEWVER" \
   && cd "$DIR" \
   && git checkout -b "$BRANCH" \
-  && echo "$DATE" >> tests/.trig.txt \
-  && git add .travis.yml setup.py tests/.trig.txt \
-  && git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)" -m "[skip ci]" \
+  && git add .travis.yml setup.py \
+  && git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)" \
   && git push --set-upstream origin "$BRANCH"
