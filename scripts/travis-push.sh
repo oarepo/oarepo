@@ -29,10 +29,13 @@ git config --global user.email noreply@cesnet.cz
   git clone -q -b "$BRANCH" "$URL" "$DIR" \
     || git clone -q -b master "$URL" "$DIR"
 } \
+  && ( cd "$DIR"; git checkout -B "$BRANCH"; ) \
   && ./scripts/generate_micro-api_setup.sh "$NEWVER" \
   && cd "$DIR" \
-  && git checkout -b "$BRANCH" \
   && git add .travis.yml setup.py \
   && git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)" \
+  && git push --set-upstream origin "$BRANCH" \
   && git tag -a "$NEWVER" -m "based on oarepo $NEWVER" \
   && git push origin "$NEWVER"
+
+echo "Done: $?"
