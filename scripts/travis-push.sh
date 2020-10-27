@@ -32,7 +32,7 @@ git config --global user.email noreply@cesnet.cz
   && ( cd "$DIR"; git checkout -B "$BRANCH"; ) \
   && ./scripts/generate_micro-api_setup.sh "$NEWVER" \
   && cd "$DIR" \
-  && git add .travis.yml setup.py \
+  && git add .travis.yml setup.py oarepo_micro_api/version.py \
   && git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)" \
   && git push --set-upstream origin "$BRANCH" \
   && git tag -a "$NEWVER" -m "based on oarepo $NEWVER" \
