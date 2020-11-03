@@ -170,7 +170,7 @@ extras_require = {
         'pytest-celery==0.0.0a1',
         'pytest-cov==2.10.1',
         'pytest-flask==0.15.1',
-        'pytest-invenio==1.3.4',
+        'pytest-invenio[docs]==1.3.4',
         'pytest-pep8==1.0.6',
         'python-dateutil==2.8.1',
         'python-editor==1.0.4',
@@ -205,7 +205,6 @@ extras_require = {
         'webencodings==0.5.1',
         'Werkzeug==1.0.1',
         'WTForms==2.3.3',
-        'pytest-invenio[docs]>=1.3.2'
     ]
 }
 
