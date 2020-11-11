@@ -14,8 +14,11 @@ echo "travis-push.sh"
 
 DATE=$(date '+%y%m%d-%H%M%S')
 VERSION_PY='oarepo/version.py'
+# grab full version 4-number string:
 NEWVER=$(sed -n '/^__version__ / {s/^[^"]\+"\([0-9\.]\+\)"$/\1/;p}' "$VERSION_PY")
-BRANCH="oarepo-$NEWVER"
+# grab 2-number version string:
+NEWVER2=$(sed -n '/^[0-9\.]\+$/ {s/^\([0-9]\+\.[0-9]\+\)\..*$/\1/;p }' <<<"$NEWVER")
+BRANCH="invenio-$NEWVER2"
 URL="https://oarepo-bot:${OAR_BOT}@github.com/oarepo/oarepo-micro-api.git"
 DIR=oarepo-micro-api
 
@@ -26,9 +29,13 @@ git config --global user.email noreply@cesnet.cz
   git clone -q -b "$BRANCH" "$URL" "$DIR" \
     || git clone -q -b master "$URL" "$DIR"
 } \
+  && ( cd "$DIR"; git checkout -B "$BRANCH"; ) \
   && ./scripts/generate_micro-api_setup.sh "$NEWVER" \
   && cd "$DIR" \
-  && git checkout -b "$BRANCH" \
-  && git add .travis.yml setup.py \
+  && git add .travis.yml setup.py oarepo_micro_api/version.py \
   && git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)" \
-  && git push --set-upstream origin "$BRANCH"
+  && git push --set-upstream origin "$BRANCH" \
+  && git tag -a "$NEWVER" -m "based on oarepo $NEWVER" \
+  && git push origin "$NEWVER"
+
+echo "Done: $?"

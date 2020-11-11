@@ -12,12 +12,16 @@ echo "generate_micro-api_setup.sh"
 
 SETUP_PY='oarepo-micro-api/setup.py'
 TRAVIS_YML='oarepo-micro-api/.travis.yml'
+VERSION_PY='oarepo-micro-api/oarepo_micro_api/version.py'
 NEWVER=${1:?Version string expected}
 
-sed -i "
-    /^OAREPO_VERSION/ s/os.environ.get('OAREPO_VERSION', '[0-9\.a-z]\+')/os.environ.get('OAREPO_VERSION', '$NEWVER')/
-  " ${SETUP_PY}
+# inject NEWVER into setup.py as default OAREPO_VERSION
+sed -i "/^OAREPO_VERSION/ s/os.environ.get('OAREPO_VERSION', '[0-9\.a-z]\+')/os.environ.get('OAREPO_VERSION', '$NEWVER')/" "${SETUP_PY}"
 
-sed -i "
-    /^ \+matrix:/,/^\$/ s/OAREPO_VERSION=\([^ ]\+\) /OAREPO_VERSION=$NEWVER /
-  " ${TRAVIS_YML}
+# inject NEWVER into .travis.yml as OAREPO_VERSION in matrix
+sed -i "/^ \+matrix:/,/^\$/ s/OAREPO_VERSION=\([^ ]\+\) /OAREPO_VERSION=$NEWVER /" "${TRAVIS_YML}"
+
+# modify version.py
+sed -i "/^__version__ / {s/\x27[0-9.]\+\x27/\x27$NEWVER\x27/}" "${VERSION_PY}"
+
+echo "Done: $?"
