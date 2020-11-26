@@ -27,7 +27,7 @@ git config --global user.email noreply@cesnet.cz
 
 # chechout and push+tag new version number to oarepo-micro-api
 git clone -q -b master "$URL" "$DIR"
-( cd "$DIR"; git checkout "$BR" || git checkout -B "$BR" )
+( cd "$DIR"; git checkout "$BRANCH" || git checkout -B "$BRANCH" )
 ./scripts/generate_micro-api_setup.sh "$OAREPO_VER"
 cd "$DIR"
 MICROAPI_VERSION_PY='oarepo_micro_api/version.py'
