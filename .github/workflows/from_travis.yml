@@ -36,6 +36,7 @@ jobs:
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       POSTGRES_DB: invenio
+      OAR_BOT: '${{ secrets.OAR_BOT }}'
     steps:
       - name: Checkout oarepo/oarepo
         uses: actions/checkout@v2
@@ -90,6 +91,10 @@ jobs:
         run: |
           python setup.py sdist bdist_wheel
 
+      - name: Debug
+        run: |
+          echo "event_name:${{ github.event_name }}; ref:${{ github.ref }}"
+
       - name: Publish package
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
@@ -98,5 +103,6 @@ jobs:
           password: ${{ secrets.PYPI_PASSWORD }}
 
       - name: After deploy
+        if: ${{ success() }}
         run: |
           ./scripts/push_2_micro-api.sh
