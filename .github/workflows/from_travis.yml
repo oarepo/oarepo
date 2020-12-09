@@ -77,8 +77,7 @@ jobs:
 
       - name: Run-tests
         run: |
-          elasticsearch --version
-          wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200 || cat /tmp/local-es.log
+          wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200
           ./run-tests.sh
 
       - name: Check manifest
