@@ -104,6 +104,6 @@ jobs:
           password: ${{ secrets.PYPI_PASSWORD }}
 
       - name: After deploy
-        if: ${{ success() }}
+        if: ${{ success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
         run: |
           ./scripts/push_2_micro-api.sh
