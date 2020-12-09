@@ -10,6 +10,7 @@ name: Oarepo build script ported from travis
 on:
   push:
     branches: [ master, main, 'invenio-*' ]
+    tags: [ '*' ]
   pull_request:
     branches: [ master, main, 'invenio-*' ]
 
