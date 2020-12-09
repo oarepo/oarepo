@@ -69,7 +69,7 @@ jobs:
         run: |
           pip install --upgrade pip setuptools
           pip install twine wheel
-          psql -c 'CREATE DATABASE invenio;' -U postgres
+          psql -c 'CREATE DATABASE invenio;' -U postgres -h localhost
 
       - name: Install
         run: |
