@@ -9,7 +9,7 @@ name: Oarepo build script ported from travis
 
 on:
   push:
-    branches: [ test ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -95,6 +95,6 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_PASSWORD }}
 
-#      - name: After_deploy:
-#        run: |
-#          ./scripts/travis-push.sh
+      - name: After deploy:
+        run: |
+          ./scripts/push_2_micro-api.sh
