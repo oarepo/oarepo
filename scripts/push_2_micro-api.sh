@@ -17,9 +17,10 @@ VERSION_PY='oarepo/version.py'
 # grab full version string:
 OAREPO_VER=$(sed -n '/^__version__ / {s/^[^"]\+"\([0-9\.]\+\)"$/\1/;p}' "$VERSION_PY")
 
-# waiting for PyPI (max.30s, testing interval 10s):
+# waiting for PyPI (max.40s, testing interval 10s):
 URL="https://pypi.org/project/oarepo/$OAREPO_VER/"
 echo -n "Waiting for PyPI ($URL): ";
+sleep 10
 I=0; while [[ H=$(curl -o /dev/null --head --silent --fail --write-out '%{http_code}' $URL) -ne 200 && $I -lt 3 ]]; do echo -n "."; sleep 10; I=$((I+1)); done
 [[ $H -eq 200 ]] && echo " OK" || echo " :( timeout, going ahead anyway"
 
