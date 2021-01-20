@@ -251,7 +251,7 @@ install_requires = [
     'click-didyoumean==0.0.3',
     'click-plugins==1.1.1',
     'click-repl==0.1.6',
-    'coverage==5.3.1',
+    'coverage==4.5.4',
     'cryptography==3.3.1',
     'decorator==4.4.2',
     'defusedxml==0.6.0',
