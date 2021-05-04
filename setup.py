@@ -16,7 +16,7 @@ readme = open('README.md').read()
 
 extras_require = {
     'tests': [
-        'alembic==1.5.8',
+        'alembic==1.6.0',
         'amqp==5.0.6',
         'angular-gettext-babel==0.3',
         'aniso8601==9.0.1',
@@ -31,8 +31,8 @@ extras_require = {
         'billiard==3.6.4.0',
         'bleach==3.3.0',
         'blinker==1.4',
-        'boto3==1.17.62',
-        'botocore==1.20.62',
+        'boto3==1.17.64',
+        'botocore==1.20.64',
         'build==0.3.1.post1',
         'cachelib==0.1.1',
         'cchardet==2.1.7',
@@ -171,7 +171,7 @@ extras_require = {
         'py==1.10.0',
         'pycparser==2.20',
         'pydocstyle==6.0.0',
-        'pygments==2.8.1',
+        'pygments==2.9.0',
         'pyjwt==2.1.0',
         'pynpm==0.1.2',
         'pyparsing==2.4.7',
@@ -228,7 +228,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'alembic==1.5.8',
+    'alembic==1.6.0',
     'amqp==5.0.6',
     'angular-gettext-babel==0.3',
     'aniso8601==9.0.1',
@@ -241,8 +241,8 @@ install_requires = [
     'billiard==3.6.4.0',
     'bleach==3.3.0',
     'blinker==1.4',
-    'boto3==1.17.62',
-    'botocore==1.20.62',
+    'boto3==1.17.64',
+    'botocore==1.20.64',
     'cachelib==0.1.1',
     'cchardet==2.1.7',
     'celery==5.0.5',
@@ -371,7 +371,7 @@ install_requires = [
     'ptyprocess==0.7.0',
     'py==1.10.0',
     'pycparser==2.20',
-    'pygments==2.8.1',
+    'pygments==2.9.0',
     'pyjwt==2.1.0',
     'pynpm==0.1.2',
     'pyparsing==2.4.7',
