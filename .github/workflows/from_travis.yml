@@ -70,7 +70,7 @@ jobs:
 
       - name: Before_install
         run: |
-          pip install --upgrade pip setuptools
+          pip install --upgrade pip 'setuptools<58.0.0'
           pip install twine wheel
           PGPASSWORD=postgres psql -c 'CREATE DATABASE invenio;' -U postgres -h localhost
 
