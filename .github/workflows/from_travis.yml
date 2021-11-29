@@ -9,10 +9,10 @@ name: Oarepo build script ported from travis
 
 on:
   push:
-    branches: [ master, main, 'invenio-*' ]
+    branches: [ 'invenio-3.5' ]
     tags: [ '*' ]
   pull_request:
-    branches: [ master, main, 'invenio-*' ]
+    branches: [ 'invenio-3.5' ]
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     strategy:
       matrix:
-        python-version: [ 3.8 ]
+        python-version: [ 3.10.0 ]
     env:
       ES_HOST: 127.0.0.1
       SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://postgres:postgres@localhost:5432/invenio'
@@ -66,7 +66,7 @@ jobs:
       - name: Runs Elasticsearch
         uses: elastic/elastic-github-actions/elasticsearch@master
         with:
-          stack-version: 7.6.0
+          stack-version: 7.15.2
 
       - name: Before_install
         run: |
