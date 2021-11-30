@@ -33,6 +33,7 @@ git clone -q -b master "$URL" "$DIR"
 cd "$DIR"
 MICROAPI_VERSION_PY='oarepo_micro_api/version.py'
 MICROAPI_VER=$(sed -n '/^__version__ / {s/^[^"\x27]\+["\x27]\([0-9.]\+\)["\x27]$/\1/;p}' "$MICROAPI_VERSION_PY")
+echo "MICROAPI_VER(tag):$MICROAPI_VER; BRANCH:$BRANCH"
 #git add .travis.yml setup.py oarepo_micro_api/version.py
 #git commit -m "GH action commit $DATE (run: $GITHUB_ACTION/$GITHUB_RUN_NUMBER)"
 #git push --set-upstream origin "$BRANCH"
