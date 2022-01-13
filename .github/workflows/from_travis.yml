@@ -1,0 +1,108 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2020 CESNET.
+#
+# oarepo is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+name: Oarepo build script ported from travis
+
+on:
+  push:
+    branches: [ 'invenio-3.3' ]
+    tags: [ '*' ]
+  pull_request:
+    branches: [ 'invenio-3.3' ]
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    strategy:
+      matrix:
+        python-version: [ 3.8 ]
+    env:
+      ES_HOST: 127.0.0.1
+      SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://postgres:postgres@localhost:5432/invenio'
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: invenio
+      OAR_BOT: '${{ secrets.OAR_BOT }}'
+    steps:
+      - name: Checkout oarepo/oarepo
+        uses: actions/checkout@v2
+      - name: Set up Python ver.${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          # This path is specific to Ubuntu
+          path: ~/.cache/pip
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Configure sysctl limits
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - name: Runs Elasticsearch
+        uses: elastic/elastic-github-actions/elasticsearch@master
+        with:
+          stack-version: 7.6.0
+
+      - name: Before_install
+        run: |
+          pip install --upgrade pip 'setuptools<58.0.0'
+          pip install twine wheel
+          PGPASSWORD=postgres psql -c 'CREATE DATABASE invenio;' -U postgres -h localhost
+
+      - name: Install
+        run: |
+          pip install --force-reinstall -e .[tests]
+
+      - name: Run-tests
+        run: |
+          wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200
+          ./run-tests.sh
+
+      - name: Check manifest
+        run: |
+          check-manifest
+
+      - name: Build package to publish
+        run: |
+          python setup.py sdist bdist_wheel
+
+      - name: Debug
+        run: |
+          echo "event_name:${{ github.event_name }}; ref:${{ github.ref }}"
+
+      - name: Publish package
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_PASSWORD }}
+
+      - name: After deploy
+        if: ${{ success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
+        run: |
+          ./scripts/push_2_micro-api.sh

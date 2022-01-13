@@ -4,4 +4,3 @@ prune tests
 exclude *.sh
 exclude pytest.ini
 exclude scripts/*.sh
-exclude scripts

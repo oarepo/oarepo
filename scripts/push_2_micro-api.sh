@@ -8,7 +8,7 @@
 
 set -e
 
-echo "travis-push.sh"
+echo "push_2_micro-api.sh"
 
 [[ "$1" == "dryrun" ]] && { echo "dryrun"; exit 0; }
 
@@ -16,6 +16,7 @@ DATE=$(date '+%y%m%d-%H%M%S')
 VERSION_PY='oarepo/version.py'
 # grab full version string:
 OAREPO_VER=$(sed -n '/^__version__ / {s/^[^"]\+"\([0-9\.]\+\)"$/\1/;p}' "$VERSION_PY")
+
 # grab 2-number version string:
 OAREPO_VER2=$(sed -n '/^[0-9\.]\+$/ {s/^\([0-9]\+\.[0-9]\+\)\..*$/\1/;p }' <<<"$OAREPO_VER")
 BRANCH="invenio-$OAREPO_VER2"
@@ -33,7 +34,7 @@ cd "$DIR"
 MICROAPI_VERSION_PY='oarepo_micro_api/version.py'
 MICROAPI_VER=$(sed -n '/^__version__ / {s/^[^"\x27]\+["\x27]\([0-9.]\+\)["\x27]$/\1/;p}' "$MICROAPI_VERSION_PY")
 git add .travis.yml setup.py oarepo_micro_api/version.py
-git commit -m "travis commit $DATE (build:$TRAVIS_BUILD_NUMBER result:$TRAVIS_TEST_RESULT)"
+git commit -m "GH action commit $DATE (run: $GITHUB_ACTION/$GITHUB_RUN_NUMBER)"
 git push --set-upstream origin "$BRANCH"
 git tag -a "$MICROAPI_VER" -m "based on oarepo $OAREPO_VER"
 git push origin "$MICROAPI_VER"
