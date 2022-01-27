@@ -269,7 +269,7 @@ install_requires = [
     'aniso8601==9.0.1',
     'appdirs==1.4.4',
     'appnope==0.1.2',
-    'arrow==1.2.1',
+    'arrow==1.2.2',
     'asttokens==2.0.5',
     'attrs==21.4.0',
     'autosemver==0.5.5',
