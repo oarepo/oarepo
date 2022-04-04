@@ -20,7 +20,7 @@ extras_require = {
         'amqp==5.1.0',
         'angular-gettext-babel==0.3',
         'aniso8601==9.0.1',
-        'appnope==0.1.2',
+        'appnope==0.1.3',
         'arrow==1.2.2',
         'asttokens==2.0.5',
         'async-generator==1.10',
@@ -65,6 +65,7 @@ extras_require = {
         'entrypoints==0.4',
         'execnet==1.9.0',
         'executing==0.8.3',
+        'fastjsonschema==2.15.3',
         'flask==1.1.4',
         'flask-admin==1.6.0',
         'flask-alembic==2.0.1',
@@ -164,8 +165,8 @@ extras_require = {
         'more-itertools==8.12.0',
         'msgpack==1.0.3',
         'nbconvert==5.5.0',
-        'nbformat==5.2.0',
-        'nest-asyncio==1.5.4',
+        'nbformat==5.3.0',
+        'nest-asyncio==1.5.5',
         'node-semver==0.1.1',
         'oauthlib==2.1.0',
         'outcome==1.1.0',
@@ -245,7 +246,7 @@ extras_require = {
         'wtforms==2.3.3',
         'wtforms-alchemy==0.18.0',
         'wtforms-components==0.10.5',
-        'zipp==3.7.0',
+        'zipp==3.8.0',
     ]
 }
 
@@ -258,7 +259,7 @@ install_requires = [
     'amqp==5.1.0',
     'angular-gettext-babel==0.3',
     'aniso8601==9.0.1',
-    'appnope==0.1.2',
+    'appnope==0.1.3',
     'arrow==1.2.2',
     'asttokens==2.0.5',
     'async-timeout==4.0.2',
@@ -296,6 +297,7 @@ install_requires = [
     'email-validator==1.1.3',
     'entrypoints==0.4',
     'executing==0.8.3',
+    'fastjsonschema==2.15.3',
     'flask==1.1.4',
     'flask-admin==1.6.0',
     'flask-alembic==2.0.1',
@@ -392,8 +394,8 @@ install_requires = [
     'mistune==2.0.2',
     'msgpack==1.0.3',
     'nbconvert==5.5.0',
-    'nbformat==5.2.0',
-    'nest-asyncio==1.5.4',
+    'nbformat==5.3.0',
+    'nest-asyncio==1.5.5',
     'node-semver==0.1.1',
     'oauthlib==2.1.0',
     'packaging==21.3',
@@ -453,7 +455,7 @@ install_requires = [
     'wtforms==2.3.3',
     'wtforms-alchemy==0.18.0',
     'wtforms-components==0.10.5',
-    'zipp==3.7.0',
+    'zipp==3.8.0',
 ]
 
 packages = find_packages()
