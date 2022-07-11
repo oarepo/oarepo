@@ -9,10 +9,11 @@ name: Oarepo build script ported from travis
 
 on:
   push:
-    branches: [ 'invenio-3.5' ]
+    branches: [ 'rdm-9' ]
     tags: [ '*' ]
   pull_request:
-    branches: [ 'invenio-3.5' ]
+    branches: [ 'rdm-9' ]
+  workflow_dispatch:
 
 jobs:
   build:
