@@ -16,7 +16,7 @@ readme = open('README.md').read()
 
 extras_require = {
     'tests': [
-        'alembic==1.8.0',
+        'alembic==1.8.1',
         'amqp==5.1.1',
         'angular-gettext-babel==0.3',
         'aniso8601==9.0.1',
@@ -34,8 +34,8 @@ extras_require = {
         'billiard==3.6.4.0',
         'bleach==5.0.1',
         'blinker==1.4',
-        'boto3==1.24.26',
-        'botocore==1.27.26',
+        'boto3==1.24.31',
+        'botocore==1.27.31',
         'build==0.8.0',
         'cachelib==0.9.0',
         'cchardet==2.1.7',
@@ -161,7 +161,7 @@ extras_require = {
         'matplotlib-inline==0.1.3',
         'maxminddb==2.2.0',
         'maxminddb-geolite2==2018.703',
-        'mistune==2.0.3',
+        'mistune==2.0.4',
         'more-itertools==8.13.0',
         'msgpack==1.0.4',
         'nbconvert==5.5.0',
@@ -211,7 +211,7 @@ extras_require = {
         's3-client-lib==0.1.9.post1',
         's3transfer==0.6.0',
         'selenium==4.3.0',
-        'sentry-sdk==1.6.0',
+        'sentry-sdk==1.7.2',
         'simplejson==3.17.6',
         'simplekv==0.14.1',
         'six==1.16.0',
@@ -247,7 +247,7 @@ extras_require = {
         'wtforms==2.3.3',
         'wtforms-alchemy==0.18.0',
         'wtforms-components==0.10.5',
-        'zipp==3.8.0',
+        'zipp==3.8.1',
     ]
 }
 
@@ -256,7 +256,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'alembic==1.8.0',
+    'alembic==1.8.1',
     'amqp==5.1.1',
     'angular-gettext-babel==0.3',
     'aniso8601==9.0.1',
@@ -272,8 +272,8 @@ install_requires = [
     'billiard==3.6.4.0',
     'bleach==5.0.1',
     'blinker==1.4',
-    'boto3==1.24.26',
-    'botocore==1.27.26',
+    'boto3==1.24.31',
+    'botocore==1.27.31',
     'cachelib==0.9.0',
     'cchardet==2.1.7',
     'celery==5.0.5',
@@ -392,7 +392,7 @@ install_requires = [
     'matplotlib-inline==0.1.3',
     'maxminddb==2.2.0',
     'maxminddb-geolite2==2018.703',
-    'mistune==2.0.3',
+    'mistune==2.0.4',
     'msgpack==1.0.4',
     'nbconvert==5.5.0',
     'nbformat==5.4.0',
@@ -428,7 +428,7 @@ install_requires = [
     'requests-oauthlib==1.1.0',
     's3-client-lib==0.1.9.post1',
     's3transfer==0.6.0',
-    'sentry-sdk==1.6.0',
+    'sentry-sdk==1.7.2',
     'simplejson==3.17.6',
     'simplekv==0.14.1',
     'six==1.16.0',
@@ -457,7 +457,7 @@ install_requires = [
     'wtforms==2.3.3',
     'wtforms-alchemy==0.18.0',
     'wtforms-components==0.10.5',
-    'zipp==3.8.0',
+    'zipp==3.8.1',
 ]
 
 packages = find_packages()
