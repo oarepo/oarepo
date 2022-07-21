@@ -16,7 +16,7 @@ readme = open('README.md').read()
 
 extras_require = {
     'tests': [
-        'alembic==1.8.0',
+        'alembic==1.8.1',
         'amqp==5.1.1',
         'aniso8601==9.0.1',
         'appdirs==1.4.4',
@@ -33,9 +33,9 @@ extras_require = {
         'beautifulsoup4==4.11.1',
         'billiard==3.6.4.0',
         'bleach==5.0.1',
-        'blinker==1.4',
-        'boto3==1.24.26',
-        'botocore==1.27.26',
+        'blinker==1.5',
+        'boto3==1.24.34',
+        'botocore==1.27.34',
         'build==0.8.0',
         'cachelib==0.9.0',
         'cchardet==2.1.7',
@@ -64,7 +64,7 @@ extras_require = {
         'email-validator==1.2.1',
         'entrypoints==0.4',
         'executing==0.8.3',
-        'fastjsonschema==2.15.3',
+        'fastjsonschema==2.16.1',
         'flask==1.1.4',
         'flask-admin==1.6.0',
         'flask-alembic==2.0.1',
@@ -212,7 +212,7 @@ extras_require = {
         's3-client-lib==0.1.9.post1',
         's3transfer==0.6.0',
         'selenium==3.141.0',
-        'sentry-sdk==1.6.0',
+        'sentry-sdk==1.7.2',
         'simplejson==3.17.6',
         'simplekv==0.14.1',
         'six==1.16.0',
@@ -221,7 +221,7 @@ extras_require = {
         'speaklater==1.3',
         'sqlalchemy==1.3.24',
         'sqlalchemy-continuum==1.3.12',
-        'sqlalchemy-utils==0.38.2',
+        'sqlalchemy-utils==0.38.3',
         'stack-data==0.3.0',
         'testpath==0.6.0',
         'toml==0.10.2',
@@ -234,7 +234,7 @@ extras_require = {
         'urllib3==1.26.10',
         'validators==0.20.0',
         'vine==5.0.0',
-        'wand==0.6.7',
+        'wand==0.6.8',
         'wcwidth==0.2.5',
         'webargs==5.5.3',
         'webencodings==0.5.1',
@@ -244,7 +244,7 @@ extras_require = {
         'wtforms-alchemy==0.18.0',
         'wtforms-components==0.10.5',
         'xmltodict==0.12.0',
-        'zipp==3.8.0',
+        'zipp==3.8.1',
     ]
 }
 
@@ -253,7 +253,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'alembic==1.8.0',
+    'alembic==1.8.1',
     'amqp==5.1.1',
     'aniso8601==9.0.1',
     'appdirs==1.4.4',
@@ -269,9 +269,9 @@ install_requires = [
     'beautifulsoup4==4.11.1',
     'billiard==3.6.4.0',
     'bleach==5.0.1',
-    'blinker==1.4',
-    'boto3==1.24.26',
-    'botocore==1.27.26',
+    'blinker==1.5',
+    'boto3==1.24.34',
+    'botocore==1.27.34',
     'cachelib==0.9.0',
     'cchardet==2.1.7',
     'celery==5.1.2',
@@ -296,7 +296,7 @@ install_requires = [
     'email-validator==1.2.1',
     'entrypoints==0.4',
     'executing==0.8.3',
-    'fastjsonschema==2.15.3',
+    'fastjsonschema==2.16.1',
     'flask==1.1.4',
     'flask-admin==1.6.0',
     'flask-alembic==2.0.1',
@@ -431,7 +431,7 @@ install_requires = [
     'requests-oauthlib==1.1.0',
     's3-client-lib==0.1.9.post1',
     's3transfer==0.6.0',
-    'sentry-sdk==1.6.0',
+    'sentry-sdk==1.7.2',
     'simplejson==3.17.6',
     'simplekv==0.14.1',
     'six==1.16.0',
@@ -439,7 +439,7 @@ install_requires = [
     'speaklater==1.3',
     'sqlalchemy==1.3.24',
     'sqlalchemy-continuum==1.3.12',
-    'sqlalchemy-utils==0.38.2',
+    'sqlalchemy-utils==0.38.3',
     'stack-data==0.3.0',
     'testpath==0.6.0',
     'tornado==6.2',
@@ -450,7 +450,7 @@ install_requires = [
     'urllib3==1.26.10',
     'validators==0.20.0',
     'vine==5.0.0',
-    'wand==0.6.7',
+    'wand==0.6.8',
     'wcwidth==0.2.5',
     'webargs==5.5.3',
     'webencodings==0.5.1',
@@ -460,7 +460,7 @@ install_requires = [
     'wtforms-alchemy==0.18.0',
     'wtforms-components==0.10.5',
     'xmltodict==0.12.0',
-    'zipp==3.8.0',
+    'zipp==3.8.1',
 ]
 
 packages = find_packages()
