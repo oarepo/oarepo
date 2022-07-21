@@ -17,7 +17,7 @@ readme = open('README.md').read()
 extras_require = {
     'tests': [
         'alabaster==0.7.12',
-        'alembic==1.8.0',
+        'alembic==1.8.1',
         'amqp==5.1.1',
         'appdirs==1.4.4',
         'arrow==1.2.2',
@@ -31,7 +31,7 @@ extras_require = {
         'billiard==3.6.4.0',
         'black==22.6.0',
         'bleach==5.0.1',
-        'blinker==1.4',
+        'blinker==1.5',
         'build==0.8.0',
         'cachelib==0.9.0',
         'cchardet==2.1.7',
@@ -59,7 +59,7 @@ extras_require = {
         'email-validator==1.2.1',
         'entrypoints==0.4',
         'executing==0.8.3',
-        'fastjsonschema==2.15.3',
+        'fastjsonschema==2.16.1',
         'Flask==2.1.2',
         'Flask-Admin==1.6.0',
         'Flask-Alembic==2.0.1',
@@ -97,7 +97,7 @@ extras_require = {
         'invenio-accounts==2.0.0',
         'invenio-admin==1.3.2',
         'invenio-app==1.3.4',
-        'invenio-assets==1.2.7',
+        'invenio-assets==1.3.0',
         'invenio-base==1.2.11',
         'invenio-cache==1.1.1',
         'invenio-celery==1.2.4',
@@ -134,7 +134,7 @@ extras_require = {
         'jsonpointer==2.3',
         'jsonref==0.2',
         'jsonresolver==0.3.1',
-        'jsonschema==4.7.1',
+        'jsonschema==4.7.2',
         'jupyter-client==7.3.4',
         'jupyter-core==4.11.1',
         'jupyterlab-pygments==0.2.2',
@@ -199,7 +199,7 @@ extras_require = {
         'requests-oauthlib==1.1.0',
         'requirements-builder==0.4.4',
         'selenium==3.141.0',
-        'sentry-sdk==1.7.0',
+        'sentry-sdk==1.7.2',
         'simplejson==3.17.6',
         'simplekv==0.14.1',
         'six==1.16.0',
@@ -236,7 +236,7 @@ extras_require = {
         'WTForms==2.3.3',
         'WTForms-Alchemy==0.18.0',
         'WTForms-Components==0.10.5',
-        'zipp==3.8.0',
+        'zipp==3.8.1',
     ]
 }
 
@@ -245,7 +245,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'alembic==1.8.0',
+    'alembic==1.8.1',
     'amqp==5.1.1',
     'appdirs==1.4.4',
     'arrow==1.2.2',
@@ -258,7 +258,7 @@ install_requires = [
     'beautifulsoup4==4.11.1',
     'billiard==3.6.4.0',
     'bleach==5.0.1',
-    'blinker==1.4',
+    'blinker==1.5',
     'build==0.8.0',
     'cachelib==0.9.0',
     'cchardet==2.1.7',
@@ -282,7 +282,7 @@ install_requires = [
     'email-validator==1.2.1',
     'entrypoints==0.4',
     'executing==0.8.3',
-    'fastjsonschema==2.15.3',
+    'fastjsonschema==2.16.1',
     'Flask==2.1.2',
     'Flask-Admin==1.6.0',
     'Flask-Alembic==2.0.1',
@@ -318,7 +318,7 @@ install_requires = [
     'invenio-accounts==2.0.0',
     'invenio-admin==1.3.2',
     'invenio-app==1.3.4',
-    'invenio-assets==1.2.7',
+    'invenio-assets==1.3.0',
     'invenio-base==1.2.11',
     'invenio-cache==1.1.1',
     'invenio-celery==1.2.4',
@@ -354,7 +354,7 @@ install_requires = [
     'jsonpointer==2.3',
     'jsonref==0.2',
     'jsonresolver==0.3.1',
-    'jsonschema==4.7.1',
+    'jsonschema==4.7.2',
     'jupyter-client==7.3.4',
     'jupyter-core==4.11.1',
     'jupyterlab-pygments==0.2.2',
@@ -405,7 +405,7 @@ install_requires = [
     'requests==2.28.1',
     'requests-oauthlib==1.1.0',
     'requirements-builder==0.4.4',
-    'sentry-sdk==1.7.0',
+    'sentry-sdk==1.7.2',
     'simplejson==3.17.6',
     'simplekv==0.14.1',
     'six==1.16.0',
@@ -432,7 +432,7 @@ install_requires = [
     'WTForms==2.3.3',
     'WTForms-Alchemy==0.18.0',
     'WTForms-Components==0.10.5',
-    'zipp==3.8.0',
+    'zipp==3.8.1',
 ]
 
 packages = find_packages()
