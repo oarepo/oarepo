@@ -245,7 +245,7 @@ extras_require = {
         'wtforms-alchemy==0.18.0',
         'wtforms-components==0.10.5',
         'xmltodict==0.12.0',
-        'zipp==3.9.0',
+        'zipp==3.10.0',
     ]
 }
 
@@ -462,7 +462,7 @@ install_requires = [
     'wtforms-alchemy==0.18.0',
     'wtforms-components==0.10.5',
     'xmltodict==0.12.0',
-    'zipp==3.9.0',
+    'zipp==3.10.0',
 ]
 
 packages = find_packages()
