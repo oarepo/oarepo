@@ -241,7 +241,7 @@ extras_require = {
         'WTForms==2.3.3',
         'WTForms-Alchemy==0.18.0',
         'WTForms-Components==0.10.5',
-        'zipp==3.9.0',
+        'zipp==3.10.0',
     ]
 }
 
@@ -442,7 +442,7 @@ install_requires = [
     'WTForms==2.3.3',
     'WTForms-Alchemy==0.18.0',
     'WTForms-Components==0.10.5',
-    'zipp==3.9.0',
+    'zipp==3.10.0',
 ]
 
 packages = find_packages()
