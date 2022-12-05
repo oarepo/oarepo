@@ -27,7 +27,10 @@ echo "env diff:"
 diff <(echo "$ENV0") <(echo "$ENV1") || true
 echo ""
 
+echo "db create:"
 PGPASSWORD=$POSTGRES_PASS psql -c "CREATE DATABASE $POSTGRES_DB;" -U $POSTGRES_USER -h $POSTGRES_HOST
+echo -e "\nsearch-service GET:"
+wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200
 
 # isort -rc -c -df **/*.py && \       # metapackage, isort not needed
 check-manifest --ignore ".travis-*" && \
