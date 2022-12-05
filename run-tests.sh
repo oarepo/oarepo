@@ -27,6 +27,8 @@ echo "env diff:"
 diff <(echo "$ENV0") <(echo "$ENV1") || true
 echo ""
 
+PGPASSWORD=$POSTGRES_PASS psql -c "CREATE DATABASE $POSTGRES_DB;" -U $POSTGRES_USER -h $POSTGRES_HOST
+
 # isort -rc -c -df **/*.py && \       # metapackage, isort not needed
 check-manifest --ignore ".travis-*" && \
 pytest
