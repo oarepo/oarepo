@@ -19,24 +19,30 @@ jobs:
   build:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:9.6
-        env:
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+#    services:
+#      postgres:
+#        image: postgres:9.6
+#        env:
+#          POSTGRES_PASSWORD: postgres
+#        ports:
+#          - 5432:5432
+#        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     strategy:
       matrix:
         python-version: [ 3.10.0 ]
+        db-service: [ postgresql13 ]
+        search-service: [ elasticsearch7 ]
+#        search-service: [ opensearch2 ]
     env:
+      SEARCH: ${{ matrix.search-service }}
+      DB: ${{ matrix.db-service }}
       ES_HOST: 127.0.0.1
-      SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://postgres:postgres@localhost:5432/invenio'
-      POSTGRES_USER: postgres
+      SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://invenio:invenio@localhost:5432/invenio'
+      POSTGRES_USER: invenio
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       POSTGRES_DB: invenio
+      POSTGRES_PASS: invenio
       OAR_BOT: '${{ secrets.OAR_BOT }}'
     steps:
       - name: Checkout oarepo/oarepo
@@ -64,16 +70,16 @@ jobs:
           sudo sysctl -w fs.file-max=262144
           sudo sysctl -w vm.max_map_count=262144
 
-      - name: Runs Elasticsearch
-        uses: elastic/elastic-github-actions/elasticsearch@master
-        with:
-          stack-version: 7.17.2
+#      - name: Runs Elasticsearch
+#        uses: elastic/elastic-github-actions/elasticsearch@master
+#        with:
+#          stack-version: 7.17.2
 
       - name: Before_install
         run: |
           pip install --upgrade pip 'setuptools<58.0.0'
-          pip install twine wheel
-          PGPASSWORD=postgres psql -c 'CREATE DATABASE invenio;' -U postgres -h localhost
+          pip install twine wheel docker-services-cli
+          PGPASSWORD=$POSTGRES_PASS psql -c "CREATE DATABASE $POSTGRES_DB;" -U $POSTGRES_USER -h $POSTGRES_HOST
 
       - name: Install
         run: |
