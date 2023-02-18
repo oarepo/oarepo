@@ -16,7 +16,7 @@ readme = open('README.md').read()
 
 extras_require = {
     'tests': [
-        'alembic==1.9.3',
+        'alembic==1.9.4',
         'amqp==5.1.1',
         'angular-gettext-babel==0.3',
         'aniso8601==9.0.1',
@@ -34,8 +34,8 @@ extras_require = {
         'billiard==3.6.4.0',
         'bleach==6.0.0',
         'blinker==1.5',
-        'boto3==1.26.69',
-        'botocore==1.29.69',
+        'boto3==1.26.74',
+        'botocore==1.29.74',
         'build==0.10.0',
         'cachelib==0.9.0',
         'cchardet==2.1.7',
@@ -101,7 +101,7 @@ extras_require = {
         'idna==3.4',
         'idutils==1.2.0',
         'importlib-metadata==6.0.0',
-        'importlib-resources==5.10.2',
+        'importlib-resources==5.12.0',
         'infinity==1.5',
         'intervals==0.9.2',
         'invenio==3.3.0',
@@ -137,7 +137,7 @@ extras_require = {
         'invenio-search-ui==1.2.0',
         'invenio-theme==1.1.4',
         'ipython==8.10.0',
-        'isbnlib==3.10.12',
+        'isbnlib==3.10.13',
         'isort==5.12.0',
         'itsdangerous==1.1.0',
         'jedi==0.18.2',
@@ -211,7 +211,7 @@ extras_require = {
         'requests-oauthlib==1.1.0',
         's3-client-lib==0.2.2',
         's3transfer==0.6.0',
-        'selenium==4.8.0',
+        'selenium==4.8.2',
         'sentry-sdk==1.15.0',
         'setuptools==57.5.0',
         'simplejson==3.18.3',
@@ -231,7 +231,7 @@ extras_require = {
         'traitlets==5.9.0',
         'trio==0.22.0',
         'trio-websocket==0.9.2',
-        'typing-extensions==4.4.0',
+        'typing-extensions==4.5.0',
         'ua-parser==0.16.1',
         'uritemplate==4.1.1',
         'uritools==4.0.1',
@@ -249,7 +249,7 @@ extras_require = {
         'wtforms==2.3.3',
         'wtforms-alchemy==0.18.0',
         'wtforms-components==0.10.5',
-        'zipp==3.13.0',
+        'zipp==3.14.0',
     ]
 }
 
@@ -258,7 +258,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'alembic==1.9.3',
+    'alembic==1.9.4',
     'amqp==5.1.1',
     'angular-gettext-babel==0.3',
     'aniso8601==9.0.1',
@@ -274,8 +274,8 @@ install_requires = [
     'billiard==3.6.4.0',
     'bleach==6.0.0',
     'blinker==1.5',
-    'boto3==1.26.69',
-    'botocore==1.29.69',
+    'boto3==1.26.74',
+    'botocore==1.29.74',
     'cachelib==0.9.0',
     'cchardet==2.1.7',
     'celery==5.0.5',
@@ -334,7 +334,7 @@ install_requires = [
     'idna==3.4',
     'idutils==1.2.0',
     'importlib-metadata==6.0.0',
-    'importlib-resources==5.10.2',
+    'importlib-resources==5.12.0',
     'infinity==1.5',
     'intervals==0.9.2',
     'invenio==3.3.0',
@@ -370,7 +370,7 @@ install_requires = [
     'invenio-search-ui==1.2.0',
     'invenio-theme==1.1.4',
     'ipython==8.10.0',
-    'isbnlib==3.10.12',
+    'isbnlib==3.10.13',
     'itsdangerous==1.1.0',
     'jedi==0.18.2',
     'jinja2==2.11.3',
@@ -443,7 +443,7 @@ install_requires = [
     'testpath==0.6.0',
     'tornado==5.1.1',
     'traitlets==5.9.0',
-    'typing-extensions==4.4.0',
+    'typing-extensions==4.5.0',
     'ua-parser==0.16.1',
     'uritemplate==4.1.1',
     'uritools==4.0.1',
@@ -460,7 +460,7 @@ install_requires = [
     'wtforms==2.3.3',
     'wtforms-alchemy==0.18.0',
     'wtforms-components==0.10.5',
-    'zipp==3.13.0',
+    'zipp==3.14.0',
 ]
 
 packages = find_packages()
