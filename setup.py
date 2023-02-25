@@ -63,7 +63,7 @@ extras_require = {
         'executing==1.2.0',
         'fastjsonschema==2.16.2',
         'Flask==2.2.3',
-        'Flask-Admin==1.6.0',
+        'Flask-Admin==1.6.1',
         'Flask-Alembic==2.0.1',
         'Flask-BabelEx==0.9.4',
         'Flask-Breadcrumbs==0.5.1',
@@ -170,7 +170,7 @@ extras_require = {
         'pkgutil_resolve_name==1.3.10',
         'platformdirs==3.0.0',
         'pluggy==0.13.1',
-        'prompt-toolkit==3.0.36',
+        'prompt-toolkit==3.0.37',
         'psycopg2-binary==2.9.5',
         'ptyprocess==0.7.0',
         'pure-eval==0.2.2',
@@ -237,7 +237,7 @@ extras_require = {
         'WTForms==2.3.3',
         'WTForms-Alchemy==0.18.0',
         'WTForms-Components==0.10.5',
-        'zipp==3.14.0',
+        'zipp==3.15.0',
     ]
 }
 
@@ -287,7 +287,7 @@ install_requires = [
     'executing==1.2.0',
     'fastjsonschema==2.16.2',
     'Flask==2.2.3',
-    'Flask-Admin==1.6.0',
+    'Flask-Admin==1.6.1',
     'Flask-Alembic==2.0.1',
     'Flask-BabelEx==0.9.4',
     'Flask-Breadcrumbs==0.5.1',
@@ -389,7 +389,7 @@ install_requires = [
     'pkgutil_resolve_name==1.3.10',
     'platformdirs==3.0.0',
     'pluggy==0.13.1',
-    'prompt-toolkit==3.0.36',
+    'prompt-toolkit==3.0.37',
     'psycopg2-binary==2.9.5',
     'ptyprocess==0.7.0',
     'pure-eval==0.2.2',
@@ -435,7 +435,7 @@ install_requires = [
     'WTForms==2.3.3',
     'WTForms-Alchemy==0.18.0',
     'WTForms-Components==0.10.5',
-    'zipp==3.14.0',
+    'zipp==3.15.0',
 ]
 
 packages = find_packages()
