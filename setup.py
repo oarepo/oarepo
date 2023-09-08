@@ -17,7 +17,7 @@ readme = open('README.md').read()
 extras_require = {
     'tests': [
         'alabaster==0.7.13',
-        'alembic==1.11.1',
+        'alembic==1.10.4',
         'amqp==5.1.1',
         'aniso8601==9.0.1',
         'appdirs==1.4.4',
@@ -289,7 +289,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'alembic==1.11.1',
+    'alembic==1.10.4',
     'amqp==5.1.1',
     'aniso8601==9.0.1',
     'appdirs==1.4.4',
