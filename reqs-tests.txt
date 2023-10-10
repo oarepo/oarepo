@@ -12,10 +12,10 @@ backcall==0.2.0
 base32-lib==1.0.2
 beautifulsoup4==4.12.2
 billiard==3.6.4.0
-bleach==6.0.0
-blinker==1.6.2
-boto3==1.28.61
-botocore==1.31.61
+bleach==6.1.0
+blinker==1.6.3
+boto3==1.28.62
+botocore==1.31.62
 build==1.0.3
 bump==1.3.2
 cachelib==0.9.0
@@ -47,7 +47,7 @@ email-validator==2.0.0.post2
 entrypoints==0.4
 exceptiongroup==1.1.3
 executing==2.0.0
-Faker==19.6.2
+Faker==19.8.0
 fastjsonschema==2.18.1
 first==2.0.2
 Flask==2.2.5
@@ -56,7 +56,7 @@ Flask-Alembic==2.0.1
 Flask-Babel==2.0.0
 Flask-BabelEx==0.9.4
 Flask-Breadcrumbs==0.5.1
-Flask-Caching==2.0.2
+Flask-Caching==2.1.0
 Flask-CeleryExt==0.5.0
 Flask-Collect-Invenio==1.4.0
 Flask-Cors==4.0.0
@@ -169,7 +169,7 @@ nbformat==5.9.2
 node-semver==0.1.1
 oauthlib==2.1.0
 opensearch-dsl==2.1.0
-opensearch-py==2.3.1
+opensearch-py==2.3.2
 pandocfilters==1.5.0
 parso==0.8.3
 passlib==1.7.4
