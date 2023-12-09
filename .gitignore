@@ -60,6 +60,4 @@ target/
 
 .envrc
 
-requirements.txt
-
 .travis*
