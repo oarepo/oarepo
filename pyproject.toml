@@ -6,7 +6,7 @@ description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = ["oarepo", "invenio"]
 readme = "README.md"
 authors = [
-    {name = "UCT Prague, CESNET z.s.p.o., NTK", email = "miroslav.simek@vscht.cz"},
+    {name = "UCT Prague, CESNET z.s.p.o., NTK", email = "miroslav.simek@cesnet.cz"},
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
