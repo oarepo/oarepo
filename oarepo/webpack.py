@@ -28,9 +28,5 @@ theme = WebpackThemeBundle(
     __name__,
     "assets",
     default="semantic-ui",
-    themes={
-        "semantic-ui": dict(
-            **dependencies,
-        )
-    },
+    themes=dependencies,
 )
