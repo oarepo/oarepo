@@ -18,8 +18,6 @@
             "react-invenio-forms": "^2.0.0",
             "react-searchkit": "^2.0.0",
             "yup": "^0.32.0",
-            "@ckeditor/ckeditor5-build-classic": "^16.0.0",
-            "@ckeditor/ckeditor5-react": "^2.1.0",
             "@semantic-ui-react/css-patch": "^1.0.0",
             "axios": "^0.21.0",
             "react": "^16.13.0",
