@@ -37,14 +37,14 @@ jobs:
       OAR_BOT: '${{ secrets.OAR_BOT }}'
     steps:
       - name: Checkout oarepo/oarepo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up Python ver.${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           # This path is specific to Ubuntu
           path: ~/.cache/pip
