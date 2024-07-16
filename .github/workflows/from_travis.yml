@@ -40,7 +40,7 @@ jobs:
       OAR_BOT: '${{ secrets.OAR_BOT }}'
     steps:
       - name: Checkout oarepo/oarepo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up Python ver.${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
