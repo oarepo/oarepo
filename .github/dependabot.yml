@@ -5,7 +5,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    target-branch: [ "rdm-11", "rdm-12" ]
+    target-branch: "rdm-12"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "rdm-11"
 
   - package-ecosystem: "github-actions"
     directory: "/"
