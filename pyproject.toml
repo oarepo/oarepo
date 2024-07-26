@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "12.0.23"
+version = "12.0.24"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo", "invenio",]
 readme = "README.md"
@@ -10,9 +10,6 @@ dependencies = [ "alembic==1.10.4", "amqp==5.2.0", "aniso8601==9.0.1", "appdirs=
 [[project.authors]]
 name = "UCT Prague, CESNET z.s.p.o., NTK"
 email = "miroslav.simek@cesnet.cz"
-
-[tool.setuptools.package-data]
-oarepo = ['oarepo/assets/semantic-ui/*']
 
 [build-system]
 requires = [ "setuptools", "setuptools-scm",]
@@ -31,3 +28,6 @@ rdm = [ "alabaster==0.7.16", "bibtexparser==1.4.1", "dateparser==1.2.0", "docuti
 
 [project.entry-points."invenio_assets.webpack"]
 oarepo = "oarepo.webpack:theme"
+
+[tool.setuptools.package-data]
+oarepo = [ "oarepo/assets/semantic-ui/*",]
