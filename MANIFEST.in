@@ -6,4 +6,4 @@ exclude pytest.ini
 exclude scripts/*.sh
 
 include oarepo/requirements-tests.txt
-
+include oarepo/assets/semantic-ui/.gitkeep

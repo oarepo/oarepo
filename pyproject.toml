@@ -11,6 +11,9 @@ dependencies = [ "alembic==1.10.4", "amqp==5.2.0", "aniso8601==9.0.1", "appdirs=
 name = "UCT Prague, CESNET z.s.p.o., NTK"
 email = "miroslav.simek@cesnet.cz"
 
+[tool.setuptools.package-data]
+oarepo = ['oarepo/assets/semantic-ui/*']
+
 [build-system]
 requires = [ "setuptools", "setuptools-scm",]
 build-backend = "setuptools.build_meta"
