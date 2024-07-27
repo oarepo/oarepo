@@ -63,8 +63,7 @@ jobs:
 
       - name: Before_install
         run: |
-          pip install --upgrade pip 'setuptools<58.0.0'
-          pip install twine wheel docker-services-cli
+          pip install --upgrade pip setuptools twine wheel docker-services-cli
 
       - name: Install
         run: |
