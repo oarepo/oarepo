@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "12.0.32"
+version = "12.0.33"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
@@ -123,10 +123,10 @@ dependencies = [ "alabaster==0.7.16",
      "invenio-base==1.4.0",
      "invenio-cache==1.3.0",
      "invenio-celery==1.3.1",
-     "invenio-communities@https://github.com/oarepo/invenio-communities/archive/oarepo-13.0.6.tar.gz",
+     "invenio-communities==13.0.6.post999",
      "invenio-config==1.0.4",
      "invenio-db==1.1.5",
-     "invenio-drafts-resources@https://github.com/oarepo/invenio-drafts-resources/archive/oarepo-3.2.0.tar.gz",
+     "invenio-drafts-resources==3.2.0.post999",
      "invenio-files-rest==2.2.0",
      "invenio-formatter==2.0.3",
      "invenio-github==1.5.2",
@@ -138,7 +138,7 @@ dependencies = [ "alabaster==0.7.16",
      "invenio-notifications==0.6.0",
      "invenio-oaiserver==2.2.1",
      "invenio-oauth2server==2.3.1",
-     "invenio-oauthclient@https://github.com/oarepo/invenio-oauthclient/archive/oarepo-4.0.0.tar.gz",
+     "invenio-oauthclient==4.0.0.post999",
      "invenio-pages==4.1.0",
      "invenio-pidstore==1.3.1",
      "invenio-previewer==2.2.1",
@@ -146,10 +146,10 @@ dependencies = [ "alabaster==0.7.16",
      "invenio-records==2.3.0",
      "invenio-records-files==1.2.1",
      "invenio-records-permissions==0.20.0",
-     "invenio-records-resources@https://github.com/oarepo/invenio-records-resources/archive/oarepo-5.10.0.tar.gz",
+     "invenio-records-resources==5.10.0.post999",
      "invenio-records-rest==2.4.1",
      "invenio-records-ui==1.2.1",
-     "invenio-requests@https://github.com/oarepo/invenio-requests/archive/oarepo-4.1.2.tar.gz",
+     "invenio-requests==4.1.2.post999",
      "invenio-rest==1.3.1",
      "invenio-s3==1.0.6",
      "invenio-search==2.4.1",
@@ -322,8 +322,8 @@ text = "MIT"
 Homepage = "https://github.com/oarepo/oarepo"
 
 [project.optional-dependencies]
-rdm = [ "invenio-app-rdm@https://github.com/oarepo/invenio-app-rdm/archive/oarepo-12.0.5.tar.gz",
-     "invenio-rdm-records@https://github.com/oarepo/invenio-rdm-records/archive/oarepo-10.8.0.tar.gz",
+rdm = [ "invenio-app-rdm==12.0.5.post999",
+     "invenio-rdm-records==10.8.0.post999",
     ]
 test = [ "black==24.8.0",
      "build==1.2.1",
