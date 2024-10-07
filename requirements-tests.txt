@@ -118,7 +118,7 @@ invenio-pidstore==1.2.4
 invenio-previewer==1.3.10
 invenio-records==2.0.1
 invenio-records-files==1.2.1
-invenio-records-permissions==0.15.3
+invenio-records-permissions==0.21.0
 invenio-records-resources==1.0.10
 invenio-records-rest==2.1.0
 invenio-records-ui==1.2.0
