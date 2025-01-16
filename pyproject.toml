@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "12.1.36"
+version = "12.2.0"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
