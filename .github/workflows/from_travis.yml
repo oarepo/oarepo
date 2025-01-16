@@ -16,8 +16,8 @@ on:
   workflow_dispatch:
 
 env:
-  PIP_EXTRA_INDEX_URL: https://oarepo.github.io/pypi/packages/simple
-  UV_EXTRA_INDEX_URL: https://oarepo.github.io/pypi/packages/simple
+  PIP_EXTRA_INDEX_URL: https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple
+  UV_EXTRA_INDEX_URL: https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple
 
 jobs:
   build:
