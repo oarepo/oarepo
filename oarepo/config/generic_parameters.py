@@ -63,6 +63,9 @@ def configure_generic_parameters(
     SECURITY_LOGIN_WITHOUT_CONFIRMATION = (
         env.INVENIO_SECURITY_LOGIN_WITHOUT_CONFIRMATION
     )
+    SESSION_COOKIE_SECURE = True
+
+    # user security settings
     RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
     RATELIMIT_AUTHENTICATED_USER = "20000 per hour;2000 per minute"
     OAUTHCLIENT_REMOTE_APPS: dict[str, Any] = {}  # configure external login providers
