@@ -215,6 +215,9 @@ def configure_generic_parameters(
 
     WEBPACKEXT_PROJECT = "oarepo_ui.webpack:project"
 
+    DASHBOARD_RECORD_CREATE_URL = None
+    RECORD_ROUTES = None
+
     # RDM
     INVENIO_RDM_ENABLED = True
     RDM_PERSISTENT_IDENTIFIERS: dict = {}
