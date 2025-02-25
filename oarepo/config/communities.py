@@ -47,7 +47,7 @@ def configure_communities(communities_roles=None):
             description=_("Can manage community."),
             is_owner=True,
             can_manage=True,
-            can_manage_roles=["owner", "curator", "submitter", "member"],
+            can_manage_roles=["owner", "curator", "member"],
         ),
         dict(
             name="curator",
@@ -55,7 +55,7 @@ def configure_communities(communities_roles=None):
             description=_("Can curate records."),
             can_manage=True,
             # NTK decision: curator should NOT be able to manage curators
-            can_manage_roles=["submitter", "member"],
+            can_manage_roles=["member"],
         ),
         dict(
             name="member",
