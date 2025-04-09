@@ -227,9 +227,13 @@ def configure_generic_parameters(
     RDM_DEFAULT_FILES_ENABLED = False
     RDM_SEARCH_SORT_BY_VERIFIED = False
     RDM_RECORDS_RESTRICTION_GRACE_PERIOD = timedelta(days=30)
+    RDM_ARCHIVE_DOWNLOAD_ENABLED = True
     """Grace period for changing record access to restricted."""
 
     # Global search
     GLOBAL_SEARCH_MODELS = []
+
+    # datacite & dois default
+    DATACITE_TEST_MODE = True
 
     set_constants_in_caller(locals())
