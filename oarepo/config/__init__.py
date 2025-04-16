@@ -40,6 +40,7 @@ except ImportError:
         raise ImportError("oarepo-glitchtip is not installed")
 
 
+from .base import load_configuration_variables
 from .communities import configure_communities
 from .cron import configure_cron
 from .generic_parameters import configure_generic_parameters
@@ -57,4 +58,5 @@ __all__ = [
     "configure_vocabulary",
     "add_model",
     "configure_communities",
+    "load_configuration_variables",
 ]
