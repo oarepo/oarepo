@@ -17,8 +17,8 @@ function cleanup(){
 trap cleanup EXIT
 
 ENV0="$(printenv)"
-echo "docker-services-cli up (DB:$DB; SEARCH:$SEARCH)"
-docker-services-cli up (DB:$DB; SEARCH:$SEARCH)
+echo "docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch7} --mq ${MQ:-redis} --env"
+docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch7} --mq ${MQ:-redis} --env
 eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch7} --mq ${MQ:-redis} --env)"
 ENV1="$(printenv)"
 echo "env diff:"
