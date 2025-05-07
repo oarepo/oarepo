@@ -1,7 +1,7 @@
 {
     "semantic-ui": {
         "dependencies": {
-            "@babel/runtime": "^7.9.0",
+            "@babel/runtime": "^7.26.10",
             "@tinymce/tinymce-react": "^4.3.0",
             "tinymce": "^6.7.2",
             "formik": "^2.1.0",
@@ -19,7 +19,7 @@
             "react-searchkit": "^2.0.0",
             "yup": "^0.32.0",
             "@semantic-ui-react/css-patch": "^1.0.0",
-            "axios": "^0.21.0",
+            "axios": "^1.8.2",
             "react": "^16.13.0",
             "react-dom": "^16.13.0",
             "react-redux": "^7.2.0",
