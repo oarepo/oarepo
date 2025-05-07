@@ -75,7 +75,7 @@ jobs:
 
       - name: Run-tests
         run: |
-          ./run-tests.sh
+          /bin/bash ./run-tests.sh
 
       - name: Check manifest
         run: |
