@@ -4,6 +4,9 @@ exclude tests/*
 exclude *.sh
 exclude pytest.ini
 exclude scripts/*.sh
+exclude invenio_modules_with_translations.txt
+exclude download_translations.sh
+exclude _tmp/*
 recursive_exclude oarepo .mypy_cache/**
 
 include oarepo/requirements-tests.txt
