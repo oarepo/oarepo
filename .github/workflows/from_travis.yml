@@ -81,8 +81,16 @@ jobs:
         run: |
           check-manifest
 
+      - name: Create temporary directory to store the CLI
+        run: mkdir -p /tmp/tx
+
+      - name: Download the CLI
+        run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- ${{ inputs.version }}
+        working-directory: /tmp/tx
+
       - name: Download latest translations
         run: |
+          export PATH=/tmp/tx:$PATH
           bash ./download_translations.sh
 
       - name: Build package to publish
