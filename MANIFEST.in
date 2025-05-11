@@ -1,9 +1,10 @@
-recursive-include oarepo *.py *.json
+recursive-include oarepo *.py *.json *.po *.mo
 include LICENSE
 exclude tests/*
 exclude *.sh
 exclude pytest.ini
 exclude scripts/*.sh
+recursive_exclude oarepo .mypy_cache/**
 
 include oarepo/requirements-tests.txt
 include oarepo/assets/semantic-ui/.gitkeep
