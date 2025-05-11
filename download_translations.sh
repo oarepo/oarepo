@@ -24,7 +24,7 @@ download_module_translations() {
         tx pull -a -f
     else
         echo "Transifex token found, using it"
-        tx pull -a -f --token $TRANSIFEX_TOKEN
+        tx --token $TRANSIFEX_TOKEN pull -a -f
     fi
 
     python setup.py compile_catalog
