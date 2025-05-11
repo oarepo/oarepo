@@ -20,8 +20,10 @@ download_module_translations() {
     # if there is transifex tokenm, use it for tx pull
     # otherwise, use the default one
     if [ -z "$TRANSIFEX_TOKEN" ]; then
+        echo "No Transifex token found, using default one"
         tx pull -a -f
     else
+        echo "Transifex token found, using it"
         tx pull -a -f --token $TRANSIFEX_TOKEN
     fi
 

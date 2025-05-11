@@ -89,6 +89,8 @@ jobs:
         working-directory: /tmp/tx
 
       - name: Download latest translations
+        env:
+          TRANSIFEX_TOKEN: ${{ secrets.TRANSIFEX_TOKEN }}
         run: |
           export PATH=/tmp/tx:$PATH
           bash ./download_translations.sh
