@@ -80,7 +80,10 @@ done
     grep -v "node_modules" | \
     grep "translations.json" | while read js_translations ; do
         echo "Copying $js_translations"
-        mkdir -p ../oarepo/collected_translations/$(dirname $js_translations)
-        cp $js_translations ../oarepo/collected_translations/$(dirname $js_translations)
+        dn=$(dirname $translations)
+        # remove the first part of the path (./invenio-*)
+        dn=$(echo $dn | sed 's/^.\/[^/]*\///')
+        mkdir -p ../oarepo/collected_translations/$dn
+        cp $js_translations ../oarepo/collected_translations/$dn
     done
 )
