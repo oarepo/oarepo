@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "12.2.15"
+version = "12.2.16"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
@@ -45,7 +45,7 @@ dependencies = [ "aiobotocore==2.22.0",
      "build==1.2.2.post1",
      "cachelib==0.13.0",
      "cairocffi==1.7.1",
-     "cairosvg==2.8.0",
+     "cairosvg==2.8.2",
      "celery==5.3.6",
      "certifi==2025.4.26",
      "cffi==1.17.1",
@@ -79,7 +79,7 @@ dependencies = [ "aiobotocore==2.22.0",
      "email-validator==2.2.0",
      "events==0.5",
      "executing==2.2.0",
-     "faker==37.1.0",
+     "faker==37.3.0",
      "fastjsonschema==2.21.1",
      "flask==2.2.5",
      "flask-admin==1.6.1",
@@ -125,7 +125,7 @@ dependencies = [ "aiobotocore==2.22.0",
      "iniconfig==2.1.0",
      "intervals==0.9.2",
      "invenio-access==2.1.0",
-     "invenio-accounts==5.2.1",
+     "invenio-accounts==5.2.2",
      "invenio-admin==1.4.1",
      "invenio-administration==2.2.4.post1002",
      "invenio-app==1.5.1",
@@ -275,7 +275,7 @@ dependencies = [ "aiobotocore==2.22.0",
      "s3fs==0.4.2",
      "s3transfer==0.11.3",
      "selenium==3.141.0",
-     "setuptools==80.4.0",
+     "setuptools==80.7.1",
      "simplejson==3.20.1",
      "simplekv==0.14.1",
      "six==1.17.0",
@@ -353,7 +353,7 @@ Homepage = "https://github.com/oarepo/oarepo"
 
 [project.optional-dependencies]
 rdm = [ "invenio-app-rdm==12.1.0.post1000",
-     "invenio-rdm-records==10.9.2.post1000",
+     "invenio-rdm-records==10.9.2.post1001",
     ]
 test = []
 tests = []
