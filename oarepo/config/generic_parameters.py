@@ -1,3 +1,4 @@
+import re
 from datetime import timedelta
 from typing import Any
 
@@ -21,8 +22,14 @@ def configure_generic_parameters(
 
     # generic
     APP_ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
-    SITE_UI_URL = f"https://{env.INVENIO_UI_HOST}:{env.INVENIO_UI_PORT}"
-    SITE_API_URL = f"https://{env.INVENIO_API_HOST}:{env.INVENIO_API_PORT}/api"
+    SITE_UI_URL = (
+        env.get("INVENIO_SITE_UI_URL", None)
+        or f"https://{env.INVENIO_UI_HOST}:{env.INVENIO_UI_PORT}"
+    )
+    SITE_API_URL = (
+        env.get("INVENIO_SITE_API_URL", None)
+        or f"https://{env.INVENIO_API_HOST}:{env.INVENIO_API_PORT}/api"
+    )
 
     # security
     APP_DEFAULT_SECURE_HEADERS: dict[str, Any] = {
@@ -75,7 +82,7 @@ def configure_generic_parameters(
     OAUTHCLIENT_AUTO_REDIRECT_TO_EXTERNAL_LOGIN = True  # autoredirect to external login
 
     # database
-    SQLALCHEMY_DATABASE_URI = (
+    SQLALCHEMY_DATABASE_URI = env.get("INVENIO_SQLALCHEMY_DATABASE_URI", None) or (
         "postgresql+psycopg2://"
         f"{env.INVENIO_DATABASE_USER}:{env.INVENIO_DATABASE_PASSWORD}"
         f"@{env.INVENIO_DATABASE_HOST}:{env.INVENIO_DATABASE_PORT}"
@@ -90,7 +97,7 @@ def configure_generic_parameters(
     # files
     SEND_FILE_MAX_AGE_DEFAULT = 300
     FILES_REST_STORAGE_FACTORY = "invenio_s3.s3fs_storage_factory"
-    S3_ENDPOINT_URL = (
+    S3_ENDPOINT_URL = env.get("INVENIO_S3_ENDPOINT_URL", None) or (
         f"{env.INVENIO_S3_PROTOCOL}://{env.INVENIO_S3_HOST}:{env.INVENIO_S3_PORT}/"
     )
     S3_ACCESS_KEY_ID = env.INVENIO_S3_ACCESS_KEY
@@ -130,15 +137,19 @@ def configure_generic_parameters(
 
     # caches
     INVENIO_CACHE_TYPE = "redis"
-    CACHE_REDIS_URL = (
+    CACHE_REDIS_URL = env.get("INVENIO_CACHE_REDIS_URL", None) or (
         f"redis://{env.INVENIO_REDIS_HOST}:{env.INVENIO_REDIS_PORT}"
         f"/{env.INVENIO_REDIS_CACHE_DB}"
     )
-    ACCOUNTS_SESSION_REDIS_URL = (
+    ACCOUNTS_SESSION_REDIS_URL = env.get(
+        "INVENIO_ACCOUNTS_SESSION_REDIS_URL", None
+    ) or (
         f"redis://{env.INVENIO_REDIS_HOST}:{env.INVENIO_REDIS_PORT}"
         f"/{env.INVENIO_REDIS_SESSION_DB}"
     )
-    COMMUNITIES_IDENTITIES_CACHE_REDIS_URL = (
+    COMMUNITIES_IDENTITIES_CACHE_REDIS_URL = env.get(
+        "INVENIO_COMMUNITIES_IDENTITIES_CACHE_REDIS_URL", None
+    ) or (
         f"redis://{env.INVENIO_REDIS_HOST}:{env.INVENIO_REDIS_PORT}"
         f"/{env.INVENIO_REDIS_COMMUNITIES_CACHE_DB}"
     )
@@ -157,12 +168,12 @@ def configure_generic_parameters(
 
     # Redis port redirection
     # ---------------------
-    CELERY_BROKER_URL = (
+    CELERY_BROKER_URL = env.get("INVENIO_CELERY_BROKER_URL", None) or (
         f"amqp://{env.INVENIO_RABBIT_USER}:{env.INVENIO_RABBIT_PASSWORD}"
         f"@{env.INVENIO_RABBIT_HOST}:{env.INVENIO_RABBIT_PORT}/"
     )
     BROKER_URL = CELERY_BROKER_URL
-    CELERY_RESULT_BACKEND = (
+    CELERY_RESULT_BACKEND = env.get("INVENIO_CELERY_RESULT_BACKEND", None) or (
         f"redis://{env.INVENIO_REDIS_HOST}:{env.INVENIO_REDIS_PORT}"
         f"/{env.INVENIO_REDIS_CELERY_RESULT_DB}"
     )
@@ -239,5 +250,74 @@ def configure_generic_parameters(
 
     # datacite & dois default
     DATACITE_TEST_MODE = True
+
+    MAIL_DEFAULT_SENDER = env.get(
+        "INVENIO_MAIL_DEFAULT_SENDER",
+        "please-set-invenio_mail_default_sender@test.com",
+    )
+
+    if env.get("INVENIO_MAIL_SUPPRESS_SEND", None) is not None:
+        MAIL_SUPPRESS_SEND = env.get("INVENIO_MAIL_SUPPRESS_SEND", True)
+
+    # default schemes for identifiers
+    import idutils
+
+    def is_researcher_id(identifier):
+        pattern = r"^[A-Za-z]+-\d{4}-\d{4}$"
+        return bool(re.match(pattern, identifier))
+
+    def is_vedidk(identifier):
+        cleaned_identifier = identifier.strip()
+        return cleaned_identifier.isdigit() and len(cleaned_identifier) == 7
+
+    def is_scopus_id(identifier):
+        return identifier.replace(".0", "").isdigit()
+
+    VOCABULARIES_NAMES_SCHEMES = {
+        "orcid": {"label": "ORCID", "validator": idutils.is_orcid},
+        "vedidk": {"label": "VEDIDK", "validator": is_vedidk},
+        "scopusId": {"label": "Scopus ID", "validator": is_scopus_id},
+        "researcherId": {"label": "Researcher ID", "validator": is_researcher_id},
+    }
+
+    # List of funders is curated, validators are not needed.
+    VOCABULARIES_FUNDER_SCHEMES = {
+        "ror": {"label": "ROR", "validator": lambda identifier: True},
+        "crossrefFunderId": {
+            "label": "CrossrefFunderID",
+            "validator": lambda identifier: True,
+        },
+    }
+
+    # List of affiliations is curated, validators are not needed.
+    VOCABULARIES_AFFILIATION_SCHEMES = {
+        "ror": {"label": "ROR", "validator": lambda identifier: True},
+        "ico": {"label": "ICO", "validator": lambda identifier: True},
+        "url": {"label": "URL", "validator": lambda identifier: True},
+    }
+    RDM_RECORDS_PERSONORG_SCHEMES = {
+        "orcid": {"label": _("ORCID"), "validator": idutils.is_orcid},
+        "scopusId": {"label": _("ScopusID"), "validator": is_scopus_id},
+        "researcherId": {"label": _("ResearcherID"), "validator": is_researcher_id},
+        "czenasAutId": {
+            "label": _("CzenasAutID"),
+            "validator": lambda identifier: True,
+        },
+        "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
+        "institutionalId": {
+            "label": _("InstitutionalID"),
+            "validator": lambda identifier: True,
+        },
+        "isni": {"label": _("ISNI"), "validator": idutils.is_isni},
+        "ror": {"label": _("ROR"), "validator": idutils.is_ror},
+        "ico": {"label": _("ICO"), "validator": lambda identifier: True},
+        "doi": {"label": _("DOI"), "validator": idutils.is_doi},
+        "url": {"label": _("URL"), "validator": lambda identifier: True},
+    }
+
+    RDM_RECORDS_IDENTIFIERS_SCHEMES = {
+        "doi": {"label": _("DOI"), "validator": idutils.is_doi},
+        "isbn": {"label": _("ISBN"), "validator": idutils.is_isbn},
+    }
 
     set_constants_in_caller(locals())
