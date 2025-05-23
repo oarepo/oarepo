@@ -4,8 +4,10 @@ import json
 import os
 import re
 from datetime import timedelta
+from io import StringIO
 from pathlib import Path
 
+import yaml
 from dotenv import dotenv_values
 from flask.config import Config
 from flask_babel import lazy_gettext as _
@@ -124,6 +126,9 @@ def load_configuration_variables():
     if Path(".env").exists():
         vals = dotenv_values(".env")
         env.from_mapping(vals)
+
+    if os.environ.get("INVENIO_CONFIG_PATH"):
+        load_config_from_directory(os.environ.get("INVENIO_CONFIG_PATH"), env)
 
     # finally overwrite it with environment variables
     env.from_mapping({k: v for k, v in os.environ.items() if k.startswith("INVENIO_")})
@@ -365,3 +370,45 @@ def configure_generic_parameters(
     """Grace period for changing record access to restricted."""
 
     set_constants_in_caller(locals())
+
+
+def find_files(directory, extension):
+    for root, _, files in os.walk(directory, followlinks=True):
+        for file in files:
+            if file.endswith(extension):
+                yield Path(root) / file
+
+
+def load_config_from_directory(config_dir, env):
+    print("Loading configuration from directory", config_dir)
+    root_path = Path(config_dir)
+    if not root_path.exists():
+        raise FileNotFoundError(f"Configuration directory {root_path} not found")
+
+    # look for all .json & .yaml & .yml files in the directory
+    config_files = (
+        list(find_files(root_path, ".json"))
+        + list(find_files(root_path, ".yaml"))
+        + list(find_files(root_path, ".yml"))
+    )
+
+    # resolve to absolute paths, deduplicate and sort alphabetically
+    config_files = list(sorted(set(str(f.resolve()) for f in config_files)))
+
+    # load the configuration files
+    for cfg in config_files:
+        print("  processing file", cfg)
+        loaded_config_text = Path(cfg).read_text().lstrip()
+        if loaded_config_text.startswith("{"):
+            loaded_config = json.loads(loaded_config_text)
+        else:
+            loaded_config = yaml.safe_load(StringIO(loaded_config_text))
+        for k, v in loaded_config.items():
+            k = k.upper()
+            if not k.startswith("INVENIO_"):
+                k = f"INVENIO_{k}"
+            print("    setting key ", k)
+            env[k] = v
+
+    print("Configuration loaded")
+    return env
