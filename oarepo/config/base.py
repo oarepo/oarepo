@@ -3,6 +3,7 @@ import inspect
 import json
 import os
 import re
+import sys
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -159,7 +160,7 @@ def find_files(directory, extension):
 
 
 def load_config_from_directory(config_dir, env):
-    print("Loading configuration from directory", config_dir)
+    print("Loading configuration from directory", config_dir, file=sys.stderr)
     root_path = Path(config_dir)
     if not root_path.exists():
         raise FileNotFoundError(f"Configuration directory {root_path} not found")
@@ -176,7 +177,7 @@ def load_config_from_directory(config_dir, env):
 
     # load the configuration files
     for cfg in config_files:
-        print("  processing file", cfg)
+        print("  processing file", cfg, file=sys.stderr)
         loaded_config_text = Path(cfg).read_text().lstrip()
         if loaded_config_text.startswith("{"):
             loaded_config = json.loads(loaded_config_text)
@@ -186,10 +187,10 @@ def load_config_from_directory(config_dir, env):
             k = k.upper()
             if not k.startswith("INVENIO_"):
                 k = f"INVENIO_{k}"
-            print("    setting key ", k)
+            print("    setting key ", k, file=sys.stderr)
             env[k] = v
 
-    print("Configuration loaded")
+    print("Configuration loaded", file=sys.stderr)
     return env
 
 
