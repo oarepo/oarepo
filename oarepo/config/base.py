@@ -99,6 +99,34 @@ def get_invenio_cfg_path():
     raise ValueError("Cannot find invenio.cfg file in the stack")
 
 
+@functools.lru_cache(maxsize=1)
+def load_configuration_overrides():
+    """
+    Load configuration overrides from the environment variables.
+
+    This function looks for environment variables starting with
+    "INVENIO_OVERRIDE_" and returns a dictionary with the overrides.
+    """
+    env = Config(os.path.dirname(__file__))
+
+    # then overwrite it with .env file in the local directory
+    if Path(".env").exists():
+        vals = dotenv_values(".env")
+        env.from_mapping(vals)
+
+    if os.environ.get("INVENIO_CONFIG_PATH"):
+        load_config_from_directory(os.environ.get("INVENIO_CONFIG_PATH"), env)
+
+    # finally overwrite it with environment variables
+    env.from_mapping({k: v for k, v in os.environ.items() if k.startswith("INVENIO_")})
+
+    # transform values from strings to their actual types
+    for k, v in list(env.items()):
+        setattr(env, k, transform_value(v))
+
+    return env
+
+
 # Import the configuration from the local .env if it exists
 # and overwrite it with environment variables
 # Loading it this way so could interpolate values
@@ -120,20 +148,11 @@ def load_configuration_variables():
         vals = dotenv_values(str(bundled_env))
         env.from_mapping(vals)
 
-    # then overwrite it with .env file in the local directory
-    if Path(".env").exists():
-        vals = dotenv_values(".env")
-        env.from_mapping(vals)
-
-    if os.environ.get("INVENIO_CONFIG_PATH"):
-        load_config_from_directory(os.environ.get("INVENIO_CONFIG_PATH"), env)
-
-    # finally overwrite it with environment variables
-    env.from_mapping({k: v for k, v in os.environ.items() if k.startswith("INVENIO_")})
-
     # transform values from strings to their actual types
     for k, v in list(env.items()):
         setattr(env, k, transform_value(v))
+
+    env.update(load_configuration_overrides())
 
     return env
 
@@ -196,7 +215,7 @@ def load_config_from_directory(config_dir, env):
 
 def override_configuration(env: dict[str, Any] | None = None) -> None:
     if env is None:
-        env = load_configuration_variables()
+        env = load_configuration_overrides()
     constants_to_override: dict[str, Any] = {}
     for k, v in env.items():
         if k.startswith("INVENIO_"):
