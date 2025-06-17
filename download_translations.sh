@@ -29,29 +29,26 @@ download_module_translations() {
 
     python setup.py compile_catalog
 
-    # if module is not invenio-vocabularies (it has translations in  the locale folder)
-    # but nothing there
-    if [ "$module" != "invenio-vocabularies" ]; then
-        # remove all translations except for the ones in the locale folder
-        find . -name "translations" | grep 'semantic-ui' | while read js_translations ; do
-            (
-                echo "Compiling js translations from $js_translations"
-                set -e
-                cd $js_translations
-                cd $(echo $module | sed 's/-/_/g')
-                mv package.json package.json.bak
-                cat package.json.bak | \
-                sed 's/"af",//' | \
-                sed 's/"ar",//' | \
-                sed 's/"gl",//' | \
-                sed 's/"rw",//' | \
-                sed 's/"en",//' | \
-                sed 's/"et_EE",//' >package.json
-                npm install
-                npm run compile_catalog
-            )
-        done
-    fi
+
+    # remove all translations except for the ones in the locale folder
+    find . -name "translations" | grep 'semantic-ui' | while read js_translations ; do
+        (
+            echo "Compiling js translations from $js_translations"
+            set -e
+            cd $js_translations
+            cd $(echo $module | sed 's/-/_/g')
+            mv package.json package.json.bak
+            cat package.json.bak | \
+            sed 's/"af",//' | \
+            sed 's/"ar",//' | \
+            sed 's/"gl",//' | \
+            sed 's/"rw",//' | \
+            sed 's/"en",//' | \
+            sed 's/"et_EE",//' >package.json
+            npm install
+            npm run compile_catalog
+        )
+    done
 }
 
 cat invenio_modules_with_translations.txt | while read module; do
