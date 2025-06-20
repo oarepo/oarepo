@@ -1,0 +1,204 @@
+# 
+# Translators:
+# Alizee Pace <alizee.pace@gmail.com>, 2024
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Keziah Okyere, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Keziah Okyere, 2024\n"
+"Language-Team: French (https://app.transifex.com/inveniosoftware/teams/23537/fr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Decline"
+msgstr "Déclin"
+
+msgid "Accept and publish"
+msgstr "Accepter et publier"
+
+msgid "Accept"
+msgstr "Accepter"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Cancel request"
+msgstr "Annuler la demande"
+
+msgid "Something went wrong."
+msgstr "Quelque chose s'est mal passé."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce commentaire?"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Submitted"
+msgstr "Soumis"
+
+msgid "Deleted"
+msgstr "Supprimé"
+
+msgid "Accepted"
+msgstr "Accepté"
+
+msgid "Declined"
+msgstr "Décliné"
+
+msgid "Cancelled"
+msgstr "Annulé"
+
+msgid "Expired"
+msgstr "Expiré"
+
+msgid "Draft review"
+msgstr "Projet d'examen"
+
+msgid "Community inclusion"
+msgstr "L'inclusion communautaire"
+
+msgid "Member invitation"
+msgstr "Invitation du membre"
+
+msgid "Add comment (optional)"
+msgstr "Ajouter commentaire (facultatif)"
+
+msgid "{{action}} request"
+msgstr "{{action}} demande"
+
+msgid "Creator"
+msgstr "Créateur"
+
+msgid "Receiver"
+msgstr "Récepteur"
+
+msgid "Request type"
+msgstr "Type de demande"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Created"
+msgstr "Créé"
+
+msgid "Expires"
+msgstr "Expire"
+
+msgid "Accept request"
+msgstr "Accepter la demande"
+
+msgid "Decline request"
+msgstr "Refuser la demande"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr "Expire à: {{-expiringDate}}"
+
+msgid "Opened {{relativeTime}} by"
+msgstr "Ouvert {{relativeTime}} par"
+
+msgid "All done!"
+msgstr "Tout est fait!"
+
+msgid "You've caught up with all open requests."
+msgstr "Vous avez répondu à toutes les demandes ouvertes."
+
+msgid "No requests found!"
+msgstr "Aucune demande trouvée!"
+
+msgid "Reset search"
+msgstr "Réinitialiser la recherche"
+
+msgid "Sort by"
+msgstr "Trier par"
+
+msgid "Filter results"
+msgstr "Filtrer les résultats"
+
+msgid "Search in my requests..."
+msgstr "Rechercher dans mes demandes..."
+
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "Closed"
+msgstr "Fermé"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "deleted a comment"
+msgstr "supprimer un commentaire"
+
+msgid "accepted this request"
+msgstr "accepté cette demande"
+
+msgid "declined this request"
+msgstr "refusé cette demande"
+
+msgid "this request expired"
+msgstr "cette demande a expiré"
+
+msgid "cancelled this request"
+msgstr "annuler cette demande"
+
+msgid "unknown event"
+msgstr "événement inconnu"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "commented {{commentTime}}"
+msgstr "commenté {{commentTime}}"
+
+msgid "Edited"
+msgstr "Édité"
+
+msgid "Request access"
+msgstr "Demander l'accès"
+
+msgid "Guest access"
+msgstr "Accès invité"
+
+msgid "User access"
+msgstr "Accès utilisateur"
+
+msgid "Community manage record"
+msgstr "Dossier gestion communautaire"
+
+msgid "Subcommunity"
+msgstr "Sous-communauté"
+
+msgid "Membership request"
+msgstr "Demande d'adhésion"
+
+msgid "Anonymous user"
+msgstr "Utilisateur anonyme"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Group"
+msgstr "Groupe"
+
+msgid "Record"
+msgstr "Notice"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Subcommunity invitation"
+msgstr ""

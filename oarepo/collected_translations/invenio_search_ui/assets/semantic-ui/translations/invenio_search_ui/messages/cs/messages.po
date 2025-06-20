@@ -1,0 +1,73 @@
+# 
+# Translators:
+# Jiří Kunčar <jiri.kuncar@gmail.com>, 2017
+# Mirek Simek <miroslav.simek@gmail.com>, 2024-2025
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Mirek Simek <miroslav.simek@gmail.com>, 2024-2025\n"
+"Language-Team: Czech (http://app.transifex.com/inveniosoftware/invenio/language/cs/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Verze"
+
+msgid "View all versions"
+msgstr "Zobrazit všechny verze"
+
+msgid "Help"
+msgstr "Nápověda"
+
+msgid "Search guide"
+msgstr "Průvodce vyhledáváním"
+
+msgid "Show all sub facets of "
+msgstr "Zobrazit všechny podfacety pro "
+
+msgid "Clear selection"
+msgstr "Odstranit výběr"
+
+msgid "Clear"
+msgstr "Vymazat"
+
+msgid "results per page"
+msgstr "výsledků na stránku"
+
+msgid "<0></0> results found"
+msgstr "Nalezeno <0></0> výsledků"
+
+msgid " "
+msgstr " "
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Search records..."
+msgstr "Hledat záznamy..."
+
+msgid "All records"
+msgstr "Všechny záznamy"
+
+msgid "result(s) found"
+msgstr "nalezených výsledků"
+
+msgid "Sort"
+msgstr "Řazení"
+
+msgid "Sort by"
+msgstr "Řadit podle"
+
+msgid "Filter results"
+msgstr "Filtrovat výsledky"
+
+msgid "Search filters"
+msgstr "Vyhledávací filtry"
+
+msgid "Search results"
+msgstr "Výsledky hledání"

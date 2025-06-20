@@ -1,0 +1,181 @@
+# Translations template for invenio-vocabularies.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-vocabularies project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# yyones, 2023
+# Sam Arbid, 2025
+# Mattias Vesterlund, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-vocabularies 3.5.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-05-13 21:01+0000\n"
+"PO-Revision-Date: 2021-07-13 12:40+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_vocabularies/config.py:37
+msgid "GRID"
+msgstr "GRID"
+
+#: invenio_vocabularies/config.py:38 invenio_vocabularies/config.py:101
+msgid "GND"
+msgstr "GND"
+
+#: invenio_vocabularies/config.py:39 invenio_vocabularies/config.py:100
+msgid "ISNI"
+msgstr "ISNI"
+
+#: invenio_vocabularies/config.py:40
+msgid "ROR"
+msgstr "ROR"
+
+#: invenio_vocabularies/config.py:51 invenio_vocabularies/config.py:60
+msgid "DOI"
+msgstr "DOI"
+
+#: invenio_vocabularies/config.py:59
+msgid "URL"
+msgstr "URL"
+
+#: invenio_vocabularies/config.py:99
+msgid "ORCID"
+msgstr "ORCID"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:38
+#: invenio_vocabularies/contrib/funders/config.py:43
+#: invenio_vocabularies/contrib/names/config.py:45
+#: invenio_vocabularies/contrib/subjects/config.py:38
+#: invenio_vocabularies/services/service.py:64
+msgid "Best match"
+msgstr "Bästa matchningen"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:42
+#: invenio_vocabularies/contrib/funders/config.py:47
+#: invenio_vocabularies/contrib/names/config.py:49
+#: invenio_vocabularies/contrib/subjects/config.py:42
+msgid "Name"
+msgstr "Namn"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:46
+#: invenio_vocabularies/contrib/funders/config.py:51
+#: invenio_vocabularies/contrib/names/config.py:53
+#: invenio_vocabularies/contrib/subjects/config.py:46
+#: invenio_vocabularies/services/service.py:72
+msgid "Newest"
+msgstr "Nyast"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:50
+#: invenio_vocabularies/contrib/funders/config.py:55
+#: invenio_vocabularies/contrib/names/config.py:57
+#: invenio_vocabularies/contrib/subjects/config.py:50
+#: invenio_vocabularies/services/service.py:76
+msgid "Oldest"
+msgstr "Äldst"
+
+#: invenio_vocabularies/contrib/awards/config.py:49
+msgid "Funders"
+msgstr "Finansiärer"
+
+#: invenio_vocabularies/contrib/awards/datastreams.py:47
+#, python-brace-format
+msgid "Unknown OpenAIRE funder prefix {openaire_funder_prefix}"
+msgstr "Okänt OpenAIRE funder prefix {openaire_funder_prefix}"
+
+#: invenio_vocabularies/contrib/awards/schema.py:41
+msgid "Number cannot be blank."
+msgstr "Nummer får inte vara tomt."
+
+#: invenio_vocabularies/contrib/awards/schema.py:50
+#: invenio_vocabularies/contrib/funders/schema.py:57
+msgid "PID cannot be blank."
+msgstr "PID får inte vara tomt."
+
+#: invenio_vocabularies/contrib/awards/schema.py:80
+msgid "An existing id or number/title must be present."
+msgstr "Ett befintligt ID eller nummer/titel måste finnas."
+
+#: invenio_vocabularies/contrib/awards/schema.py:97
+msgid "At least award or funder should be present."
+msgstr "Projektanslag eller finansiär måste vara ifyllt."
+
+#: invenio_vocabularies/contrib/funders/datastreams.py:44
+msgid "Id not found in ROR entry."
+msgstr "Id hittas inte i ROR-posten."
+
+#: invenio_vocabularies/contrib/funders/datastreams.py:48
+msgid "Name not found in ROR entry."
+msgstr "Namnet hittades inte i ROR-registret."
+
+#: invenio_vocabularies/contrib/funders/schema.py:35
+#: invenio_vocabularies/contrib/funders/schema.py:43
+msgid "Name cannot be blank."
+msgstr "Namn får inte vara tomt."
+
+#: invenio_vocabularies/contrib/funders/schema.py:65
+#: invenio_vocabularies/services/schema.py:120
+msgid "Missing PID."
+msgstr "PID saknas."
+
+#: invenio_vocabularies/contrib/names/schema.py:54
+msgid ""
+"A name or the family name together with the given name must be present."
+msgstr "Ett namn eller släktnamnet tillsammans med förnamnet ska finnas med."
+
+#: invenio_vocabularies/contrib/names/schema.py:68
+msgid "Duplicated affiliations."
+msgstr "Duplicerade affilieringar."
+
+#: invenio_vocabularies/records/models.py:84
+#, python-format
+msgid "No '%(banned_char)s' allowed in VocabularyScheme.id"
+msgstr "Inga '%(banned_char)s' tillåts i VocabularyScheme.id"
+
+#: invenio_vocabularies/services/components.py:29
+msgid "The vocabulary type does not exists."
+msgstr "Vokabulärstypen finns inte."
+
+#: invenio_vocabularies/services/schema.py:85
+#, python-brace-format
+msgid "An existing id or a free text {ftf_name} must be present."
+msgstr "Ett befintligt id eller en fritext {ftf_name} måste finnas."
+
+#: invenio_vocabularies/services/service.py:68
+msgid "Title"
+msgstr "Titel"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:49
+msgid "Subjects"
+msgstr "Ämnen"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:56
+msgid "Keywords and subjects"
+msgstr "Nyckelord och ämnen"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:58
+msgid "The subjects related to the community"
+msgstr "Ämnen relaterade till communityn"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:59
+msgid "Search for a subject by name e.g. Psychology ..."
+msgstr "Sök efter ett ämne med namn, t.ex. psykologi ..."
+
+#: invenio_vocabularies/services/custom_fields/subject.py:61
+msgid "Search for subjects..."
+msgstr "Sök efter ämnen..."
+
+#: invenio_vocabularies/templates/semantic-ui/invenio_vocabularies/subjects.html:16
+msgid "Search results for "
+msgstr "Sökresultat för"

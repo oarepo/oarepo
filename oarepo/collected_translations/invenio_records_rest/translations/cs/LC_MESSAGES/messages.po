@@ -1,0 +1,118 @@
+# Translations template for invenio-records-rest.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-rest project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Mirek Simek <miroslav.simek@gmail.com>, 2025
+# daniela.hornickova, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-rest 2.4.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-03 12:52+0000\n"
+"PO-Revision-Date: 2025-04-03 11:38+0000\n"
+"Last-Translator: daniela.hornickova, 2025\n"
+"Language-Team: Czech (https://app.transifex.com/inveniosoftware/teams/23537/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: invenio_records_rest/config.py:262
+msgid "Best match"
+msgstr "Dle nejlepší shody"
+
+#: invenio_records_rest/config.py:268
+msgid "Most recent"
+msgstr "Nejnovější"
+
+#: invenio_records_rest/errors.py:51
+msgid "Invalid query syntax."
+msgstr "Neplatná syntaxe dotazu."
+
+#: invenio_records_rest/errors.py:67
+#, python-format
+msgid "Style %(style)s could not be found."
+msgstr "Styl %(style)s nebyl nalezen."
+
+#: invenio_records_rest/errors.py:93
+msgid "PID does not exist."
+msgstr "PID neexistuje."
+
+#: invenio_records_rest/errors.py:105
+msgid "PID is not registered."
+msgstr "PID není registrován."
+
+#: invenio_records_rest/errors.py:117
+msgid "PID has been deleted."
+msgstr "PID byl odstraněn."
+
+#: invenio_records_rest/errors.py:129
+#, python-format
+msgid "No object assigned to %(pid)s."
+msgstr "K objektu %(pid)s není přiřazen žádný objekt."
+
+#: invenio_records_rest/errors.py:142
+#, python-format
+msgid "Invalid redirect - pid_type %(pid_type)s endpoint missing."
+msgstr "Neplatné přesměrování - chybí endpoint pro pid_type %(pid_type)s."
+
+#: invenio_records_rest/errors.py:160
+#, python-format
+msgid "PID %(pid)s could not be resolved."
+msgstr "PID %(pid)s se nepodařilo rozlišit."
+
+#: invenio_records_rest/errors.py:174
+#, python-format
+msgid "Unsupported media type \"%(content_type)s\"."
+msgstr "Nepodporovaný typ média \"%(content_type)s\"."
+
+#: invenio_records_rest/errors.py:188
+msgid "Could not load data."
+msgstr "Nepodařilo se načíst data."
+
+#: invenio_records_rest/errors.py:200
+msgid "Could not patch JSON."
+msgstr "Nepodařilo se upravit JSON."
+
+#: invenio_records_rest/errors.py:213
+#, python-format
+msgid "Missing %(ctx_field)s context."
+msgstr "Chybí kontext %(ctx_field)s."
+
+#: invenio_records_rest/errors.py:228
+#, python-format
+msgid "No completions requested.%(options)s"
+msgstr "Nebyla požadována žádná dokončení.%(options)s"
+
+#: invenio_records_rest/errors.py:243
+#, python-format
+msgid "Validation error: %(error)s."
+msgstr "Chyba validace: %(error)s."
+
+#: invenio_records_rest/errors.py:257
+msgid "An internal server error occurred when handling the request."
+msgstr "Při zpracování požadavku došlo k interní chybě serveru."
+
+#: invenio_records_rest/views.py:66
+msgid "The syntax of the search query is invalid."
+msgstr "Syntaxe dotazu na vyhledávání je neplatná."
+
+#: invenio_records_rest/views.py:441
+msgid "The query parameters from and page must not be used at the same time."
+msgstr "Parametry dotazu \"od\" a \"stránka\" nesmí být použity současně."
+
+#: invenio_records_rest/views.py:478
+msgid "Invalid pagination parameters."
+msgstr "Neplatné parametry stránkování."
+
+#: invenio_records_rest/views.py:515
+#, python-format
+msgid "Maximum number of %(count)s results have been reached."
+msgstr "Byl dosažen maximální počet %(count)s výsledků."

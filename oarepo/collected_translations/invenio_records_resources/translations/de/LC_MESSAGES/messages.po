@@ -1,0 +1,212 @@
+# Translations template for invenio-records-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Alexander Gruber <alexander.gruber@tugraz.at>, 2024
+# Mojib Wali <mojib.wali@tugraz.at>, 2024
+# c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2024
+# Frank Berkemeier, 2025
+# Sarah Wiechers, 2025
+# Adienne Karsten-Welker, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-resources 5.10.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-01 13:38+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Adienne Karsten-Welker, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_records_resources/records/systemfields/entity_reference.py:46
+#, python-format
+msgid "Invalid reference for '%(key)s': %(obj)s"
+msgstr "Ungültige Referenz für '%(key)s': %(obj)s"
+
+#: invenio_records_resources/resources/errors.py:61
+#: invenio_records_resources/resources/errors.py:62
+msgid "Invalid query string syntax."
+msgstr "Ungültige Abfrage-Syntax."
+
+#: invenio_records_resources/resources/errors.py:63
+msgid "Misconfigured search."
+msgstr "Falsch konfigurierte Suche."
+
+#: invenio_records_resources/resources/errors.py:74
+msgid "Internal server error"
+msgstr "Interner Serverfehler"
+
+#: invenio_records_resources/resources/errors.py:120
+msgid "Invalid querystring parameters."
+msgstr "Ungültige Abfrageparameter."
+
+#: invenio_records_resources/resources/errors.py:126
+#: invenio_records_resources/resources/errors.py:132
+#: invenio_records_resources/services/errors.py:36
+msgid "Permission denied."
+msgstr "Zugriff verweigert."
+
+#: invenio_records_resources/resources/errors.py:138
+msgid "The record has been deleted."
+msgstr "Der Eintrag wurde gelöscht."
+
+#: invenio_records_resources/resources/errors.py:144
+msgid "The persistent identifier is already registered."
+msgstr "Der persistente Identifier ist bereits registriert."
+
+#: invenio_records_resources/resources/errors.py:150
+msgid "The persistent identifier does not exist."
+msgstr "Der persistente Identifier existiert nicht."
+
+#: invenio_records_resources/resources/errors.py:156
+msgid "The persistent identifier is not registered."
+msgstr "Der persistente Identifier ist nicht registriert."
+
+#: invenio_records_resources/resources/errors.py:163
+msgid "Not found."
+msgstr "Nicht gefunden."
+
+#: invenio_records_resources/resources/errors.py:170
+#, python-format
+msgid "Facet %(vocabulary_id)s not found."
+msgstr "Facette %(vocabulary_id)s nicht gefunden."
+
+#: invenio_records_resources/resources/errors.py:183
+msgid "Unable to decode JSON data in request body."
+msgstr "JSON-Daten im Anforderungstext können nicht decodiert werden."
+
+#: invenio_records_resources/resources/errors.py:189
+#: invenio_records_resources/resources/errors.py:195
+msgid "Not a valid value."
+msgstr "Kein gültiger Wert."
+
+#: invenio_records_resources/resources/errors.py:204
+msgid "The file upload transfer failed, please try again."
+msgstr ""
+"Der Datei-Upload-Vorgang ist fehlgeschlagen. Bitte versuchen Sie es erneut."
+
+#: invenio_records_resources/resources/errors.py:211
+msgid ""
+"Uploading selected files will result in exceeding the max amount per record."
+msgstr ""
+"Das Hochladen der ausgewählten Dateien würde zu einer Überschreitung der "
+"maximalen Anzahl pro Datensatz führen."
+
+#: invenio_records_resources/services/errors.py:51
+#, python-format
+msgid ""
+"Revision id provided(%(expected_revision_id)s) doesn't match record's "
+"one(%(record_revision_id)s)"
+msgstr ""
+"Die angegebene Revisions-ID (%(expected_revision_id)s) stimmt nicht mit der "
+"Revisions-ID des Datensatzes (%(record_revision_id)s) überein."
+
+#: invenio_records_resources/services/errors.py:73
+#, python-format
+msgid "Facet %(vocab)s not found."
+msgstr "Facette %(vocab)s nicht gefunden."
+
+#: invenio_records_resources/services/errors.py:83
+#, python-format
+msgid "Record '%(recid)s' has no file '%(file_key)s'."
+msgstr "Der Datensatz '%(recid)s' hat keine Datei '%(file_key)s'."
+
+#: invenio_records_resources/services/errors.py:99
+#, python-format
+msgid "Record '%(recid)s' failed to upload file '%(file_key)s'."
+msgstr ""
+"Der Upload der Datei '%(file_key)s' für den Datensatz '%(recid)s' ist "
+"fehlgeschlagen."
+
+#: invenio_records_resources/services/errors.py:116
+#, python-brace-format
+msgid ""
+"Uploading the selected files would result in {files_count} files (max is "
+"{max_files})."
+msgstr ""
+"Das Hochladen der ausgewählten Dateien würde zu einer Gesamtzahl von "
+"{files_count} Dateien führen. (Maximal erlaubt sind {max_files} Dateien.)"
+
+#: invenio_records_resources/services/custom_fields/errors.py:37
+#, python-format
+msgid ""
+"Namespace %(given_namespace)s is not valid for custom field %(field_name)s."
+msgstr ""
+"Der Namespace %(given_namespace)s ist nicht gültig für das "
+"benutzerdefinierte Feld %(field_name)s."
+
+#: invenio_records_resources/services/custom_fields/errors.py:54
+#, python-format
+msgid "Custom fields %(field_names)s are not configured."
+msgstr ""
+"Die benutzerdefinierten Felder %(field_names)s sind nicht konfiguriert."
+
+#: invenio_records_resources/services/custom_fields/errors.py:70
+#, python-format
+msgid "Invalid argument %(arg_name)s passed when initializing custom field."
+msgstr ""
+"Ungültiges Argument %(arg_name)s beim Initialisieren des benutzerdefinierten"
+" Felds."
+
+#: invenio_records_resources/services/files/service.py:264
+msgid "File upload transfer failed."
+msgstr "Datei-Upload-Vorgang fehlgeschlagen."
+
+#: invenio_records_resources/services/files/transfer.py:77
+msgid "File size limit exceeded."
+msgstr "Dateigrößen-Limit überschritten."
+
+#: invenio_records_resources/services/files/transfer.py:103
+msgid "Empty files are not accepted."
+msgstr "Leere Dateien werden nicht akzeptiert."
+
+#: invenio_records_resources/services/records/config.py:36
+msgid "Best match"
+msgstr "Beste Übereinstimmung"
+
+#: invenio_records_resources/services/records/config.py:40
+msgid "Newest"
+msgstr "Neuster"
+
+#: invenio_records_resources/services/records/config.py:44
+msgid "Oldest"
+msgstr "Ältester"
+
+#: invenio_records_resources/services/records/components/files.py:89
+msgid "You must first delete all files to set the record to be metadata-only."
+msgstr ""
+"Sie müssen zuerst alle Dateien löschen, um den Eintrag als \"Reiner "
+"Metadateneintrag\" kennzeichnen zu können."
+
+#: invenio_records_resources/services/records/params/pagination.py:39
+msgid "Invalid pagination parameters."
+msgstr "Ungültige Paginierungsparameter."
+
+#: invenio_records_resources/services/records/params/querystr.py:31
+msgid "You cannot specify both 'q' and 'suggest' parameters at the same time."
+msgstr ""
+"Sie können die Parameter 'q' und 'suggest' nicht gleichzeitig angeben."
+
+#: invenio_records_resources/services/records/params/querystr.py:42
+msgid "Invalid 'suggest' parameter."
+msgstr "Ungültiger 'suggest'-Parameter."
+
+#: invenio_records_resources/services/records/params/sort.py:62
+#, python-format
+msgid "Invalid sort option '%(sort_option)s'."
+msgstr "Ungültige Sortieroption '%(sort_option)s'."
+
+#: invenio_records_resources/services/records/queryparser/transformer.py:67
+#, python-format
+msgid "Invalid search field: %(field_name)s."
+msgstr "Ungültiges Suchfeld: %(field_name)s."

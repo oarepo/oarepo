@@ -1,0 +1,72 @@
+# 
+# Translators:
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2023\n"
+"Language-Team: Ukrainian (http://app.transifex.com/inveniosoftware/invenio/language/uk/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Версії"
+
+msgid "View all versions"
+msgstr "Переглянути усі версії"
+
+msgid "Help"
+msgstr "Допомога"
+
+msgid "Search guide"
+msgstr "Посібник з пошуку"
+
+msgid "Show all sub facets of "
+msgstr ""
+
+msgid "Clear selection"
+msgstr "Очистити вибір"
+
+msgid "Clear"
+msgstr ""
+
+msgid "results per page"
+msgstr "результатів на сторінку"
+
+msgid "<0></0> results found"
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search records..."
+msgstr "Шукати записи..."
+
+msgid "All records"
+msgstr "Всі записи"
+
+msgid "result(s) found"
+msgstr "результат(ів) знайдено"
+
+msgid "Sort"
+msgstr "Впорядкувати"
+
+msgid "Sort by"
+msgstr "Впорядкувати за"
+
+msgid "Filter results"
+msgstr "Фільтрувати результати"
+
+msgid "Search filters"
+msgstr ""
+
+msgid "Search results"
+msgstr "Результати пошуку"

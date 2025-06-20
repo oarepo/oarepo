@@ -1,0 +1,203 @@
+# 
+# Translators:
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2024
+# Vitalii Kindrat, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Vitalii Kindrat, 2025\n"
+"Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Decline"
+msgstr ""
+
+msgid "Accept and publish"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Cancel request"
+msgstr ""
+
+msgid "Something went wrong."
+msgstr ""
+
+msgid "Are you sure you want to delete this comment?"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Submitted"
+msgstr "Подано"
+
+msgid "Deleted"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Прийнято"
+
+msgid "Declined"
+msgstr "Відхилено"
+
+msgid "Cancelled"
+msgstr "Скасовано"
+
+msgid "Expired"
+msgstr "Застаріло"
+
+msgid "Draft review"
+msgstr ""
+
+msgid "Community inclusion"
+msgstr ""
+
+msgid "Member invitation"
+msgstr ""
+
+msgid "Add comment (optional)"
+msgstr ""
+
+msgid "{{action}} request"
+msgstr ""
+
+msgid "Creator"
+msgstr ""
+
+msgid "Receiver"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Created"
+msgstr "Створено"
+
+msgid "Expires"
+msgstr "Термін дії"
+
+msgid "Accept request"
+msgstr ""
+
+msgid "Decline request"
+msgstr ""
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr ""
+
+msgid "Opened {{relativeTime}} by"
+msgstr ""
+
+msgid "All done!"
+msgstr "Все зроблено!"
+
+msgid "You've caught up with all open requests."
+msgstr "Ви розібралсь з усіма відкритими запитами"
+
+msgid "No requests found!"
+msgstr "Не знайдено жодного запиту!"
+
+msgid "Reset search"
+msgstr "Скинути пошук"
+
+msgid "Sort by"
+msgstr "Впорядкувати за"
+
+msgid "Filter results"
+msgstr "Фільтрувати результати"
+
+msgid "Search in my requests..."
+msgstr "Шукати в моїх запитах..."
+
+msgid "Open"
+msgstr "Відкриті"
+
+msgid "Closed"
+msgstr "Закриті"
+
+msgid "Comment"
+msgstr ""
+
+msgid "deleted a comment"
+msgstr ""
+
+msgid "accepted this request"
+msgstr ""
+
+msgid "declined this request"
+msgstr ""
+
+msgid "this request expired"
+msgstr ""
+
+msgid "cancelled this request"
+msgstr ""
+
+msgid "unknown event"
+msgstr ""
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "commented {{commentTime}}"
+msgstr ""
+
+msgid "Edited"
+msgstr ""
+
+msgid "Request access"
+msgstr ""
+
+msgid "Guest access"
+msgstr ""
+
+msgid "User access"
+msgstr ""
+
+msgid "Community manage record"
+msgstr ""
+
+msgid "Subcommunity"
+msgstr ""
+
+msgid "Membership request"
+msgstr ""
+
+msgid "Anonymous user"
+msgstr ""
+
+msgid "Email"
+msgstr "Електронна пошта"
+
+msgid "Group"
+msgstr "Група"
+
+msgid "Record"
+msgstr "Запис"
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "Subcommunity invitation"
+msgstr ""

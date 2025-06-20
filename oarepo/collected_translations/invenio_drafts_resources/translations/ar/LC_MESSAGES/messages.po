@@ -1,0 +1,105 @@
+# Translations template for invenio-drafts-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-drafts-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Bessem Aamira <bessemamira@gmail.com>, 2024
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-drafts-resources 3.2.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 13:24+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: invenio_drafts_resources/resources/records/errors.py:33
+msgid "Redirecting..."
+msgstr "تم التحوبل"
+
+#: invenio_drafts_resources/services/records/config.py:54
+#: invenio_drafts_resources/services/records/config.py:83
+msgid "Best match"
+msgstr "أفضل تطابق "
+
+#: invenio_drafts_resources/services/records/config.py:58
+#: invenio_drafts_resources/services/records/config.py:95
+msgid "Newest"
+msgstr "الأحدث"
+
+#: invenio_drafts_resources/services/records/config.py:62
+#: invenio_drafts_resources/services/records/config.py:99
+msgid "Oldest"
+msgstr "الأقدم"
+
+#: invenio_drafts_resources/services/records/config.py:66
+#: invenio_drafts_resources/services/records/config.py:103
+#: invenio_drafts_resources/services/records/config.py:120
+msgid "Version"
+msgstr "إصدار"
+
+#: invenio_drafts_resources/services/records/config.py:87
+msgid "Recently updated"
+msgstr "المحيّن مؤخرا"
+
+#: invenio_drafts_resources/services/records/config.py:91
+msgid "Least recently updated"
+msgstr "الأقل تحيينا"
+
+#: invenio_drafts_resources/services/records/service.py:103
+msgid "Records should be updated via their draft."
+msgstr "ينبغي تحديث التسجيلات من خلال مسوداتها."
+
+#: invenio_drafts_resources/services/records/service.py:249
+msgid "Failed to fetch the record versions."
+msgstr "فشل في جلب إصدارات التسجيلة."
+
+#: invenio_drafts_resources/services/records/service.py:509
+msgid "Files support is not enabled."
+msgstr "دعم الملفات ليس مفعّلا ."
+
+#: invenio_drafts_resources/services/records/components/base.py:87
+#: invenio_drafts_resources/services/records/components/base.py:118
+msgid "You don't have permissions to manage files options."
+msgstr "ليس لك صلوحيّات لإدارة خيارات الملفات."
+
+#: invenio_drafts_resources/services/records/components/base.py:135
+#: invenio_drafts_resources/services/records/components/base.py:252
+#: invenio_drafts_resources/services/records/components/media_files.py:64
+msgid ""
+"Missing uploaded files. To disable files for this record please mark it as "
+"metadata-only."
+msgstr ""
+"الملفات التي يتم تحميلها مفقودة. لإبطال تحميل ملفات هذه التّسجيلة ، يرجى "
+"تحديدها على أنها بيانات وصفية فقط."
+
+#: invenio_drafts_resources/services/records/components/base.py:138
+msgid "Missing uploaded files."
+msgstr "الملفات التي تم تحميلها مفقودة."
+
+#: invenio_drafts_resources/services/records/components/base.py:262
+msgid "One or more files have not completed their transfer, please wait."
+msgstr "لم يكتمل تحويل بعض الملفات، يرجى الإنتظار."
+
+#: invenio_drafts_resources/services/records/components/base.py:288
+msgid "Files support must be enabled."
+msgstr "دعم الملفات يجب أن يكون مفعّلا ."
+
+#: invenio_drafts_resources/services/records/components/base.py:294
+msgid "Please remove all files first."
+msgstr "يرجى إزالة جميع الملفات أولاً."
+
+#: invenio_drafts_resources/services/records/components/base.py:300
+msgid "The record has no files."
+msgstr "التّسجيلة لا تحتوي على ملفات."

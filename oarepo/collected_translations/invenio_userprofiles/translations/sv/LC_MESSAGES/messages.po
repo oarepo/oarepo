@@ -1,0 +1,186 @@
+# Translations template for invenio-userprofiles.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-userprofiles project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2016
+# Sam Arbid, 2022
+# Mattias Vesterlund, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-userprofiles 3.0.3\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-26 17:21+0000\n"
+"PO-Revision-Date: 2016-08-18 14:14+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_userprofiles/ext.py:109
+#, python-format
+msgid "%(icon)s Profile"
+msgstr "%(icon)s Profil"
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:61
+msgid "Username"
+msgstr "Användarnamn"
+
+#. NOTE: Form field help text
+#: invenio_userprofiles/forms.py:63
+#, python-format
+msgid "Required. %(username_rules)s"
+msgstr "Krävs. %(username_rules)s"
+
+#: invenio_userprofiles/forms.py:64
+msgid "Username not provided."
+msgstr "Användarnamn har inte angetts."
+
+#. NOTE: Form label
+#: invenio_userprofiles/forms.py:70
+msgid "Full name"
+msgstr "Fullständigt namn"
+
+#. NOTE: Form label
+#: invenio_userprofiles/forms.py:77
+msgid "Affiliations"
+msgstr "Affilieringar"
+
+#. NOTE: Form validation error.
+#: invenio_userprofiles/forms.py:96
+msgid "Username is not available."
+msgstr "Användarnamn är inte tillgängligt."
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:129
+msgid "Email address"
+msgstr "Epost-adress"
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:143
+msgid "Re-enter email address"
+msgstr "Ange e-postadressen igen"
+
+#. NOTE: Form field help text
+#: invenio_userprofiles/forms.py:145
+msgid "Please re-enter your email address."
+msgstr "Vänligen ange din e-postadress igen."
+
+#. NOTE: Form validation error.
+#: invenio_userprofiles/forms.py:152
+msgid "Email addresses do not match."
+msgstr "E-postadresserna matchar inte."
+
+#. NOTE: Form button label
+#: invenio_userprofiles/forms.py:161
+msgid "Resend verification email"
+msgstr "Skicka verifieringsepost igen"
+
+#: invenio_userprofiles/forms.py:202
+msgid "Profile visibility"
+msgstr "Synlighet för profil"
+
+#: invenio_userprofiles/forms.py:204 invenio_userprofiles/forms.py:217
+msgid "Public"
+msgstr "Offentlig"
+
+#: invenio_userprofiles/forms.py:205 invenio_userprofiles/forms.py:218
+msgid "Hidden"
+msgstr "Dold"
+
+#: invenio_userprofiles/forms.py:208
+msgid ""
+"Public profiles can be found by other users via searches on username, full "
+"name and affiliation. Hidden profiles cannot be found by other users."
+msgstr ""
+"Offentliga profiler kan hittas av andra användare via sökningar på "
+"användarnamn, fullständigt namn och affiliering. Dolda profiler kan inte "
+"hittas av andra användare."
+
+#: invenio_userprofiles/forms.py:215
+msgid "Email visibility"
+msgstr "Synlighet för e-post"
+
+#: invenio_userprofiles/forms.py:221
+msgid ""
+"Public email visibility enables your profile to be found by your email "
+"address."
+msgstr ""
+"Offentlig e-postsynlighet gör att din profil kan hittas genom din "
+"e-postadress."
+
+#: invenio_userprofiles/forms.py:228
+msgid "Preferences locale"
+msgstr "Platsinställningar"
+
+#: invenio_userprofiles/validators.py:19
+msgid ""
+"Username must start with a letter, be at least three characters long and "
+"only contain alphanumeric characters, dashes and underscores."
+msgstr ""
+"Användarnamn måste börja med en bokstav, vara minst tre tecken långt och "
+"endast innehålla alfanumeriska tecken, bindestreck och understreck."
+
+#. NOTE: Flash message.
+#: invenio_userprofiles/views.py:113
+msgid "Verification email sent."
+msgstr "Verifieringsmail har skickats."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:136
+#, python-format
+msgid ""
+"Profile was updated. We have sent a verification email to %(email)s. Please "
+"check it."
+msgstr ""
+"Profilen har uppdaterats. Vi har skickat ett verifieringsmail till "
+"%(email)s. Var vänlig öppna det."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:144
+msgid "Profile was updated."
+msgstr "Profilen har uppdaterats."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:153
+msgid "Preferences were updated."
+msgstr "Inställningar har uppdaterats."
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:13
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:13
+msgid "Profile"
+msgstr "Profil"
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:21
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:41
+msgid "You have not yet verified your email address."
+msgstr "Du har inte verifierat din e-postadress ännu."
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:41
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:63
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:102
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:42
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:67
+msgid "Update profile"
+msgstr "Uppdatera profil"
+
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:77
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:81
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:106
+msgid "Update preferences"
+msgstr "Uppdatera inställningar"

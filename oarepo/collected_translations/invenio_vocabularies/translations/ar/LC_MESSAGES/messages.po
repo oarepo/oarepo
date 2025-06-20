@@ -1,0 +1,180 @@
+# Translations template for invenio-vocabularies.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-vocabularies project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Bessem Aamira <bessemamira@gmail.com>, 2024
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-vocabularies 3.5.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-05-13 21:01+0000\n"
+"PO-Revision-Date: 2021-07-13 12:40+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: invenio_vocabularies/config.py:37
+msgid "GRID"
+msgstr "GRID"
+
+#: invenio_vocabularies/config.py:38 invenio_vocabularies/config.py:101
+msgid "GND"
+msgstr "GND"
+
+#: invenio_vocabularies/config.py:39 invenio_vocabularies/config.py:100
+msgid "ISNI"
+msgstr "ISNI"
+
+#: invenio_vocabularies/config.py:40
+msgid "ROR"
+msgstr "رور ROR"
+
+#: invenio_vocabularies/config.py:51 invenio_vocabularies/config.py:60
+msgid "DOI"
+msgstr "المعرف الوحيد للأشياء DOI"
+
+#: invenio_vocabularies/config.py:59
+msgid "URL"
+msgstr "عنوان ويب URL"
+
+#: invenio_vocabularies/config.py:99
+msgid "ORCID"
+msgstr "أوركيد ORCID"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:38
+#: invenio_vocabularies/contrib/funders/config.py:43
+#: invenio_vocabularies/contrib/names/config.py:45
+#: invenio_vocabularies/contrib/subjects/config.py:38
+#: invenio_vocabularies/services/service.py:64
+msgid "Best match"
+msgstr "أفضل تطابق "
+
+#: invenio_vocabularies/contrib/affiliations/config.py:42
+#: invenio_vocabularies/contrib/funders/config.py:47
+#: invenio_vocabularies/contrib/names/config.py:49
+#: invenio_vocabularies/contrib/subjects/config.py:42
+msgid "Name"
+msgstr "إسم"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:46
+#: invenio_vocabularies/contrib/funders/config.py:51
+#: invenio_vocabularies/contrib/names/config.py:53
+#: invenio_vocabularies/contrib/subjects/config.py:46
+#: invenio_vocabularies/services/service.py:72
+msgid "Newest"
+msgstr "الأحدث"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:50
+#: invenio_vocabularies/contrib/funders/config.py:55
+#: invenio_vocabularies/contrib/names/config.py:57
+#: invenio_vocabularies/contrib/subjects/config.py:50
+#: invenio_vocabularies/services/service.py:76
+msgid "Oldest"
+msgstr "الأقدم"
+
+#: invenio_vocabularies/contrib/awards/config.py:49
+msgid "Funders"
+msgstr "ممولون"
+
+#: invenio_vocabularies/contrib/awards/datastreams.py:47
+#, python-brace-format
+msgid "Unknown OpenAIRE funder prefix {openaire_funder_prefix}"
+msgstr "OpenAIRE funder prefix غير معلوم {openaire_funder_prefix}"
+
+#: invenio_vocabularies/contrib/awards/schema.py:41
+msgid "Number cannot be blank."
+msgstr "الرقم لا يمكن أن يكون فارغا"
+
+#: invenio_vocabularies/contrib/awards/schema.py:50
+#: invenio_vocabularies/contrib/funders/schema.py:57
+msgid "PID cannot be blank."
+msgstr "معرف PID لا يمكن أن يكون فارغا."
+
+#: invenio_vocabularies/contrib/awards/schema.py:80
+msgid "An existing id or number/title must be present."
+msgstr "يجب أن يوجد إما معرف id أو رقم / عنوان ."
+
+#: invenio_vocabularies/contrib/awards/schema.py:97
+msgid "At least award or funder should be present."
+msgstr " يجب ان يكون هناك جائزة أو ممول على الاقل."
+
+#: invenio_vocabularies/contrib/funders/datastreams.py:44
+msgid "Id not found in ROR entry."
+msgstr "معرف Id غير متواجد بمدخلات سجل ROR."
+
+#: invenio_vocabularies/contrib/funders/datastreams.py:48
+msgid "Name not found in ROR entry."
+msgstr "الإسم غير متواجد بمداخل سجل ROR."
+
+#: invenio_vocabularies/contrib/funders/schema.py:35
+#: invenio_vocabularies/contrib/funders/schema.py:43
+msgid "Name cannot be blank."
+msgstr "اﻹسم لا يمكن أن يكون فارغا"
+
+#: invenio_vocabularies/contrib/funders/schema.py:65
+#: invenio_vocabularies/services/schema.py:120
+msgid "Missing PID."
+msgstr "معرف PID مفقود."
+
+#: invenio_vocabularies/contrib/names/schema.py:54
+msgid ""
+"A name or the family name together with the given name must be present."
+msgstr "يجب أن يكون اللّقب أو اسم العائلة موجودا مع الاسم."
+
+#: invenio_vocabularies/contrib/names/schema.py:68
+msgid "Duplicated affiliations."
+msgstr "الانتماءات المكررة."
+
+#: invenio_vocabularies/records/models.py:84
+#, python-format
+msgid "No '%(banned_char)s' allowed in VocabularyScheme.id"
+msgstr "كل '%(banned_char)s' غير مسموحة في VocabularyScheme.id"
+
+#: invenio_vocabularies/services/components.py:29
+msgid "The vocabulary type does not exists."
+msgstr "نوع المفردات غير موجود."
+
+#: invenio_vocabularies/services/schema.py:85
+#, python-brace-format
+msgid "An existing id or a free text {ftf_name} must be present."
+msgstr "يجب أن يكون هناك معرف id موجود او نص حر {ftf_name}."
+
+#: invenio_vocabularies/services/service.py:68
+msgid "Title"
+msgstr "العنوان"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:49
+msgid "Subjects"
+msgstr "المواضيع"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:56
+msgid "Keywords and subjects"
+msgstr "كلمات مفتاحية و مواضيع"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:58
+msgid "The subjects related to the community"
+msgstr "المواضيع المتعلقة بالمجتمع"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:59
+msgid "Search for a subject by name e.g. Psychology ..."
+msgstr "إبحث عن موضوع حسب الاسم مثل: علم النفس ..."
+
+#: invenio_vocabularies/services/custom_fields/subject.py:61
+msgid "Search for subjects..."
+msgstr "البحث عن المواضيع..."
+
+#: invenio_vocabularies/templates/semantic-ui/invenio_vocabularies/subjects.html:16
+msgid "Search results for "
+msgstr "نتائج البحث لـ"

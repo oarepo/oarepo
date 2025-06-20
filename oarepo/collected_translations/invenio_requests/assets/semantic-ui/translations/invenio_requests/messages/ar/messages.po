@@ -1,0 +1,204 @@
+# 
+# Translators:
+# Bessem Aamira <bessemamira@gmail.com>, 2023
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Decline"
+msgstr "رفض"
+
+msgid "Accept and publish"
+msgstr "قبول مع النشر"
+
+msgid "Accept"
+msgstr "مقبول"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Cancel request"
+msgstr "إلغاء الطلب"
+
+msgid "Something went wrong."
+msgstr "هناك خطأ ما."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "هل انت متأكد من حذفك للتعليق؟"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Submitted"
+msgstr "تم الإيداع"
+
+msgid "Deleted"
+msgstr "تمّ الحذف"
+
+msgid "Accepted"
+msgstr "تم القبول"
+
+msgid "Declined"
+msgstr "مرفوضة"
+
+msgid "Cancelled"
+msgstr "ملغى"
+
+msgid "Expired"
+msgstr "منتهي الصلاحية"
+
+msgid "Draft review"
+msgstr "مراجعة المسودة"
+
+msgid "Community inclusion"
+msgstr "إدماج المجتمع"
+
+msgid "Member invitation"
+msgstr "دعوة عضو"
+
+msgid "Add comment (optional)"
+msgstr "اضف تعليقا (إختياري)"
+
+msgid "{{action}} request"
+msgstr "{{action}} طلب"
+
+msgid "Creator"
+msgstr "المنشئ:"
+
+msgid "Receiver"
+msgstr "المتلقي"
+
+msgid "Request type"
+msgstr "نوع الطلب"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Created"
+msgstr "تم الإنشاء"
+
+msgid "Expires"
+msgstr "تنتهي"
+
+msgid "Accept request"
+msgstr "قبول الطلب"
+
+msgid "Decline request"
+msgstr "رفض الطلب"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr "إنتهاء الصلوحية في: {{- expiringDate}}"
+
+msgid "Opened {{relativeTime}} by"
+msgstr "فتحت {{relativeTime}} من قبل "
+
+msgid "All done!"
+msgstr "تم بنجاح!"
+
+msgid "You've caught up with all open requests."
+msgstr "قمت بمعالجة كافة الطلبيات المفتوحة."
+
+msgid "No requests found!"
+msgstr "لا وجود لطلبيات!"
+
+msgid "Reset search"
+msgstr "تصفير البحث"
+
+msgid "Sort by"
+msgstr "مرتبة حسب"
+
+msgid "Filter results"
+msgstr "تنقية النتائج"
+
+msgid "Search in my requests..."
+msgstr "البحث في طلبيّاتي..."
+
+msgid "Open"
+msgstr "مفتوح"
+
+msgid "Closed"
+msgstr "مغلق"
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "deleted a comment"
+msgstr "حذف تعليق"
+
+msgid "accepted this request"
+msgstr "هذا الطلب قُبل"
+
+msgid "declined this request"
+msgstr "هذا الطلب رُفض"
+
+msgid "this request expired"
+msgstr "هذا الطلب منتهي الصلوحيتة"
+
+msgid "cancelled this request"
+msgstr "هذا الطلب ملغى"
+
+msgid "unknown event"
+msgstr "حدث غير معلوم"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "commented {{commentTime}}"
+msgstr "تم التعليق {{commentTime}}"
+
+msgid "Edited"
+msgstr "تم التعديل"
+
+msgid "Request access"
+msgstr "طلب دخول"
+
+msgid "Guest access"
+msgstr "دخول الضيوف"
+
+msgid "User access"
+msgstr "دخول المستخدم"
+
+msgid "Community manage record"
+msgstr "تسجيلة إدارة المجتمع"
+
+msgid "Subcommunity"
+msgstr "مجتمع فرعي"
+
+msgid "Membership request"
+msgstr "طلب عضويّة"
+
+msgid "Anonymous user"
+msgstr "مستخدم مجهول"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Group"
+msgstr "فريق"
+
+msgid "Record"
+msgstr "تسجيلة"
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Subcommunity invitation"
+msgstr "دعوة المجتمع الفرعي"

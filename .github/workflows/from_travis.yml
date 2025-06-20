@@ -81,19 +81,30 @@ jobs:
         run: |
           check-manifest
 
-      - name: Create temporary directory to store the CLI
-        run: mkdir -p /tmp/tx
+      # Downloading translations from transifex is disabled as transifex has moved
+      # to RDM13.
+      #
+      # If you want to make changes to translations, do them in the collected_translations
+      # directory (use poedit to make tham as it will compile the .mo files for you).
+      # If you need to change the javascript translations, add those directly 
+      # to translation json files.
+      #
+      # Please report the translations to Danca so that she can propagate them to RDM13
+      # if it makes sense.
+      #
+      # - name: Create temporary directory to store the CLI
+      #   run: mkdir -p /tmp/tx
 
-      - name: Download the CLI
-        run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- ${{ inputs.version }}
-        working-directory: /tmp/tx
+      # - name: Download the CLI
+      #   run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash -s -- ${{ inputs.version }}
+      #   working-directory: /tmp/tx
 
-      - name: Download latest translations
-        env:
-          TRANSIFEX_TOKEN: ${{ secrets.TRANSIFEX_TOKEN }}
-        run: |
-          export PATH=/tmp/tx:$PATH
-          bash ./download_translations.sh
+      # - name: Download latest translations
+      #   env:
+      #     TRANSIFEX_TOKEN: ${{ secrets.TRANSIFEX_TOKEN }}
+      #   run: |
+      #     export PATH=/tmp/tx:$PATH
+      #     bash ./download_translations.sh
 
       - name: Build package to publish
         run: |

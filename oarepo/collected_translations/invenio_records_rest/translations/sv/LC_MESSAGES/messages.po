@@ -1,0 +1,118 @@
+# Translations template for invenio-records-rest.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-rest project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Sam Arbid, 2025
+# Mattias Vesterlund, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-rest 2.4.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-03 12:52+0000\n"
+"PO-Revision-Date: 2025-04-03 11:38+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_records_rest/config.py:262
+msgid "Best match"
+msgstr "Bästa matchningen"
+
+#: invenio_records_rest/config.py:268
+msgid "Most recent"
+msgstr "Senaste"
+
+#: invenio_records_rest/errors.py:51
+msgid "Invalid query syntax."
+msgstr "Ogiltig frågesyntax."
+
+#: invenio_records_rest/errors.py:67
+#, python-format
+msgid "Style %(style)s could not be found."
+msgstr "Stilen %(style)s  kunde inte hittas."
+
+#: invenio_records_rest/errors.py:93
+msgid "PID does not exist."
+msgstr "PID:en existerar inte."
+
+#: invenio_records_rest/errors.py:105
+msgid "PID is not registered."
+msgstr "PID:en är inte registrerad."
+
+#: invenio_records_rest/errors.py:117
+msgid "PID has been deleted."
+msgstr "PID:en har raderats."
+
+#: invenio_records_rest/errors.py:129
+#, python-format
+msgid "No object assigned to %(pid)s."
+msgstr "Inget objekt tilldelat till%(pid)s."
+
+#: invenio_records_rest/errors.py:142
+#, python-format
+msgid "Invalid redirect - pid_type %(pid_type)s endpoint missing."
+msgstr "Ogiltig omdirigering - pid_typen %(pid_type)s slutpunkt saknas."
+
+#: invenio_records_rest/errors.py:160
+#, python-format
+msgid "PID %(pid)s could not be resolved."
+msgstr "PID %(pid)s kunde inte lösas."
+
+#: invenio_records_rest/errors.py:174
+#, python-format
+msgid "Unsupported media type \"%(content_type)s\"."
+msgstr "Mediatyp som inte stöds \"%(content_type)s\"."
+
+#: invenio_records_rest/errors.py:188
+msgid "Could not load data."
+msgstr "Det gick inte att ladda data."
+
+#: invenio_records_rest/errors.py:200
+msgid "Could not patch JSON."
+msgstr "Det gick inte att patcha JSON."
+
+#: invenio_records_rest/errors.py:213
+#, python-format
+msgid "Missing %(ctx_field)s context."
+msgstr "Saknar %(ctx_field)s kontext."
+
+#: invenio_records_rest/errors.py:228
+#, python-format
+msgid "No completions requested.%(options)s"
+msgstr "Inga kompletteringar begärda.%(options)s"
+
+#: invenio_records_rest/errors.py:243
+#, python-format
+msgid "Validation error: %(error)s."
+msgstr "Valideringsfel: %(error)s."
+
+#: invenio_records_rest/errors.py:257
+msgid "An internal server error occurred when handling the request."
+msgstr "Ett internt serverfel uppstod vid hanteringen av begäran."
+
+#: invenio_records_rest/views.py:66
+msgid "The syntax of the search query is invalid."
+msgstr "Syntaxen i sökfrågan är ogiltig."
+
+#: invenio_records_rest/views.py:441
+msgid "The query parameters from and page must not be used at the same time."
+msgstr "Frågeparametrarna 'from' och 'page' får inte användas samtidigt."
+
+#: invenio_records_rest/views.py:478
+msgid "Invalid pagination parameters."
+msgstr "Ogiltiga parametrar för paginering."
+
+#: invenio_records_rest/views.py:515
+#, python-format
+msgid "Maximum number of %(count)s results have been reached."
+msgstr "Det maximala antalet %(count)s resultat har uppnåtts."

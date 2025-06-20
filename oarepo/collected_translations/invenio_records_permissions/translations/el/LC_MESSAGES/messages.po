@@ -1,0 +1,20 @@
+# Translations template for invenio-records-permissions.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the
+# invenio-records-permissions project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-permissions 0.20.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:56+0000\n"
+"PO-Revision-Date: 2022-05-27 07:20+0000\n"
+"Language-Team: Greek (https://app.transifex.com/inveniosoftware/teams/23537/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"

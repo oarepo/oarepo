@@ -1,0 +1,111 @@
+# Translations template for invenio-drafts-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-drafts-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2024
+# Alexander Gruber <alexander.gruber@tugraz.at>, 2024
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2024
+# Mojib Wali <mojib.wali@tugraz.at>, 2024
+# Sarah Wiechers, 2025
+# Adienne Karsten-Welker, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-drafts-resources 3.2.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 13:24+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Adienne Karsten-Welker, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_drafts_resources/resources/records/errors.py:33
+msgid "Redirecting..."
+msgstr "Umleiten ..."
+
+#: invenio_drafts_resources/services/records/config.py:54
+#: invenio_drafts_resources/services/records/config.py:83
+msgid "Best match"
+msgstr "Beste Übereinstimmung"
+
+#: invenio_drafts_resources/services/records/config.py:58
+#: invenio_drafts_resources/services/records/config.py:95
+msgid "Newest"
+msgstr "Neuster"
+
+#: invenio_drafts_resources/services/records/config.py:62
+#: invenio_drafts_resources/services/records/config.py:99
+msgid "Oldest"
+msgstr "Ältester"
+
+#: invenio_drafts_resources/services/records/config.py:66
+#: invenio_drafts_resources/services/records/config.py:103
+#: invenio_drafts_resources/services/records/config.py:120
+msgid "Version"
+msgstr "Version"
+
+#: invenio_drafts_resources/services/records/config.py:87
+msgid "Recently updated"
+msgstr "Kürzlich aktualisiert"
+
+#: invenio_drafts_resources/services/records/config.py:91
+msgid "Least recently updated"
+msgstr "Am wenigsten aktuell"
+
+#: invenio_drafts_resources/services/records/service.py:103
+msgid "Records should be updated via their draft."
+msgstr "Datensätze sollten über ihre Entwürfe aktualisiert werden."
+
+#: invenio_drafts_resources/services/records/service.py:249
+msgid "Failed to fetch the record versions."
+msgstr "Abrufen der Datensatzversionen fehlgeschlagen."
+
+#: invenio_drafts_resources/services/records/service.py:509
+msgid "Files support is not enabled."
+msgstr "Dateiunterstützung ist nicht aktiviert."
+
+#: invenio_drafts_resources/services/records/components/base.py:87
+#: invenio_drafts_resources/services/records/components/base.py:118
+msgid "You don't have permissions to manage files options."
+msgstr "Sie haben keine Berechtigungen, um Dateioptionen zu verwalten."
+
+#: invenio_drafts_resources/services/records/components/base.py:135
+#: invenio_drafts_resources/services/records/components/base.py:252
+#: invenio_drafts_resources/services/records/components/media_files.py:64
+msgid ""
+"Missing uploaded files. To disable files for this record please mark it as "
+"metadata-only."
+msgstr ""
+"Fehlender Datei-Upload. Um Dateien für diesen Eintrag zu deaktivieren, "
+"markieren Sie ihn bitte als \"Reiner Metadateneintrag\"."
+
+#: invenio_drafts_resources/services/records/components/base.py:138
+msgid "Missing uploaded files."
+msgstr "Fehlende hochgeladene Dateien."
+
+#: invenio_drafts_resources/services/records/components/base.py:262
+msgid "One or more files have not completed their transfer, please wait."
+msgstr ""
+"Der Transfer von einer oder mehreren Dateien ist noch nicht abgeschlossen. "
+"Bitte warten."
+
+#: invenio_drafts_resources/services/records/components/base.py:288
+msgid "Files support must be enabled."
+msgstr "Die Datei-Unterstützung muss aktiviert sein."
+
+#: invenio_drafts_resources/services/records/components/base.py:294
+msgid "Please remove all files first."
+msgstr "Bitte entfernen Sie zuerst alle Dateien."
+
+#: invenio_drafts_resources/services/records/components/base.py:300
+msgid "The record has no files."
+msgstr "Der Eintrag enthält keine Dateien."

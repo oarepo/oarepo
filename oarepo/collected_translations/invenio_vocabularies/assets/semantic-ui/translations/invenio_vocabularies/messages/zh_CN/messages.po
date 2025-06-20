@@ -1,0 +1,102 @@
+# 
+# Translators:
+# Weizheng Lu, 2025
+# Kalven Richie, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2025\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/inveniosoftware/teams/23537/zh_CN/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "按姓名搜索资助者"
+
+msgid "Funder"
+msgstr "资助机构"
+
+msgid "Search for funder..."
+msgstr "搜索资助机构…"
+
+msgid "Additional information"
+msgstr ""
+
+msgid "optional"
+msgstr "可选择的"
+
+msgid "Number"
+msgstr "编号"
+
+msgid "Award/Grant number"
+msgstr ""
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Award/Grant Title"
+msgstr ""
+
+msgid "URL"
+msgstr "统一资源定位系统"
+
+msgid "Award/Grant URL"
+msgstr ""
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Add custom"
+msgstr "添加自定义"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Open external link"
+msgstr "打开外部链接"
+
+msgid "Funder is required."
+msgstr ""
+
+msgid "Title must be set alongside number."
+msgstr ""
+
+msgid "Number must be set alongside title."
+msgstr ""
+
+msgid "URL must be valid."
+msgstr ""
+
+msgid "URL must be set alongside title and number."
+msgstr ""
+
+msgid "Add standard award/grant"
+msgstr ""
+
+msgid "Add custom funding"
+msgstr ""
+
+msgid "Search for awards/grants"
+msgstr ""
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Change"
+msgstr "更改"
+
+msgid "Did not find your award/grant? "
+msgstr ""
+
+msgid "Add a custom award/grant."
+msgstr ""

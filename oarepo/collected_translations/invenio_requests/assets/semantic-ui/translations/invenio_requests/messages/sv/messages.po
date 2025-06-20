@@ -1,0 +1,205 @@
+# 
+# Translators:
+# Sam Arbid, 2023
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Rim Sharif, 2024
+# Mattias Vesterlund, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Decline"
+msgstr "Avböj"
+
+msgid "Accept and publish"
+msgstr "Acceptera och publicera"
+
+msgid "Accept"
+msgstr "Acceptera"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Cancel request"
+msgstr "Avbryt förfrågan"
+
+msgid "Something went wrong."
+msgstr "Något gick fel."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "Är du säker på att du vill ta bort den här kommentaren?"
+
+msgid "Confirm"
+msgstr "Bekräfta"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Submitted"
+msgstr "Inskickad"
+
+msgid "Deleted"
+msgstr "Raderad"
+
+msgid "Accepted"
+msgstr "Accepterad"
+
+msgid "Declined"
+msgstr "Avslagen"
+
+msgid "Cancelled"
+msgstr "Avbruten"
+
+msgid "Expired"
+msgstr "Utgånget"
+
+msgid "Draft review"
+msgstr "Granskning av utkast"
+
+msgid "Community inclusion"
+msgstr "Community-inkludering"
+
+msgid "Member invitation"
+msgstr "Medlemsinbjudan"
+
+msgid "Add comment (optional)"
+msgstr "Lägg till kommentar (valfritt)"
+
+msgid "{{action}} request"
+msgstr "{{action}} begär"
+
+msgid "Creator"
+msgstr "Skapare"
+
+msgid "Receiver"
+msgstr "Mottagare"
+
+msgid "Request type"
+msgstr "Typ av förfrågan"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Created"
+msgstr "Skapad"
+
+msgid "Expires"
+msgstr "Upphör att gälla"
+
+msgid "Accept request"
+msgstr "Acceptera förfrågan"
+
+msgid "Decline request"
+msgstr "Avslå förfrågan"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr "Utgår den: {{- expiringDate}}"
+
+msgid "Opened {{relativeTime}} by"
+msgstr "Öppnad {{relativeTime}} av"
+
+msgid "All done!"
+msgstr "Allt klart!"
+
+msgid "You've caught up with all open requests."
+msgstr "Du är färdig med med alla öppna förfrågningar."
+
+msgid "No requests found!"
+msgstr "Inga förfrågningar hittades!"
+
+msgid "Reset search"
+msgstr "Återställ sökning"
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Filter results"
+msgstr "Filtrera resultat"
+
+msgid "Search in my requests..."
+msgstr "Sök i mina förfrågningar..."
+
+msgid "Open"
+msgstr "Öppen"
+
+msgid "Closed"
+msgstr "Stängd"
+
+msgid "Comment"
+msgstr "Kommentera"
+
+msgid "deleted a comment"
+msgstr "raderade en kommentar"
+
+msgid "accepted this request"
+msgstr "accepterade denna förfrågan"
+
+msgid "declined this request"
+msgstr "avslog denna förfrågan"
+
+msgid "this request expired"
+msgstr "denna förfrågan löpte ut"
+
+msgid "cancelled this request"
+msgstr "avbröt denna förfrågan"
+
+msgid "unknown event"
+msgstr "okänd händelse"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "commented {{commentTime}}"
+msgstr "kommenterade {{commentTime}}"
+
+msgid "Edited"
+msgstr "Redigerat"
+
+msgid "Request access"
+msgstr "Begär åtkomst"
+
+msgid "Guest access"
+msgstr "Gäståtkomst"
+
+msgid "User access"
+msgstr "Användaråtkomst"
+
+msgid "Community manage record"
+msgstr "Community-Hantera post"
+
+msgid "Subcommunity"
+msgstr "Delcommunity"
+
+msgid "Membership request"
+msgstr "Begäran om medlemskap"
+
+msgid "Anonymous user"
+msgstr "Anonym användare"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Group"
+msgstr "Grupp"
+
+msgid "Record"
+msgstr "Post"
+
+msgid "Actions"
+msgstr "Åtgärder"
+
+msgid "Subcommunity invitation"
+msgstr "Inbjudan till delcommunity"

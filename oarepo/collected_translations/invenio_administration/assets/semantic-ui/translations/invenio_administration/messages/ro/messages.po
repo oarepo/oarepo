@@ -1,0 +1,111 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Corina Ionascu <icorina@nipne.ro>, 2023
+# Nicolaie Constantinescu, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Nicolaie Constantinescu, 2025\n"
+"Language-Team: Romanian (https://app.transifex.com/inveniosoftware/teams/23537/ro/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Deschide lista acțiunilor"
+
+msgid "Resource is not deletable."
+msgstr "Resursa nu poate fi ștearsă."
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Delete {{title}}"
+msgstr "Șterge {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "Ești sigur că vrei să ștergi {{resourceName}}? "
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Resource is not editable."
+msgstr "Resursa nu este editabilă."
+
+msgid "Error"
+msgstr "Eroare"
+
+msgid "Server was not able to process your request."
+msgstr "Serverul nu a putut procesa cererea."
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Remove field"
+msgstr "Șterge câmp"
+
+msgid "Sort"
+msgstr "Sortează"
+
+msgid "Search"
+msgstr "Caută"
+
+msgid "Search ..."
+msgstr "Caută..."
+
+msgid "There is no resources in this category."
+msgstr "Nu există nicio resursă în această categorie."
+
+msgid "No matching resources found."
+msgstr "Nu au fost găsite resurse corespondente."
+
+msgid "Clear query"
+msgstr "Șterge interogarea"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "{{count}} rezultate găsite"
+msgstr[1] "{{count}} rezultate găsite"
+msgstr[2] "{{count}} rezultate găsite"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "rezultate per pagină"
+msgstr[1] "rezultate per pagină"
+msgstr[2] "rezultate per pagină"
+
+msgid "Actions"
+msgstr "Acțiuni"
+
+msgid "Success"
+msgstr "Succes"
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr ""

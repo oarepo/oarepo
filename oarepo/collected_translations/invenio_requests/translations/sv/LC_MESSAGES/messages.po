@@ -1,0 +1,211 @@
+# Translations template for invenio-requests.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-requests
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Rim Sharif, 2023
+# Sam Arbid, 2024
+# Mattias Vesterlund, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-requests 5.5.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 14:12+0000\n"
+"PO-Revision-Date: 2022-02-15 12:46+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_requests/config.py:47 invenio_requests/config.py:96
+msgid "Best match"
+msgstr "Bästa matchningen"
+
+#: invenio_requests/config.py:51 invenio_requests/config.py:100
+msgid "Newest"
+msgstr "Nyast"
+
+#: invenio_requests/config.py:55 invenio_requests/config.py:104
+msgid "Oldest"
+msgstr "Äldst"
+
+#: invenio_requests/customizations/user_moderation/user_moderation.py:48
+#: invenio_requests/services/requests/facets.py:31
+msgid "User moderation"
+msgstr "Användarmoderering"
+
+#: invenio_requests/resources/requests/fields.py:24
+msgid "Not a valid reference."
+msgstr "Inte en giltig referens."
+
+#: invenio_requests/services/events/service.py:167
+msgid "deleted a comment"
+msgstr "raderade en kommentar"
+
+#: invenio_requests/services/requests/facets.py:16
+msgid "Type"
+msgstr "Typ"
+
+#: invenio_requests/services/requests/facets.py:19
+msgid "Guest access"
+msgstr "Gäståtkomst"
+
+#: invenio_requests/services/requests/facets.py:20
+msgid "User access"
+msgstr "Användaråtkomst"
+
+#: invenio_requests/services/requests/facets.py:22
+msgid "Community inclusion"
+msgstr "Community-inkludering"
+
+#: invenio_requests/services/requests/facets.py:23
+msgid "Draft review"
+msgstr "Granskning av utkast"
+
+#: invenio_requests/services/requests/facets.py:25
+msgid "Membership request"
+msgstr "Begäran om medlemskap"
+
+#: invenio_requests/services/requests/facets.py:26
+msgid "Member invitation"
+msgstr "Medlemsinbjudan"
+
+#: invenio_requests/services/requests/facets.py:28
+msgid "Subcommunity"
+msgstr "Delcommunity"
+
+#: invenio_requests/services/requests/facets.py:29
+msgid "Subcommunity invitation"
+msgstr "Inbjudan till delcommunity"
+
+#: invenio_requests/services/requests/facets.py:33
+msgid "Community manage record"
+msgstr "Community-Hantera post"
+
+#: invenio_requests/services/requests/facets.py:34
+msgid "Upgrade legacy record"
+msgstr "Uppgradera äldre post"
+
+#: invenio_requests/services/requests/facets.py:40
+msgid "Status"
+msgstr "Status"
+
+#: invenio_requests/services/requests/facets.py:42
+msgid "Submitted"
+msgstr "Inskickad"
+
+#: invenio_requests/services/requests/facets.py:43
+msgid "Expired"
+msgstr "Utgånget"
+
+#: invenio_requests/services/requests/facets.py:44
+msgid "Accepted"
+msgstr "Accepterad"
+
+#: invenio_requests/services/requests/facets.py:45
+msgid "Declined"
+msgstr "Avslagen"
+
+#: invenio_requests/services/requests/facets.py:46
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#: invenio_requests/services/requests/facets.py:53
+#: invenio_requests/services/requests/facets.py:55
+msgid "Open"
+msgstr "Öppen"
+
+#: invenio_requests/services/requests/facets.py:56
+msgid "Closed"
+msgstr "Stängd"
+
+#: invenio_requests/services/user_moderation/errors.py:14
+msgid "Invalid creator for user moderation request."
+msgstr "Ogiltig skapare av begäran om användarmoderering."
+
+#: invenio_requests/services/user_moderation/errors.py:20
+msgid "There is already an open moderation request for this user."
+msgstr "Det finns redan en öppen modereringsbegäran för den här användaren."
+
+#: invenio_requests/services/user_moderation/service.py:82
+msgid "Moderation role must exist to enable user moderation requests."
+msgstr ""
+"Modereringsrollen måste finnas för att aktivera modereringsförfrågningar "
+"från användare."
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:21
+#, python-brace-format
+msgid "💬 New comment on '{request_title}'"
+msgstr "💬 Ny kommentar för '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:27
+#, python-brace-format
+msgid "'@{user_name}' commented on '{request_title}':"
+msgstr "'@{user_name}' kommenterade på '{request_title}':"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:33
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:59
+msgid "Check out the request"
+msgstr "Visa förfrågan"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "This is an auto-generated message. To manage notifications, visit your"
+msgstr ""
+"Detta är ett auto-genererat meddelande. För att hantera notiser, besök din"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "account settings"
+msgstr "kontoinställningar"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:45
+#, python-brace-format
+msgid "@{user_name} commented on '{request_title}'"
+msgstr "@{user_name} kommenterade på '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:49
+#, python-brace-format
+msgid "Check out the request: {request_link}"
+msgstr "Visa förfrågan: {request_link}"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:55
+#, python-brace-format
+msgid "*@{user_name}* commented on *{request_title}*"
+msgstr "*@{user_name}* kommenterade på *{request_title}*"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:9
+msgid "Tombstone"
+msgstr "Gravsten"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:12
+msgid "Gone"
+msgstr "Borta"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:14
+#, python-format
+msgid ""
+"\n"
+"    The record  you are trying to access was removed from %(sitename)s. The\n"
+"    metadata of the record is kept for archival purposes.\n"
+"  "
+msgstr ""
+"\n"
+"    Posten du försöker komma åt togs bort från %(sitename)s. Postens\n"
+"metadata bevaras för arkivändamål.\n"
+"  "
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:21
+msgid "Reason for removal:"
+msgstr "Orsak till borttagning:"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/details/index.html:19
+msgid "Request "
+msgstr "Förfrågan"

@@ -1,0 +1,120 @@
+# Translations template for invenio-records-rest.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-rest project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Frank Berkemeier, 2025
+# Sarah Wiechers, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-rest 2.4.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-03 12:52+0000\n"
+"PO-Revision-Date: 2025-04-03 11:38+0000\n"
+"Last-Translator: Sarah Wiechers, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_records_rest/config.py:262
+msgid "Best match"
+msgstr "Beste Übereinstimmung"
+
+#: invenio_records_rest/config.py:268
+msgid "Most recent"
+msgstr "Aktuellste"
+
+#: invenio_records_rest/errors.py:51
+msgid "Invalid query syntax."
+msgstr "Invalide Anfrage-Syntax."
+
+#: invenio_records_rest/errors.py:67
+#, python-format
+msgid "Style %(style)s could not be found."
+msgstr "Stil %(style)s konnte nicht gefunden werden."
+
+#: invenio_records_rest/errors.py:93
+msgid "PID does not exist."
+msgstr "PID existiert nicht."
+
+#: invenio_records_rest/errors.py:105
+msgid "PID is not registered."
+msgstr "PID ist nicht registriert."
+
+#: invenio_records_rest/errors.py:117
+msgid "PID has been deleted."
+msgstr "PID wurde gelöscht."
+
+#: invenio_records_rest/errors.py:129
+#, python-format
+msgid "No object assigned to %(pid)s."
+msgstr "Kein Objekt zugewiesen zu %(pid)s."
+
+#: invenio_records_rest/errors.py:142
+#, python-format
+msgid "Invalid redirect - pid_type %(pid_type)s endpoint missing."
+msgstr "Ungültige Weiterleitung - pid_type %(pid_type)s-Endpunkt fehlt."
+
+#: invenio_records_rest/errors.py:160
+#, python-format
+msgid "PID %(pid)s could not be resolved."
+msgstr "PID %(pid)s konnte nicht aufgelöst werden."
+
+#: invenio_records_rest/errors.py:174
+#, python-format
+msgid "Unsupported media type \"%(content_type)s\"."
+msgstr "Nicht unterstützter Medientyp \"%(content_type)s\"."
+
+#: invenio_records_rest/errors.py:188
+msgid "Could not load data."
+msgstr "Daten konnten nicht geladen werden."
+
+#: invenio_records_rest/errors.py:200
+msgid "Could not patch JSON."
+msgstr "JSON konnte nicht gepatcht werden."
+
+#: invenio_records_rest/errors.py:213
+#, python-format
+msgid "Missing %(ctx_field)s context."
+msgstr "Fehlender %(ctx_field)s Kontext."
+
+#: invenio_records_rest/errors.py:228
+#, python-format
+msgid "No completions requested.%(options)s"
+msgstr "Keine Vervollständigungen angefordert.%(options)s"
+
+#: invenio_records_rest/errors.py:243
+#, python-format
+msgid "Validation error: %(error)s."
+msgstr "Validierungsfehler: %(error)s."
+
+#: invenio_records_rest/errors.py:257
+msgid "An internal server error occurred when handling the request."
+msgstr "Ein interner Serverfehler trat beim Verarbeiten der Anfrage auf."
+
+#: invenio_records_rest/views.py:66
+msgid "The syntax of the search query is invalid."
+msgstr "Die Syntax der Suchanfrage ist ungültig."
+
+#: invenio_records_rest/views.py:441
+msgid "The query parameters from and page must not be used at the same time."
+msgstr ""
+"Die Abfrageparameter 'from' und 'page' dürfen nicht gleichzeitig verwendet "
+"werden."
+
+#: invenio_records_rest/views.py:478
+msgid "Invalid pagination parameters."
+msgstr "Ungültige Paginierungsparameter."
+
+#: invenio_records_rest/views.py:515
+#, python-format
+msgid "Maximum number of %(count)s results have been reached."
+msgstr "Maximale Anzahl von %(count)s Ergebnissen erreicht."

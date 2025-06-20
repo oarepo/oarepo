@@ -1,0 +1,216 @@
+# Translations template for invenio-requests.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-requests
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
+# David Eckhard <dabombeeer@gmail.com>, 2023
+# c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2024
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2024
+# Frank Berkemeier, 2024
+# Sarah Wiechers, 2025
+# Adienne Karsten-Welker, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-requests 5.5.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 14:12+0000\n"
+"PO-Revision-Date: 2022-02-15 12:46+0000\n"
+"Last-Translator: Adienne Karsten-Welker, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_requests/config.py:47 invenio_requests/config.py:96
+msgid "Best match"
+msgstr "Beste Übereinstimmung"
+
+#: invenio_requests/config.py:51 invenio_requests/config.py:100
+msgid "Newest"
+msgstr "Neuster"
+
+#: invenio_requests/config.py:55 invenio_requests/config.py:104
+msgid "Oldest"
+msgstr "Ältester"
+
+#: invenio_requests/customizations/user_moderation/user_moderation.py:48
+#: invenio_requests/services/requests/facets.py:31
+msgid "User moderation"
+msgstr "Benutzer*innen-Verwaltung"
+
+#: invenio_requests/resources/requests/fields.py:24
+msgid "Not a valid reference."
+msgstr "Kein gültiger Verweis."
+
+#: invenio_requests/services/events/service.py:167
+msgid "deleted a comment"
+msgstr "hat einen Kommentar gelöscht"
+
+#: invenio_requests/services/requests/facets.py:16
+msgid "Type"
+msgstr "Typ"
+
+#: invenio_requests/services/requests/facets.py:19
+msgid "Guest access"
+msgstr "Gastzugang"
+
+#: invenio_requests/services/requests/facets.py:20
+msgid "User access"
+msgstr "Benutzer*innen-Zugang"
+
+#: invenio_requests/services/requests/facets.py:22
+msgid "Community inclusion"
+msgstr "Community Einbindung"
+
+#: invenio_requests/services/requests/facets.py:23
+msgid "Draft review"
+msgstr "Entwurf zur Begutachtung"
+
+#: invenio_requests/services/requests/facets.py:25
+msgid "Membership request"
+msgstr "Mitgliedschaft beantragen"
+
+#: invenio_requests/services/requests/facets.py:26
+msgid "Member invitation"
+msgstr "Mitglieder-Einladung"
+
+#: invenio_requests/services/requests/facets.py:28
+msgid "Subcommunity"
+msgstr "Subcommunity"
+
+#: invenio_requests/services/requests/facets.py:29
+msgid "Subcommunity invitation"
+msgstr "Einladung zur Subcommunity"
+
+#: invenio_requests/services/requests/facets.py:33
+msgid "Community manage record"
+msgstr "Community-Eintrag verwalten"
+
+#: invenio_requests/services/requests/facets.py:34
+msgid "Upgrade legacy record"
+msgstr "Legacy-Datensatz aktualisieren"
+
+#: invenio_requests/services/requests/facets.py:40
+msgid "Status"
+msgstr "Status"
+
+#: invenio_requests/services/requests/facets.py:42
+msgid "Submitted"
+msgstr "Eingereicht"
+
+#: invenio_requests/services/requests/facets.py:43
+msgid "Expired"
+msgstr "Abgelaufen"
+
+#: invenio_requests/services/requests/facets.py:44
+msgid "Accepted"
+msgstr "Angenommen"
+
+#: invenio_requests/services/requests/facets.py:45
+msgid "Declined"
+msgstr "Abgelehnt"
+
+#: invenio_requests/services/requests/facets.py:46
+msgid "Cancelled"
+msgstr "Abgebrochen"
+
+#: invenio_requests/services/requests/facets.py:53
+#: invenio_requests/services/requests/facets.py:55
+msgid "Open"
+msgstr "Offen"
+
+#: invenio_requests/services/requests/facets.py:56
+msgid "Closed"
+msgstr "Geschlossen"
+
+#: invenio_requests/services/user_moderation/errors.py:14
+msgid "Invalid creator for user moderation request."
+msgstr "Ungültige*r Ersteller*in für die Benutzer*innen-Verwaltungs-Anfrage."
+
+#: invenio_requests/services/user_moderation/errors.py:20
+msgid "There is already an open moderation request for this user."
+msgstr "Es gibt bereits eine offene Anfrage für diese*n Benutzer*in."
+
+#: invenio_requests/services/user_moderation/service.py:82
+msgid "Moderation role must exist to enable user moderation requests."
+msgstr ""
+"Es muss eine Person existieren, die das Recht zur Verwaltung von "
+"Benutzer*innen besitzt, um Anfragen zur Benutzer*innen-Verwaltung zu "
+"ermöglichen."
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:21
+#, python-brace-format
+msgid "💬 New comment on '{request_title}'"
+msgstr "💬 Neuer Kommentar zu '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:27
+#, python-brace-format
+msgid "'@{user_name}' commented on '{request_title}':"
+msgstr "'@{user_name}' hat auf '{request_title}' kommentiert:"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:33
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:59
+msgid "Check out the request"
+msgstr "Überprüfen Sie die Anfrage"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "This is an auto-generated message. To manage notifications, visit your"
+msgstr ""
+"Dies ist eine automatisch generierte Nachricht. Um Benachrichtigungen zu "
+"verwalten, besuchen Sie Ihre"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "account settings"
+msgstr "Kontoeinstellungen"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:45
+#, python-brace-format
+msgid "@{user_name} commented on '{request_title}'"
+msgstr "Kommentiert von '@{user_name}' auf '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:49
+#, python-brace-format
+msgid "Check out the request: {request_link}"
+msgstr "Überprüfen Sie die Anfrage: {request_link}"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:55
+#, python-brace-format
+msgid "*@{user_name}* commented on *{request_title}*"
+msgstr "Kommentiert von '@{user_name}' auf '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:9
+msgid "Tombstone"
+msgstr "Tombstone"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:12
+msgid "Gone"
+msgstr "Entfernt"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:14
+#, python-format
+msgid ""
+"\n"
+"    The record  you are trying to access was removed from %(sitename)s. The\n"
+"    metadata of the record is kept for archival purposes.\n"
+"  "
+msgstr ""
+"\n"
+"    Der Eintrag, auf den Sie zugreifen möchten, wurde von %(sitename)s entfernt.\n"
+"Die Metadaten des Eintrags werden zum Zweck der Archivierung aufbewahrt."
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:21
+msgid "Reason for removal:"
+msgstr "Grund der Löschung:"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/details/index.html:19
+msgid "Request "
+msgstr "Anfrage"

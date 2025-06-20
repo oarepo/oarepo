@@ -1,0 +1,73 @@
+# 
+# Translators:
+# Bessem Aamira <bessemamira@gmail.com>, 2022
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2022,2025
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2022,2025\n"
+"Language-Team: Arabic (http://app.transifex.com/inveniosoftware/invenio/language/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "الإصدارات"
+
+msgid "View all versions"
+msgstr "الإطلاع على كافة الإصدارات"
+
+msgid "Help"
+msgstr "مساعدة"
+
+msgid "Search guide"
+msgstr "دليل البحث"
+
+msgid "Show all sub facets of "
+msgstr "عرض كل الأوجه الفرعية لـ"
+
+msgid "Clear selection"
+msgstr "مسح التحدبد"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "results per page"
+msgstr "عدد النتائج في الصّفحة"
+
+msgid "<0></0> results found"
+msgstr "<0></0> النتائج"
+
+msgid " "
+msgstr " "
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search records..."
+msgstr "البحث عن تسجيلات..."
+
+msgid "All records"
+msgstr "كل التّسجيلات"
+
+msgid "result(s) found"
+msgstr "النتيجة (النتائج)"
+
+msgid "Sort"
+msgstr "رتّب"
+
+msgid "Sort by"
+msgstr "مرتبة حسب"
+
+msgid "Filter results"
+msgstr "تصفية النتائج "
+
+msgid "Search filters"
+msgstr "فلتر البحث"
+
+msgid "Search results"
+msgstr "نتائج البحث"

@@ -1,0 +1,402 @@
+# Translations template for invenio-previewer.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-previewer
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Kalven Richie, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-previewer 2.2.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:55+0000\n"
+"PO-Revision-Date: 2016-08-25 14:09+0000\n"
+"Last-Translator: Kalven Richie, 2022\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/inveniosoftware/teams/23537/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: invenio_previewer/extensions/ipynb.py:38
+msgid "Error: Not a ipynb/json file"
+msgstr ""
+
+#: invenio_previewer/extensions/xml_prismjs.py:31
+msgid "Error decoding the file. Are you sure it is '{encoding}'?"
+msgstr ""
+
+#: invenio_previewer/templates/invenio_previewer/base.html:12
+#: invenio_previewer/templates/invenio_previewer/macros.html:46
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/base.html:12
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/macros.html:46
+msgid "Preview"
+msgstr "预览"
+
+#: invenio_previewer/templates/invenio_previewer/bottom.html:19
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/bottom.html:24
+msgid "Embed code"
+msgstr "嵌入代码"
+
+#: invenio_previewer/templates/invenio_previewer/bottom.html:29
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:223
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:288
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:223
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:288
+msgid "Close"
+msgstr "关闭"
+
+#: invenio_previewer/templates/invenio_previewer/bottom.html:72
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/bottom.html:41
+msgid "Previewing"
+msgstr "预览"
+
+#: invenio_previewer/templates/invenio_previewer/bottom.html:74
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/bottom.html:43
+msgid "Embed"
+msgstr "嵌入"
+
+#: invenio_previewer/templates/invenio_previewer/bottom.html:75
+#: invenio_previewer/templates/invenio_previewer/macros.html:51
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:78
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:79
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:148
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:149
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/bottom.html:44
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/macros.html:51
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:78
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:79
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:148
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:149
+msgid "Download"
+msgstr "下载"
+
+#: invenio_previewer/templates/invenio_previewer/csv_bar.html:20
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/csv_bar.html:20
+msgid "Show more"
+msgstr "显示更多"
+
+#: invenio_previewer/templates/invenio_previewer/default.html:17
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/default.html:19
+msgid "Cannot preview file"
+msgstr "无法预览文件"
+
+#: invenio_previewer/templates/invenio_previewer/default.html:18
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/default.html:20
+msgid "Sorry, we are unfortunately not able to preview this file."
+msgstr "很抱歉，我们无法预览此文件。"
+
+#: invenio_previewer/templates/invenio_previewer/macros.html:23
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/macros.html:23
+msgid "Name"
+msgstr "名称"
+
+#: invenio_previewer/templates/invenio_previewer/macros.html:24
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/macros.html:24
+msgid "Size"
+msgstr "规模"
+
+#: invenio_previewer/templates/invenio_previewer/macros.html:39
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/macros.html:37
+msgid ""
+"This is the file fingerprint (checksum), which can be used to verify the "
+"file integrity."
+msgstr "这是网络档案指纹（校验和），可用于验证文件完整性。"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:31
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:31
+msgid "Thumbnails"
+msgstr "缩略图"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:34
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:34
+msgid "Document Outline"
+msgstr "文件大纲"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:49
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:49
+msgid "Find:"
+msgstr "查找："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:53
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:127
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:53
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:127
+msgid "Previous"
+msgstr "前一个"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:57
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:131
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:57
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:131
+msgid "Next"
+msgstr "下一个"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:61
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:61
+msgid "Highlight all"
+msgstr "全部突出显示"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:63
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:63
+msgid "Match case"
+msgstr "匹配大小写"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:70
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:140
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:70
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:140
+msgid "Switch to Full Screen Mode"
+msgstr "切换到全屏模式"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:71
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:141
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:71
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:141
+msgid "Full Screen Mode"
+msgstr "全屏模式"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:74
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:75
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:144
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:145
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:74
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:75
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:144
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:145
+msgid "Print"
+msgstr "打印"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:84
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:85
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:84
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:85
+msgid "Go to First Page"
+msgstr "转到第一页"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:87
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:88
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:87
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:88
+msgid "Go to Last Page"
+msgstr "转到最后一页"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:93
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:94
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:93
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:94
+msgid "Rotate Clockwise"
+msgstr "顺时针旋转"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:96
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:97
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:96
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:97
+msgid "Rotate Counterclockwise"
+msgstr "逆时针旋转"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:103
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:103
+msgid "Enable hand tool"
+msgstr "启用手动工具"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:108
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:109
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:108
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:109
+msgid "Document Properties"
+msgstr "文档属性"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:118
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:119
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:118
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:119
+msgid "Toggle Sidebar"
+msgstr "切换边栏"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:122
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:122
+msgid "Find in Document"
+msgstr "在文档中查找"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:123
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:123
+msgid "Find"
+msgstr "查找"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:126
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:126
+msgid "Previous Page"
+msgstr "上一页"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:130
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:130
+msgid "Next Page"
+msgstr "下一页"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:134
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:134
+msgid "Page:"
+msgstr "页:"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:154
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:155
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:154
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:155
+msgid "Tools"
+msgstr "工具"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:161
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:162
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:161
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:162
+msgid "Zoom Out"
+msgstr "缩小"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:165
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:166
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:165
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:166
+msgid "Zoom In"
+msgstr "放大"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:170
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:170
+msgid "Zoom"
+msgstr "缩放"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:171
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:171
+msgid "Automatic Zoom"
+msgstr "自动缩放"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:172
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:172
+msgid "Actual Size"
+msgstr "实际尺寸"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:173
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:173
+msgid "Fit Page"
+msgstr "调整页面"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:174
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:174
+msgid "Full Width"
+msgstr "全宽度"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:197
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:197
+msgid "First Page"
+msgstr "第一页"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:215
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:215
+msgid "More Information"
+msgstr "更多信息"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:218
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:218
+msgid "Less Information"
+msgstr "更少信息"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:235
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:235
+msgid "Enter the password to open this PDF file:"
+msgstr "输入密码以打开此PDF文件："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:242
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:242
+msgid "Cancel"
+msgstr "取消"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:243
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:243
+msgid "OK"
+msgstr "是"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:250
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:250
+msgid "File name:"
+msgstr "文件名："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:253
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:253
+msgid "File size:"
+msgstr "文件大小："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:257
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:257
+msgid "Title:"
+msgstr "标题"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:260
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:260
+msgid "Author:"
+msgstr "作者"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:263
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:263
+msgid "Subject:"
+msgstr "主题:"
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:266
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:266
+msgid "Keywords:"
+msgstr "关键词："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:269
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:269
+msgid "Creation Date:"
+msgstr "创建日期："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:272
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:272
+msgid "Modification Date:"
+msgstr "修改日期："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:275
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:275
+msgid "Creator:"
+msgstr "创建者："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:279
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:279
+msgid "PDF Producer:"
+msgstr "PDF制作者："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:282
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:282
+msgid "PDF Version:"
+msgstr "PDF版本："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:285
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:285
+msgid "Page Count:"
+msgstr "页面计数："
+
+#: invenio_previewer/templates/invenio_previewer/pdfjs.html:298
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/pdfjs.html:298
+msgid "Preparing document for printing..."
+msgstr "正在准备打印文档……"
+
+#: invenio_previewer/templates/invenio_previewer/txt.html:16
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/txt.html:16
+msgid "Preview of large file truncated"
+msgstr ""
+
+#: invenio_previewer/templates/invenio_previewer/zip.html:54
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/zip.html:23
+msgid "Full screen"
+msgstr "全屏"
+
+#: invenio_previewer/templates/invenio_previewer/zip.html:61
+#: invenio_previewer/templates/semantic-ui/invenio_previewer/zip.html:29
+msgid "The previewer is not showing all the files."
+msgstr ""

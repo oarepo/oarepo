@@ -1,0 +1,72 @@
+# 
+# Translators:
+# Anna Sakoyan, 2025
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Anna Sakoyan, 2025\n"
+"Language-Team: Russian (http://app.transifex.com/inveniosoftware/invenio/language/ru/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Версии"
+
+msgid "View all versions"
+msgstr "Просмотреть все версии"
+
+msgid "Help"
+msgstr "Помощь"
+
+msgid "Search guide"
+msgstr "Руководство по поиску"
+
+msgid "Show all sub facets of "
+msgstr ""
+
+msgid "Clear selection"
+msgstr "Очистить выборку"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "results per page"
+msgstr "результатов на страницу"
+
+msgid "<0></0> results found"
+msgstr "<0></0> результат/а/ов найдено"
+
+msgid " "
+msgstr " "
+
+msgid "Search"
+msgstr "Искать"
+
+msgid "Search records..."
+msgstr "Искать записи..."
+
+msgid "All records"
+msgstr "Все записи"
+
+msgid "result(s) found"
+msgstr "результат(а/ов) найдено"
+
+msgid "Sort"
+msgstr "Сортировать"
+
+msgid "Sort by"
+msgstr "Сортировка"
+
+msgid "Filter results"
+msgstr "Фильтрация результатов"
+
+msgid "Search filters"
+msgstr "Поисковые фильтры"
+
+msgid "Search results"
+msgstr "Результаты поиска"

@@ -1,0 +1,114 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Jiří Kunčar <jiri.kuncar@gmail.com>, 2024
+# Mirek Simek <miroslav.simek@gmail.com>, 2025
+# daniela.hornickova, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: daniela.hornickova, 2025\n"
+"Language-Team: Czech (https://app.transifex.com/inveniosoftware/teams/23537/cs/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Otevřít seznam akcí"
+
+msgid "Resource is not deletable."
+msgstr "Záznam není smazatelný."
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Delete {{title}}"
+msgstr "Smazat {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "Opravdu chcete smazat {{resourceName}}? "
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Resource is not editable."
+msgstr "Záznam není editovatelný."
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Server was not able to process your request."
+msgstr "Server nemohl obsloužit váš dotaz."
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Remove field"
+msgstr "Odstranit pole"
+
+msgid "Sort"
+msgstr "Řazení"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Search ..."
+msgstr "Hledat ..."
+
+msgid "There is no resources in this category."
+msgstr "V této kategorii nejsou žádné záznamy."
+
+msgid "No matching resources found."
+msgstr "Nebyly nalezeny žádné záznamy."
+
+msgid "Clear query"
+msgstr "Smazat dotaz"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "nalezen {{count}} výsledek"
+msgstr[1] "nalezeny {{count}} výsledky"
+msgstr[2] "nalezeno {{count}} výsledků"
+msgstr[3] "nalezeno {{count}} výsledků"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "výsledek na stránku"
+msgstr[1] "výsledky na stránku"
+msgstr[2] "výsledků na stránku"
+msgstr[3] "výsledků na stránku"
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "Success"
+msgstr "Úspěch"
+
+msgid "Resource was successfully deleted."
+msgstr "Záznam byl úspěšně smazán."
+
+msgid "Action error"
+msgstr "Chyba akce"
+
+msgid "Invalid JSON format"
+msgstr "Neplatný formát JSON"
+
+msgid "Your changes were successfully submitted"
+msgstr "Vaše změny byly úspěšně odeslány"
+
+msgid "Form error"
+msgstr "Chyba formuláře"
+
+msgid "Current search"
+msgstr "Aktuální hledání"

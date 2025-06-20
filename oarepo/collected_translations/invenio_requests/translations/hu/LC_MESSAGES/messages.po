@@ -1,0 +1,209 @@
+# Translations template for invenio-requests.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-requests
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Andrea Dömötör, 2024
+# j k, 2025
+# Zoltán Kanász-Nagy, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-requests 5.5.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 14:12+0000\n"
+"PO-Revision-Date: 2022-02-15 12:46+0000\n"
+"Last-Translator: Zoltán Kanász-Nagy, 2025\n"
+"Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_requests/config.py:47 invenio_requests/config.py:96
+msgid "Best match"
+msgstr "Legjobb találat"
+
+#: invenio_requests/config.py:51 invenio_requests/config.py:100
+msgid "Newest"
+msgstr "Legújabb"
+
+#: invenio_requests/config.py:55 invenio_requests/config.py:104
+msgid "Oldest"
+msgstr "Legrégebbi"
+
+#: invenio_requests/customizations/user_moderation/user_moderation.py:48
+#: invenio_requests/services/requests/facets.py:31
+msgid "User moderation"
+msgstr "Felhasználó moderáció"
+
+#: invenio_requests/resources/requests/fields.py:24
+msgid "Not a valid reference."
+msgstr "Érvénytelen hivatkozás."
+
+#: invenio_requests/services/events/service.py:167
+msgid "deleted a comment"
+msgstr "törölt egy hozzászólást"
+
+#: invenio_requests/services/requests/facets.py:16
+msgid "Type"
+msgstr "Típus"
+
+#: invenio_requests/services/requests/facets.py:19
+msgid "Guest access"
+msgstr "Vendég hozzáférés"
+
+#: invenio_requests/services/requests/facets.py:20
+msgid "User access"
+msgstr "Felhasználói hozzáférés"
+
+#: invenio_requests/services/requests/facets.py:22
+msgid "Community inclusion"
+msgstr "Közösség bevonása"
+
+#: invenio_requests/services/requests/facets.py:23
+msgid "Draft review"
+msgstr "Bírálat mentése piszkozatként"
+
+#: invenio_requests/services/requests/facets.py:25
+msgid "Membership request"
+msgstr "Tagsági kérelem"
+
+#: invenio_requests/services/requests/facets.py:26
+msgid "Member invitation"
+msgstr "Tag meghívása"
+
+#: invenio_requests/services/requests/facets.py:28
+msgid "Subcommunity"
+msgstr "Al-közösség"
+
+#: invenio_requests/services/requests/facets.py:29
+msgid "Subcommunity invitation"
+msgstr "Meghívó al-közösségbe"
+
+#: invenio_requests/services/requests/facets.py:33
+msgid "Community manage record"
+msgstr "Rekord kezelése közösségként"
+
+#: invenio_requests/services/requests/facets.py:34
+msgid "Upgrade legacy record"
+msgstr "Örökölt rekord frissítése"
+
+#: invenio_requests/services/requests/facets.py:40
+msgid "Status"
+msgstr "Állapot"
+
+#: invenio_requests/services/requests/facets.py:42
+msgid "Submitted"
+msgstr "Benyújtva"
+
+#: invenio_requests/services/requests/facets.py:43
+msgid "Expired"
+msgstr "Lejárt"
+
+#: invenio_requests/services/requests/facets.py:44
+msgid "Accepted"
+msgstr "Elfogadva"
+
+#: invenio_requests/services/requests/facets.py:45
+msgid "Declined"
+msgstr "Elutasítva"
+
+#: invenio_requests/services/requests/facets.py:46
+msgid "Cancelled"
+msgstr "Visszavonva"
+
+#: invenio_requests/services/requests/facets.py:53
+#: invenio_requests/services/requests/facets.py:55
+msgid "Open"
+msgstr "Megnyitás"
+
+#: invenio_requests/services/requests/facets.py:56
+msgid "Closed"
+msgstr "Lezárva"
+
+#: invenio_requests/services/user_moderation/errors.py:14
+msgid "Invalid creator for user moderation request."
+msgstr "Érvénytelen létrehozó a felhasználói moderációs kérelemhez."
+
+#: invenio_requests/services/user_moderation/errors.py:20
+msgid "There is already an open moderation request for this user."
+msgstr "Ehhez a felhasználóhoz már létezik egy nyitott moderációs kérelem."
+
+#: invenio_requests/services/user_moderation/service.py:82
+msgid "Moderation role must exist to enable user moderation requests."
+msgstr ""
+"A moderátor szerepkörnek léteznie kell a felhasználói moderációs kérelmek "
+"engedélyezéséhez."
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:21
+#, python-brace-format
+msgid "💬 New comment on '{request_title}'"
+msgstr "💬 Új hozzászólás: '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:27
+#, python-brace-format
+msgid "'@{user_name}' commented on '{request_title}':"
+msgstr "'@{user_name}' hozzászólt ehhez: '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:33
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:59
+msgid "Check out the request"
+msgstr " Tekintse meg a kérelmet"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "This is an auto-generated message. To manage notifications, visit your"
+msgstr ""
+"Ez egy automatikusan generált üzenet. Az értesítések kezeléséhez látogasson "
+"el"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "account settings"
+msgstr "fiókbeállítások"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:45
+#, python-brace-format
+msgid "@{user_name} commented on '{request_title}'"
+msgstr "@{user_name} hozzászólt ehhez: '{request_title}'"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:49
+#, python-brace-format
+msgid "Check out the request: {request_link}"
+msgstr "Tekintse meg a kérelmet: {request_link}"
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:55
+#, python-brace-format
+msgid "*@{user_name}* commented on *{request_title}*"
+msgstr "*@{user_name}* hozzászólt ehhez: *{request_title}*"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:9
+msgid "Tombstone"
+msgstr "Helyettesítő oldal"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:12
+msgid "Gone"
+msgstr "Véglegesen törölve"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:14
+#, python-format
+msgid ""
+"\n"
+"    The record  you are trying to access was removed from %(sitename)s. The\n"
+"    metadata of the record is kept for archival purposes.\n"
+"  "
+msgstr ""
+"\n"
+"A megnyitni kívánt rekordot eltávolították a(z) %(sitename)soldalról. A rekord metaadatait archiválási célból megőriztük."
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:21
+msgid "Reason for removal:"
+msgstr "Eltávolítás oka:"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/details/index.html:19
+msgid "Request "
+msgstr "Kérés"

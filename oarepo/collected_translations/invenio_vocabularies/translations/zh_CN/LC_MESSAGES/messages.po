@@ -1,0 +1,179 @@
+# Translations template for invenio-vocabularies.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-vocabularies project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Kalven Richie, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-vocabularies 3.5.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-05-13 21:01+0000\n"
+"PO-Revision-Date: 2021-07-13 12:40+0000\n"
+"Last-Translator: Kalven Richie, 2025\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/inveniosoftware/teams/23537/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: invenio_vocabularies/config.py:37
+msgid "GRID"
+msgstr "全球资源信息数据库"
+
+#: invenio_vocabularies/config.py:38 invenio_vocabularies/config.py:101
+msgid "GND"
+msgstr "GND"
+
+#: invenio_vocabularies/config.py:39 invenio_vocabularies/config.py:100
+msgid "ISNI"
+msgstr "国际标准名称识别码"
+
+#: invenio_vocabularies/config.py:40
+msgid "ROR"
+msgstr "Ruby语言和Rails框架"
+
+#: invenio_vocabularies/config.py:51 invenio_vocabularies/config.py:60
+msgid "DOI"
+msgstr "数字对象唯一标识符"
+
+#: invenio_vocabularies/config.py:59
+msgid "URL"
+msgstr "统一资源定位系统"
+
+#: invenio_vocabularies/config.py:99
+msgid "ORCID"
+msgstr "开放研究者与贡献者身份识别码"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:38
+#: invenio_vocabularies/contrib/funders/config.py:43
+#: invenio_vocabularies/contrib/names/config.py:45
+#: invenio_vocabularies/contrib/subjects/config.py:38
+#: invenio_vocabularies/services/service.py:64
+msgid "Best match"
+msgstr "最佳匹配"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:42
+#: invenio_vocabularies/contrib/funders/config.py:47
+#: invenio_vocabularies/contrib/names/config.py:49
+#: invenio_vocabularies/contrib/subjects/config.py:42
+msgid "Name"
+msgstr "名称"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:46
+#: invenio_vocabularies/contrib/funders/config.py:51
+#: invenio_vocabularies/contrib/names/config.py:53
+#: invenio_vocabularies/contrib/subjects/config.py:46
+#: invenio_vocabularies/services/service.py:72
+msgid "Newest"
+msgstr "最新"
+
+#: invenio_vocabularies/contrib/affiliations/config.py:50
+#: invenio_vocabularies/contrib/funders/config.py:55
+#: invenio_vocabularies/contrib/names/config.py:57
+#: invenio_vocabularies/contrib/subjects/config.py:50
+#: invenio_vocabularies/services/service.py:76
+msgid "Oldest"
+msgstr "最老的"
+
+#: invenio_vocabularies/contrib/awards/config.py:49
+msgid "Funders"
+msgstr "资助者"
+
+#: invenio_vocabularies/contrib/awards/datastreams.py:47
+#, python-brace-format
+msgid "Unknown OpenAIRE funder prefix {openaire_funder_prefix}"
+msgstr "未知的OpenAIRE funder前缀 {openaire_funder_prefix}"
+
+#: invenio_vocabularies/contrib/awards/schema.py:41
+msgid "Number cannot be blank."
+msgstr "编号不能为空。"
+
+#: invenio_vocabularies/contrib/awards/schema.py:50
+#: invenio_vocabularies/contrib/funders/schema.py:57
+msgid "PID cannot be blank."
+msgstr ""
+
+#: invenio_vocabularies/contrib/awards/schema.py:80
+msgid "An existing id or number/title must be present."
+msgstr "必须存在现有的id或编号/标题。"
+
+#: invenio_vocabularies/contrib/awards/schema.py:97
+msgid "At least award or funder should be present."
+msgstr "至少要有获奖者或资助者在场。"
+
+#: invenio_vocabularies/contrib/funders/datastreams.py:44
+msgid "Id not found in ROR entry."
+msgstr "在ROR条目中找不到Id。"
+
+#: invenio_vocabularies/contrib/funders/datastreams.py:48
+msgid "Name not found in ROR entry."
+msgstr "在ROR条目中找不到名称。"
+
+#: invenio_vocabularies/contrib/funders/schema.py:35
+#: invenio_vocabularies/contrib/funders/schema.py:43
+msgid "Name cannot be blank."
+msgstr "名称不能为空。"
+
+#: invenio_vocabularies/contrib/funders/schema.py:65
+#: invenio_vocabularies/services/schema.py:120
+msgid "Missing PID."
+msgstr "缺少操作系统进程标识符。"
+
+#: invenio_vocabularies/contrib/names/schema.py:54
+msgid ""
+"A name or the family name together with the given name must be present."
+msgstr ""
+
+#: invenio_vocabularies/contrib/names/schema.py:68
+msgid "Duplicated affiliations."
+msgstr ""
+
+#: invenio_vocabularies/records/models.py:84
+#, python-format
+msgid "No '%(banned_char)s' allowed in VocabularyScheme.id"
+msgstr ""
+
+#: invenio_vocabularies/services/components.py:29
+msgid "The vocabulary type does not exists."
+msgstr "词汇类型不存在。"
+
+#: invenio_vocabularies/services/schema.py:85
+#, python-brace-format
+msgid "An existing id or a free text {ftf_name} must be present."
+msgstr ""
+
+#: invenio_vocabularies/services/service.py:68
+msgid "Title"
+msgstr "标题"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:49
+msgid "Subjects"
+msgstr "主题"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:56
+msgid "Keywords and subjects"
+msgstr "关键字和主题"
+
+#: invenio_vocabularies/services/custom_fields/subject.py:58
+msgid "The subjects related to the community"
+msgstr ""
+
+#: invenio_vocabularies/services/custom_fields/subject.py:59
+msgid "Search for a subject by name e.g. Psychology ..."
+msgstr ""
+
+#: invenio_vocabularies/services/custom_fields/subject.py:61
+msgid "Search for subjects..."
+msgstr ""
+
+#: invenio_vocabularies/templates/semantic-ui/invenio_vocabularies/subjects.html:16
+msgid "Search results for "
+msgstr "搜索结果"

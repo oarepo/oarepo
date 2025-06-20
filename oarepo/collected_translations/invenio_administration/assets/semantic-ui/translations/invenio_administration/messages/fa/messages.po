@@ -1,0 +1,107 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2022\n"
+"Language-Team: Persian (https://app.transifex.com/inveniosoftware/teams/23537/fa/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr ""
+
+msgid "Resource is not deletable."
+msgstr ""
+
+msgid "Cancel"
+msgstr "لغو"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete {{title}}"
+msgstr ""
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr ""
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Resource is not editable."
+msgstr ""
+
+msgid "Error"
+msgstr "خطا"
+
+msgid "Server was not able to process your request."
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Add"
+msgstr "افزودن"
+
+msgid "Remove field"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search ..."
+msgstr ""
+
+msgid "There is no resources in this category."
+msgstr ""
+
+msgid "No matching resources found."
+msgstr ""
+
+msgid "Clear query"
+msgstr ""
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Success"
+msgstr ""
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr ""

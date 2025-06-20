@@ -1,0 +1,208 @@
+# Translations template for invenio-requests.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-requests
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Alizee Pace <alizee.pace@gmail.com>, 2024
+# Keziah Okyere, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-requests 5.5.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 14:12+0000\n"
+"PO-Revision-Date: 2022-02-15 12:46+0000\n"
+"Last-Translator: Keziah Okyere, 2025\n"
+"Language-Team: French (https://app.transifex.com/inveniosoftware/teams/23537/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: invenio_requests/config.py:47 invenio_requests/config.py:96
+msgid "Best match"
+msgstr "Meilleur match"
+
+#: invenio_requests/config.py:51 invenio_requests/config.py:100
+msgid "Newest"
+msgstr "Plus récent"
+
+#: invenio_requests/config.py:55 invenio_requests/config.py:104
+msgid "Oldest"
+msgstr "Plus vieux"
+
+#: invenio_requests/customizations/user_moderation/user_moderation.py:48
+#: invenio_requests/services/requests/facets.py:31
+msgid "User moderation"
+msgstr "Modération des utilisateurs"
+
+#: invenio_requests/resources/requests/fields.py:24
+msgid "Not a valid reference."
+msgstr ""
+
+#: invenio_requests/services/events/service.py:167
+msgid "deleted a comment"
+msgstr "supprimer un commentaire"
+
+#: invenio_requests/services/requests/facets.py:16
+msgid "Type"
+msgstr "Type"
+
+#: invenio_requests/services/requests/facets.py:19
+msgid "Guest access"
+msgstr "Accès invité"
+
+#: invenio_requests/services/requests/facets.py:20
+msgid "User access"
+msgstr "Accès utilisateur"
+
+#: invenio_requests/services/requests/facets.py:22
+msgid "Community inclusion"
+msgstr "L'inclusion communautaire"
+
+#: invenio_requests/services/requests/facets.py:23
+msgid "Draft review"
+msgstr "Projet d'examen"
+
+#: invenio_requests/services/requests/facets.py:25
+msgid "Membership request"
+msgstr "Demande d'adhésion"
+
+#: invenio_requests/services/requests/facets.py:26
+msgid "Member invitation"
+msgstr "Invitation du membre"
+
+#: invenio_requests/services/requests/facets.py:28
+msgid "Subcommunity"
+msgstr "Sous-communauté"
+
+#: invenio_requests/services/requests/facets.py:29
+msgid "Subcommunity invitation"
+msgstr ""
+
+#: invenio_requests/services/requests/facets.py:33
+msgid "Community manage record"
+msgstr "Dossier gestion communautaire"
+
+#: invenio_requests/services/requests/facets.py:34
+msgid "Upgrade legacy record"
+msgstr ""
+
+#: invenio_requests/services/requests/facets.py:40
+msgid "Status"
+msgstr "Statut"
+
+#: invenio_requests/services/requests/facets.py:42
+msgid "Submitted"
+msgstr "Soumis"
+
+#: invenio_requests/services/requests/facets.py:43
+msgid "Expired"
+msgstr "Expiré"
+
+#: invenio_requests/services/requests/facets.py:44
+msgid "Accepted"
+msgstr "Accepté"
+
+#: invenio_requests/services/requests/facets.py:45
+msgid "Declined"
+msgstr "Décliné"
+
+#: invenio_requests/services/requests/facets.py:46
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: invenio_requests/services/requests/facets.py:53
+#: invenio_requests/services/requests/facets.py:55
+msgid "Open"
+msgstr "Ouvrir"
+
+#: invenio_requests/services/requests/facets.py:56
+msgid "Closed"
+msgstr "Fermé"
+
+#: invenio_requests/services/user_moderation/errors.py:14
+msgid "Invalid creator for user moderation request."
+msgstr "Créateur invalide pour la demande de modération de l'utilisateur."
+
+#: invenio_requests/services/user_moderation/errors.py:20
+msgid "There is already an open moderation request for this user."
+msgstr "Il y a déjà une demande de modération ouverte pour cet utilisateur."
+
+#: invenio_requests/services/user_moderation/service.py:82
+msgid "Moderation role must exist to enable user moderation requests."
+msgstr ""
+"Le rôle de modération doit exister pour activer les demandes de modération "
+"utilisateur."
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:21
+#, python-brace-format
+msgid "💬 New comment on '{request_title}'"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:27
+#, python-brace-format
+msgid "'@{user_name}' commented on '{request_title}':"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:33
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:59
+msgid "Check out the request"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "This is an auto-generated message. To manage notifications, visit your"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:39
+msgid "account settings"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:45
+#, python-brace-format
+msgid "@{user_name} commented on '{request_title}'"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:49
+#, python-brace-format
+msgid "Check out the request: {request_link}"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_notifications/comment-request-event.create.jinja:55
+#, python-brace-format
+msgid "*@{user_name}* commented on *{request_title}*"
+msgstr ""
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:9
+msgid "Tombstone"
+msgstr "Tombeau"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:12
+msgid "Gone"
+msgstr "Parti"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:14
+#, python-format
+msgid ""
+"\n"
+"    The record  you are trying to access was removed from %(sitename)s. The\n"
+"    metadata of the record is kept for archival purposes.\n"
+"  "
+msgstr ""
+"\n"
+"L'enregistrement auquel vous essayez d'accéder a été supprimé %(sitename)s. Le\n"
+"les métadonnées du dossier sont conservées à des fins d'archivage."
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/tombstone.html:21
+msgid "Reason for removal:"
+msgstr "Motif du retrait:"
+
+#: invenio_requests/templates/semantic-ui/invenio_requests/details/index.html:19
+msgid "Request "
+msgstr "Demande"

@@ -1,0 +1,74 @@
+# 
+# Translators:
+# Mattias Vesterlund, 2024-2025
+# Sam Arbid, 2022,2025
+# yyones, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Sam Arbid, 2022,2025\n"
+"Language-Team: Swedish (http://app.transifex.com/inveniosoftware/invenio/language/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Versioner"
+
+msgid "View all versions"
+msgstr "Visa alla versioner"
+
+msgid "Help"
+msgstr "Hjälp"
+
+msgid "Search guide"
+msgstr "Sökguide"
+
+msgid "Show all sub facets of "
+msgstr "Visa alla underfasetter av "
+
+msgid "Clear selection"
+msgstr "Rensa markering"
+
+msgid "Clear"
+msgstr "Rensa"
+
+msgid "results per page"
+msgstr "resultat per sida"
+
+msgid "<0></0> results found"
+msgstr "<0></0> resultat hittades"
+
+msgid " "
+msgstr "UNTRANSLATED STRING"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search records..."
+msgstr "Sök poster..."
+
+msgid "All records"
+msgstr "Alla poster"
+
+msgid "result(s) found"
+msgstr "resultat hittades"
+
+msgid "Sort"
+msgstr "Sortera"
+
+msgid "Sort by"
+msgstr "Sortera efter"
+
+msgid "Filter results"
+msgstr "Filtrera resultat"
+
+msgid "Search filters"
+msgstr "Sökfilter"
+
+msgid "Search results"
+msgstr "Sökresultat"

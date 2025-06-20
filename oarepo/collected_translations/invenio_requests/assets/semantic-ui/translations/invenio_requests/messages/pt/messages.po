@@ -1,0 +1,202 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2024\n"
+"Language-Team: Portuguese (https://app.transifex.com/inveniosoftware/teams/23537/pt/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr ""
+
+msgid "Decline"
+msgstr ""
+
+msgid "Accept and publish"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Cancel request"
+msgstr ""
+
+msgid "Something went wrong."
+msgstr ""
+
+msgid "Are you sure you want to delete this comment?"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Submitted"
+msgstr ""
+
+msgid "Deleted"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Declined"
+msgstr ""
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "Expired"
+msgstr ""
+
+msgid "Draft review"
+msgstr ""
+
+msgid "Community inclusion"
+msgstr ""
+
+msgid "Member invitation"
+msgstr ""
+
+msgid "Add comment (optional)"
+msgstr ""
+
+msgid "{{action}} request"
+msgstr ""
+
+msgid "Creator"
+msgstr ""
+
+msgid "Receiver"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Created"
+msgstr ""
+
+msgid "Expires"
+msgstr ""
+
+msgid "Accept request"
+msgstr ""
+
+msgid "Decline request"
+msgstr ""
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr ""
+
+msgid "Opened {{relativeTime}} by"
+msgstr ""
+
+msgid "All done!"
+msgstr ""
+
+msgid "You've caught up with all open requests."
+msgstr ""
+
+msgid "No requests found!"
+msgstr ""
+
+msgid "Reset search"
+msgstr ""
+
+msgid "Sort by"
+msgstr ""
+
+msgid "Filter results"
+msgstr ""
+
+msgid "Search in my requests..."
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Comment"
+msgstr "Comentário"
+
+msgid "deleted a comment"
+msgstr ""
+
+msgid "accepted this request"
+msgstr ""
+
+msgid "declined this request"
+msgstr ""
+
+msgid "this request expired"
+msgstr ""
+
+msgid "cancelled this request"
+msgstr ""
+
+msgid "unknown event"
+msgstr ""
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "commented {{commentTime}}"
+msgstr ""
+
+msgid "Edited"
+msgstr ""
+
+msgid "Request access"
+msgstr ""
+
+msgid "Guest access"
+msgstr ""
+
+msgid "User access"
+msgstr ""
+
+msgid "Community manage record"
+msgstr ""
+
+msgid "Subcommunity"
+msgstr ""
+
+msgid "Membership request"
+msgstr ""
+
+msgid "Anonymous user"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Group"
+msgstr "Grupos"
+
+msgid "Record"
+msgstr "Registo"
+
+msgid "Actions"
+msgstr ""
+
+msgid "Subcommunity invitation"
+msgstr ""

@@ -1,0 +1,221 @@
+# Translations template for invenio-users-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-users-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-users-resources 6.1.4\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-26 17:19+0000\n"
+"PO-Revision-Date: 2022-02-16 11:58+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2024\n"
+"Language-Team: Croatian (https://app.transifex.com/inveniosoftware/teams/23537/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: invenio_users_resources/config.py:60 invenio_users_resources/config.py:154
+#: invenio_users_resources/services/groups/config.py:44
+msgid "Best match"
+msgstr ""
+
+#: invenio_users_resources/config.py:64
+msgid "Username"
+msgstr "Korisničko ime"
+
+#: invenio_users_resources/config.py:68
+msgid "Email"
+msgstr "Email"
+
+#: invenio_users_resources/config.py:72 invenio_users_resources/config.py:158
+#: invenio_users_resources/services/users/facets.py:16
+msgid "Domain"
+msgstr ""
+
+#: invenio_users_resources/config.py:76 invenio_users_resources/config.py:162
+msgid "Newest"
+msgstr ""
+
+#: invenio_users_resources/config.py:80 invenio_users_resources/config.py:166
+msgid "Oldest"
+msgstr ""
+
+#: invenio_users_resources/config.py:84 invenio_users_resources/config.py:170
+msgid "Recently updated"
+msgstr ""
+
+#: invenio_users_resources/config.py:174
+msgid "# Users"
+msgstr ""
+
+#: invenio_users_resources/config.py:178
+msgid "# Active"
+msgstr ""
+
+#: invenio_users_resources/config.py:182
+msgid "# Inactive"
+msgstr ""
+
+#: invenio_users_resources/config.py:186
+msgid "# Confirmed"
+msgstr ""
+
+#: invenio_users_resources/config.py:190
+msgid "# Verified"
+msgstr ""
+
+#: invenio_users_resources/config.py:194
+msgid "# Blocked"
+msgstr ""
+
+#: invenio_users_resources/forms.py:24
+msgid "Notify me"
+msgstr ""
+
+#: invenio_users_resources/forms.py:25
+msgid "Turn on to enable notifications for relevant events."
+msgstr ""
+
+#: invenio_users_resources/resources/domains/resource.py:29
+msgid "Domain already exists."
+msgstr ""
+
+#: invenio_users_resources/resources/users/config.py:66
+msgid "User is locked due to concurrent running operation."
+msgstr ""
+
+#: invenio_users_resources/services/schemas.py:147
+#: invenio_users_resources/services/schemas.py:151
+msgid "Deleted user"
+msgstr ""
+
+#: invenio_users_resources/services/schemas.py:160
+#: invenio_users_resources/services/schemas.py:164
+msgid "System"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:16
+msgid "Status"
+msgstr "Status"
+
+#: invenio_users_resources/services/domains/facets.py:18
+#: invenio_users_resources/services/users/facets.py:23
+#: invenio_users_resources/services/users/facets.py:39
+msgid "New"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:19
+#: invenio_users_resources/services/users/facets.py:24
+msgid "Moderated"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:20
+#: invenio_users_resources/services/users/facets.py:25
+#: invenio_users_resources/services/users/facets.py:40
+msgid "Verified"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:21
+#: invenio_users_resources/services/users/facets.py:26
+#: invenio_users_resources/services/users/facets.py:42
+msgid "Blocked"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:28
+msgid "Flagged"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:30
+msgid "Yes"
+msgstr "Da"
+
+#: invenio_users_resources/services/domains/facets.py:31
+msgid "No"
+msgstr "Ne"
+
+#: invenio_users_resources/services/domains/facets.py:38
+msgid "Category"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:44
+msgid "Organisation"
+msgstr ""
+
+#: invenio_users_resources/services/domains/facets.py:50
+msgid "Top-level domain"
+msgstr ""
+
+#: invenio_users_resources/services/groups/config.py:48
+msgid "Name"
+msgstr "Ime"
+
+#: invenio_users_resources/services/users/facets.py:21
+msgid "Domain status"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:32
+msgid "Affiliations"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:37
+msgid "Account status"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:41
+msgid "Confirmed"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:43
+msgid "Inactive"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:49
+msgid "Profile visibility"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:51
+msgid "Hidden"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:52
+msgid "Profile"
+msgstr ""
+
+#: invenio_users_resources/services/users/facets.py:53
+msgid "Full"
+msgstr ""
+
+#: invenio_users_resources/templates/semantic-ui/invenio_users_resources/settings/notifications.html:14
+#: invenio_users_resources/templates/semantic-ui/invenio_users_resources/settings/notifications.html:17
+msgid "Notifications"
+msgstr ""
+
+#: invenio_users_resources/templates/semantic-ui/invenio_users_resources/settings/notifications.html:50
+msgid "Notifications email"
+msgstr ""
+
+#: invenio_users_resources/templates/semantic-ui/invenio_users_resources/settings/notifications.html:53
+#, python-format
+msgid ""
+"\n"
+"                    We use your primary email address to notify you on. You can change your email on\n"
+"                    your <a href=\"%(profile_url)s\">profile settings</a>\n"
+"                    "
+msgstr ""
+
+#: invenio_users_resources/templates/semantic-ui/invenio_users_resources/settings/notifications.html:67
+msgid "Cancel"
+msgstr "Odustani"
+
+#: invenio_users_resources/templates/semantic-ui/invenio_users_resources/settings/notifications.html:71
+msgid "Update notification preferences"
+msgstr ""

@@ -1,0 +1,130 @@
+# Translations template for invenio-pages.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-pages
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+# Translators:
+# Mojib Wali <mojib.wali@tugraz.at>, 2024
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2024
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Sarah Wiechers, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-pages 4.0.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:55+0000\n"
+"PO-Revision-Date: 2016-08-19 12:00+0000\n"
+"Last-Translator: Sarah Wiechers, 2024\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_pages/administration/views/pages.py:66 invenio_pages/config.py:36
+msgid "URL"
+msgstr "URL"
+
+#: invenio_pages/administration/views/pages.py:38
+#: invenio_pages/administration/views/pages.py:71
+#: invenio_pages/administration/views/pages.py:107 invenio_pages/config.py:40
+#: invenio_pages/services/config.py:57
+msgid "Title"
+msgstr "Titel"
+
+#: invenio_pages/administration/views/pages.py:40
+#: invenio_pages/administration/views/pages.py:104 invenio_pages/config.py:44
+#: invenio_pages/services/config.py:73
+msgid "Created"
+msgstr "Erstellt"
+
+#: invenio_pages/administration/views/pages.py:41
+#: invenio_pages/administration/views/pages.py:105 invenio_pages/config.py:48
+#: invenio_pages/services/config.py:77
+msgid "Updated"
+msgstr "Aktualisiert"
+
+#: invenio_pages/administration/views/pages.py:25
+#: invenio_pages/administration/views/pages.py:26
+msgid "Pages"
+msgstr "Seiten"
+
+#: invenio_pages/administration/views/pages.py:27
+msgid "Site management"
+msgstr "Seitenverwaltung"
+
+#: invenio_pages/administration/views/pages.py:37
+#: invenio_pages/administration/views/pages.py:106
+#: invenio_pages/services/config.py:53
+msgid "Url"
+msgstr "URL"
+
+#: invenio_pages/administration/views/pages.py:39
+#: invenio_pages/administration/views/pages.py:76
+#: invenio_pages/administration/views/pages.py:108
+#: invenio_pages/services/config.py:69
+msgid "Description"
+msgstr "Beschreibung"
+
+#: invenio_pages/administration/views/pages.py:57
+msgid "Edit page"
+msgstr "Seite bearbeiten"
+
+#: invenio_pages/administration/views/pages.py:67
+msgid "Relative path to the page."
+msgstr "Relativer Pfad zur Seite."
+
+#: invenio_pages/administration/views/pages.py:72
+msgid "Title of the page."
+msgstr "Titel der Seite."
+
+#: invenio_pages/administration/views/pages.py:77
+msgid "Description of the page"
+msgstr "Beschreibung der Seite"
+
+#: invenio_pages/administration/views/pages.py:81
+#: invenio_pages/administration/views/pages.py:109
+#: invenio_pages/services/config.py:61
+msgid "Content"
+msgstr "Inhalt"
+
+#: invenio_pages/administration/views/pages.py:82
+msgid "Content displayed by the page."
+msgstr "Inhalt, der auf der Seite angezeigt wird."
+
+#: invenio_pages/administration/views/pages.py:95
+msgid "Page"
+msgstr "Seite"
+
+#: invenio_pages/records/errors.py:20
+msgid "The page identified by {identifier} cannot be found."
+msgstr "Die Seite mit der Kennung {identifier} konnte nicht gefunden werden."
+
+#: invenio_pages/records/errors.py:34
+msgid ""
+"The page with url {url} couldn't be created, likely due to a page with the "
+"same URL already existing."
+msgstr ""
+"Die Seite mit der URL {url} konnte nicht erstellt werden, da eine Seite mit "
+"dieser URL bereits existiert."
+
+#: invenio_pages/services/config.py:37
+msgid "Ascending"
+msgstr "Aufsteigend"
+
+#: invenio_pages/services/config.py:41
+msgid "Descending"
+msgstr "Absteigend"
+
+#: invenio_pages/services/config.py:49
+msgid "Id"
+msgstr "ID"
+
+#: invenio_pages/services/config.py:65
+msgid "Template Name"
+msgstr "Vorlagenname"

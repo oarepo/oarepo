@@ -1,0 +1,101 @@
+# 
+# Translators:
+# Mart Jantson, 2025
+# Martin Jantson <martinjantson97@gmail.com>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Martin Jantson <martinjantson97@gmail.com>, 2025\n"
+"Language-Team: Estonian (https://app.transifex.com/inveniosoftware/teams/23537/et/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "Otsi rahastajat nime järgi"
+
+msgid "Funder"
+msgstr "Rahastaja"
+
+msgid "Search for funder..."
+msgstr "Otsi rahastajat..."
+
+msgid "Additional information"
+msgstr ""
+
+msgid "optional"
+msgstr "valikuline"
+
+msgid "Number"
+msgstr "Number"
+
+msgid "Award/Grant number"
+msgstr ""
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Award/Grant Title"
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr ""
+
+msgid "Add"
+msgstr "Lisa"
+
+msgid "Add custom"
+msgstr "Lisa kohandus"
+
+msgid "Edit"
+msgstr "Redigeeri"
+
+msgid "Remove"
+msgstr "Eemalda"
+
+msgid "Open external link"
+msgstr "Ava väline link"
+
+msgid "Funder is required."
+msgstr "Rahastaja on vajalik."
+
+msgid "Title must be set alongside number."
+msgstr "Pealkiri tuleb määrata numbri kõrvale."
+
+msgid "Number must be set alongside title."
+msgstr "Pealkirja kõrvale tuleb määrata number."
+
+msgid "URL must be valid."
+msgstr "URL peab olema kehtiv."
+
+msgid "URL must be set alongside title and number."
+msgstr "URL tuleb määrata pealkirja ja numbri kõrvale."
+
+msgid "Add standard award/grant"
+msgstr ""
+
+msgid "Add custom funding"
+msgstr ""
+
+msgid "Search for awards/grants"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Change"
+msgstr "Muuda"
+
+msgid "Did not find your award/grant? "
+msgstr ""
+
+msgid "Add a custom award/grant."
+msgstr ""

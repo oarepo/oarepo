@@ -1,0 +1,65 @@
+# Translations template for invenio-access.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-access
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+# Translators:
+# Alizee Pace <alizee.pace@gmail.com>, 2016
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2022
+# c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2022
+# Sarah Wiechers, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-access 2.0.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:44+0000\n"
+"PO-Revision-Date: 2016-08-18 12:08+0000\n"
+"Last-Translator: Sarah Wiechers, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_access/admin.py:39
+msgid "Email"
+msgstr "E-Mail"
+
+#: invenio_access/admin.py:40
+msgid "User ID"
+msgstr "Benutzer*innen-ID"
+
+#: invenio_access/admin.py:41 invenio_access/admin.py:75
+#: invenio_access/admin.py:108
+msgid "Deny"
+msgstr "Ablehnen"
+
+#: invenio_access/admin.py:74
+msgid "Role Name"
+msgstr "Rollenbezeichnung"
+
+#: invenio_access/admin.py:107
+msgid "System Role"
+msgstr "Systemrolle"
+
+#: invenio_access/admin.py:136 invenio_access/admin.py:143
+#: invenio_access/admin.py:150
+msgid "User Management"
+msgstr "Benutzer*innen-Verwaltung"
+
+#: invenio_access/admin.py:137
+msgid "Access: Roles"
+msgstr "Zugang: Rollen"
+
+#: invenio_access/admin.py:144
+msgid "Access: Users"
+msgstr "Zugang: Benutzer*innen"
+
+#: invenio_access/admin.py:151
+msgid "Access: System Roles"
+msgstr "Zugang: Systemrollen"

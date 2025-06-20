@@ -1,0 +1,184 @@
+# Translations template for invenio-userprofiles.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-userprofiles project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Martin Jantson <martinjantson97@gmail.com>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-userprofiles 3.0.3\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-26 17:21+0000\n"
+"PO-Revision-Date: 2016-08-18 14:14+0000\n"
+"Last-Translator: Martin Jantson <martinjantson97@gmail.com>, 2025\n"
+"Language-Team: Estonian (https://app.transifex.com/inveniosoftware/teams/23537/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_userprofiles/ext.py:109
+#, python-format
+msgid "%(icon)s Profile"
+msgstr "%(icon)s Profiil"
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:61
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#. NOTE: Form field help text
+#: invenio_userprofiles/forms.py:63
+#, python-format
+msgid "Required. %(username_rules)s"
+msgstr "Nõutud. %(username_rules)s"
+
+#: invenio_userprofiles/forms.py:64
+msgid "Username not provided."
+msgstr "Puudub kasutajanimi."
+
+#. NOTE: Form label
+#: invenio_userprofiles/forms.py:70
+msgid "Full name"
+msgstr "Ees- ja perekonnanimi"
+
+#. NOTE: Form label
+#: invenio_userprofiles/forms.py:77
+msgid "Affiliations"
+msgstr "Seosed"
+
+#. NOTE: Form validation error.
+#: invenio_userprofiles/forms.py:96
+msgid "Username is not available."
+msgstr "Kasutajanimi pole saadaval."
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:129
+msgid "Email address"
+msgstr "E-posti aadress"
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:143
+msgid "Re-enter email address"
+msgstr "Sisestage e-posti aadress uuesti"
+
+#. NOTE: Form field help text
+#: invenio_userprofiles/forms.py:145
+msgid "Please re-enter your email address."
+msgstr "Palun sisestade oma e-posti aadress uuesti"
+
+#. NOTE: Form validation error.
+#: invenio_userprofiles/forms.py:152
+msgid "Email addresses do not match."
+msgstr "Sisestatud e-posti aadressid on erinevad."
+
+#. NOTE: Form button label
+#: invenio_userprofiles/forms.py:161
+msgid "Resend verification email"
+msgstr "Saada kinnitusmeil uuesti"
+
+#: invenio_userprofiles/forms.py:202
+msgid "Profile visibility"
+msgstr "Profiili nähtavus"
+
+#: invenio_userprofiles/forms.py:204 invenio_userprofiles/forms.py:217
+msgid "Public"
+msgstr "Avalik"
+
+#: invenio_userprofiles/forms.py:205 invenio_userprofiles/forms.py:218
+msgid "Hidden"
+msgstr "Varjatud"
+
+#: invenio_userprofiles/forms.py:208
+msgid ""
+"Public profiles can be found by other users via searches on username, full "
+"name and affiliation. Hidden profiles cannot be found by other users."
+msgstr ""
+"Avalikke profiile saavad teised kasutajad otsida kasutajanime, kasutaja "
+"täisnime ja seoste järgi. Varjatud profiilid ei ole teistele kasutajatele "
+"leitavad."
+
+#: invenio_userprofiles/forms.py:215
+msgid "Email visibility"
+msgstr "E-posti aadressi nähtavus"
+
+#: invenio_userprofiles/forms.py:221
+msgid ""
+"Public email visibility enables your profile to be found by your email "
+"address."
+msgstr ""
+"Avalik e-post võimaldab teistel otsida ja leida sinu profiili sinu e-posti "
+"aadressi järgi."
+
+#: invenio_userprofiles/forms.py:228
+msgid "Preferences locale"
+msgstr ""
+
+#: invenio_userprofiles/validators.py:19
+msgid ""
+"Username must start with a letter, be at least three characters long and "
+"only contain alphanumeric characters, dashes and underscores."
+msgstr ""
+"Kasutajanimi peab algama tähega, olema vähemalt kolm tähemärki pikk ning "
+"võib sisaldada ainult tähti, numbreid, mõttekriipse ja allkriipse."
+
+#. NOTE: Flash message.
+#: invenio_userprofiles/views.py:113
+msgid "Verification email sent."
+msgstr "Kinnitusmeil on saadetud."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:136
+#, python-format
+msgid ""
+"Profile was updated. We have sent a verification email to %(email)s. Please "
+"check it."
+msgstr ""
+"Profiil on uuendatud. Kinnitusmeil on saadetud aadressile %(email)s, palun "
+"kontrolli seda."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:144
+msgid "Profile was updated."
+msgstr "Profiil on uuendatud."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:153
+msgid "Preferences were updated."
+msgstr "Sinu eelistused on uuendatud."
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:13
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:13
+msgid "Profile"
+msgstr "Profiil"
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:21
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:41
+msgid "You have not yet verified your email address."
+msgstr "Sa ei ole veel oma e-posti aadressi kinnitanud."
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:41
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:63
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:102
+msgid "Cancel"
+msgstr "Tühista"
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:42
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:67
+msgid "Update profile"
+msgstr "Uuenda profiili"
+
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:77
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:81
+msgid "Preferences"
+msgstr "Eelistused"
+
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:106
+msgid "Update preferences"
+msgstr "Uuenda eelistusi"

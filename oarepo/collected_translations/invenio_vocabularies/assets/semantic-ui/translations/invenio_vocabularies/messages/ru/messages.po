@@ -1,0 +1,101 @@
+# 
+# Translators:
+# Anna Sakoyan, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2025\n"
+"Language-Team: Russian (https://app.transifex.com/inveniosoftware/teams/23537/ru/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr ""
+
+msgid "Funder"
+msgstr ""
+
+msgid "Search for funder..."
+msgstr ""
+
+msgid "Additional information"
+msgstr ""
+
+msgid "optional"
+msgstr "необязательный"
+
+msgid "Number"
+msgstr ""
+
+msgid "Award/Grant number"
+msgstr ""
+
+msgid "Title"
+msgstr "Название"
+
+msgid "Award/Grant Title"
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr ""
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add custom"
+msgstr "Добавить свою"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Remove"
+msgstr "Убрать"
+
+msgid "Open external link"
+msgstr "Открыть внешнюю ссылку"
+
+msgid "Funder is required."
+msgstr ""
+
+msgid "Title must be set alongside number."
+msgstr ""
+
+msgid "Number must be set alongside title."
+msgstr ""
+
+msgid "URL must be valid."
+msgstr ""
+
+msgid "URL must be set alongside title and number."
+msgstr ""
+
+msgid "Add standard award/grant"
+msgstr ""
+
+msgid "Add custom funding"
+msgstr ""
+
+msgid "Search for awards/grants"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Change"
+msgstr "Изменить"
+
+msgid "Did not find your award/grant? "
+msgstr ""
+
+msgid "Add a custom award/grant."
+msgstr ""

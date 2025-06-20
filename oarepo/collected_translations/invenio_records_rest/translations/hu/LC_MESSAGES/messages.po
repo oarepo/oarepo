@@ -1,0 +1,121 @@
+# Translations template for invenio-records-rest.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-rest project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Dora Szauter, 2025
+# Andrea Dömötör, 2025
+# Zoltán Kanász-Nagy, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-rest 2.4.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-03 12:52+0000\n"
+"PO-Revision-Date: 2025-04-03 11:38+0000\n"
+"Last-Translator: Zoltán Kanász-Nagy, 2025\n"
+"Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_records_rest/config.py:262
+msgid "Best match"
+msgstr "Legjobb találat"
+
+#: invenio_records_rest/config.py:268
+msgid "Most recent"
+msgstr "Legutóbbi"
+
+#: invenio_records_rest/errors.py:51
+msgid "Invalid query syntax."
+msgstr "Érvénytelen lekérdezési szintaxis."
+
+#: invenio_records_rest/errors.py:67
+#, python-format
+msgid "Style %(style)s could not be found."
+msgstr "A stílus %(style)s nem található."
+
+#: invenio_records_rest/errors.py:93
+msgid "PID does not exist."
+msgstr "A PID nem létezik."
+
+#: invenio_records_rest/errors.py:105
+msgid "PID is not registered."
+msgstr "A PID nincs regisztrálva."
+
+#: invenio_records_rest/errors.py:117
+msgid "PID has been deleted."
+msgstr "PID törölve."
+
+#: invenio_records_rest/errors.py:129
+#, python-format
+msgid "No object assigned to %(pid)s."
+msgstr "Nincs objektum hozzárendelve a közvetkezőhöz: %(pid)s"
+
+#: invenio_records_rest/errors.py:142
+#, python-format
+msgid "Invalid redirect - pid_type %(pid_type)s endpoint missing."
+msgstr "Érvénytelen átirányítás - pid_type: %(pid_type)s végpont hiányzik."
+
+#: invenio_records_rest/errors.py:160
+#, python-format
+msgid "PID %(pid)s could not be resolved."
+msgstr "PID feloldása sikertelen: %(pid)s."
+
+#: invenio_records_rest/errors.py:174
+#, python-format
+msgid "Unsupported media type \"%(content_type)s\"."
+msgstr "Nem támogatott médiatípus: \"%(content_type)s\""
+
+#: invenio_records_rest/errors.py:188
+msgid "Could not load data."
+msgstr "Adatok betöltése sikertelen."
+
+#: invenio_records_rest/errors.py:200
+msgid "Could not patch JSON."
+msgstr "JSON frissítése sikertelen."
+
+#: invenio_records_rest/errors.py:213
+#, python-format
+msgid "Missing %(ctx_field)s context."
+msgstr "%(ctx_field)s kontextus hiányzik."
+
+#: invenio_records_rest/errors.py:228
+#, python-format
+msgid "No completions requested.%(options)s"
+msgstr "Kiegészítés nem lett kérvényezve. %(options)s"
+
+#: invenio_records_rest/errors.py:243
+#, python-format
+msgid "Validation error: %(error)s."
+msgstr "Validációs hiba: %(error)s"
+
+#: invenio_records_rest/errors.py:257
+msgid "An internal server error occurred when handling the request."
+msgstr "Belső szerver hiba történt a kérés kiszolgálásakor."
+
+#: invenio_records_rest/views.py:66
+msgid "The syntax of the search query is invalid."
+msgstr "A keresési kifejezés formátuma nem megfelelő."
+
+#: invenio_records_rest/views.py:441
+msgid "The query parameters from and page must not be used at the same time."
+msgstr ""
+"A \"page\" és \"from\" query paraméterek egyszerre történő használata nem "
+"megengedett."
+
+#: invenio_records_rest/views.py:478
+msgid "Invalid pagination parameters."
+msgstr "Érvénytelen lapozási paraméterek."
+
+#: invenio_records_rest/views.py:515
+#, python-format
+msgid "Maximum number of %(count)s results have been reached."
+msgstr "Elértük a maximális %(count)s számú találatot."

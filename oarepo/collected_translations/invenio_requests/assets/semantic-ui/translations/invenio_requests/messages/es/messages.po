@@ -1,0 +1,206 @@
+# 
+# Translators:
+# Alizee Pace <alizee.pace@gmail.com>, 2023
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2024
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Ignacio Estevo, 2024
+# Jesús Martín <jesusmartin@sallep.net>, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2024\n"
+"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Decline"
+msgstr "Rechazar"
+
+msgid "Accept and publish"
+msgstr "Aceptar y publicar"
+
+msgid "Accept"
+msgstr "Aceptar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Cancel request"
+msgstr "Cancelar petición"
+
+msgid "Something went wrong."
+msgstr "Algo salió mal."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "¿Está seguro de querer borrar este comentario?"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Delete"
+msgstr "Suprimir"
+
+msgid "Submitted"
+msgstr "Enviado"
+
+msgid "Deleted"
+msgstr "Borrado"
+
+msgid "Accepted"
+msgstr "Aceptado"
+
+msgid "Declined"
+msgstr "Rechazado"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "Expired"
+msgstr "Caducado"
+
+msgid "Draft review"
+msgstr "Borrador de revisión"
+
+msgid "Community inclusion"
+msgstr "Inclusión comunitaria"
+
+msgid "Member invitation"
+msgstr "invitación de miembro"
+
+msgid "Add comment (optional)"
+msgstr "Añadir comentario (opcional)"
+
+msgid "{{action}} request"
+msgstr "{{action}} solicitud"
+
+msgid "Creator"
+msgstr "Creador"
+
+msgid "Receiver"
+msgstr "Receptor"
+
+msgid "Request type"
+msgstr "Tipo de solicitud"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Created"
+msgstr "Creado"
+
+msgid "Expires"
+msgstr "Expira"
+
+msgid "Accept request"
+msgstr "Aceptar petición"
+
+msgid "Decline request"
+msgstr "Declinar petición"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr "Caduca el: {{- expiringDate}}"
+
+msgid "Opened {{relativeTime}} by"
+msgstr "Abierto {{relativeTime}} por"
+
+msgid "All done!"
+msgstr "¡Todo listo!"
+
+msgid "You've caught up with all open requests."
+msgstr "Se ha puesto al día con todas las solicitudes abiertas."
+
+msgid "No requests found!"
+msgstr "¡No se encontraron solicitudes!"
+
+msgid "Reset search"
+msgstr "Restablecer búsqueda"
+
+msgid "Sort by"
+msgstr "Ordenado por"
+
+msgid "Filter results"
+msgstr "Filtrar Resultados"
+
+msgid "Search in my requests..."
+msgstr "Buscar en mis solicitudes..."
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Closed"
+msgstr "Cerrado"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "deleted a comment"
+msgstr "borrado un comentario"
+
+msgid "accepted this request"
+msgstr "aceptó esta petición"
+
+msgid "declined this request"
+msgstr "declinó esta petición"
+
+msgid "this request expired"
+msgstr "esta petición caducó"
+
+msgid "cancelled this request"
+msgstr "canceló esta petición"
+
+msgid "unknown event"
+msgstr "evento desconocido"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "commented {{commentTime}}"
+msgstr "comentado {{commentTime}}"
+
+msgid "Edited"
+msgstr "Editado"
+
+msgid "Request access"
+msgstr "Solicitar acceso"
+
+msgid "Guest access"
+msgstr "Acceso de invitado"
+
+msgid "User access"
+msgstr "Acceso de usuario"
+
+msgid "Community manage record"
+msgstr "Registro de gestión de la comunidad"
+
+msgid "Subcommunity"
+msgstr "Sub-comunidad"
+
+msgid "Membership request"
+msgstr "Solicitud de membresía"
+
+msgid "Anonymous user"
+msgstr "Usuario anonimo"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Record"
+msgstr "Registro"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Subcommunity invitation"
+msgstr ""

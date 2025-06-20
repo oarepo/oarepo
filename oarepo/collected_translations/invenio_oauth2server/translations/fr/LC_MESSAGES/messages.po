@@ -1,0 +1,490 @@
+# Translations template for invenio-oauth2server.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-oauth2server project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Keziah Okyere, 2024
+# Alizee Pace <alizee.pace@gmail.com>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-oauth2server 2.4.2\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 13:42+0000\n"
+"PO-Revision-Date: 2016-08-18 08:03+0000\n"
+"Last-Translator: Alizee Pace <alizee.pace@gmail.com>, 2025\n"
+"Language-Team: French (https://app.transifex.com/inveniosoftware/teams/23537/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: invenio_oauth2server/admin.py:69
+msgid "OAuth Applications"
+msgstr "OAuth Applications"
+
+#: invenio_oauth2server/admin.py:70 invenio_oauth2server/admin.py:79
+msgid "User Management"
+msgstr "Gestion des utilisateurs"
+
+#: invenio_oauth2server/admin.py:78
+msgid "OAuth Application Tokens"
+msgstr "OAuth Application Jetons"
+
+#: invenio_oauth2server/ext.py:299
+#, python-format
+msgid "%(icon)s Applications"
+msgstr "Applications %(icon)s"
+
+#: invenio_oauth2server/forms.py:104
+#, python-format
+msgid "Invalid redirect URIs: %(urls)s"
+msgstr "URIs de redirection invalides: %(urls)s"
+
+#: invenio_oauth2server/forms.py:136
+msgid "Redirect URIs (one per line)"
+msgstr "URIs de redirection (un par ligne)"
+
+#: invenio_oauth2server/forms.py:138
+msgid ""
+"One redirect URI per line. This is your application's authorization callback"
+" URLs. HTTPS must be used for all hosts except localhost (for testing "
+"purposes)."
+msgstr ""
+"Un URI de redirection par ligne. Il s'agit des callback URLS d'autorisation "
+"de votre application. Veuillez utiliser HTTPS pour tous les hôtes excepté "
+"localhost (afin de pouvoir effectuer des tests)."
+
+#: invenio_oauth2server/forms.py:156
+msgid "Client type"
+msgstr "Type de client"
+
+#: invenio_oauth2server/forms.py:158
+msgid ""
+"Select confidential if your application is capable of keeping the issued "
+"client secret confidential (e.g. a web application), select public if your "
+"application cannot (e.g. a browser-based JavaScript application). If you "
+"select public, your application MUST validate the redirect URI."
+msgstr ""
+"Sélectionnez confidentiel si votre application est capable de tenir "
+"confidentiel  le secret de client émis  (par exemple, une application web), "
+"sélectionnez public si votre application ne le peut pas (par exemple, une "
+"application JavaScript basée sur navigateur). Si vous sélectionnez public, "
+"votre application DOIT valider le URI faisant object d’une redirection."
+
+#: invenio_oauth2server/forms.py:165
+msgid "Confidential"
+msgstr "Confidentiel"
+
+#: invenio_oauth2server/forms.py:165
+msgid "Public"
+msgstr "Public"
+
+#: invenio_oauth2server/forms.py:175
+msgid "Name of personal access token."
+msgstr "Nom du jeton d'accès personnel."
+
+#: invenio_oauth2server/forms.py:179
+msgid "The name must be less than 40 characters long."
+msgstr "Le nom doit comporter moins de 40 caractères."
+
+#: invenio_oauth2server/forms.py:188
+msgid ""
+"Scopes assign permissions to your personal access token. A personal access "
+"token works just like a normal OAuth  access token for authentication "
+"against the API."
+msgstr ""
+"Les scopes donnent certaines permissions à votre jeton d'accès personnel. Un"
+" jeton d'accès personnel fonctionne comme un jeton d'accès OAuth pour "
+"l'authentification auprès de l'API."
+
+#: invenio_oauth2server/models.py:121
+msgid "Name"
+msgstr "Nom"
+
+#: invenio_oauth2server/models.py:122
+msgid "Name of application (displayed to users)."
+msgstr "Nom de l’application (visible aux utilisateurs)."
+
+#: invenio_oauth2server/models.py:132
+msgid "Description"
+msgstr "Description "
+
+#: invenio_oauth2server/models.py:134
+msgid "Optional. Description of the application (displayed to users)."
+msgstr "Facultatif. Description de l'application (visible aux utilisateurs)."
+
+#: invenio_oauth2server/models.py:143
+msgid "Website URL"
+msgstr "URL du site web"
+
+#: invenio_oauth2server/models.py:144
+msgid "URL of your application (displayed to users)."
+msgstr "URL de votre application (visible aux utilisateurs)."
+
+#: invenio_oauth2server/scopes.py:19
+msgid "Allow access to email address (read-only)."
+msgstr "Autoriser l'accès à l'adresse e-mail (en lecture seule)."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:19
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:20
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:59
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:18
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:21
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:66
+msgid "Authorize application"
+msgstr "Autoriser l’application"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:21
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:23
+#, python-format
+msgid ""
+"Application '%(client_name)s' by '%(client_user)s' wants permission to "
+"access your '%(current_user)s' account."
+msgstr ""
+"Application '%(client_name)s' par '%(client_user)s' veut la permission "
+"d'accéder à votre ' %(current_user)s' compte."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:28
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:30
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:34
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:26
+msgid "Review permissions"
+msgstr "Voir les droits d'accès"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:37
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:39
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:47
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:39
+msgid "No permissions granted."
+msgstr "Aucune autorisation accordée."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:44
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:44
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:53
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:44
+msgid "Application"
+msgstr "Application"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:47
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:47
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:56
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:47
+msgid "Visit application website"
+msgstr "Visiter le site web de l'application"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:60
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:67
+msgid "Reject"
+msgstr "Refuser"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:18
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:22
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:17
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:20
+msgid "Invalid authorization request"
+msgstr "Demande d'autorisation invalide"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:24
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:22
+#, python-format
+msgid ""
+"The service that redirected your here made an invalid authorization request "
+"(error code: %(x_error)s)."
+msgstr ""
+"Le service qui vous a redirigé ici a fait une demande d'autorisation "
+"invalide (code d'erreur: %(x_error)s)."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:31
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:28
+msgid "Get me out of here!"
+msgstr "Je veux sortir d'ici!"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_new.html:17
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:17
+msgid "New OAuth Application"
+msgstr "Nouvelle application OAuth"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_new.html:25
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_new.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:27
+msgid "Cancel"
+msgstr "Annuler"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_new.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:29
+msgid "Register"
+msgstr "Enregistrer"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:17
+#, python-format
+msgid "Application / %(client_name)s"
+msgstr "Application / %(client_name)s"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:22
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:28
+msgid "Client ID"
+msgstr "ID de Client"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:23
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:31
+msgid "Client Secret"
+msgstr "Client Secret"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:24
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:33
+msgid "Do not share the client secret with anyone!"
+msgstr "Ne communiquez le secret de client à personne!"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:30
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:40
+msgid "Reset client secret"
+msgstr "Réinitialiser le secret de client."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:47
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:48
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:62
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:55
+msgid "Delete"
+msgstr "Supprimer"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:48
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:49
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:65
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:58
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:55
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:74
+msgid "OAuth 2.0 Endpoints"
+msgstr "Endpoints OAuth 2.0"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:59
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:79
+msgid "Authorize URL (GET)"
+msgstr "Autoriser l'URL (GET)"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:62
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:86
+msgid "Query parameters"
+msgstr "paramètres Query"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:69
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:92
+msgid "example request"
+msgstr "exemple de demande"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:72
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:89
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:94
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:114
+msgid "required, use"
+msgstr "requis, utiliser"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:73
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:87
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:88
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:95
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:112
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:113
+msgid "required"
+msgstr "requis"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:74
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:96
+msgid "required, space separate list of scopes"
+msgstr "requis, espacez la liste séparée des portées"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:75
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:97
+msgid "required, URL encoded"
+msgstr "requis, URL encodée"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:76
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:98
+msgid "recommended, for CSRF protection"
+msgstr "recommandé, pour la protection CSRF"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:83
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:104
+msgid "Access token URL (POST)"
+msgstr "URL du jeton d'accès (POST)"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:85
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:110
+msgid "Request body parameters:"
+msgstr "Paramètres du corps de demande:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:90
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:91
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:92
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:93
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:115
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:116
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:117
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:118
+msgid "required for grant_type"
+msgstr "requis pour grant_type"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:17
+msgid "Developer Applications"
+msgstr "Applications de Développeurs"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:18
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:18
+msgid "New application"
+msgstr "Nouvelle application"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:25
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:24
+#, python-format
+msgid "You have registered these applications to use the %(site_name)s API:"
+msgstr ""
+"Vous avez enregistré les applications suivantes pour accéder à l'API de "
+"%(site_name)s:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:36
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:36
+#, python-format
+msgid ""
+"You have not yet registered any applications. Click the 'New application' "
+"button to create an application to access the %(site_name)s API."
+msgstr ""
+"Vous n'avez pas encore enregistré d'applications. Cliquez sur le bouton "
+"'Nouvelle application' pour créer une application pour accéder à l'API de "
+"%(site_name)s."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:41
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:42
+msgid "Personal access tokens"
+msgstr "Jetons d'accès personnels"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:42
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:43
+msgid "New token"
+msgstr "Nouveau jeton"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:49
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:50
+#, python-format
+msgid "Following are personal tokens used to access the %(site_name)s API:"
+msgstr ""
+"Les jetons utilisés pour accéder à l'API de %(site_name)s sont les suivants:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:60
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:63
+msgid ""
+"You have not yet created any personal access tokens. Click the 'New token' "
+"button to create a personal access token."
+msgstr ""
+"Vous n'avez pas encore créé de jeton d'accès personnel. Cliquez sur le "
+"bouton 'Nouveau jeton' pour créer un jeton d'accès personnel."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:65
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:70
+msgid "Authorized applications"
+msgstr "Applications autorisées"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:70
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:75
+msgid "You have granted the following application access to your account:"
+msgstr "Vous avez donné accès à votre compte aux applications suivantes:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:76
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:89
+msgid "Revoke"
+msgstr "Révoquer"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:84
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:96
+msgid ""
+"You have not yet granted any external applications access to your account."
+msgstr "Vous n'avez donné accès à votre compte à aucune application externe."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_new.html:18
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:18
+msgid "New personal access token"
+msgstr "Nouveau jeton d'accès personnel"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_new.html:27
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:30
+msgid "Create"
+msgstr "Créer"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:17
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:17
+#, python-format
+msgid "Authorized application: %(client_name)s"
+msgstr "Demande autorisée: %(client_name)s"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:17
+#, python-format
+msgid "Personal access token / %(name)s"
+msgstr "Jeton d'accès personnel / %(name)s"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:24
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:24
+msgid "Access token"
+msgstr "Jeton d'accès"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:29
+msgid "Please copy the personal access token now. You won't see it again!"
+msgstr ""
+"Veuillez copier le jeton d'accès personnel maintenant. Vous ne le reverrez "
+"plus!"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:29
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:34
+msgid ""
+"Do not share this personal access token. It gives full access to your "
+"account."
+msgstr ""
+"Ne divulguez pas ce jeton d'accès personnel. Il donne entièrement accès à "
+"votre compte."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:40
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:44
+msgid ""
+"If you've lost or forgotten this token please create a new one. Be aware "
+"that any scripts or applications using this token will need to be updated."
+msgstr ""
+"Si vous avez perdu ou oublié ce jeton, veuillez en créer un nouveau. Sachez "
+"que tous les scripts ou applications utilisant ce jeton devront être mis à "
+"jour."
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:19
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:20
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:20
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:19
+msgid "Applications"
+msgstr "Applications"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:18
+#, python-format
+msgid "%(client_name)s"
+msgstr "%(client_name)s"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:56
+msgid "Application settings"
+msgstr "Paramètres d'application"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:94
+msgid "or"
+msgstr "ou"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:17
+msgid "Developer applications"
+msgstr "Applications de développeur"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:17
+#, python-format
+msgid "%(name)s"
+msgstr "%(name)s"

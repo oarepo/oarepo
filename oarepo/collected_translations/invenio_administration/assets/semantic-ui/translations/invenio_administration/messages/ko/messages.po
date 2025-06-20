@@ -1,0 +1,105 @@
+# 
+# Translators:
+# Minjae Kwon, 2023
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Minjae Kwon, 2023\n"
+"Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr ""
+
+msgid "Resource is not deletable."
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete {{title}}"
+msgstr ""
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Resource is not editable."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Server was not able to process your request."
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Remove field"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Search ..."
+msgstr ""
+
+msgid "There is no resources in this category."
+msgstr ""
+
+msgid "No matching resources found."
+msgstr ""
+
+msgid "Clear query"
+msgstr ""
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] ""
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Success"
+msgstr ""
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr ""

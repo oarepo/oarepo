@@ -1,0 +1,102 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# Bessem Aamira <bessemamira@gmail.com>, 2025
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "البحث على ممول عبر الإسم"
+
+msgid "Funder"
+msgstr "مموّل"
+
+msgid "Search for funder..."
+msgstr "البحث عن مموّل..."
+
+msgid "Additional information"
+msgstr "معلومات إضافية"
+
+msgid "optional"
+msgstr "اختياري"
+
+msgid "Number"
+msgstr "رقم"
+
+msgid "Award/Grant number"
+msgstr "رقم المكافئة/المنحة"
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Award/Grant Title"
+msgstr "عنوان المكافئة/المنحة"
+
+msgid "URL"
+msgstr "عنوان URL"
+
+msgid "Award/Grant URL"
+msgstr "رابط URL المكافئة/المنحة"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "Add custom"
+msgstr "إضافة  إجراء/خاصة"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Open external link"
+msgstr "إفتح رابط خارجي"
+
+msgid "Funder is required."
+msgstr "الممول إجباري"
+
+msgid "Title must be set alongside number."
+msgstr "يجب ان يكون العنوان جنبًا إلى جنب مع الرقم "
+
+msgid "Number must be set alongside title."
+msgstr "يجب ان يكون الرقم جنبًا إلى جنب مع العنوان "
+
+msgid "URL must be valid."
+msgstr "يجب أن يكون رابط URL ساري المفعول"
+
+msgid "URL must be set alongside title and number."
+msgstr "يجب ان يكون رابط URL جنبًا إلى جنب مع العنوان والرقم "
+
+msgid "Add standard award/grant"
+msgstr "إضافة مكافئة/منحة متعارف عليها standard"
+
+msgid "Add custom funding"
+msgstr "إضافة تمويل مشخّص custom"
+
+msgid "Search for awards/grants"
+msgstr "البحث عن مكافأت/منح"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Change"
+msgstr "غيّر"
+
+msgid "Did not find your award/grant? "
+msgstr "لم تجد المكافئة/المنحة الخاصة بك؟"
+
+msgid "Add a custom award/grant."
+msgstr "إضافةمكافئة/منحةمشخّصة custom"

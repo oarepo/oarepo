@@ -1,0 +1,203 @@
+# 
+# Translators:
+# Mart Jantson, 2023
+# Martin Jantson <martinjantson97@gmail.com>, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Martin Jantson <martinjantson97@gmail.com>, 2024\n"
+"Language-Team: Estonian (https://app.transifex.com/inveniosoftware/teams/23537/et/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Decline"
+msgstr "Keeldu"
+
+msgid "Accept and publish"
+msgstr "Võta vastu ja avalda"
+
+msgid "Accept"
+msgstr "Võta vastu"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Cancel request"
+msgstr "Tühista taotlus"
+
+msgid "Something went wrong."
+msgstr "Midagi läks valesti."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "Kas oled kindel, et soovid selle kommentaari kustutada?"
+
+msgid "Confirm"
+msgstr "Kinnita"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Submitted"
+msgstr "Lisatud"
+
+msgid "Deleted"
+msgstr "Kustutatud"
+
+msgid "Accepted"
+msgstr "Vastu võetud"
+
+msgid "Declined"
+msgstr "Tagasi lükatud"
+
+msgid "Cancelled"
+msgstr "Tühistatud"
+
+msgid "Expired"
+msgstr "Aegunud"
+
+msgid "Draft review"
+msgstr ""
+
+msgid "Community inclusion"
+msgstr ""
+
+msgid "Member invitation"
+msgstr ""
+
+msgid "Add comment (optional)"
+msgstr "Lisa kommentaar (valikuline)"
+
+msgid "{{action}} request"
+msgstr "{{action}} taotlus"
+
+msgid "Creator"
+msgstr "Looja"
+
+msgid "Receiver"
+msgstr "Saaja"
+
+msgid "Request type"
+msgstr "Taotluse tüüp"
+
+msgid "Status"
+msgstr "Staatus"
+
+msgid "Created"
+msgstr "Loodud"
+
+msgid "Expires"
+msgstr "Aegub"
+
+msgid "Accept request"
+msgstr "Võta taotlus vastu"
+
+msgid "Decline request"
+msgstr "Lükka taotlus tagasi"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr ""
+
+msgid "Opened {{relativeTime}} by"
+msgstr ""
+
+msgid "All done!"
+msgstr "Valmis!"
+
+msgid "You've caught up with all open requests."
+msgstr "Oled kõikide taotlustega kursis."
+
+msgid "No requests found!"
+msgstr "Ühtegi taotlust ei leitud!"
+
+msgid "Reset search"
+msgstr "Lähtesta otsing"
+
+msgid "Sort by"
+msgstr "Sorteeri"
+
+msgid "Filter results"
+msgstr "Filtreeri tulemusi"
+
+msgid "Search in my requests..."
+msgstr "Otsi minu päringutest..."
+
+msgid "Open"
+msgstr "Avatud"
+
+msgid "Closed"
+msgstr "Suletud"
+
+msgid "Comment"
+msgstr "Kommenteeri"
+
+msgid "deleted a comment"
+msgstr "kustutas kommentaari"
+
+msgid "accepted this request"
+msgstr "võttis taotluse vastu"
+
+msgid "declined this request"
+msgstr "lükkas taotluse tagasi"
+
+msgid "this request expired"
+msgstr "see taotlus aegus"
+
+msgid "cancelled this request"
+msgstr "tühistas selle taotluse"
+
+msgid "unknown event"
+msgstr "tundmatu sündmus"
+
+msgid "Edit"
+msgstr "Redigeeri"
+
+msgid "commented {{commentTime}}"
+msgstr ""
+
+msgid "Edited"
+msgstr "Redigeeritud"
+
+msgid "Request access"
+msgstr ""
+
+msgid "Guest access"
+msgstr ""
+
+msgid "User access"
+msgstr ""
+
+msgid "Community manage record"
+msgstr ""
+
+msgid "Subcommunity"
+msgstr ""
+
+msgid "Membership request"
+msgstr ""
+
+msgid "Anonymous user"
+msgstr ""
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Group"
+msgstr "Grupp"
+
+msgid "Record"
+msgstr "Kirje"
+
+msgid "Actions"
+msgstr "Tegevused"
+
+msgid "Subcommunity invitation"
+msgstr ""

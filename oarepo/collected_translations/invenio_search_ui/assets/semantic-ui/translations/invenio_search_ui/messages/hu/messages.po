@@ -1,0 +1,73 @@
+# 
+# Translators:
+# Andrea Dömötör, 2022
+# Zoltán Kanász-Nagy, 2025
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Zoltán Kanász-Nagy, 2025\n"
+"Language-Team: Hungarian (http://app.transifex.com/inveniosoftware/invenio/language/hu/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Verziók"
+
+msgid "View all versions"
+msgstr "Minden verzió megjelenítése"
+
+msgid "Help"
+msgstr "Súgó"
+
+msgid "Search guide"
+msgstr "Keresési útmutató"
+
+msgid "Show all sub facets of "
+msgstr "Összes alfelület mutatása"
+
+msgid "Clear selection"
+msgstr "Kijelölés törlése"
+
+msgid "Clear"
+msgstr "Törlés"
+
+msgid "results per page"
+msgstr "találat oldalanként"
+
+msgid "<0></0> results found"
+msgstr "<0></0> találat"
+
+msgid " "
+msgstr " "
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search records..."
+msgstr "Rekordok keresése..."
+
+msgid "All records"
+msgstr "Összes rekord"
+
+msgid "result(s) found"
+msgstr "találatot kaptunk"
+
+msgid "Sort"
+msgstr "Rendezés"
+
+msgid "Sort by"
+msgstr "Rendezési elv"
+
+msgid "Filter results"
+msgstr "Találatok szűrése"
+
+msgid "Search filters"
+msgstr "Keresési szűrők"
+
+msgid "Search results"
+msgstr "Keresési eredmények"

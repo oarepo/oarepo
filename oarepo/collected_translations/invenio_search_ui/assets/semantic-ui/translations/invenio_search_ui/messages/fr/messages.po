@@ -1,0 +1,73 @@
+# 
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# Keziah Okyere, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Keziah Okyere, 2024\n"
+"Language-Team: French (http://app.transifex.com/inveniosoftware/invenio/language/fr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Versions"
+
+msgid "View all versions"
+msgstr "Voir toutes les versions"
+
+msgid "Help"
+msgstr "Aide"
+
+msgid "Search guide"
+msgstr "Guide de recherche"
+
+msgid "Show all sub facets of "
+msgstr "Afficher toutes les sous-facettes de "
+
+msgid "Clear selection"
+msgstr "Effacer la sélection"
+
+msgid "Clear"
+msgstr "Effacer"
+
+msgid "results per page"
+msgstr "résultats par page"
+
+msgid "<0></0> results found"
+msgstr "<0></0> résultats trouvés"
+
+msgid " "
+msgstr ""
+
+msgid "Search"
+msgstr "Recherche"
+
+msgid "Search records..."
+msgstr "Recherche des enregistrements..."
+
+msgid "All records"
+msgstr "Tous les enregistrements"
+
+msgid "result(s) found"
+msgstr "résultat(s) trouvé"
+
+msgid "Sort"
+msgstr "Trier"
+
+msgid "Sort by"
+msgstr "Trier par"
+
+msgid "Filter results"
+msgstr "Filtrer les résultats"
+
+msgid "Search filters"
+msgstr "Recherche de filtres"
+
+msgid "Search results"
+msgstr "Résultats de recherche"

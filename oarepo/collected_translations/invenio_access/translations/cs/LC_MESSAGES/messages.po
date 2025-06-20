@@ -1,0 +1,63 @@
+# Translations template for invenio-access.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-access
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+# Translators:
+# Jiří Kunčar <jiri.kuncar@gmail.com>, 2016
+# Mirek Simek <miroslav.simek@gmail.com>, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-access 2.0.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:44+0000\n"
+"PO-Revision-Date: 2016-08-18 12:08+0000\n"
+"Last-Translator: Mirek Simek <miroslav.simek@gmail.com>, 2024\n"
+"Language-Team: Czech (https://app.transifex.com/inveniosoftware/teams/23537/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: invenio_access/admin.py:39
+msgid "Email"
+msgstr "E-mail"
+
+#: invenio_access/admin.py:40
+msgid "User ID"
+msgstr "ID uživatele"
+
+#: invenio_access/admin.py:41 invenio_access/admin.py:75
+#: invenio_access/admin.py:108
+msgid "Deny"
+msgstr "Zamítnout"
+
+#: invenio_access/admin.py:74
+msgid "Role Name"
+msgstr "Název role"
+
+#: invenio_access/admin.py:107
+msgid "System Role"
+msgstr "Systémová role"
+
+#: invenio_access/admin.py:136 invenio_access/admin.py:143
+#: invenio_access/admin.py:150
+msgid "User Management"
+msgstr "Správa uživatelů"
+
+#: invenio_access/admin.py:137
+msgid "Access: Roles"
+msgstr "Kontrola přístupu: Role"
+
+#: invenio_access/admin.py:144
+msgid "Access: Users"
+msgstr "Kontrola přístupu: Uživatelé"
+
+#: invenio_access/admin.py:151
+msgid "Access: System Roles"
+msgstr "Kontrola přístupu: Systémové role"

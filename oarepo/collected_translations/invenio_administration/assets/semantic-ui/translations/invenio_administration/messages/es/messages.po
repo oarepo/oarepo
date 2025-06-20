@@ -1,0 +1,111 @@
+# 
+# Translators:
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Jesús Martín <jesusmartin@sallep.net>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2025\n"
+"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Abrir lista de acciones"
+
+msgid "Resource is not deletable."
+msgstr "El recurso no se puede eliminar."
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Delete {{title}}"
+msgstr "Borrar {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "¿Está seguro de querer eliminar {{resourceName}}?"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Resource is not editable."
+msgstr "El recurso no es editable."
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Server was not able to process your request."
+msgstr "El servidor no pudo procesar su solicitud."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Remove field"
+msgstr "Eliminar campo"
+
+msgid "Sort"
+msgstr "Ordenar"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Search ..."
+msgstr "Buscar..."
+
+msgid "There is no resources in this category."
+msgstr "No hay recursos en esta categoría."
+
+msgid "No matching resources found."
+msgstr "No se encontraron recursos coincidentes."
+
+msgid "Clear query"
+msgstr "Borrar consulta"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "{{count}} resultado encontrado"
+msgstr[1] "{{count}} resultados encontrados"
+msgstr[2] "{{count}} resultados encontrados"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "resultados por página"
+msgstr[1] "resultados por página"
+msgstr[2] "resultados por página"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Success"
+msgstr "Éxito"
+
+msgid "Resource was successfully deleted."
+msgstr "El recurso se ha eliminado con éxito."
+
+msgid "Action error"
+msgstr "Error de acción"
+
+msgid "Invalid JSON format"
+msgstr "Formato JSON no válido"
+
+msgid "Your changes were successfully submitted"
+msgstr "Sus cambios fueron enviados con éxito"
+
+msgid "Form error"
+msgstr "Error de formulario"
+
+msgid "Current search"
+msgstr "Búsqueda actual"

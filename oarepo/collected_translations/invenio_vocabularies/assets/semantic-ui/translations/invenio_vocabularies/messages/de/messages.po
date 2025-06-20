@@ -1,0 +1,104 @@
+# 
+# Translators:
+# c960a0736ea0fb7507bb1c3555e7d33f_88b575f <3cef15c38ce2563e884ec389656c9161_1006830>, 2025
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# Sarah Wiechers, 2025
+# Adienne Karsten-Welker, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Adienne Karsten-Welker, 2025\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "Suche nach Förderer anhand des Namens"
+
+msgid "Funder"
+msgstr "Förderer"
+
+msgid "Search for funder..."
+msgstr "Suche nach Förderer ..."
+
+msgid "Additional information"
+msgstr "Zusätzliche Informationen"
+
+msgid "optional"
+msgstr "optional"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "Award/Grant number"
+msgstr "Förder-/Stipendiennummer"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Award/Grant Title"
+msgstr "Förderungs-/Stipendientitel"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr "Förderungs-/Stipendien-URL"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add custom"
+msgstr "Benutzerdefinierte hinzufügen"
+
+msgid "Edit"
+msgstr "Editieren"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Open external link"
+msgstr "Externen Link öffnen"
+
+msgid "Funder is required."
+msgstr "Förderer ist erforderlich."
+
+msgid "Title must be set alongside number."
+msgstr "Der Titel muss zusammen mit der Nummer angegeben werden."
+
+msgid "Number must be set alongside title."
+msgstr "Die Nummer muss zusammen mit dem Titel angegeben werden."
+
+msgid "URL must be valid."
+msgstr "Die URL muss gültig sein."
+
+msgid "URL must be set alongside title and number."
+msgstr "Die URL muss zusammen mit dem Titel und der Nummer angegeben werden."
+
+msgid "Add standard award/grant"
+msgstr "Standard-Förderung/Stipendium hinzufügen"
+
+msgid "Add custom funding"
+msgstr "Benutzerdefinierte Förderung hinzufügen"
+
+msgid "Search for awards/grants"
+msgstr "Nach Förderung/Stipendium suchen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Change"
+msgstr "Ändern"
+
+msgid "Did not find your award/grant? "
+msgstr "Konnten Sie Ihre Förderung/Ihr Stipendium nicht finden? "
+
+msgid "Add a custom award/grant."
+msgstr "Eine benutzerdefinierte Förderung oder ein Stipendium hinzufügen."

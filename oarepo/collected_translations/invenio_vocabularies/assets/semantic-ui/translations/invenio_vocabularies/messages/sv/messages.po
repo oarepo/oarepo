@@ -1,0 +1,104 @@
+# 
+# Translators:
+# Rim Sharif, 2025
+# Sam Arbid, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# Lina Andrén, 2025
+# Mattias Vesterlund, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "Sök efter en finansiär med namn"
+
+msgid "Funder"
+msgstr "Finansiär"
+
+msgid "Search for funder..."
+msgstr "Sök efter finansiär..."
+
+msgid "Additional information"
+msgstr "Mer information"
+
+msgid "optional"
+msgstr "valfritt"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "Award/Grant number"
+msgstr "Projektbidrags-/Anslags-nummer"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Award/Grant Title"
+msgstr "Projektbidrags-/Anslags-titel"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr "Projektbidrags-/Anslags-URL"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Add custom"
+msgstr "Lägg till anpassad"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Remove"
+msgstr "Ta bort"
+
+msgid "Open external link"
+msgstr "Öppna extern länk"
+
+msgid "Funder is required."
+msgstr "Finansiär krävs."
+
+msgid "Title must be set alongside number."
+msgstr "Titel måste anges tillsammans med nummer."
+
+msgid "Number must be set alongside title."
+msgstr "Nummer måste anges tillsammans med titel."
+
+msgid "URL must be valid."
+msgstr "URL måste vara giltig."
+
+msgid "URL must be set alongside title and number."
+msgstr "URL måste anges tillsammans med titel och nummer."
+
+msgid "Add standard award/grant"
+msgstr "Lägg till projektbidrag/anslag"
+
+msgid "Add custom funding"
+msgstr "Ange annan finansiering"
+
+msgid "Search for awards/grants"
+msgstr "Sök efter projektbidrag/anslag"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Change"
+msgstr "Ändra"
+
+msgid "Did not find your award/grant? "
+msgstr "Hittade du inte ditt projektbidrag/anslag?"
+
+msgid "Add a custom award/grant."
+msgstr "Lägg till anpassat projektbidrag/anslag."

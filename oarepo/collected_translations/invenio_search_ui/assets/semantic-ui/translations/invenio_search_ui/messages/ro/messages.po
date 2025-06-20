@@ -1,0 +1,72 @@
+# 
+# Translators:
+# Nicolaie Constantinescu, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: Nicolaie Constantinescu, 2024\n"
+"Language-Team: Romanian (http://app.transifex.com/inveniosoftware/invenio/language/ro/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Versiuni"
+
+msgid "View all versions"
+msgstr "Vezi toate versiunile"
+
+msgid "Help"
+msgstr "Asistență"
+
+msgid "Search guide"
+msgstr "Ghid de căutare"
+
+msgid "Show all sub facets of "
+msgstr "Afișează toate subfațetele de la "
+
+msgid "Clear selection"
+msgstr "Șterge selecția"
+
+msgid "Clear"
+msgstr "Șterge"
+
+msgid "results per page"
+msgstr "rezultate per pagină"
+
+msgid "<0></0> results found"
+msgstr ""
+
+msgid " "
+msgstr " "
+
+msgid "Search"
+msgstr "Caută"
+
+msgid "Search records..."
+msgstr "Caută înregistrările..."
+
+msgid "All records"
+msgstr "Toate înregistrările"
+
+msgid "result(s) found"
+msgstr "rezultat(e) găsite"
+
+msgid "Sort"
+msgstr "Sortează"
+
+msgid "Sort by"
+msgstr "Sortează după"
+
+msgid "Filter results"
+msgstr "Rezultate de filtrare"
+
+msgid "Search filters"
+msgstr ""
+
+msgid "Search results"
+msgstr "Rezultatele căutării"

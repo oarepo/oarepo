@@ -1,0 +1,120 @@
+# Translations template for invenio-records-rest.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-rest project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Bessem Aamira <bessemamira@gmail.com>, 2025
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-rest 2.4.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-03 12:52+0000\n"
+"PO-Revision-Date: 2025-04-03 11:38+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: invenio_records_rest/config.py:262
+msgid "Best match"
+msgstr "أفضل تطابق "
+
+#: invenio_records_rest/config.py:268
+msgid "Most recent"
+msgstr "الأحدث"
+
+#: invenio_records_rest/errors.py:51
+msgid "Invalid query syntax."
+msgstr "تركيبة جملة البحث غير صالحة."
+
+#: invenio_records_rest/errors.py:67
+#, python-format
+msgid "Style %(style)s could not be found."
+msgstr "لم يتم العثور على النمط %(style)s."
+
+#: invenio_records_rest/errors.py:93
+msgid "PID does not exist."
+msgstr "معرف PID غير موجود."
+
+#: invenio_records_rest/errors.py:105
+msgid "PID is not registered."
+msgstr "معرف PID لم يقع تسجيله."
+
+#: invenio_records_rest/errors.py:117
+msgid "PID has been deleted."
+msgstr "معرف PID وقع حذفه."
+
+#: invenio_records_rest/errors.py:129
+#, python-format
+msgid "No object assigned to %(pid)s."
+msgstr "لم يتم تعيين أي شيئ object إلى %(pid)s."
+
+#: invenio_records_rest/errors.py:142
+#, python-format
+msgid "Invalid redirect - pid_type %(pid_type)s endpoint missing."
+msgstr ""
+"عملية إعادة توجيه غير صالحة - pid_type %(pid_type)s نقطة النهاية مفقودة."
+
+#: invenio_records_rest/errors.py:160
+#, python-format
+msgid "PID %(pid)s could not be resolved."
+msgstr "معرف PID %(pid)s لم يتم حله ."
+
+#: invenio_records_rest/errors.py:174
+#, python-format
+msgid "Unsupported media type \"%(content_type)s\"."
+msgstr "نوع وسائط المعلومات غير مدعوم \"%(content_type)s\"."
+
+#: invenio_records_rest/errors.py:188
+msgid "Could not load data."
+msgstr "تعذر تحميل البيانات."
+
+#: invenio_records_rest/errors.py:200
+msgid "Could not patch JSON."
+msgstr "لم يتمكن من تصحيح JSON"
+
+#: invenio_records_rest/errors.py:213
+#, python-format
+msgid "Missing %(ctx_field)s context."
+msgstr "سياق %(ctx_field)s مفقود."
+
+#: invenio_records_rest/errors.py:228
+#, python-format
+msgid "No completions requested.%(options)s"
+msgstr "لم يتم طلب أي إتمام.%(options)s"
+
+#: invenio_records_rest/errors.py:243
+#, python-format
+msgid "Validation error: %(error)s."
+msgstr "خطأ في التحقق: %(error)s."
+
+#: invenio_records_rest/errors.py:257
+msgid "An internal server error occurred when handling the request."
+msgstr "حدث خطأ داخلي في الخادم أثناء معالجة الطلب."
+
+#: invenio_records_rest/views.py:66
+msgid "The syntax of the search query is invalid."
+msgstr "إن صيغة استعلام البحث search query غير صالحة."
+
+#: invenio_records_rest/views.py:441
+msgid "The query parameters from and page must not be used at the same time."
+msgstr ""
+"لا يجوز استخدام إعدادات الاستعلام query parameters من والصفحة في نفس الوقت."
+
+#: invenio_records_rest/views.py:478
+msgid "Invalid pagination parameters."
+msgstr "إعدادات الترقيم غير صالحة."
+
+#: invenio_records_rest/views.py:515
+#, python-format
+msgid "Maximum number of %(count)s results have been reached."
+msgstr "لقد تم الوصول إلى الحد الأقصى لعدد النتائج %(count)s."

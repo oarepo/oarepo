@@ -1,0 +1,205 @@
+# 
+# Translators:
+# Berat Aldemir <berataldemir@gmail.com>, 2022
+# Hakan Bayindir <hbayindir@gmail.com>, 2024
+# Ben Translation and Interpreting Services <info@bentercume.com>, 2024
+# BEN TERCÜME, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: BEN TERCÜME, 2024\n"
+"Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Decline"
+msgstr "Reddet"
+
+msgid "Accept and publish"
+msgstr "Kabul et ve yayınla"
+
+msgid "Accept"
+msgstr "Kabul et"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Cancel request"
+msgstr "Talebi iptal et"
+
+msgid "Something went wrong."
+msgstr "Bir şeyler ters gitti."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "Bu yorumu silmek istediğinize emin misiniz?"
+
+msgid "Confirm"
+msgstr "Onayla"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Submitted"
+msgstr "Gönderildi"
+
+msgid "Deleted"
+msgstr "Silinen"
+
+msgid "Accepted"
+msgstr "Kabul edildi"
+
+msgid "Declined"
+msgstr "Reddedildi"
+
+msgid "Cancelled"
+msgstr "İptal edildi"
+
+msgid "Expired"
+msgstr "Süresi doldu"
+
+msgid "Draft review"
+msgstr "Taslak incelemesi"
+
+msgid "Community inclusion"
+msgstr "Topluluk katılımı"
+
+msgid "Member invitation"
+msgstr "Üye daveti"
+
+msgid "Add comment (optional)"
+msgstr "Yorum ekle (isteğe bağlı)"
+
+msgid "{{action}} request"
+msgstr "{{action}} talebi"
+
+msgid "Creator"
+msgstr "Oluşturan"
+
+msgid "Receiver"
+msgstr "Alıcı"
+
+msgid "Request type"
+msgstr "Talep türü"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Created"
+msgstr "Oluşturuldu"
+
+msgid "Expires"
+msgstr "Süresi dolar"
+
+msgid "Accept request"
+msgstr "Talebi kabul et"
+
+msgid "Decline request"
+msgstr "Talebi reddet"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr "Son kullanma tarihi: {{- expiringDate}}"
+
+msgid "Opened {{relativeTime}} by"
+msgstr "{{relativeTime}} saatinde şu kullanıcı tarafından açıldı:"
+
+msgid "All done!"
+msgstr "Her şey tamam!"
+
+msgid "You've caught up with all open requests."
+msgstr "Açık olan tüm talepleri karşıladınız."
+
+msgid "No requests found!"
+msgstr "Hiç talep bulunamadı!"
+
+msgid "Reset search"
+msgstr "Aramayı sıfırla"
+
+msgid "Sort by"
+msgstr "Sırala"
+
+msgid "Filter results"
+msgstr "Sonuçları filtrele"
+
+msgid "Search in my requests..."
+msgstr "Taleplerimde ara..."
+
+msgid "Open"
+msgstr "Açık"
+
+msgid "Closed"
+msgstr "Kapalı"
+
+msgid "Comment"
+msgstr "Yorum"
+
+msgid "deleted a comment"
+msgstr "bir yorum sildi"
+
+msgid "accepted this request"
+msgstr "bu talebi kabul etti"
+
+msgid "declined this request"
+msgstr "bu talebi reddetti"
+
+msgid "this request expired"
+msgstr "bu talebin süresi doldu"
+
+msgid "cancelled this request"
+msgstr "bu talebi iptal etti"
+
+msgid "unknown event"
+msgstr "bilinmeyen olay"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "commented {{commentTime}}"
+msgstr "{{commentTime}} saatinde yorum yapıldı"
+
+msgid "Edited"
+msgstr "Düzenlendi"
+
+msgid "Request access"
+msgstr "Erişim talebi"
+
+msgid "Guest access"
+msgstr "Misafir erişim yetkisi"
+
+msgid "User access"
+msgstr "Kullanıcı erişim yetkisi"
+
+msgid "Community manage record"
+msgstr "Topluluk yönetim kaydı"
+
+msgid "Subcommunity"
+msgstr "Alt topluluk"
+
+msgid "Membership request"
+msgstr "Üyelik talebi"
+
+msgid "Anonymous user"
+msgstr "Anonim kullanıcı"
+
+msgid "Email"
+msgstr "E-posta"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Record"
+msgstr "Kayıt"
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Subcommunity invitation"
+msgstr ""

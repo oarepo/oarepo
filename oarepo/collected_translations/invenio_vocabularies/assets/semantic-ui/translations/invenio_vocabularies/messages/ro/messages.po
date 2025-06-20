@@ -1,0 +1,101 @@
+# 
+# Translators:
+# Nicolaie Constantinescu, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2025\n"
+"Language-Team: Romanian (https://app.transifex.com/inveniosoftware/teams/23537/ro/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "Caută finanțator după nume"
+
+msgid "Funder"
+msgstr "Finanțator"
+
+msgid "Search for funder..."
+msgstr "Caut după finanțator..."
+
+msgid "Additional information"
+msgstr ""
+
+msgid "optional"
+msgstr "opţional"
+
+msgid "Number"
+msgstr "Număr"
+
+msgid "Award/Grant number"
+msgstr ""
+
+msgid "Title"
+msgstr "Titlul"
+
+msgid "Award/Grant Title"
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr ""
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Add custom"
+msgstr "Adaugă particularizare"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Remove"
+msgstr "Elimină"
+
+msgid "Open external link"
+msgstr "Deschide link-ul extern"
+
+msgid "Funder is required."
+msgstr "Este necesar finanțatorul."
+
+msgid "Title must be set alongside number."
+msgstr "Titlul trebuie setat lângă număr."
+
+msgid "Number must be set alongside title."
+msgstr "Numărul trebuie setat lângă titlu."
+
+msgid "URL must be valid."
+msgstr "URL-ul trebuie să fie unul valid."
+
+msgid "URL must be set alongside title and number."
+msgstr "URL-ul trebuie setat după titlu și număr."
+
+msgid "Add standard award/grant"
+msgstr ""
+
+msgid "Add custom funding"
+msgstr ""
+
+msgid "Search for awards/grants"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "Change"
+msgstr "Modifică"
+
+msgid "Did not find your award/grant? "
+msgstr ""
+
+msgid "Add a custom award/grant."
+msgstr ""

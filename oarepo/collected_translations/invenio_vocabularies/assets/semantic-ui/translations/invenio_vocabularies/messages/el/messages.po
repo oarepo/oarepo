@@ -1,0 +1,100 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2025\n"
+"Language-Team: Greek (https://app.transifex.com/inveniosoftware/teams/23537/el/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr ""
+
+msgid "Funder"
+msgstr ""
+
+msgid "Search for funder..."
+msgstr ""
+
+msgid "Additional information"
+msgstr ""
+
+msgid "optional"
+msgstr "προαιρετικό"
+
+msgid "Number"
+msgstr ""
+
+msgid "Award/Grant number"
+msgstr ""
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Award/Grant Title"
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr ""
+
+msgid "Add"
+msgstr "Προσθήκη"
+
+msgid "Add custom"
+msgstr ""
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Remove"
+msgstr "Διαγραφή"
+
+msgid "Open external link"
+msgstr ""
+
+msgid "Funder is required."
+msgstr ""
+
+msgid "Title must be set alongside number."
+msgstr ""
+
+msgid "Number must be set alongside title."
+msgstr ""
+
+msgid "URL must be valid."
+msgstr ""
+
+msgid "URL must be set alongside title and number."
+msgstr ""
+
+msgid "Add standard award/grant"
+msgstr ""
+
+msgid "Add custom funding"
+msgstr ""
+
+msgid "Search for awards/grants"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "Change"
+msgstr ""
+
+msgid "Did not find your award/grant? "
+msgstr ""
+
+msgid "Add a custom award/grant."
+msgstr ""

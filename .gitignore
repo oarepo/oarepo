@@ -64,4 +64,6 @@ target/
 
 _tmp
 
-collected_translations
+# Committing collected_translations as we are freezeing those for RDM12
+# From now on, transifex contains RDM13 translations only
+# collected_translations

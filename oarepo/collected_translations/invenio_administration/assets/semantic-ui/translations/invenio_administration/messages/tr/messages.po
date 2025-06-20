@@ -1,0 +1,109 @@
+# 
+# Translators:
+# Berat Aldemir <berataldemir@gmail.com>, 2022
+# BEN TERCÜME, 2025
+# Ben Translation and Interpreting Services <info@bentercume.com>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Ben Translation and Interpreting Services <info@bentercume.com>, 2025\n"
+"Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Eylem listesini aç"
+
+msgid "Resource is not deletable."
+msgstr "Kaynak silinemez."
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Delete {{title}}"
+msgstr "{{title}} başlığını sil"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "{{resourceName}} isimli kaynağı silmek istediğinizden emin misiniz?"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Resource is not editable."
+msgstr "Kaynak düzenlenemez."
+
+msgid "Error"
+msgstr "Hata"
+
+msgid "Server was not able to process your request."
+msgstr "Sunucu isteğinizi işleyemedi."
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Remove field"
+msgstr "Alanı kaldır"
+
+msgid "Sort"
+msgstr "Sırala"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Search ..."
+msgstr "Ara ..."
+
+msgid "There is no resources in this category."
+msgstr "Bu kategoride kaynak bulunmamaktadır."
+
+msgid "No matching resources found."
+msgstr "Eşleşen kaynak bulunamadı."
+
+msgid "Clear query"
+msgstr "Sorguyu temizle"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "{{count}} adet sonuç bulundu"
+msgstr[1] "{{count}} adet sonuç bulundu"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "sayfa başına sonuç sayısı: "
+msgstr[1] "sayfa başına sonuç sayısı: "
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Success"
+msgstr "Başarı"
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr "Mevcut arama"

@@ -1,0 +1,100 @@
+# 
+# Translators:
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-05-13T16:31:08.619Z\n"
+"PO-Revision-Date: 2025-05-13 21:01+0000\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2025\n"
+"Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Search for a funder by name"
+msgstr "Шукати джерело фінансування за назвою"
+
+msgid "Funder"
+msgstr "Джерело фінансування"
+
+msgid "Search for funder..."
+msgstr "Шукати джерело фінансування"
+
+msgid "Additional information"
+msgstr ""
+
+msgid "optional"
+msgstr "додатково"
+
+msgid "Number"
+msgstr "Номер"
+
+msgid "Award/Grant number"
+msgstr ""
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Award/Grant Title"
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Award/Grant URL"
+msgstr ""
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Add custom"
+msgstr "Додати власну"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Remove"
+msgstr "Вилучити"
+
+msgid "Open external link"
+msgstr "Відкрити зовнішнє посилання"
+
+msgid "Funder is required."
+msgstr "Слід вказати джерело фінансування."
+
+msgid "Title must be set alongside number."
+msgstr "Назву слід вказати разом з номером."
+
+msgid "Number must be set alongside title."
+msgstr "Номер повинен бути вказаний разом з назвою."
+
+msgid "URL must be valid."
+msgstr "URL повинен бути дійсним."
+
+msgid "URL must be set alongside title and number."
+msgstr "URL повинен бути вказаний разом з назвою та номером."
+
+msgid "Add standard award/grant"
+msgstr ""
+
+msgid "Add custom funding"
+msgstr ""
+
+msgid "Search for awards/grants"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Change"
+msgstr "Змінити"
+
+msgid "Did not find your award/grant? "
+msgstr ""
+
+msgid "Add a custom award/grant."
+msgstr ""

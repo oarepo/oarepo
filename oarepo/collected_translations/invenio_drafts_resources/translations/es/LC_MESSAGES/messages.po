@@ -1,0 +1,106 @@
+# Translations template for invenio-drafts-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-drafts-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2024
+# Jesús Martín <jesusmartin@sallep.net>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-drafts-resources 3.2.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 13:24+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2025\n"
+"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: invenio_drafts_resources/resources/records/errors.py:33
+msgid "Redirecting..."
+msgstr "Redirigiendo..."
+
+#: invenio_drafts_resources/services/records/config.py:54
+#: invenio_drafts_resources/services/records/config.py:83
+msgid "Best match"
+msgstr "Mejor coincidencia"
+
+#: invenio_drafts_resources/services/records/config.py:58
+#: invenio_drafts_resources/services/records/config.py:95
+msgid "Newest"
+msgstr "Más nuevo"
+
+#: invenio_drafts_resources/services/records/config.py:62
+#: invenio_drafts_resources/services/records/config.py:99
+msgid "Oldest"
+msgstr "Más viejo"
+
+#: invenio_drafts_resources/services/records/config.py:66
+#: invenio_drafts_resources/services/records/config.py:103
+#: invenio_drafts_resources/services/records/config.py:120
+msgid "Version"
+msgstr "Version"
+
+#: invenio_drafts_resources/services/records/config.py:87
+msgid "Recently updated"
+msgstr "Actualizado recientemente"
+
+#: invenio_drafts_resources/services/records/config.py:91
+msgid "Least recently updated"
+msgstr "Menos actualizado recientemente"
+
+#: invenio_drafts_resources/services/records/service.py:103
+msgid "Records should be updated via their draft."
+msgstr "Los registros deben actualizarse a través de su borrador."
+
+#: invenio_drafts_resources/services/records/service.py:249
+msgid "Failed to fetch the record versions."
+msgstr "No se pudieron obtener las versiones del registro."
+
+#: invenio_drafts_resources/services/records/service.py:509
+msgid "Files support is not enabled."
+msgstr "El soporte de archivos no está habilitado."
+
+#: invenio_drafts_resources/services/records/components/base.py:87
+#: invenio_drafts_resources/services/records/components/base.py:118
+msgid "You don't have permissions to manage files options."
+msgstr "No tiene permiso para administrar las opciones de archivos."
+
+#: invenio_drafts_resources/services/records/components/base.py:135
+#: invenio_drafts_resources/services/records/components/base.py:252
+#: invenio_drafts_resources/services/records/components/media_files.py:64
+msgid ""
+"Missing uploaded files. To disable files for this record please mark it as "
+"metadata-only."
+msgstr ""
+"Faltan los archivos subidos. Para deshabilitar los archivos para este "
+"registro, márquelo como de solo metadatos."
+
+#: invenio_drafts_resources/services/records/components/base.py:138
+msgid "Missing uploaded files."
+msgstr "Faltan archivos subidos."
+
+#: invenio_drafts_resources/services/records/components/base.py:262
+msgid "One or more files have not completed their transfer, please wait."
+msgstr ""
+"Uno o más archivos no han completado su transferencia. Espere, por favor."
+
+#: invenio_drafts_resources/services/records/components/base.py:288
+msgid "Files support must be enabled."
+msgstr "El respaldo de archivos debe estar activado."
+
+#: invenio_drafts_resources/services/records/components/base.py:294
+msgid "Please remove all files first."
+msgstr "Por favor, borre primero todos los archivos."
+
+#: invenio_drafts_resources/services/records/components/base.py:300
+msgid "The record has no files."
+msgstr "El registro no tiene archivos."

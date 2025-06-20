@@ -1,0 +1,102 @@
+# Translations template for invenio-drafts-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-drafts-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-drafts-resources 3.2.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 13:24+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2024\n"
+"Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: invenio_drafts_resources/resources/records/errors.py:33
+msgid "Redirecting..."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/config.py:54
+#: invenio_drafts_resources/services/records/config.py:83
+msgid "Best match"
+msgstr "Найкраща відповідність"
+
+#: invenio_drafts_resources/services/records/config.py:58
+#: invenio_drafts_resources/services/records/config.py:95
+msgid "Newest"
+msgstr "Найновіші"
+
+#: invenio_drafts_resources/services/records/config.py:62
+#: invenio_drafts_resources/services/records/config.py:99
+msgid "Oldest"
+msgstr "Найстаріші"
+
+#: invenio_drafts_resources/services/records/config.py:66
+#: invenio_drafts_resources/services/records/config.py:103
+#: invenio_drafts_resources/services/records/config.py:120
+msgid "Version"
+msgstr "Версія"
+
+#: invenio_drafts_resources/services/records/config.py:87
+msgid "Recently updated"
+msgstr "Нещодавно оновлені"
+
+#: invenio_drafts_resources/services/records/config.py:91
+msgid "Least recently updated"
+msgstr "Найбільш давно не оновлювались"
+
+#: invenio_drafts_resources/services/records/service.py:103
+msgid "Records should be updated via their draft."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/service.py:249
+msgid "Failed to fetch the record versions."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/service.py:509
+msgid "Files support is not enabled."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:87
+#: invenio_drafts_resources/services/records/components/base.py:118
+msgid "You don't have permissions to manage files options."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:135
+#: invenio_drafts_resources/services/records/components/base.py:252
+#: invenio_drafts_resources/services/records/components/media_files.py:64
+msgid ""
+"Missing uploaded files. To disable files for this record please mark it as "
+"metadata-only."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:138
+msgid "Missing uploaded files."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:262
+msgid "One or more files have not completed their transfer, please wait."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:288
+msgid "Files support must be enabled."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:294
+msgid "Please remove all files first."
+msgstr ""
+
+#: invenio_drafts_resources/services/records/components/base.py:300
+msgid "The record has no files."
+msgstr "Запис на містить файлів"

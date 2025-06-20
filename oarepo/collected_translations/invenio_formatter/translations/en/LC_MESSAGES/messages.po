@@ -1,0 +1,47 @@
+# English translations for invenio-formatter.
+# Copyright (C) 2021 CERN
+# Copyright (C) 2021 Graz University of Technology.
+# This file is distributed under the same license as the invenio-formatter
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-formatter 1.1.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2021-06-16 13:53+0200\n"
+"PO-Revision-Date: 2021-07-15 11:36+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:13
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:14
+msgid "Markdown"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:19
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:20
+msgid "reStructedText"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:26
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:27
+msgid "HTML"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:33
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:34
+msgid "Image URL"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:40
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:41
+msgid "Target URL"
+msgstr ""
+

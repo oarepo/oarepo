@@ -1,0 +1,117 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Bessem Aamira <bessemamira@gmail.com>, 2024
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "فتح قائمة العمليّات"
+
+msgid "Resource is not deletable."
+msgstr "المورد غير قابل للحذف."
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete {{title}}"
+msgstr "حذف  {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "هل أنت متأكد من حذف {{resourceName}}؟"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Resource is not editable."
+msgstr "المورد غير قابل للتّعديل."
+
+msgid "Error"
+msgstr "خطأ"
+
+msgid "Server was not able to process your request."
+msgstr "الموزّع لم يتمكّن من معالجة طلبك."
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "Remove field"
+msgstr "حذف الحقل"
+
+msgid "Sort"
+msgstr "رتّب"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search ..."
+msgstr "البحث ..."
+
+msgid "There is no resources in this category."
+msgstr "لا توجد موارد في هذه الفئة."
+
+msgid "No matching resources found."
+msgstr "لا توجد موارد مطابقة."
+
+msgid "Clear query"
+msgstr "محو الطّلب"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "{{count}} لم يتم العثور على نتائج"
+msgstr[1] "{{count}} نتيجة موجودة"
+msgstr[2] "{{count}} نتائج موجودة"
+msgstr[3] "{{count}} نتائج موجودة"
+msgstr[4] "{{count}} نتائج موجودة"
+msgstr[5] "{{count}} نتائج موجودة"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "عدد النتائج في الصّفحة"
+msgstr[1] "عدد النتائج في الصّفحة"
+msgstr[2] "عدد النتائج في الصّفحة"
+msgstr[3] "عدد النتائج في الصّفحة"
+msgstr[4] "عدد النتائج في الصّفحة"
+msgstr[5] "عدد النتائج في الصّفحة"
+
+msgid "Actions"
+msgstr "العمليات"
+
+msgid "Success"
+msgstr "نجاح العمليّة"
+
+msgid "Resource was successfully deleted."
+msgstr "تم حذف المورد بنجاح."
+
+msgid "Action error"
+msgstr "خطأ في الإجراء"
+
+msgid "Invalid JSON format"
+msgstr "تنسيق JSON غير صالح"
+
+msgid "Your changes were successfully submitted"
+msgstr "لقد تم إرسال التغييرات الخاصة بك بنجاح"
+
+msgid "Form error"
+msgstr "خطأ في النموذج"
+
+msgid "Current search"
+msgstr "البحث الحالي"

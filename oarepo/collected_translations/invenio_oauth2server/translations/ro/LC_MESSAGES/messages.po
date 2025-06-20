@@ -1,0 +1,487 @@
+# Translations template for invenio-oauth2server.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-oauth2server project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2021
+# Nicolaie Constantinescu, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-oauth2server 2.4.2\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 13:42+0000\n"
+"PO-Revision-Date: 2016-08-18 08:03+0000\n"
+"Last-Translator: Nicolaie Constantinescu, 2025\n"
+"Language-Team: Romanian (https://app.transifex.com/inveniosoftware/teams/23537/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: invenio_oauth2server/admin.py:69
+msgid "OAuth Applications"
+msgstr "Aplicații OAuth"
+
+#: invenio_oauth2server/admin.py:70 invenio_oauth2server/admin.py:79
+msgid "User Management"
+msgstr "Management utilizatori"
+
+#: invenio_oauth2server/admin.py:78
+msgid "OAuth Application Tokens"
+msgstr "OAuth Application Tokens"
+
+#: invenio_oauth2server/ext.py:299
+#, python-format
+msgid "%(icon)s Applications"
+msgstr "%(icon)s Aplicații"
+
+#: invenio_oauth2server/forms.py:104
+#, python-format
+msgid "Invalid redirect URIs: %(urls)s"
+msgstr "URI-uri de redirectare nevalide: %(urls)s"
+
+#: invenio_oauth2server/forms.py:136
+msgid "Redirect URIs (one per line)"
+msgstr "URI-uri de redirectare (unu per linie)"
+
+#: invenio_oauth2server/forms.py:138
+msgid ""
+"One redirect URI per line. This is your application's authorization callback"
+" URLs. HTTPS must be used for all hosts except localhost (for testing "
+"purposes)."
+msgstr ""
+"Un URI de redirectare per linie. Acestea sunt URL-urile callback-urilor de "
+"autorizare. Trebuie folosit HTTPS pentru toate computerele mai puțin "
+"localhost (în scop de testare)."
+
+#: invenio_oauth2server/forms.py:156
+msgid "Client type"
+msgstr "Tipul clientului"
+
+#: invenio_oauth2server/forms.py:158
+msgid ""
+"Select confidential if your application is capable of keeping the issued "
+"client secret confidential (e.g. a web application), select public if your "
+"application cannot (e.g. a browser-based JavaScript application). If you "
+"select public, your application MUST validate the redirect URI."
+msgstr ""
+"Selectează confidențial dacă aplicația ta este capabilă să țină secretul "
+"clientului în regim de confidențialitate (de ex. o aplicație web), "
+"selectează public dacă aplicația nu poate (de ex. o aplicație JavaScript "
+"care se bazează pe browser). Dacă selectezi public, aplicația ta TREBUIE să "
+"valideze URI-ul de redirectare."
+
+#: invenio_oauth2server/forms.py:165
+msgid "Confidential"
+msgstr "Confidențial"
+
+#: invenio_oauth2server/forms.py:165
+msgid "Public"
+msgstr "Public"
+
+#: invenio_oauth2server/forms.py:175
+msgid "Name of personal access token."
+msgstr "Numele tokenului de acces personal."
+
+#: invenio_oauth2server/forms.py:179
+msgid "The name must be less than 40 characters long."
+msgstr "Numele trebuie să fie mai mic de 40 de caractere."
+
+#: invenio_oauth2server/forms.py:188
+msgid ""
+"Scopes assign permissions to your personal access token. A personal access "
+"token works just like a normal OAuth  access token for authentication "
+"against the API."
+msgstr ""
+"Scopes atribuie permisiuni tokenului personal de acces. Un token personal de"
+" acces lucrează ca un token OAuth pentru acces obișnuit pentru a te "
+"autentifica la un API.  "
+
+#: invenio_oauth2server/models.py:121
+msgid "Name"
+msgstr "Nume"
+
+#: invenio_oauth2server/models.py:122
+msgid "Name of application (displayed to users)."
+msgstr "Numele aplicației (afișat utilizatorilor)."
+
+#: invenio_oauth2server/models.py:132
+msgid "Description"
+msgstr "Descriere"
+
+#: invenio_oauth2server/models.py:134
+msgid "Optional. Description of the application (displayed to users)."
+msgstr "Opțional. Descrierea aplicației (afișat utilizatorilor)."
+
+#: invenio_oauth2server/models.py:143
+msgid "Website URL"
+msgstr "URL-ul Website"
+
+#: invenio_oauth2server/models.py:144
+msgid "URL of your application (displayed to users)."
+msgstr "URL-ul aplicației (afișat utilizatorilor)."
+
+#: invenio_oauth2server/scopes.py:19
+msgid "Allow access to email address (read-only)."
+msgstr "Permite accesul la adresa de email (read-only)."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:19
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:20
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:59
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:18
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:21
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:66
+msgid "Authorize application"
+msgstr "Autorizează aplicația"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:21
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:23
+#, python-format
+msgid ""
+"Application '%(client_name)s' by '%(client_user)s' wants permission to "
+"access your '%(current_user)s' account."
+msgstr ""
+"Aplicația '%(client_name)s' de '%(client_user)s' dorește permisiunea de a "
+"accesa '%(current_user)s' contul tău."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:28
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:30
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:34
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:26
+msgid "Review permissions"
+msgstr "Evaluează permisiunile"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:37
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:39
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:47
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:39
+msgid "No permissions granted."
+msgstr "Nu sunt acordate permisiuni."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:44
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:44
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:53
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:44
+msgid "Application"
+msgstr "Aplicație"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:47
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:47
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:56
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:47
+msgid "Visit application website"
+msgstr "Vizitează siteul web al aplicației"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/authorize.html:60
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/authorize.html:67
+msgid "Reject"
+msgstr "Respinge"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:18
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:22
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:17
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:20
+msgid "Invalid authorization request"
+msgstr "Cerere de autorizare nevalidă"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:24
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:22
+#, python-format
+msgid ""
+"The service that redirected your here made an invalid authorization request "
+"(error code: %(x_error)s)."
+msgstr ""
+"Serviciul care te-a redirectat aici a făcut o cerere de autorizare nevalidă "
+"(cod de eroare: %(x_error)s)."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/errors.html:31
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/errors.html:28
+msgid "Get me out of here!"
+msgstr "Scoate-mă de aici!"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_new.html:17
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:17
+msgid "New OAuth Application"
+msgstr "Aplicație OAuth nouă"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_new.html:25
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_new.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:27
+msgid "Cancel"
+msgstr "Anulează"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_new.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:29
+msgid "Register"
+msgstr "Întregistrare"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:17
+#, python-format
+msgid "Application / %(client_name)s"
+msgstr "Aplicație / %(client_name)s"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:22
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:28
+msgid "Client ID"
+msgstr "ID de client"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:23
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:31
+msgid "Client Secret"
+msgstr "Secret al clientului"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:24
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:33
+msgid "Do not share the client secret with anyone!"
+msgstr "Nu expune secretul clientului niciunei părți terțe!"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:30
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:40
+msgid "Reset client secret"
+msgstr "Resetează secretul clientului"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:47
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:48
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:62
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:55
+msgid "Delete"
+msgstr "Şterge"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:48
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:49
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:65
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:58
+msgid "Save"
+msgstr "Salvează"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:55
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:74
+msgid "OAuth 2.0 Endpoints"
+msgstr "Endpointuri OAuth 2.0"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:59
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:79
+msgid "Authorize URL (GET)"
+msgstr "Autorizează URL (GET)"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:62
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:86
+msgid "Query parameters"
+msgstr "Parametri de interogare"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:69
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:92
+msgid "example request"
+msgstr "cerere de exemplificare"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:72
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:89
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:94
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:114
+msgid "required, use"
+msgstr "cerut, folosește"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:73
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:87
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:88
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:95
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:112
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:113
+msgid "required"
+msgstr "cerut"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:74
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:96
+msgid "required, space separate list of scopes"
+msgstr "cerut, listă de scopes separată prin spații"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:75
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:97
+msgid "required, URL encoded"
+msgstr "cerut, URL encoded"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:76
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:98
+msgid "recommended, for CSRF protection"
+msgstr "recomandat pentru protecție CSRF"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:83
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:104
+msgid "Access token URL (POST)"
+msgstr "URL-ul tokenului de acces (POST)"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:85
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:110
+msgid "Request body parameters:"
+msgstr "Parametii corpului cererii:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:90
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:91
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:92
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/client_view.html:93
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:115
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:116
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:117
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:118
+msgid "required for grant_type"
+msgstr "cerut pentru grant_type"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:17
+msgid "Developer Applications"
+msgstr "Aplicațiile dezvoltatorului"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:18
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:18
+msgid "New application"
+msgstr "Aplicație nouă"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:25
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:24
+#, python-format
+msgid "You have registered these applications to use the %(site_name)s API:"
+msgstr "Ai marcat aceste aplicații să folosească API-ul de la %(site_name)s:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:36
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:36
+#, python-format
+msgid ""
+"You have not yet registered any applications. Click the 'New application' "
+"button to create an application to access the %(site_name)s API."
+msgstr ""
+"Nu ai înregistrat nicio aplicație deocamdată. Apasă pe butonul 'Aplicație "
+"nouă' pentru a crea o aplicație pentru a accesa API-ul de la %(site_name)s."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:41
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:42
+msgid "Personal access tokens"
+msgstr "Tokenuri de acces personal"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:42
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:43
+msgid "New token"
+msgstr "Token nou"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:49
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:50
+#, python-format
+msgid "Following are personal tokens used to access the %(site_name)s API:"
+msgstr ""
+"Următoarele sunt tokenuri personale folosite pentru a accesa API-ul de la "
+"%(site_name)s:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:60
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:63
+msgid ""
+"You have not yet created any personal access tokens. Click the 'New token' "
+"button to create a personal access token."
+msgstr ""
+"Încă nu ai creat vreun token personal pentru acces. Apasă pe butonul 'Token "
+"nou' pentru a crea un token personal pentru acces. "
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:65
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:70
+msgid "Authorized applications"
+msgstr "Aplicații autorizate"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:70
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:75
+msgid "You have granted the following application access to your account:"
+msgstr "Ai permis accesul următoarelor aplicații la contul tău:"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:76
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:89
+msgid "Revoke"
+msgstr "Revocă"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/index.html:84
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:96
+msgid ""
+"You have not yet granted any external applications access to your account."
+msgstr "Încă nu ai permis niciunei aplicații externe să acceseze contul tău."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_new.html:18
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:18
+msgid "New personal access token"
+msgstr "Token personal nou pentru acces"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_new.html:27
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:30
+msgid "Create"
+msgstr "Creează"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_permission_view.html:17
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_permission_view.html:17
+#, python-format
+msgid "Authorized application: %(client_name)s"
+msgstr "Aplicație autorizată: %(client_name)s"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:17
+#, python-format
+msgid "Personal access token / %(name)s"
+msgstr "Token personal pentru acces / %(name)s"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:24
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:24
+msgid "Access token"
+msgstr "Token pentru acces"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:26
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:29
+msgid "Please copy the personal access token now. You won't see it again!"
+msgstr ""
+"Copiază chiar acum tokenul personal pentru acces,. Nu va mai fi afișat!"
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:29
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:34
+msgid ""
+"Do not share this personal access token. It gives full access to your "
+"account."
+msgstr ""
+"Nu distribuiți acest token de acces personal. Oferă acces complet la contul "
+"dumneavoastră."
+
+#: invenio_oauth2server/templates/invenio_oauth2server/settings/token_view.html:40
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:44
+msgid ""
+"If you've lost or forgotten this token please create a new one. Be aware "
+"that any scripts or applications using this token will need to be updated."
+msgstr ""
+"Dacă ați pierdut sau ați uitat acest token, vă rugăm să creați unul nou. "
+"Fiți conștienți că orice scripturi sau aplicații care utilizează acest token"
+" vor trebui actualizate."
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_new.html:19
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:20
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_new.html:20
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:19
+msgid "Applications"
+msgstr "Aplicații"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:18
+#, python-format
+msgid "%(client_name)s"
+msgstr "%(client_name)s"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:56
+msgid "Application settings"
+msgstr "Setări aplicație"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/client_view.html:94
+msgid "or"
+msgstr "sau"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/index.html:17
+msgid "Developer applications"
+msgstr "Aplicații dezvoltator"
+
+#: invenio_oauth2server/templates/semantic-ui/invenio_oauth2server/settings/token_view.html:17
+#, python-format
+msgid "%(name)s"
+msgstr "%(name)s"

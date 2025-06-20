@@ -1,0 +1,193 @@
+# Translations template for invenio-banners.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-banners
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Bessem Aamira <bessemamira@gmail.com>, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-banners 4.1.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-02-20 13:53+0000\n"
+"PO-Revision-Date: 2023-06-30 09:38+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: invenio_banners/config.py:16
+msgid "Info"
+msgstr "معلومات"
+
+#: invenio_banners/config.py:17
+msgid "Warning"
+msgstr "تحذير"
+
+#: invenio_banners/config.py:18
+msgid "Other"
+msgstr "اخرى"
+
+#: invenio_banners/administration/banners.py:43
+#: invenio_banners/administration/banners.py:86
+#: invenio_banners/administration/banners.py:178 invenio_banners/config.py:38
+msgid "URL path"
+msgstr "مسلك URL"
+
+#: invenio_banners/config.py:42
+msgid "Start DateTime"
+msgstr "تاريخ و توقيت البدء"
+
+#: invenio_banners/config.py:46
+msgid "End DateTime"
+msgstr "تاريخ و توقيت الإنتهاء"
+
+#: invenio_banners/administration/banners.py:42
+#: invenio_banners/administration/banners.py:113
+#: invenio_banners/administration/banners.py:180 invenio_banners/config.py:50
+#: invenio_banners/services/config.py:60
+msgid "Active"
+msgstr "مفعٌل"
+
+#: invenio_banners/administration/banners.py:26
+#: invenio_banners/administration/banners.py:27
+msgid "Banners"
+msgstr "لافتات"
+
+#: invenio_banners/administration/banners.py:28
+msgid "Site management"
+msgstr "إدارة الموقع"
+
+#: invenio_banners/administration/banners.py:38
+msgid "Id"
+msgstr "معرّف Id"
+
+#: invenio_banners/administration/banners.py:39
+msgid "Start time (UTC)"
+msgstr "توقيت البدء (ت ع م)"
+
+#: invenio_banners/administration/banners.py:40
+msgid "End time (UTC)"
+msgstr "توقيت الإنهاء (ت ع م)"
+
+#: invenio_banners/administration/banners.py:41
+#: invenio_banners/administration/banners.py:78
+#: invenio_banners/administration/banners.py:177
+msgid "Message"
+msgstr "رسالة"
+
+#: invenio_banners/administration/banners.py:44
+#: invenio_banners/administration/banners.py:98
+#: invenio_banners/administration/banners.py:179
+msgid "Category"
+msgstr "الفئة"
+
+#: invenio_banners/administration/banners.py:56
+#: invenio_banners/administration/banners.py:175
+#: invenio_banners/services/config.py:52
+msgid "Start time"
+msgstr "توقيت البدء"
+
+#: invenio_banners/administration/banners.py:58
+msgid ""
+"Date/time to make the banner active. Input format: yyyy-mm-dd hh:mm:ss. Set "
+"to future date/time to delay the banner. Note: specify time in UTC time "
+"standard."
+msgstr ""
+"التاريخ/الوقت لتنشيط اللافتة. تنسيق الإدخال: yyyy-mm-dd hh:mm:ss. إعداد كل "
+"من التاريخ و الوقت \"لوقت لاحق\" لتأخير اللافتة. ملحوظة: حدد الوقت وفقًا "
+"لمعيار توقيت UTC."
+
+#: invenio_banners/administration/banners.py:63
+#: invenio_banners/administration/banners.py:74
+msgid "YYYY-MM-DD hh:mm:ss"
+msgstr "YYYY-MM-DD hh:mm:ss"
+
+#: invenio_banners/administration/banners.py:67
+#: invenio_banners/administration/banners.py:176
+#: invenio_banners/services/config.py:56
+msgid "End time"
+msgstr "توقيت الإنتهاء"
+
+#: invenio_banners/administration/banners.py:69
+msgid ""
+"Date/time to make the banner inactive. Input format: yyyy-mm-dd hh:mm:ss.  "
+"An empty value makes the banner active until manually disabled via the "
+"active flag. Note: specify time in UTC time standard."
+msgstr ""
+"التاريخ/الوقت لعطيل تنشيط اللافتة. تنسيق الإدخال: yyyy-mm-dd hh:mm:ss. "
+"القيمة الفارغة تُفعّل اللافتة حتى يتم تعطيلها يدويًا عبر علامة التنشيط. "
+"ملحوظة: حدد الوقت وفقًا لمعيار توقيت UTC."
+
+#: invenio_banners/administration/banners.py:80
+msgid "Message to be displayed on the banner. HTML format is supported."
+msgstr " الرسالة التي ستعرض على اللاّفتة. صيغة HTML مدعومة."
+
+#: invenio_banners/administration/banners.py:88
+msgid ""
+"URL path prefix (including the first /) to define where the message will be "
+"active on the site. For example, if you enter `/records`, any URL starting "
+"with `/records` will return an active banner (`/records`, `/records/1234`, "
+"etc.). An empty value makes the banner active for any URL."
+msgstr ""
+"بادئة مسار path prefix عنوان URL (بما في ذلك أول /) لتحديد المكان الذي "
+"ستنشيط فيه الرسالة على الموقع. على سبيل المثال، إذا أدخلت `/records`، فإن أي"
+" عنوان URL يبدأ بـ `/records` سيُرجع لافتة نشطة (`/records`، "
+"`/records/1234`، إلخ). القيمة الفارغة تجعل اللافتة نشطة لأي عنوان URL."
+
+#: invenio_banners/administration/banners.py:100
+msgid ""
+"Banner category. `Info` option displays a blue banner. `Warning` option "
+"displays an orange banner. `Other` option displays a gray banner."
+msgstr ""
+"فئة اللافتات. خيار 'المعلومات' يعرض لافتة زرقاء. خيار  'تحذير' يعرض لافتة "
+"برتقالية. خيار  'أخرى' يعرض لافتة رمادية."
+
+#: invenio_banners/administration/banners.py:115
+msgid ""
+"Tick it to activate the banner: banner will be displayed according to "
+"start/end times. If not activated, start/end times will be ignored."
+msgstr ""
+"أنقر على فعّل اللافتة: سيتم عرض اللافتة حسب وقت البدء/النهاية. في حال عدم "
+"تفعيلها، سيتم تجاهل وقت البدء/النهاية."
+
+#: invenio_banners/administration/banners.py:131
+msgid "Edit Banner"
+msgstr "تعديل اللافتة"
+
+#: invenio_banners/administration/banners.py:150
+msgid "Create Banner"
+msgstr "أنشئ لافتة"
+
+#: invenio_banners/administration/banners.py:166
+msgid "Banner Details"
+msgstr "تفاصيل اللافتة"
+
+#: invenio_banners/administration/banners.py:181
+msgid "Created"
+msgstr "تمّ الإنشاء"
+
+#: invenio_banners/administration/banners.py:182
+msgid "Updated"
+msgstr "محينة"
+
+#: invenio_banners/services/config.py:36
+msgid "Ascending"
+msgstr "تصاعدي"
+
+#: invenio_banners/services/config.py:40
+msgid "Descending"
+msgstr "تنازلي"
+
+#: invenio_banners/services/config.py:48
+msgid "Url path"
+msgstr "مسلك URL"

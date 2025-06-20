@@ -1,0 +1,112 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2024\n"
+"Language-Team: Ukrainian (https://app.transifex.com/inveniosoftware/teams/23537/uk/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr ""
+
+msgid "Resource is not deletable."
+msgstr ""
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Delete {{title}}"
+msgstr ""
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr ""
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Resource is not editable."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Server was not able to process your request."
+msgstr ""
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Remove field"
+msgstr "Видалити поле"
+
+msgid "Sort"
+msgstr "Впорядкувати"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search ..."
+msgstr ""
+
+msgid "There is no resources in this category."
+msgstr ""
+
+msgid "No matching resources found."
+msgstr ""
+
+msgid "Clear query"
+msgstr ""
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "Success"
+msgstr ""
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr ""

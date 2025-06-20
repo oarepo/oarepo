@@ -1,0 +1,19 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-i18n 0.1.0.dev20150000\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2015-10-09 17:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.1.1\n"
+
+msgid "Test string"
+msgstr "Test string from test"
+
+#: invenio_i18n/babel.py:41
+msgid "Translate"
+msgstr "From test catalog"

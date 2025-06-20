@@ -1,0 +1,45 @@
+# Translations template for invenio-formatter.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-formatter
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-formatter 2.0.3\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:47+0000\n"
+"PO-Revision-Date: 2016-08-25 08:41+0000\n"
+"Language-Team: Lithuanian (https://app.transifex.com/inveniosoftware/teams/23537/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:14
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:15
+msgid "Markdown"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:19
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:22
+msgid "reStructuredText"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:25
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:30
+msgid "HTML"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:30
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:37
+msgid "Image URL"
+msgstr ""
+
+#: invenio_formatter/templates/invenio_formatter/macros/badges.html:35
+#: invenio_formatter/templates/semantic-ui/invenio_formatter/macros/badges.html:44
+msgid "Target URL"
+msgstr ""

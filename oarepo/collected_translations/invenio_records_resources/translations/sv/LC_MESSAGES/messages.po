@@ -1,0 +1,203 @@
+# Translations template for invenio-records-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# yyones, 2024
+# Sam Arbid, 2024
+# Mattias Vesterlund, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-resources 5.10.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-01 13:38+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_records_resources/records/systemfields/entity_reference.py:46
+#, python-format
+msgid "Invalid reference for '%(key)s': %(obj)s"
+msgstr "Ogiltig referens för '%(key)s': %(obj)s"
+
+#: invenio_records_resources/resources/errors.py:61
+#: invenio_records_resources/resources/errors.py:62
+msgid "Invalid query string syntax."
+msgstr "Ogiltig syntax för frågesträng."
+
+#: invenio_records_resources/resources/errors.py:63
+msgid "Misconfigured search."
+msgstr "Felkonfigurerad sökning."
+
+#: invenio_records_resources/resources/errors.py:74
+msgid "Internal server error"
+msgstr "Internt serverfel"
+
+#: invenio_records_resources/resources/errors.py:120
+msgid "Invalid querystring parameters."
+msgstr "Ogiltiga parametrar för frågesträng."
+
+#: invenio_records_resources/resources/errors.py:126
+#: invenio_records_resources/resources/errors.py:132
+#: invenio_records_resources/services/errors.py:36
+msgid "Permission denied."
+msgstr "Tillstånd nekat."
+
+#: invenio_records_resources/resources/errors.py:138
+msgid "The record has been deleted."
+msgstr "Posten har raderats."
+
+#: invenio_records_resources/resources/errors.py:144
+msgid "The persistent identifier is already registered."
+msgstr "Den beständiga identifieraren är redan registrerad."
+
+#: invenio_records_resources/resources/errors.py:150
+msgid "The persistent identifier does not exist."
+msgstr "Den beständiga identifieraren finns inte."
+
+#: invenio_records_resources/resources/errors.py:156
+msgid "The persistent identifier is not registered."
+msgstr "Den beständiga identifieraren är inte registrerad."
+
+#: invenio_records_resources/resources/errors.py:163
+msgid "Not found."
+msgstr "Hittades inte."
+
+#: invenio_records_resources/resources/errors.py:170
+#, python-format
+msgid "Facet %(vocabulary_id)s not found."
+msgstr "Facetten %(vocabulary_id)s hittades inte."
+
+#: invenio_records_resources/resources/errors.py:183
+msgid "Unable to decode JSON data in request body."
+msgstr "Det gick inte att avkoda JSON-datan i begäran."
+
+#: invenio_records_resources/resources/errors.py:189
+#: invenio_records_resources/resources/errors.py:195
+msgid "Not a valid value."
+msgstr "Inte ett giltigt värde."
+
+#: invenio_records_resources/resources/errors.py:204
+msgid "The file upload transfer failed, please try again."
+msgstr "Filuppladdningen misslyckades, försök igen."
+
+#: invenio_records_resources/resources/errors.py:211
+msgid ""
+"Uploading selected files will result in exceeding the max amount per record."
+msgstr ""
+"Om du laddar upp de valda filerna kommer det att leda till att maxantalet "
+"per post överskrids."
+
+#: invenio_records_resources/services/errors.py:51
+#, python-format
+msgid ""
+"Revision id provided(%(expected_revision_id)s) doesn't match record's "
+"one(%(record_revision_id)s)"
+msgstr ""
+"Det angivna Revision id:et(%(expected_revision_id)s) stämmer inte överrens "
+"med postens(%(record_revision_id)s)"
+
+#: invenio_records_resources/services/errors.py:73
+#, python-format
+msgid "Facet %(vocab)s not found."
+msgstr "Facetten %(vocab)s hittades inte."
+
+#: invenio_records_resources/services/errors.py:83
+#, python-format
+msgid "Record '%(recid)s' has no file '%(file_key)s'."
+msgstr "Posten '%(recid)s' har ingen fil '%(file_key)s'."
+
+#: invenio_records_resources/services/errors.py:99
+#, python-format
+msgid "Record '%(recid)s' failed to upload file '%(file_key)s'."
+msgstr ""
+"Posten '%(recid)s' misslyckades med att ladda upp filen '%(file_key)s'."
+
+#: invenio_records_resources/services/errors.py:116
+#, python-brace-format
+msgid ""
+"Uploading the selected files would result in {files_count} files (max is "
+"{max_files})."
+msgstr ""
+"Uppladdning av de valda filerna skulle resultera i {files_count} filer (max "
+"är {max_files})."
+
+#: invenio_records_resources/services/custom_fields/errors.py:37
+#, python-format
+msgid ""
+"Namespace %(given_namespace)s is not valid for custom field %(field_name)s."
+msgstr ""
+"Namnrymden %(given_namespace)s är inte giltig för anpassat fält "
+"%(field_name)s."
+
+#: invenio_records_resources/services/custom_fields/errors.py:54
+#, python-format
+msgid "Custom fields %(field_names)s are not configured."
+msgstr "Anpassade fält %(field_names)s  är inte konfigurerade."
+
+#: invenio_records_resources/services/custom_fields/errors.py:70
+#, python-format
+msgid "Invalid argument %(arg_name)s passed when initializing custom field."
+msgstr "Ogiltigt argument %(arg_name)s vid initiering av anpassat fält."
+
+#: invenio_records_resources/services/files/service.py:264
+msgid "File upload transfer failed."
+msgstr "Filuppladdningen misslyckades."
+
+#: invenio_records_resources/services/files/transfer.py:77
+msgid "File size limit exceeded."
+msgstr "Gränsen för filstorlek har överskridits."
+
+#: invenio_records_resources/services/files/transfer.py:103
+msgid "Empty files are not accepted."
+msgstr "Tomma filer accepteras inte."
+
+#: invenio_records_resources/services/records/config.py:36
+msgid "Best match"
+msgstr "Bästa matchningen"
+
+#: invenio_records_resources/services/records/config.py:40
+msgid "Newest"
+msgstr "Nyast"
+
+#: invenio_records_resources/services/records/config.py:44
+msgid "Oldest"
+msgstr "Äldst"
+
+#: invenio_records_resources/services/records/components/files.py:89
+msgid "You must first delete all files to set the record to be metadata-only."
+msgstr ""
+"Du måste först radera alla filer för att ställa in att posten endast ska "
+"innehålla metadata."
+
+#: invenio_records_resources/services/records/params/pagination.py:39
+msgid "Invalid pagination parameters."
+msgstr "Ogiltiga parametrar för paginering."
+
+#: invenio_records_resources/services/records/params/querystr.py:31
+msgid "You cannot specify both 'q' and 'suggest' parameters at the same time."
+msgstr "Du kan inte ange både parametrarna ’q’ och ’suggest’ samtidigt."
+
+#: invenio_records_resources/services/records/params/querystr.py:42
+msgid "Invalid 'suggest' parameter."
+msgstr "Ogiltig 'suggest' parameter."
+
+#: invenio_records_resources/services/records/params/sort.py:62
+#, python-format
+msgid "Invalid sort option '%(sort_option)s'."
+msgstr "Ogiltigt sorteringsalternativ '%(sort_option)s'."
+
+#: invenio_records_resources/services/records/queryparser/transformer.py:67
+#, python-format
+msgid "Invalid search field: %(field_name)s."
+msgstr "Ogiltigt sökfält: %(field_name)s."

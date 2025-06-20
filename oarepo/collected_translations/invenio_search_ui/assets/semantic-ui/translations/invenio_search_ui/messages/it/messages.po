@@ -1,0 +1,70 @@
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Language-Team: Italian (http://app.transifex.com/inveniosoftware/invenio/language/it/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Versioni"
+
+msgid "View all versions"
+msgstr ""
+
+msgid "Help"
+msgstr "Aiuto"
+
+msgid "Search guide"
+msgstr ""
+
+msgid "Show all sub facets of "
+msgstr ""
+
+msgid "Clear selection"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "results per page"
+msgstr ""
+
+msgid "<0></0> results found"
+msgstr ""
+
+msgid " "
+msgstr ""
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Search records..."
+msgstr ""
+
+msgid "All records"
+msgstr ""
+
+msgid "result(s) found"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Sort by"
+msgstr ""
+
+msgid "Filter results"
+msgstr ""
+
+msgid "Search filters"
+msgstr ""
+
+msgid "Search results"
+msgstr "Risultati di ricerca"

@@ -1,0 +1,73 @@
+# 
+# Translators:
+# BEN TERCÜME, 2024
+# Ben Translation and Interpreting Services <info@bentercume.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: InvenioRDM\n"
+"POT-Creation-Date: 2025-04-08T19:44:36.175Z\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: BEN TERCÜME, 2024\n"
+"Language-Team: Turkish (http://app.transifex.com/inveniosoftware/invenio/language/tr/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Versions"
+msgstr "Sürümler"
+
+msgid "View all versions"
+msgstr "Tüm sürümleri görüntüle"
+
+msgid "Help"
+msgstr "Yardım"
+
+msgid "Search guide"
+msgstr "Arama kılavuzu"
+
+msgid "Show all sub facets of "
+msgstr "Tüm alt yönlerini göster"
+
+msgid "Clear selection"
+msgstr "Seçimi temizle"
+
+msgid "Clear"
+msgstr "Temizle"
+
+msgid "results per page"
+msgstr "sayfa başına sonuç sayısı"
+
+msgid "<0></0> results found"
+msgstr "<0></0>sonuç bulundu"
+
+msgid " "
+msgstr " "
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Search records..."
+msgstr "Kayıtları ara..."
+
+msgid "All records"
+msgstr "Tüm kayıtlar"
+
+msgid "result(s) found"
+msgstr "sonuç(lar) bulundu"
+
+msgid "Sort"
+msgstr "Sırala"
+
+msgid "Sort by"
+msgstr "Sırala"
+
+msgid "Filter results"
+msgstr "Sonuçları filtrele"
+
+msgid "Search filters"
+msgstr "Arama filtreleri"
+
+msgid "Search results"
+msgstr "Arama Sonuçları"

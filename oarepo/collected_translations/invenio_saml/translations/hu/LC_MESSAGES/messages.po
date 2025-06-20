@@ -1,0 +1,38 @@
+# Translations template for invenio-saml.
+# Copyright (C) 2022 CERN
+# This file is distributed under the same license as the invenio-saml
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# 
+# Translators:
+# Andrea Dömötör, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-saml 1.0.0a2\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2022-10-12 11:55+0000\n"
+"PO-Revision-Date: 2021-07-12 09:11+0000\n"
+"Last-Translator: Andrea Dömötör, 2022\n"
+"Language-Team: Hungarian (https://app.transifex.com/inveniosoftware/teams/23537/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_saml/templates/invenio-saml/login_user.html:24
+#: invenio_saml/templates/semantic-ui/invenio_saml/login_user.html:29
+#, python-format
+msgid "Sign in with %(title)s"
+msgstr "Belépés ezzel: %(title)s"
+
+#: invenio_saml/templates/invenio-saml/login_user.html:29
+msgid "OR"
+msgstr "VAGY"
+
+#: invenio_saml/templates/semantic-ui/invenio_saml/login_user.html:37
+msgid "Or"
+msgstr "Vagy"

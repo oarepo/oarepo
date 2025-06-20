@@ -1,0 +1,112 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Anna Sakoyan, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Anna Sakoyan, 2025\n"
+"Language-Team: Russian (https://app.transifex.com/inveniosoftware/teams/23537/ru/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Открыть список действий"
+
+msgid "Resource is not deletable."
+msgstr "Ресурс нельзя удалить"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete {{title}}"
+msgstr "Удалить {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "Вы уверены, что хотите удалить {{resourceName}}? "
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Resource is not editable."
+msgstr "Этот ресурс не подлежит редактированию."
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Server was not able to process your request."
+msgstr "Сервер не смог обработать ваш запрос."
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Remove field"
+msgstr "Убрать поле"
+
+msgid "Sort"
+msgstr "Сортировать"
+
+msgid "Search"
+msgstr "Искать"
+
+msgid "Search ..."
+msgstr "Искать..."
+
+msgid "There is no resources in this category."
+msgstr "В этой категории нет ресурсов."
+
+msgid "No matching resources found."
+msgstr "Подходящие ресурсы не найдены."
+
+msgid "Clear query"
+msgstr "Очистить запрос"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "{{count}} результат найден"
+msgstr[1] "{{count}} результата найдено"
+msgstr[2] "{{count}} результатов найдено"
+msgstr[3] "{{count}} результата найдено"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "результат на страницу"
+msgstr[1] "результатов"
+msgstr[2] "результатов"
+msgstr[3] "результат на странице: результатов на странице"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Success"
+msgstr "Успешно"
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr "Поисковый запрос"

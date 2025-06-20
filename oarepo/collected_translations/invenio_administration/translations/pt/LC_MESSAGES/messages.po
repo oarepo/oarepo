@@ -1,0 +1,164 @@
+# Translations template for invenio-administration.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-administration project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-administration 2.10.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-26 16:16+0000\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2022\n"
+"Language-Team: Portuguese (https://app.transifex.com/inveniosoftware/teams/23537/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: invenio_administration/admin.py:55
+msgid "Administration"
+msgstr ""
+
+#: invenio_administration/errors.py:22
+#, python-brace-format
+msgid "Invalid resource {resource} configured for view {view}."
+msgstr ""
+
+#: invenio_administration/errors.py:36
+#, python-brace-format
+msgid "No extension found with name '{extension_name}' ."
+msgstr ""
+
+#: invenio_administration/errors.py:48
+msgid "Invalid actions configuration, order or schema missing"
+msgstr ""
+
+#: invenio_administration/errors.py:58
+#, python-brace-format
+msgid "Cannot instantiate resource view {name} without a resource."
+msgstr ""
+
+#: invenio_administration/errors.py:72
+#, python-brace-format
+msgid ""
+"Cannot instantiate resource view {name} without an associated flask "
+"extension."
+msgstr ""
+
+#: invenio_administration/errors.py:85
+#, python-brace-format
+msgid ""
+"Cannot instantiate administration view {name} without a default GET view"
+msgstr ""
+
+#: invenio_administration/marshmallow_utils.py:68
+#, python-format
+msgid "Unrecognized field type: %(field_type)s"
+msgstr ""
+
+#: invenio_administration/marshmallow_utils.py:165
+#, python-format
+msgid "Unrecognised schema field %(field)s: %(field_type_name)s"
+msgstr ""
+
+#: invenio_administration/menu/menu.py:82
+#, python-format
+msgid "%(icon)s Administration"
+msgstr ""
+
+#: invenio_administration/menu/menu.py:94
+msgid "Item should be MenuItem instance."
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/base.html:26
+msgid "Side menu"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/index.html:17
+msgid "Welcome to InvenioRDM Administration"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/index.html:29
+msgid "Welcome to Invenio Administration"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/index.html:30
+msgid "My managment tool"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/macros.html:14
+msgid "Back"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/search.html:26
+msgid "Create"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:17
+msgid "Home navigation"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:19
+msgid "Back to front page"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:43
+msgid "Menu"
+msgstr "Menu"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:61
+msgid "Close menu"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:70
+msgid "Administration dashboard"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:72
+#: invenio_administration/views/dashboard.py:24
+#: invenio_administration/views/dashboard.py:25
+msgid "Dashboard"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:17
+msgid "Log in"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:21
+msgid "Sign up"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:34
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:75
+msgid "My account"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:69
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:98
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:105
+msgid "Log out"
+msgstr ""
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/side_bar_toggle.html:1
+msgid "Toggle side menu"
+msgstr ""
+
+#: invenio_administration/views/base.py:261
+msgid "Resource details"
+msgstr ""
+
+#: invenio_administration/views/base.py:323
+msgid "Edit resource"
+msgstr ""
+
+#: invenio_administration/views/base.py:330
+msgid "Create resource"
+msgstr ""

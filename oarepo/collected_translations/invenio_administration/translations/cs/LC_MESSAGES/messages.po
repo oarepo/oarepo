@@ -1,0 +1,169 @@
+# Translations template for invenio-administration.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-administration project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Jiří Kunčar <jiri.kuncar@gmail.com>, 2022
+# Ivan Masár <helix84@centrum.sk>, 2022
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# daniela.hornickova, 2025
+# Mirek Simek <miroslav.simek@gmail.com>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-administration 2.10.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-26 16:16+0000\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Mirek Simek <miroslav.simek@gmail.com>, 2025\n"
+"Language-Team: Czech (https://app.transifex.com/inveniosoftware/teams/23537/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: invenio_administration/admin.py:55
+msgid "Administration"
+msgstr "Administrace"
+
+#: invenio_administration/errors.py:22
+#, python-brace-format
+msgid "Invalid resource {resource} configured for view {view}."
+msgstr "Špatně nakonfigurovaný zdroj {resource} pro pohled {view}."
+
+#: invenio_administration/errors.py:36
+#, python-brace-format
+msgid "No extension found with name '{extension_name}' ."
+msgstr "Nenalezeno rozšíření se jménem {extension_name}."
+
+#: invenio_administration/errors.py:48
+msgid "Invalid actions configuration, order or schema missing"
+msgstr "Chybná konfigurace akcí, chybějící pořadí či schéma"
+
+#: invenio_administration/errors.py:58
+#, python-brace-format
+msgid "Cannot instantiate resource view {name} without a resource."
+msgstr "Nelze vytvořit zobrazení zdroje {name} bez uvedení zdroje."
+
+#: invenio_administration/errors.py:72
+#, python-brace-format
+msgid ""
+"Cannot instantiate resource view {name} without an associated flask "
+"extension."
+msgstr "Nelze vytvořit zobrazení zdroje {name} bez přiřazené flask extenze."
+
+#: invenio_administration/errors.py:85
+#, python-brace-format
+msgid ""
+"Cannot instantiate administration view {name} without a default GET view"
+msgstr ""
+"Nelze vytvořit náhled administrace {name} bez implicitního GET pohledu."
+
+#: invenio_administration/marshmallow_utils.py:68
+#, python-format
+msgid "Unrecognized field type: %(field_type)s"
+msgstr "Nerozpoznaný typ pole: %(field_type)s"
+
+#: invenio_administration/marshmallow_utils.py:165
+#, python-format
+msgid "Unrecognised schema field %(field)s: %(field_type_name)s"
+msgstr "Nerozpoznané schéma pole %(field)s : %(field_type_name)s"
+
+#: invenio_administration/menu/menu.py:82
+#, python-format
+msgid "%(icon)s Administration"
+msgstr "%(icon)s Administrace"
+
+#: invenio_administration/menu/menu.py:94
+msgid "Item should be MenuItem instance."
+msgstr "Položka by měla být instancí MenuItem"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/base.html:26
+msgid "Side menu"
+msgstr "Boční menu"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/index.html:17
+msgid "Welcome to InvenioRDM Administration"
+msgstr "Vítejte v administraci systému InvenioRDM"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/index.html:29
+msgid "Welcome to Invenio Administration"
+msgstr "Vítejte v administraci systému Invenio"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/index.html:30
+msgid "My managment tool"
+msgstr "Nástroj pro má nastavení"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/macros.html:14
+msgid "Back"
+msgstr "Zpět"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/search.html:26
+msgid "Create"
+msgstr "Vytvořit"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:17
+msgid "Home navigation"
+msgstr "Navigace na počátek"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:19
+msgid "Back to front page"
+msgstr "Zpět na hlavní stránku"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:43
+msgid "Menu"
+msgstr "Menu"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:61
+msgid "Close menu"
+msgstr "Zavřít menu"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:70
+msgid "Administration dashboard"
+msgstr "Administrační panel"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header.html:72
+#: invenio_administration/views/dashboard.py:24
+#: invenio_administration/views/dashboard.py:25
+msgid "Dashboard"
+msgstr "Přehled"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:17
+msgid "Log in"
+msgstr "Přihlásit se"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:21
+msgid "Sign up"
+msgstr "Zaregistrovat se"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:34
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:75
+msgid "My account"
+msgstr "Můj účet"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:69
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:98
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/header_login.html:105
+msgid "Log out"
+msgstr "Odhlásit se"
+
+#: invenio_administration/templates/semantic-ui/invenio_administration/header/side_bar_toggle.html:1
+msgid "Toggle side menu"
+msgstr "Přepnout boční menu"
+
+#: invenio_administration/views/base.py:261
+msgid "Resource details"
+msgstr "Podrobnosti o zdroji"
+
+#: invenio_administration/views/base.py:323
+msgid "Edit resource"
+msgstr "Upravit zdroj"
+
+#: invenio_administration/views/base.py:330
+msgid "Create resource"
+msgstr "Vytvořit zdroj"

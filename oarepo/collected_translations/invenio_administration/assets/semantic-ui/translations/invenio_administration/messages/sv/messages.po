@@ -1,0 +1,110 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Sam Arbid, 2024
+# Rim Sharif, 2024
+# Mattias Vesterlund, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Öppna listan över åtgärder"
+
+msgid "Resource is not deletable."
+msgstr "Resursen går inte att radera."
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Delete {{title}}"
+msgstr "Ta bort {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "Är du säker på att du vill ta bort {{resourceName}}?"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Resource is not editable."
+msgstr "Resursen är inte redigerbar."
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "Server was not able to process your request."
+msgstr "Servern kunde inte behandla din förfrågan."
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Remove field"
+msgstr "Ta bort fält"
+
+msgid "Sort"
+msgstr "Sortera"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search ..."
+msgstr "Sök ..."
+
+msgid "There is no resources in this category."
+msgstr "Det finns inga resurser i denna kategori."
+
+msgid "No matching resources found."
+msgstr "Inga matchande resurser hittades."
+
+msgid "Clear query"
+msgstr "Rensa query"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] "{{count}} resultat hittades"
+msgstr[1] "{{count}} resultat hittades"
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] "resultat per sida"
+msgstr[1] "resultat per sida"
+
+msgid "Actions"
+msgstr "Åtgärder"
+
+msgid "Success"
+msgstr "Framgång"
+
+msgid "Resource was successfully deleted."
+msgstr "Resursen har raderats."
+
+msgid "Action error"
+msgstr "Åtgärdsfel"
+
+msgid "Invalid JSON format"
+msgstr "Ogiltigt JSON-format"
+
+msgid "Your changes were successfully submitted"
+msgstr "Dina ändringar har skickats in"
+
+msgid "Form error"
+msgstr "Formulärsfel"
+
+msgid "Current search"
+msgstr "Nuvarande sökning"

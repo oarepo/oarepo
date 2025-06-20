@@ -1,0 +1,64 @@
+# Translations template for invenio-access.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-access
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2016
+# Nicolaie Constantinescu, 2023
+# Corina Ionascu <icorina@nipne.ro>, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-access 2.0.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:44+0000\n"
+"PO-Revision-Date: 2016-08-18 12:08+0000\n"
+"Last-Translator: Corina Ionascu <icorina@nipne.ro>, 2023\n"
+"Language-Team: Romanian (https://app.transifex.com/inveniosoftware/teams/23537/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: invenio_access/admin.py:39
+msgid "Email"
+msgstr "Email"
+
+#: invenio_access/admin.py:40
+msgid "User ID"
+msgstr "ID Utilizator"
+
+#: invenio_access/admin.py:41 invenio_access/admin.py:75
+#: invenio_access/admin.py:108
+msgid "Deny"
+msgstr "Interzice"
+
+#: invenio_access/admin.py:74
+msgid "Role Name"
+msgstr "Nume rol"
+
+#: invenio_access/admin.py:107
+msgid "System Role"
+msgstr "Rol în sistem"
+
+#: invenio_access/admin.py:136 invenio_access/admin.py:143
+#: invenio_access/admin.py:150
+msgid "User Management"
+msgstr "Management utilizatori"
+
+#: invenio_access/admin.py:137
+msgid "Access: Roles"
+msgstr "Acces: Roluri"
+
+#: invenio_access/admin.py:144
+msgid "Access: Users"
+msgstr "Acces: Utilizatori"
+
+#: invenio_access/admin.py:151
+msgid "Access: System Roles"
+msgstr "Acces: Roluri în sistem"

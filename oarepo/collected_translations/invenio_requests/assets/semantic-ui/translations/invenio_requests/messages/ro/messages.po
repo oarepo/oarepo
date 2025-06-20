@@ -1,0 +1,203 @@
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2024
+# Nicolaie Constantinescu, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-27T14:12:23.605Z\n"
+"PO-Revision-Date: 2022-02-18 11:12+0000\n"
+"Last-Translator: Nicolaie Constantinescu, 2024\n"
+"Language-Team: Romanian (https://app.transifex.com/inveniosoftware/teams/23537/ro/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"mime-version: 1.0\n"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Decline"
+msgstr "Respinge"
+
+msgid "Accept and publish"
+msgstr "Acceptă și publică"
+
+msgid "Accept"
+msgstr "Acceptă"
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "Cancel request"
+msgstr "Anulează cererea"
+
+msgid "Something went wrong."
+msgstr "Ceva nu a funcționat."
+
+msgid "Are you sure you want to delete this comment?"
+msgstr "Ești sigur că vrei să ștergi comentariul?"
+
+msgid "Confirm"
+msgstr "Confirmă"
+
+msgid "Delete"
+msgstr "Şterge"
+
+msgid "Submitted"
+msgstr "Trimis"
+
+msgid "Deleted"
+msgstr "Șters"
+
+msgid "Accepted"
+msgstr "Acceptat"
+
+msgid "Declined"
+msgstr "Respins"
+
+msgid "Cancelled"
+msgstr "Anulat"
+
+msgid "Expired"
+msgstr "Expirat"
+
+msgid "Draft review"
+msgstr "Evaluarea draft-ului"
+
+msgid "Community inclusion"
+msgstr "Includere în comunitate"
+
+msgid "Member invitation"
+msgstr "Invitarea membrilor"
+
+msgid "Add comment (optional)"
+msgstr "Adaugă comentariu (opțional)"
+
+msgid "{{action}} request"
+msgstr "{{action}} cerere"
+
+msgid "Creator"
+msgstr "Creator"
+
+msgid "Receiver"
+msgstr "Receptor"
+
+msgid "Request type"
+msgstr "Tipul cererii"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Created"
+msgstr "Creat"
+
+msgid "Expires"
+msgstr "Expiră"
+
+msgid "Accept request"
+msgstr "Acceptă cererea"
+
+msgid "Decline request"
+msgstr "Refuză cererea"
+
+msgid "Expires at: {{- expiringDate}}"
+msgstr "Expiră la: {{- expiringDate}}"
+
+msgid "Opened {{relativeTime}} by"
+msgstr "Deschis {{relativeTime}} de"
+
+msgid "All done!"
+msgstr "S-a terminat!"
+
+msgid "You've caught up with all open requests."
+msgstr "Am ajuns la zi cu toate solicitările."
+
+msgid "No requests found!"
+msgstr "N-am găsit cereri!"
+
+msgid "Reset search"
+msgstr "Resetează căutarea"
+
+msgid "Sort by"
+msgstr "Sortează după"
+
+msgid "Filter results"
+msgstr "Rezultate de filtrare"
+
+msgid "Search in my requests..."
+msgstr "Caută în cererile pe care le-am făcut..."
+
+msgid "Open"
+msgstr "Deschis"
+
+msgid "Closed"
+msgstr "Închis"
+
+msgid "Comment"
+msgstr "Comentariu"
+
+msgid "deleted a comment"
+msgstr "a șters un comentariu"
+
+msgid "accepted this request"
+msgstr "a acceptat această cerere"
+
+msgid "declined this request"
+msgstr "a refuzat această cerere"
+
+msgid "this request expired"
+msgstr "această cerere a expirat"
+
+msgid "cancelled this request"
+msgstr "a anulat această cerere"
+
+msgid "unknown event"
+msgstr "eveniment necunoscut"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "commented {{commentTime}}"
+msgstr "comentat la {{commentTime}}"
+
+msgid "Edited"
+msgstr "Editat"
+
+msgid "Request access"
+msgstr "Solicită acces"
+
+msgid "Guest access"
+msgstr ""
+
+msgid "User access"
+msgstr ""
+
+msgid "Community manage record"
+msgstr ""
+
+msgid "Subcommunity"
+msgstr ""
+
+msgid "Membership request"
+msgstr "Solicitare pentru membru"
+
+msgid "Anonymous user"
+msgstr "User anonim"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Record"
+msgstr "Înregistrare"
+
+msgid "Actions"
+msgstr "Acțiuni"
+
+msgid "Subcommunity invitation"
+msgstr ""

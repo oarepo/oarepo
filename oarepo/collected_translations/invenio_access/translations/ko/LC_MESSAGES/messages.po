@@ -1,0 +1,62 @@
+# Translations template for invenio-access.
+# Copyright (C) 2024 CERN
+# This file is distributed under the same license as the invenio-access
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# 
+# Translators:
+# Minjae Kwon, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-access 2.0.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2024-08-06 08:44+0000\n"
+"PO-Revision-Date: 2016-08-18 12:08+0000\n"
+"Last-Translator: Minjae Kwon, 2023\n"
+"Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: invenio_access/admin.py:39
+msgid "Email"
+msgstr "이메일"
+
+#: invenio_access/admin.py:40
+msgid "User ID"
+msgstr "사용자 ID"
+
+#: invenio_access/admin.py:41 invenio_access/admin.py:75
+#: invenio_access/admin.py:108
+msgid "Deny"
+msgstr "거부"
+
+#: invenio_access/admin.py:74
+msgid "Role Name"
+msgstr "역할명"
+
+#: invenio_access/admin.py:107
+msgid "System Role"
+msgstr "시스템 역할"
+
+#: invenio_access/admin.py:136 invenio_access/admin.py:143
+#: invenio_access/admin.py:150
+msgid "User Management"
+msgstr "유저 관리"
+
+#: invenio_access/admin.py:137
+msgid "Access: Roles"
+msgstr "접근: 권한"
+
+#: invenio_access/admin.py:144
+msgid "Access: Users"
+msgstr "접근: 사용자"
+
+#: invenio_access/admin.py:151
+msgid "Access: System Roles"
+msgstr "접근: 시스템 권한"

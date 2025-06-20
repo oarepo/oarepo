@@ -1,0 +1,108 @@
+# 
+# Translators:
+# Mart Jantson, 2022
+# Martin Jantson <martinjantson97@gmail.com>, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2025-03-26T16:16:11.725Z\n"
+"PO-Revision-Date: 2022-10-12 07:22+0000\n"
+"Last-Translator: Martin Jantson <martinjantson97@gmail.com>, 2025\n"
+"Language-Team: Estonian (https://app.transifex.com/inveniosoftware/teams/23537/et/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Open list of actions"
+msgstr "Avage toimingute loend"
+
+msgid "Resource is not deletable."
+msgstr "Ressursi ei saa kustutada."
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Delete {{title}}"
+msgstr "Kustuta {{title}}"
+
+msgid "Are you sure you want to delete {{resourceName}}? "
+msgstr "Kas olete kindel, et soovite {{resourceName}} kustutada?"
+
+msgid "Edit"
+msgstr "Redigeeri"
+
+msgid "Resource is not editable."
+msgstr "Ressursi ei saa redigeerida."
+
+msgid "Error"
+msgstr "Viga"
+
+msgid "Server was not able to process your request."
+msgstr "Server ei saanud teie taotlust töödelda."
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Add"
+msgstr "Lisa"
+
+msgid "Remove field"
+msgstr "Eemalda väli"
+
+msgid "Sort"
+msgstr "Sorteeri"
+
+msgid "Search"
+msgstr "Otsi"
+
+msgid "Search ..."
+msgstr "Otsi..."
+
+msgid "There is no resources in this category."
+msgstr "Selles kategoorias pole ressursse."
+
+msgid "No matching resources found."
+msgstr "Ühtegi sobivat ressurssi ei leitud."
+
+msgid "Clear query"
+msgstr "Puhasta otsinguväljad"
+
+msgid "{{count}} results found"
+msgid_plural "{{count}} results found"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid " results per page"
+msgid_plural " results per page"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Actions"
+msgstr "Tegevused"
+
+msgid "Success"
+msgstr ""
+
+msgid "Resource was successfully deleted."
+msgstr ""
+
+msgid "Action error"
+msgstr ""
+
+msgid "Invalid JSON format"
+msgstr ""
+
+msgid "Your changes were successfully submitted"
+msgstr ""
+
+msgid "Form error"
+msgstr ""
+
+msgid "Current search"
+msgstr "Praegune otsing"

@@ -1,0 +1,24 @@
+# Translations template for invenio-search-ui.
+# Copyright (C) 2016 CERN
+# This file is distributed under the same license as the invenio-search-ui
+# project.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2016-10-12 15:32+0200\n"
+"PO-Revision-Date: 2016-10-20 07:42+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Danish (http://www.transifex.com/inveniosoftware/invenio/language/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_search_ui/static/templates/invenio_search_ui/error.html:3
+msgid "Error:"
+msgstr ""

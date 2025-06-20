@@ -1,0 +1,187 @@
+# Translations template for invenio-userprofiles.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-userprofiles project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2022
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2022
+# Jesús Martín <jesusmartin@sallep.net>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-userprofiles 3.0.3\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-26 17:21+0000\n"
+"PO-Revision-Date: 2016-08-18 14:14+0000\n"
+"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2025\n"
+"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: invenio_userprofiles/ext.py:109
+#, python-format
+msgid "%(icon)s Profile"
+msgstr "%(icon)s Perfil"
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:61
+msgid "Username"
+msgstr "Usuario"
+
+#. NOTE: Form field help text
+#: invenio_userprofiles/forms.py:63
+#, python-format
+msgid "Required. %(username_rules)s"
+msgstr "Obligatorio. %(username_rules)s"
+
+#: invenio_userprofiles/forms.py:64
+msgid "Username not provided."
+msgstr "Nombre de usuario no proporcionado."
+
+#. NOTE: Form label
+#: invenio_userprofiles/forms.py:70
+msgid "Full name"
+msgstr "Nombre completo"
+
+#. NOTE: Form label
+#: invenio_userprofiles/forms.py:77
+msgid "Affiliations"
+msgstr "Afiliaciones"
+
+#. NOTE: Form validation error.
+#: invenio_userprofiles/forms.py:96
+msgid "Username is not available."
+msgstr "Nombre de usuario no disponible."
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:129
+msgid "Email address"
+msgstr "Dirección de correo"
+
+#. NOTE: Form field label
+#: invenio_userprofiles/forms.py:143
+msgid "Re-enter email address"
+msgstr "Vuelva a introducir la dirección de correo"
+
+#. NOTE: Form field help text
+#: invenio_userprofiles/forms.py:145
+msgid "Please re-enter your email address."
+msgstr "Por favor, vuelva a introducir su dirección de correo."
+
+#. NOTE: Form validation error.
+#: invenio_userprofiles/forms.py:152
+msgid "Email addresses do not match."
+msgstr "Los direcciones de correo no coinciden."
+
+#. NOTE: Form button label
+#: invenio_userprofiles/forms.py:161
+msgid "Resend verification email"
+msgstr "Reenviar correo de verificación"
+
+#: invenio_userprofiles/forms.py:202
+msgid "Profile visibility"
+msgstr "Visibilidad del perfil"
+
+#: invenio_userprofiles/forms.py:204 invenio_userprofiles/forms.py:217
+msgid "Public"
+msgstr "Publico"
+
+#: invenio_userprofiles/forms.py:205 invenio_userprofiles/forms.py:218
+msgid "Hidden"
+msgstr "Oculto"
+
+#: invenio_userprofiles/forms.py:208
+msgid ""
+"Public profiles can be found by other users via searches on username, full "
+"name and affiliation. Hidden profiles cannot be found by other users."
+msgstr ""
+"Otros usuarios pueden encontrar perfiles públicos a través de búsquedas de "
+"nombre de usuario, nombre completo y afiliación. Los perfiles ocultos no "
+"pueden ser encontrados por otros usuarios."
+
+#: invenio_userprofiles/forms.py:215
+msgid "Email visibility"
+msgstr "Visibilidad del correo"
+
+#: invenio_userprofiles/forms.py:221
+msgid ""
+"Public email visibility enables your profile to be found by your email "
+"address."
+msgstr ""
+"La visibilidad pública del correo permite que pueda encontrarse su perfil a "
+"través del mismo."
+
+#: invenio_userprofiles/forms.py:228
+msgid "Preferences locale"
+msgstr "Preferencias locales"
+
+#: invenio_userprofiles/validators.py:19
+msgid ""
+"Username must start with a letter, be at least three characters long and "
+"only contain alphanumeric characters, dashes and underscores."
+msgstr ""
+"El nombre de usuario debe iniciar con una letra y tener al menos tres "
+"caracteres. Sólo se admiten caracteres alfanuméricos, guiones y guiones "
+"bajos."
+
+#. NOTE: Flash message.
+#: invenio_userprofiles/views.py:113
+msgid "Verification email sent."
+msgstr "Correo de verificación enviado."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:136
+#, python-format
+msgid ""
+"Profile was updated. We have sent a verification email to %(email)s. Please "
+"check it."
+msgstr ""
+"El perfil ha sido actualizado. Le hemos enviado un correo de verificación a "
+"%(email)s. Le rogamos que lo compruebe."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:144
+msgid "Profile was updated."
+msgstr "El perfil ha sido actualizado."
+
+#. NOTE: Flash message after successful update of profile.
+#: invenio_userprofiles/views.py:153
+msgid "Preferences were updated."
+msgstr "Las preferencias han sido actualizadas."
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:13
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:13
+msgid "Profile"
+msgstr "Perfil"
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:21
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:41
+msgid "You have not yet verified your email address."
+msgstr "Todavía no ha verificado su dirección de correo."
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:41
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:63
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:102
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: invenio_userprofiles/templates/invenio_userprofiles/settings/profile.html:42
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:67
+msgid "Update profile"
+msgstr "Actualizar perfil"
+
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:77
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:81
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: invenio_userprofiles/templates/semantic-ui/invenio_userprofiles/settings/profile.html:106
+msgid "Update preferences"
+msgstr "Actualizar preferencias"

@@ -1,0 +1,197 @@
+# Translations template for invenio-records-resources.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the
+# invenio-records-resources project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Bessem Aamira <bessemamira@gmail.com>, 2024
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-records-resources 5.10.1\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-04-01 13:38+0000\n"
+"PO-Revision-Date: 2024-03-21 15:18+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: invenio_records_resources/records/systemfields/entity_reference.py:46
+#, python-format
+msgid "Invalid reference for '%(key)s': %(obj)s"
+msgstr "مرجع غير صالح لـ '%(key)s' : %(obj)s"
+
+#: invenio_records_resources/resources/errors.py:61
+#: invenio_records_resources/resources/errors.py:62
+msgid "Invalid query string syntax."
+msgstr "جملة البحث غير صالحة."
+
+#: invenio_records_resources/resources/errors.py:63
+msgid "Misconfigured search."
+msgstr "خطأ في تركيبة البحث."
+
+#: invenio_records_resources/resources/errors.py:74
+msgid "Internal server error"
+msgstr "خطأ بالموزّع الدّاخلي"
+
+#: invenio_records_resources/resources/errors.py:120
+msgid "Invalid querystring parameters."
+msgstr "إعدادات سلسلة الاستعلام querystring غير صالحة."
+
+#: invenio_records_resources/resources/errors.py:126
+#: invenio_records_resources/resources/errors.py:132
+#: invenio_records_resources/services/errors.py:36
+msgid "Permission denied."
+msgstr "تم رفض الإذن."
+
+#: invenio_records_resources/resources/errors.py:138
+msgid "The record has been deleted."
+msgstr "لقد تم حذف التسجيلة."
+
+#: invenio_records_resources/resources/errors.py:144
+msgid "The persistent identifier is already registered."
+msgstr "تم تسجيل المعرف الدّائم بالفعل."
+
+#: invenio_records_resources/resources/errors.py:150
+msgid "The persistent identifier does not exist."
+msgstr "المعرف الدّائم غير موجود."
+
+#: invenio_records_resources/resources/errors.py:156
+msgid "The persistent identifier is not registered."
+msgstr "لم يتم تسجيل المعرف الدّائم."
+
+#: invenio_records_resources/resources/errors.py:163
+msgid "Not found."
+msgstr "لم يتم العثور عليه."
+
+#: invenio_records_resources/resources/errors.py:170
+#, python-format
+msgid "Facet %(vocabulary_id)s not found."
+msgstr "لم يتم العثور على الوجه Facet %(vocabulary_id)s."
+
+#: invenio_records_resources/resources/errors.py:183
+msgid "Unable to decode JSON data in request body."
+msgstr "غير قادر على فك تشفير بيانات JSON في نص الطلب."
+
+#: invenio_records_resources/resources/errors.py:189
+#: invenio_records_resources/resources/errors.py:195
+msgid "Not a valid value."
+msgstr "قيمة غير صالحة."
+
+#: invenio_records_resources/resources/errors.py:204
+msgid "The file upload transfer failed, please try again."
+msgstr "فشل في عملية نقل تحميل الملف، يرجى المحاولة مرة أخرى."
+
+#: invenio_records_resources/resources/errors.py:211
+msgid ""
+"Uploading selected files will result in exceeding the max amount per record."
+msgstr "سيؤدي تحميل الملفات المختارة إلى تجاوز الحد الأقصى لكل سجل."
+
+#: invenio_records_resources/services/errors.py:51
+#, python-format
+msgid ""
+"Revision id provided(%(expected_revision_id)s) doesn't match record's "
+"one(%(record_revision_id)s)"
+msgstr ""
+"معرف المراجعة المقدم(%(expected_revision_id)s) لا يتطابق مع معرف "
+"التسجيلة(%(record_revision_id)s)"
+
+#: invenio_records_resources/services/errors.py:73
+#, python-format
+msgid "Facet %(vocab)s not found."
+msgstr "لم يتم العثور على الوجه Facet %(vocab)s."
+
+#: invenio_records_resources/services/errors.py:83
+#, python-format
+msgid "Record '%(recid)s' has no file '%(file_key)s'."
+msgstr "التسجيلة '%(recid)s' لا تحتوي ملف '%(file_key)s'."
+
+#: invenio_records_resources/services/errors.py:99
+#, python-format
+msgid "Record '%(recid)s' failed to upload file '%(file_key)s'."
+msgstr "التسجيلة '%(recid)s' فشلت في تحميل الملف '%(file_key)s'."
+
+#: invenio_records_resources/services/errors.py:116
+#, python-brace-format
+msgid ""
+"Uploading the selected files would result in {files_count} files (max is "
+"{max_files})."
+msgstr "حصيلة تحميل الملفات المحددة {files_count} ملفا  (max is {max_files})."
+
+#: invenio_records_resources/services/custom_fields/errors.py:37
+#, python-format
+msgid ""
+"Namespace %(given_namespace)s is not valid for custom field %(field_name)s."
+msgstr ""
+"إسم المجال Namespace %(given_namespace)s غير صالح للحقل المخصص "
+"%(field_name)s."
+
+#: invenio_records_resources/services/custom_fields/errors.py:54
+#, python-format
+msgid "Custom fields %(field_names)s are not configured."
+msgstr "الحقول المخصصة %(field_names)s لم يقع تهيئتها."
+
+#: invenio_records_resources/services/custom_fields/errors.py:70
+#, python-format
+msgid "Invalid argument %(arg_name)s passed when initializing custom field."
+msgstr " تبرير غير صالحة %(arg_name)s تم تمريره عند تهيئة الحقل المخصص."
+
+#: invenio_records_resources/services/files/service.py:264
+msgid "File upload transfer failed."
+msgstr "فشل في تحويل تحميل ملف."
+
+#: invenio_records_resources/services/files/transfer.py:77
+msgid "File size limit exceeded."
+msgstr "تم تجاوز الحد الأقصى لحجم الملف."
+
+#: invenio_records_resources/services/files/transfer.py:103
+msgid "Empty files are not accepted."
+msgstr "الملفات الخاوية مرفوضة."
+
+#: invenio_records_resources/services/records/config.py:36
+msgid "Best match"
+msgstr "أفضل تطابق "
+
+#: invenio_records_resources/services/records/config.py:40
+msgid "Newest"
+msgstr "الأحدث"
+
+#: invenio_records_resources/services/records/config.py:44
+msgid "Oldest"
+msgstr "الأقدم"
+
+#: invenio_records_resources/services/records/components/files.py:89
+msgid "You must first delete all files to set the record to be metadata-only."
+msgstr ""
+"يجب حذف جميع الملفات أولاً لتتمكن من إعادة إعدادات تّسجيلة ذات بيانات وصفية "
+"فقط."
+
+#: invenio_records_resources/services/records/params/pagination.py:39
+msgid "Invalid pagination parameters."
+msgstr "إعدادات الترقيم غير صالحة."
+
+#: invenio_records_resources/services/records/params/querystr.py:31
+msgid "You cannot specify both 'q' and 'suggest' parameters at the same time."
+msgstr "لا يمكنك تحديد كل من الإعدادين إستعلم \"q\" و إقترح \"suggest\" في نفس الوقت."
+
+#: invenio_records_resources/services/records/params/querystr.py:42
+msgid "Invalid 'suggest' parameter."
+msgstr "تهيئة إقترح 'suggest' غير صالحة."
+
+#: invenio_records_resources/services/records/params/sort.py:62
+#, python-format
+msgid "Invalid sort option '%(sort_option)s'."
+msgstr "خيار فرز غير صالح '%(sort_option)s'."
+
+#: invenio_records_resources/services/records/queryparser/transformer.py:67
+#, python-format
+msgid "Invalid search field: %(field_name)s."
+msgstr "حقل بحث غير صالح:%(field_name)s."

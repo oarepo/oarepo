@@ -1,0 +1,197 @@
+# Translations template for invenio-banners.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-banners
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Rim Sharif, 2023
+# Sam Arbid, 2025
+# Tibor Simko <tibor.simko@cern.ch>, 2025
+# Lina Andrén, 2025
+# Mattias Vesterlund, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-banners 4.1.0\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-02-20 13:53+0000\n"
+"PO-Revision-Date: 2023-06-30 09:38+0000\n"
+"Last-Translator: Mattias Vesterlund, 2025\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: invenio_banners/config.py:16
+msgid "Info"
+msgstr "Info"
+
+#: invenio_banners/config.py:17
+msgid "Warning"
+msgstr "Varning"
+
+#: invenio_banners/config.py:18
+msgid "Other"
+msgstr "Övrig"
+
+#: invenio_banners/administration/banners.py:43
+#: invenio_banners/administration/banners.py:86
+#: invenio_banners/administration/banners.py:178 invenio_banners/config.py:38
+msgid "URL path"
+msgstr "URL-adress"
+
+#: invenio_banners/config.py:42
+msgid "Start DateTime"
+msgstr "Startdatum och tidpunkt"
+
+#: invenio_banners/config.py:46
+msgid "End DateTime"
+msgstr "Slutdatum och tidpunkt"
+
+#: invenio_banners/administration/banners.py:42
+#: invenio_banners/administration/banners.py:113
+#: invenio_banners/administration/banners.py:180 invenio_banners/config.py:50
+#: invenio_banners/services/config.py:60
+msgid "Active"
+msgstr "Aktiv"
+
+#: invenio_banners/administration/banners.py:26
+#: invenio_banners/administration/banners.py:27
+msgid "Banners"
+msgstr "Banderoller"
+
+#: invenio_banners/administration/banners.py:28
+msgid "Site management"
+msgstr "Hantera webbplatsen"
+
+#: invenio_banners/administration/banners.py:38
+msgid "Id"
+msgstr "Id"
+
+#: invenio_banners/administration/banners.py:39
+msgid "Start time (UTC)"
+msgstr "Starttid (UTC)"
+
+#: invenio_banners/administration/banners.py:40
+msgid "End time (UTC)"
+msgstr "Sluttid (UTC)"
+
+#: invenio_banners/administration/banners.py:41
+#: invenio_banners/administration/banners.py:78
+#: invenio_banners/administration/banners.py:177
+msgid "Message"
+msgstr "Meddelande"
+
+#: invenio_banners/administration/banners.py:44
+#: invenio_banners/administration/banners.py:98
+#: invenio_banners/administration/banners.py:179
+msgid "Category"
+msgstr "Kategori"
+
+#: invenio_banners/administration/banners.py:56
+#: invenio_banners/administration/banners.py:175
+#: invenio_banners/services/config.py:52
+msgid "Start time"
+msgstr "Starttid"
+
+#: invenio_banners/administration/banners.py:58
+msgid ""
+"Date/time to make the banner active. Input format: yyyy-mm-dd hh:mm:ss. Set "
+"to future date/time to delay the banner. Note: specify time in UTC time "
+"standard."
+msgstr ""
+"Datum och tidpunkt då banderollen ska aktiveras. Format: ÅÅÅÅ-MM-DD "
+"tt:mm:ss. Observera att tid ska anges enligt UTC."
+
+#: invenio_banners/administration/banners.py:63
+#: invenio_banners/administration/banners.py:74
+msgid "YYYY-MM-DD hh:mm:ss"
+msgstr "ÅÅÅÅ-MM-DD tt:mm:ss"
+
+#: invenio_banners/administration/banners.py:67
+#: invenio_banners/administration/banners.py:176
+#: invenio_banners/services/config.py:56
+msgid "End time"
+msgstr "Sluttidpunkt"
+
+#: invenio_banners/administration/banners.py:69
+msgid ""
+"Date/time to make the banner inactive. Input format: yyyy-mm-dd hh:mm:ss.  "
+"An empty value makes the banner active until manually disabled via the "
+"active flag. Note: specify time in UTC time standard."
+msgstr ""
+"Datum och tidpunkt då banderollen ska avaktiveras. Format: ÅÅÅÅ-MM-DD "
+"tt:mm:ss. Tomt värde låter banderollen visas tills den avaktiveras manuellt."
+" Observera att tid ska anges enligt UTC."
+
+#: invenio_banners/administration/banners.py:80
+msgid "Message to be displayed on the banner. HTML format is supported."
+msgstr "Meddelande som ska visas på banderollen. HTML-format stöds."
+
+#: invenio_banners/administration/banners.py:88
+msgid ""
+"URL path prefix (including the first /) to define where the message will be "
+"active on the site. For example, if you enter `/records`, any URL starting "
+"with `/records` will return an active banner (`/records`, `/records/1234`, "
+"etc.). An empty value makes the banner active for any URL."
+msgstr ""
+"Ange var på sajten banderollen ska visas genom att ange den del av URL:en "
+"som definierar alla sidor banderollen ska visas på (inklusive inledande /). "
+"Till exempel, om du anger `/records` kommer alla URL:er som börjar med "
+"`/records` att visa banderollen då den är aktiv (sidan `/records`, "
+"`/records1234` osv). Tomt värde gör att banderollen visas för alla URL:er. "
+
+#: invenio_banners/administration/banners.py:100
+msgid ""
+"Banner category. `Info` option displays a blue banner. `Warning` option "
+"displays an orange banner. `Other` option displays a gray banner."
+msgstr ""
+"Typ av banderoll. Om du väljer typ `Info` visas banderollen som text med blå"
+" bakgrund. Banderoller med typ `Varning` visas med orange bakgrund och typ "
+"`Övrig` visas med grå bakgrund."
+
+#: invenio_banners/administration/banners.py:115
+msgid ""
+"Tick it to activate the banner: banner will be displayed according to "
+"start/end times. If not activated, start/end times will be ignored."
+msgstr ""
+"Aktivera banderollen: om denna ruta är ikryssad kommer banderollen att visas"
+" enligt de angivna start- och sluttiderna. Om rutan inte krysssas i kommer "
+"start- och sluttider inte att ha någon effekt."
+
+#: invenio_banners/administration/banners.py:131
+msgid "Edit Banner"
+msgstr "Redigera banderoll"
+
+#: invenio_banners/administration/banners.py:150
+msgid "Create Banner"
+msgstr "Skapa banderoll"
+
+#: invenio_banners/administration/banners.py:166
+msgid "Banner Details"
+msgstr "Detaljer för banderoll"
+
+#: invenio_banners/administration/banners.py:181
+msgid "Created"
+msgstr "Skapad"
+
+#: invenio_banners/administration/banners.py:182
+msgid "Updated"
+msgstr "Uppdaterad"
+
+#: invenio_banners/services/config.py:36
+msgid "Ascending"
+msgstr "Stigande"
+
+#: invenio_banners/services/config.py:40
+msgid "Descending"
+msgstr "Nedåtgående"
+
+#: invenio_banners/services/config.py:48
+msgid "Url path"
+msgstr "URL-adress"

@@ -1,0 +1,814 @@
+# Translations template for invenio-communities.
+# Copyright (C) 2025 CERN
+# This file is distributed under the same license as the invenio-communities
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# 
+# Translators:
+# Berat Aldemir <berataldemir@gmail.com>, 2024
+# BEN TERCÜME, 2024
+# Ben Translation and Interpreting Services <info@bentercume.com>, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: invenio-communities 13.0.11\n"
+"Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
+"POT-Creation-Date: 2025-03-27 16:17+0000\n"
+"PO-Revision-Date: 2016-08-18 12:29+0000\n"
+"Last-Translator: Ben Translation and Interpreting Services <info@bentercume.com>, 2025\n"
+"Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: invenio_communities/config.py:55 invenio_communities/config.py:143
+#: invenio_communities/config.py:185
+#: invenio_communities/members/services/config.py:41
+#: invenio_communities/members/services/config.py:84
+#: invenio_communities/members/services/config.py:115
+msgid "Best match"
+msgstr "En iyi eşleşme"
+
+#: invenio_communities/config.py:59 invenio_communities/config.py:151
+#: invenio_communities/config.py:193
+#: invenio_communities/members/services/config.py:92
+#: invenio_communities/members/services/config.py:123
+msgid "Newest"
+msgstr "Yeniden eskiye"
+
+#: invenio_communities/config.py:63 invenio_communities/config.py:155
+#: invenio_communities/config.py:197
+#: invenio_communities/members/services/config.py:96
+#: invenio_communities/members/services/config.py:127
+msgid "Oldest"
+msgstr "Eskiden yeniye"
+
+#: invenio_communities/config.py:67
+msgid "Version"
+msgstr "Sürüm"
+
+#: invenio_communities/config.py:71
+msgid "Recently updated"
+msgstr "En son güncellenene göre"
+
+#: invenio_communities/config.py:75
+msgid "Least recently updated"
+msgstr "İlk güncellenene göre"
+
+#: invenio_communities/communities/services/facets.py:39
+#: invenio_communities/config.py:85
+msgid "Reader"
+msgstr "Okuyucu"
+
+#: invenio_communities/config.py:86
+msgid "Can view restricted records."
+msgstr "Kısıtlanmış kayıtları görüntüleyebilir."
+
+#: invenio_communities/communities/services/facets.py:41
+#: invenio_communities/config.py:91
+msgid "Curator"
+msgstr "Küratör"
+
+#: invenio_communities/config.py:92
+msgid "Can curate records and view restricted records."
+msgstr "Kayıtları iyileştirebilir ve kısıtlanmış kayıtları görüntüleyebilir."
+
+#: invenio_communities/communities/services/facets.py:40
+#: invenio_communities/config.py:98
+msgid "Manager"
+msgstr "Yönetici"
+
+#: invenio_communities/config.py:100
+msgid "Can manage members, curate records and view restricted records."
+msgstr ""
+"Üyeleri yönetebilir, kayıtları iyileştirebilir ve kısıtlanmış kayıtları "
+"görüntüleyebilir."
+
+#: invenio_communities/communities/services/facets.py:38
+#: invenio_communities/config.py:109
+msgid "Owner"
+msgstr "Sahip"
+
+#: invenio_communities/config.py:110
+msgid "Full administrative access to the entire community."
+msgstr "Tüm topluluğa tam yönetimsel erişim yetkisi."
+
+#: invenio_communities/config.py:147 invenio_communities/config.py:189
+#: invenio_communities/members/services/config.py:45
+#: invenio_communities/members/services/config.py:88
+#: invenio_communities/members/services/config.py:119
+msgid "Name"
+msgstr "Ad"
+
+#: invenio_communities/errors.py:29
+#, python-brace-format
+msgid "A featured community entry with {q} does not exist."
+msgstr "{q} ile öne çıkan bir topluluk girişi mevcut değil."
+
+#: invenio_communities/errors.py:45
+#, python-brace-format
+msgid ""
+"Logo size limit exceeded. Limit: {limit_value} {limit_unit} Given: "
+"{file_size_value} {file_size_unit}"
+msgstr ""
+
+#: invenio_communities/errors.py:62
+#, python-format
+msgid ""
+"There is %(num)s request open for this community. Please, resolve it before "
+"deleting this community."
+msgid_plural ""
+"There are %(num)s requests open for this community. Please, resolve all of "
+"them before deleting this community."
+msgstr[0] ""
+"Bu topluluk için %(num)s adet açık talep var. Lütfen bu topluluğu silmeden "
+"önce hepsini çözümleyin."
+msgstr[1] ""
+"Bu topluluk için %(num)s adet açık talep var. Lütfen bu topluluğu silmeden "
+"önce hepsini çözümleyin."
+
+#: invenio_communities/errors.py:94
+msgid ""
+"Cannot set community as the default. The record has not been added to the "
+"community."
+msgstr "Topluluk varsayılan olarak ayarlanamıyor. Kayıt topluluğa eklenmedi."
+
+#: invenio_communities/ext.py:133
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:13
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:25
+#: invenio_communities/templates/semantic-ui/invenio_communities/search.html:22
+msgid "Communities"
+msgstr "Topluluklar"
+
+#: invenio_communities/ext.py:138
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:60
+#: invenio_communities/templates/semantic-ui/invenio_communities/new.html:12
+#: invenio_communities/templates/semantic-ui/invenio_communities/search.html:27
+msgid "New community"
+msgstr "Yeni topluluk"
+
+#: invenio_communities/ext.py:147
+msgid "Requests"
+msgstr "Talepler"
+
+#: invenio_communities/ext.py:154
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/members/base.html:19
+msgid "Members"
+msgstr "Üyeler"
+
+#: invenio_communities/ext.py:162
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: invenio_communities/ext.py:170
+msgid "Curation policy"
+msgstr "Küratörlük politikası"
+
+#: invenio_communities/ext.py:178
+msgid "About"
+msgstr "Hakkında"
+
+#: invenio_communities/roles.py:65
+msgid "Only one role be defined as owner."
+msgstr ""
+
+#: invenio_communities/roles.py:67
+msgid "One role must be defined as owner."
+msgstr ""
+
+#: invenio_communities/communities/schema.py:52
+#, python-brace-format
+msgid "Field cannot be blank or longer than {max_} characters."
+msgstr "Alan boş veya {max_} karakterden fazla olamaz."
+
+#: invenio_communities/communities/schema.py:62
+#, python-brace-format
+msgid "Field cannot be longer than {max} characters."
+msgstr "Alan {max} karakterden fazla olamaz."
+
+#: invenio_communities/communities/schema.py:73
+msgid "The ID must not be an Universally Unique IDentifier (UUID)."
+msgstr "Kimlik, Evrensel Benzersiz Tanımlayıcı (UUID) olmamalıdır."
+
+#: invenio_communities/communities/schema.py:221
+msgid "The ID should contain only letters with numbers or dashes."
+msgstr ""
+
+#: invenio_communities/communities/schema.py:312
+msgid "start date"
+msgstr ""
+
+#: invenio_communities/communities/schema.py:313
+msgid "Accepted format: YYYY-MM-DD hh:mm"
+msgstr ""
+
+#: invenio_communities/communities/schema.py:324
+msgid "Deleted community"
+msgstr "Silinmiş topluluk"
+
+#: invenio_communities/communities/schema.py:325
+msgid "The community was deleted."
+msgstr "Topluluk silindi."
+
+#: invenio_communities/communities/resources/config.py:68
+#: invenio_communities/members/resources/config.py:55
+msgid "The record has been deleted."
+msgstr "Kayıt silindi."
+
+#: invenio_communities/communities/resources/ui_schema.py:40
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: invenio_communities/communities/resources/ui_schema.py:47
+msgid "System (automatic)"
+msgstr "Sistem (otomatik)"
+
+#: invenio_communities/communities/resources/ui_schema.py:49
+msgid "Admin"
+msgstr "Yönetici"
+
+#: invenio_communities/communities/services/components.py:39
+msgid "A community with this identifier already exists."
+msgstr "Bu tanımlayıcıya sahip bir topluluk zaten mevcut."
+
+#: invenio_communities/communities/services/components.py:57
+msgid "The ID should be modified through the renaming URL instead."
+msgstr ""
+"Bunun yerine kimliğin yeniden adlandırma URL'si üzerinden değiştirilmesi "
+"gerekir."
+
+#: invenio_communities/communities/services/components.py:65
+msgid "A new ID value is required for the renaming."
+msgstr "Yeniden adlandırma için yeni bir kimlik değeri gerekiyor."
+
+#: invenio_communities/communities/services/components.py:142
+msgid "The community is not public."
+msgstr "Topluluk herkese açık değil"
+
+#: invenio_communities/communities/services/components.py:171
+#, python-format
+msgid "parent.communities.ids:%(id)s"
+msgstr ""
+
+#: invenio_communities/communities/services/components.py:314
+msgid "Assigned parent is not allowed to be a parent."
+msgstr ""
+
+#: invenio_communities/communities/services/components.py:318
+msgid "Community allowed to be a parent can't be a child."
+msgstr ""
+
+#: invenio_communities/communities/services/components.py:322
+msgid "Assigned parent community cannot also have a parent."
+msgstr ""
+
+#: invenio_communities/communities/services/components.py:326
+msgid "Assigned parent community cannot be the same as child."
+msgstr ""
+
+#: invenio_communities/communities/services/components.py:329
+msgid "Assigned parent community does not exist."
+msgstr ""
+
+#: invenio_communities/communities/services/config.py:56
+msgid "Featured"
+msgstr "Öne çıkan"
+
+#: invenio_communities/communities/services/facets.py:16
+msgid "Type"
+msgstr "Tür"
+
+#: invenio_communities/communities/services/facets.py:18
+msgid "Organization"
+msgstr "Kuruluş"
+
+#: invenio_communities/communities/services/facets.py:19
+msgid "Event"
+msgstr "Etkinlik"
+
+#: invenio_communities/communities/services/facets.py:20
+msgid "Topic"
+msgstr "Konu"
+
+#: invenio_communities/communities/services/facets.py:21
+msgid "Project"
+msgstr "Proje"
+
+#: invenio_communities/communities/services/facets.py:27
+#: invenio_communities/communities/services/facets.py:36
+#: invenio_communities/communities/services/facets.py:47
+#: invenio_communities/members/services/facets.py:36
+msgid "Visibility"
+msgstr "Görünürlük"
+
+#: invenio_communities/communities/services/facets.py:29
+#: invenio_communities/members/services/facets.py:37
+#: invenio_communities/views/communities.py:31
+#: invenio_communities/views/communities.py:48
+msgid "Public"
+msgstr "Herkese açık"
+
+#: invenio_communities/communities/services/facets.py:30
+#: invenio_communities/communities/services/facets.py:50
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/macros/access-status-label.html:9
+#: invenio_communities/views/communities.py:39
+msgid "Restricted"
+msgstr "Kısıtlı"
+
+#: invenio_communities/communities/services/facets.py:49
+#: invenio_communities/members/services/facets.py:37
+msgid "Hidden"
+msgstr "Gizli"
+
+#: invenio_communities/communities/services/service.py:209
+msgid "Missing data for required field."
+msgstr "Gerekli alan için veri eksik."
+
+#: invenio_communities/members/resources/config.py:43
+msgid "Invalid member specified."
+msgstr ""
+
+#: invenio_communities/members/resources/config.py:49
+msgid "A member was already added or invited."
+msgstr ""
+
+#: invenio_communities/members/services/components.py:34
+#: invenio_communities/members/services/components.py:43
+msgid "Community must be defined."
+msgstr ""
+
+#: invenio_communities/members/services/components.py:49
+#, python-format
+msgid "Member must be 'MemberMixin' or 'dict' but was %(type)s"
+msgstr ""
+
+#: invenio_communities/members/services/facets.py:18
+msgid "Role"
+msgstr "Rol"
+
+#: invenio_communities/members/services/facets.py:24
+#: invenio_communities/members/services/facets.py:42
+msgid "Status"
+msgstr "Durum"
+
+#: invenio_communities/members/services/facets.py:26
+msgid "Submitted"
+msgstr "Gönderildi"
+
+#: invenio_communities/members/services/facets.py:27
+msgid "Expired"
+msgstr "Süresi doldu"
+
+#: invenio_communities/members/services/facets.py:28
+msgid "Accepted"
+msgstr "Kabul edildi"
+
+#: invenio_communities/members/services/facets.py:29
+msgid "Declined"
+msgstr "Reddedildi"
+
+#: invenio_communities/members/services/facets.py:30
+msgid "Cancelled"
+msgstr "İptal edildi"
+
+#: invenio_communities/members/services/facets.py:43
+msgid "Open"
+msgstr "Açık"
+
+#: invenio_communities/members/services/facets.py:43
+msgid "Closed"
+msgstr "Kapalı"
+
+#: invenio_communities/members/services/fields.py:22
+msgid "Invalid role."
+msgstr "Geçersiz rol."
+
+#: invenio_communities/members/services/fields.py:45
+msgid "Not a valid role to serialize."
+msgstr ""
+
+#: invenio_communities/members/services/request.py:103
+msgid "Community invitation"
+msgstr "Topluluk daveti"
+
+#: invenio_communities/members/services/schemas.py:89
+msgid "Missing fields 'role' and/or 'visible'."
+msgstr "'Rol' ve/veya 'görünür' alanı eksik."
+
+#: invenio_communities/members/services/schemas.py:117
+msgid "Untitled"
+msgstr "Başlıksız"
+
+#: invenio_communities/members/services/service.py:197
+msgid "Must be false"
+msgstr "Yanlış olmalı"
+
+#: invenio_communities/members/services/service.py:219
+msgid "Invalid member type: email"
+msgstr "Geçersiz üye türü: e-posta"
+
+#: invenio_communities/members/services/service.py:278
+#, python-format
+msgid "Invitation to join \"%(community)s\""
+msgstr ""
+
+#: invenio_communities/members/services/service.py:281
+#, python-format
+msgid "You will join as \"%(role)s\"."
+msgstr ""
+
+#: invenio_communities/members/services/service.py:538
+#: invenio_communities/members/services/service.py:658
+msgid "A community must have at least one owner."
+msgstr "Bir topluluğun en az bir sahibi olması gerekir."
+
+#: invenio_communities/members/services/service.py:567
+msgid "You cannot change your own role."
+msgstr "Kendi rolünüzü değiştiremezsiniz."
+
+#: invenio_communities/members/services/service.py:575
+msgid "You can only set public visibility on your own membership."
+msgstr ""
+"Herkese açık görünürlüğü yalnızca kendi üyeliğinizde ayarlayabilirsiniz."
+
+#: invenio_communities/members/services/service.py:584
+#, python-format
+msgid "You will join as \"%(role)s\" (changed from: \"%(previous)s\")."
+msgstr ""
+
+#: invenio_communities/requests/user_moderation/actions.py:72
+msgid "User was blocked"
+msgstr "Kullanıcı engellendi"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:31
+msgid ""
+"Organize, curate and collaborate on records for your institution, project, "
+"topic or event."
+msgstr ""
+"Kurumunuz, projeniz, konunuz veya etkinliğiniz için kayıtları düzenleyin, "
+"iyileştirin ve bunlar üzerinde işbirliği yapın."
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:43
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:44
+#: invenio_communities/templates/semantic-ui/invenio_communities/search.html:12
+msgid "Search communities"
+msgstr "Toplulukları ara"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:49
+msgid "Search"
+msgstr "Ara"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:71
+msgid "My communities"
+msgstr "Topluluklarım"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:73
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:83
+msgid "See all"
+msgstr "Tümünü görüntüle"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/frontpage.html:81
+msgid "New communities"
+msgstr "Yeni topluluklar"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:10
+msgid "Tombstone"
+msgstr "Mezar taşı belirteci"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:20
+msgid "Gone"
+msgstr "Kaldırıldı"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:25
+#, python-format
+msgid ""
+"\n"
+"        The community you are trying to access was removed from %(sitename)s. The\n"
+"        metadata of the community is kept for archival purposes."
+msgstr ""
+"\n"
+"          Erişmeye çalıştığınız topluluk %(sitename)s sitesinden/sitelerinden kaldırıldı. Topluluğun\n"
+"          meta verileri arşivleme amacıyla saklanmaktadır."
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:34
+msgid "Reason for removal:"
+msgstr "Kaldırılma nedeni:"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:37
+msgid "Removed by:"
+msgstr "Kaldıran kullanıcı:"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:46
+msgid "Removal note:"
+msgstr "Kaldırma notu:"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/tombstone.html:50
+msgid "Date of removal:"
+msgstr "Kaldırma tarihi:"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/header.html:88
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/header.html:89
+msgid "profile"
+msgstr "profil"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/header.html:113
+msgid "New upload"
+msgstr "Yeni Yükleme"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/header.html:121
+msgid "Manage community"
+msgstr "Topluluğu yönet"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/about/index.html:19
+msgid "Awards"
+msgstr "Ödüller"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/about/index.html:35
+msgid "Visit external website"
+msgstr "Harici web sitesini ziyaret edin"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/about/index.html:36
+msgid "Opens in new tab"
+msgstr "Yeni sekmede açılır"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/macros/access-status-label.html:4
+msgid "Community visibility"
+msgstr "Topluluk görünürlüğü"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/macros/access-status-label.html:5
+msgid "The community is restricted to users with access."
+msgstr "Topluluk, sadece erişimi olan kullanıcılara açıktır."
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/members/base.html:12
+msgid " members"
+msgstr "üyeler"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/members/base.html:20
+msgid "Invitations"
+msgstr "Davetler"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/requests/index.html:12
+msgid " requests"
+msgstr "talepler"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/settings/base.html:11
+msgid " settings"
+msgstr "ayarlar"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/settings/base.html:19
+msgid "Profile"
+msgstr "Profil"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/settings/base.html:20
+msgid "Privileges"
+msgstr "Ayrıcalıklar"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/settings/base.html:21
+msgid "Review policy"
+msgstr "İnceleme politikası"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/details/settings/base.html:22
+msgid "Pages"
+msgstr "Sayfalar"
+
+#: invenio_communities/templates/semantic-ui/invenio_communities/macros/communities_carousel.html:11
+msgid "Featured communities"
+msgstr "Öne çıkan topluluklar"
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:20
+#, python-brace-format
+msgid ""
+"✅ @{user_name} accepted the invitation to join community "
+"'{community_title}'."
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:26
+#, python-brace-format
+msgid ""
+"'@{user_name}' accepted the invitation to join your community "
+"'{community_title}'"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:28
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:28
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:28
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:29
+msgid " with the following message:"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:38
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:70
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:38
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:69
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:38
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:69
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:29
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:50
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:39
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:70
+msgid "Check out the invitation"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:44
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:44
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:44
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:35
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:45
+msgid "This is an auto-generated message. To manage notifications, visit your"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:44
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:44
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:44
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:35
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:45
+msgid "account settings"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:50
+#, python-brace-format
+msgid ""
+"@{user_name} accepted the invitation to join your community "
+"'{community_title}'"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:53
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:65
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:53
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:65
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:53
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:65
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:54
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:66
+msgid "with the following message:"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:57
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:57
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:57
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:43
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:58
+msgid "Check out the invitation:"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.accept.jinja:62
+#, python-brace-format
+msgid ""
+"*@{user_name}* accepted the invitation to join your community "
+"*{community_title}*"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:20
+#, python-brace-format
+msgid "❌ Community member invitation cancelled for @{user_name}"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:26
+#, python-brace-format
+msgid ""
+"The invitation for '@{user_name}' to join community '{community_title}' was "
+"cancelled"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:50
+#, python-brace-format
+msgid ""
+"The invitation for @{user_name} to join your community '{community_title}' "
+"was cancelled"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.cancel.jinja:62
+#, python-brace-format
+msgid ""
+"The invitation for *@{user_name}* to join your community "
+"*'{community_title}'* was cancelled"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:20
+#, python-brace-format
+msgid "⛔️ @{user_name} declined the invitation to join '{community_title}'"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:26
+#, python-brace-format
+msgid ""
+"'@{user_name}' declined the invitation to join your community "
+"'{community_title}'"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:50
+#, python-brace-format
+msgid ""
+"@{user_name} declined the invitation to join your community "
+"{community_title}"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.decline.jinja:62
+#, python-brace-format
+msgid ""
+"*@{user_name}* declined the invitation to join your community "
+"*{community_title}*"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:20
+#, python-brace-format
+msgid ""
+"⌛️ The invitation for @{user_name} to join community '{community_title}' "
+"expired"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:26
+#, python-brace-format
+msgid ""
+"The invitation for '@{user_name}' to join community '{community_title}' has "
+"expired."
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:41
+#, python-brace-format
+msgid ""
+"The invitation for @{user_name} to join community '{community_title}' has "
+"expired."
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.expire.jinja:48
+#, python-brace-format
+msgid ""
+"The invitation for *@{user_name}* to join community *{community_title}* has "
+"expired."
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:21
+#, python-brace-format
+msgid "📬 New invitation to join the community '{community_title}' as '{role}'"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:27
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:51
+#, python-brace-format
+msgid ""
+"You have been invited to join community '{community_title}' as '{role}'"
+msgstr ""
+
+#: invenio_communities/templates/semantic-ui/invenio_notifications/community-invitation.submit.jinja:63
+#, python-brace-format
+msgid ""
+"You have been invited to join community *{community_title}* as *{role}*"
+msgstr ""
+
+#: invenio_communities/views/communities.py:35
+msgid "Your community is publicly accessible and shows up in search results."
+msgstr ""
+"Topluluğunuz herkes tarafından erişime açıktır ve arama sonuçlarında "
+"gösterilir."
+
+#: invenio_communities/views/communities.py:42
+msgid "Your community is restricted to users with access."
+msgstr "Topluluğunuz yalnızca erişim izni olan kullanıcılarla sınırlıdır."
+
+#: invenio_communities/views/communities.py:52
+msgid ""
+"Members who have set their visibility to public are visible to anyone. "
+"Members with hidden visibility are only visible to other members."
+msgstr ""
+"Görünürlüklerini herkese açık olarak ayarlayan üyeler herkes tarafından "
+"görüntülenebilir. Görünürlüğü gizli olan üyeler yalnızca diğer üyeler "
+"tarafından görüntülenebilir."
+
+#: invenio_communities/views/communities.py:57
+msgid "Members-only"
+msgstr ""
+
+#: invenio_communities/views/communities.py:61
+msgid ""
+"Members in your community are only visible to other members of the "
+"community."
+msgstr ""
+"Topluluğunuzdaki üyeler yalnızca topluluğun diğer üyeleri tarafından "
+"görüntülenebilir."
+
+#: invenio_communities/views/communities.py:70
+msgid "Review all submissions"
+msgstr ""
+
+#: invenio_communities/views/communities.py:73
+msgid "All submissions to the community must be reviewed."
+msgstr ""
+"Topluluğa gönderilen tüm yazıların ve belgelerin incelenmesi gerekmektedir."
+
+#: invenio_communities/views/communities.py:76
+msgid "Allow curators, managers and owners to publish without review"
+msgstr ""
+
+#: invenio_communities/views/communities.py:80
+msgid ""
+"Submissions to the community by default requires review, but curators, "
+"managers and owners can publish directly without review."
+msgstr ""
+"Varsayılan olarak, topluluğa gönderilen yazıların ve belgelerin incelenmesi "
+"gereklidir; ancak küratörler, yöneticiler ve sahipler inceleme olmaksızın "
+"doğrudan yayınlayabilir."
