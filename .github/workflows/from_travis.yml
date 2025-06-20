@@ -77,10 +77,6 @@ jobs:
         run: |
           /bin/bash ./run-tests.sh
 
-      - name: Check manifest
-        run: |
-          check-manifest
-
       # Downloading translations from transifex is disabled as transifex has moved
       # to RDM13.
       #

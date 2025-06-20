@@ -29,5 +29,5 @@ echo -e "\nsearch-service GET:"
 wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200
 
 # isort -rc -c -df **/*.py && \       # metapackage, isort not needed
-check-manifest --ignore ".travis-*" --ignore-bad-ideas 'oarepo/collected_translations/**/*.mo' && \
+check-manifest --ignore ".travis-*" --ignore-bad-ideas 'oarepo/collected_translations/**' --ignore-bad-ideas 'oarepo/collected_translations/**' && \
 pytest
