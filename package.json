@@ -1,5 +1,8 @@
 {
   "name": "placeholder_package",
   "description": "Note: double curly-braces because python .format",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "dependencies": {
+    "@inveniosoftware/eslint-config-invenio": "^2.0.0"
+  }
 }
