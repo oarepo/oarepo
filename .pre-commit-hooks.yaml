@@ -6,7 +6,7 @@
   'types': [javascript]
   args: []
   require_serial: false
-  additional_dependencies: ["eslint@8.32.1"]
+  additional_dependencies: ["eslint@^8.0.0"]
   minimum_pre_commit_version: '0'
 
 # - id: prettier
