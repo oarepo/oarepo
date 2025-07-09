@@ -7,6 +7,7 @@
   args: []
   require_serial: false
   additional_dependencies:
+    - "@inveniosoftware/eslint-config-invenio@^2.0.0"
     - "@babel/core@^7.18.6"
     - "@babel/eslint-parser@^7.18.2"
     - "@babel/preset-react@^7.18.6"
