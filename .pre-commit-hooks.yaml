@@ -3,7 +3,7 @@
   description: ""
   entry: eslint
   language: node
-  types: [javascript]
+  files: \.(js|jsx|ts|tsx)$
   args: []
   require_serial: false
   additional_dependencies:
