@@ -1,6 +1,6 @@
 - id: eslint
   name: eslint
-  description: ''
+  description: ""
   entry: eslint
   language: node
   types: [javascript]
@@ -26,11 +26,12 @@
     - "eslint-webpack-plugin@^2.5.0"
     - "js-yaml@^4.1.0"
     - "prettier@^2.7.1"
-  minimum_pre_commit_version: '0'
 
-# - id: prettier
-#   name: Prettier wrapper
-#   entry: prettier
-#   language: node
-#   files: \.(js|jsx|ts|tsx)$
-#   args: ["--write", "--ignore-unknown"]
+- id: prettier
+  name: Prettier wrapper
+  entry: prettier
+  language: node
+  files: \.(js|jsx|ts|tsx)$
+  additional_dependencies:
+    - "prettier@^2.7.1"
+  args: ["--write", "--ignore-unknown"]
