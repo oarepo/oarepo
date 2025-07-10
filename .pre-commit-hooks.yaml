@@ -34,4 +34,5 @@
   files: \.(js|jsx|ts|tsx)$
   additional_dependencies:
     - "prettier@^2.7.1"
+    - "@inveniosoftware/eslint-config-invenio@^2.0.0"
   args: ["--write", "--ignore-unknown"]
