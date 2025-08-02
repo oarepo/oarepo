@@ -54,7 +54,7 @@ Commands:
   stop              Stop the docker services after testing
   test              Run the tests
   oarepo-versions   List the supported OARepo versions for
-                    this branch
+                    this package
   clean             Clean up the environment
                     (stop services, remove venv, etc.)
   shell             Start a shell with the virtual environment
@@ -73,16 +73,7 @@ To use the command-line tools, please create a `run.sh` script inside
 your GitHub repository with the following content:
 
 ```bash
-#!/bin/bash
-set -euo pipefail
-base_dir="$(dirname "$0")"
-if [ ! -f "${base_dir}/.runner.sh" ]; then
-  echo "Downloading .runner.sh from oarepo repository..."
-  curl -o "${base_dir}/.runner.sh" https://raw.githubusercontent.com/oarepo/oarepo/master/runner.sh
-fi
 
-chmod +x "${base_dir}/.runner.sh"
-"${base_dir}/.runner.sh" "$@"
 ```
 
 ## GitHub Workflows
