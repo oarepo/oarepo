@@ -1,0 +1,58 @@
+name: "Install package and run tests"
+description: "Installs the package and runs tests"
+inputs:
+  install_editable:
+    description: "Whether to install the package in editable mode"
+    required: true
+    default: "true"
+  use_coverage:
+    description: "Whether to run tests with coverage"
+    required: true
+    default: "true"
+  python_version:
+    description: "The version of Python to use"
+    required: true
+    default: "3.13"
+runs:
+  using: "composite"
+  steps:
+    - name: Install package
+      shell: "bash"
+      run: |
+        if [ "${{ inputs.install_editable }}" == "true" ]; then
+          ./run.sh venv
+        else
+          ./run.sh --no-editable venv
+        fi
+        source .venv/bin/activate
+        uv pip freeze > requirements.txt
+
+    - name: Store requirements.txt for reference
+      uses: actions/upload-artifact@v4
+      with:
+        name: requirements-${{inputs.python_version}}-${{ inputs.install_editable }}-${{ inputs.use_coverage }}
+        path: requirements.txt
+
+    - name: Start services
+      shell: "bash"
+      run: |
+        ./run.sh start
+
+    - name: Run tests
+      shell: "bash"
+      run: |
+        export PYTHONWARNINGS="ignore"
+        if [ "${{ inputs.use_coverage }}" == "true" ]; then
+          ./run.sh --with-coverage test
+        else
+          ./run.sh test
+        fi
+
+    - name: Store coverage report
+      uses: actions/upload-artifact@v4
+      if: ${{ inputs.use_coverage == 'true' }}
+      with:
+        name: coverage-report
+        path: |
+          coverage.json
+          htmlcov/

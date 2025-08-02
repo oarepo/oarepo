@@ -1,0 +1,50 @@
+name: "Install dependencies"
+description: "Install the required dependencies for the project"
+inputs:
+  python_version:
+    description: "The version of Python to install"
+    required: true
+    default: "3.13"
+  node_version:
+    description: "The version of Node.js to install"
+    required: true
+    default: "24"
+
+runs:
+  using: "composite"
+  steps:
+
+  - name: "Set up environment variables"
+    shell: "bash"
+    run: |
+      echo "PYTHON=python${{ inputs.python_version }}" >> $GITHUB_ENV
+
+  - name: "Create tools directory and add it to PATH"
+    shell: "bash"
+    run: |
+      if [ ! -d .tools ] ; then mkdir .tools ; fi
+      if [ ! -d .tools/bin ] ; then mkdir .tools/bin ; fi
+      echo "${{ github.workspace }}/.tools/bin" >> $GITHUB_PATH
+
+  - name: "Set up Python ${{ inputs.python_version }}"
+    uses: "actions/setup-python@v5"
+    with:
+      python-version: "${{ inputs.python_version }}"
+
+  - name: "Install UV resolver"
+    shell: "bash"
+    run: |
+      if [ ! -d .tools ] ; then mkdir .tools ; fi
+      ${PYTHON} -m venv .tools/uv
+      .tools/uv/bin/pip install -U uv
+      
+      ln -s ${{ github.workspace }}/.tools/uv/bin/uv ${{ github.workspace }}/.tools/bin/uv 
+      ln -s ${{ github.workspace }}/.tools/uv/bin/uvx ${{ github.workspace }}/.tools/bin/uvx
+
+      uv --version
+      uvx --version
+
+  - name: Set up Node.js ${{ inputs.node_version }}
+    uses: actions/setup-node@v4
+    with:
+      node-version: ${{ inputs.node_version }}

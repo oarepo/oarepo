@@ -49,6 +49,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+coverage.json
 *.cover
 *.py.cover
 .hypothesis/
@@ -189,6 +190,7 @@ cython_debug/
 # .vscode/
 
 # Ruff stuff:
+.ruff.toml
 .ruff_cache/
 
 # PyPI configuration file

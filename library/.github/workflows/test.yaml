@@ -1,0 +1,16 @@
+# Copyright (c) 2025 CESNET z.s.p.o.
+#
+# OARepo is free software; you can redistribute it and/or modify
+# it under the terms of the MIT License; see LICENSE file for more details.
+
+name: Tests
+
+on:
+  push: {}
+  schedule:
+    - cron: "0 1 * * 6"  # Every Sunday at 01:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  Tests:
+    uses: oarepo/oarepo/.github/workflows/test.yaml@main

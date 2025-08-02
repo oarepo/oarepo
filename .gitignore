@@ -63,3 +63,5 @@ target/
 requirements.txt
 
 .travis*
+
+.runner.sh

@@ -6,7 +6,7 @@
 # 
 # Usage: ./run --help
 #
-# Note: To ensure consistency, this script is not part of the library. 
+# Note: To ensure consistency, this script is never committed to the library.
 # Only the stub (library/run.sh) should be placed in the library directory.
 # The actual script is downloaded from the OARepo repository on the first run and cached.
 # as .runner.sh. If you want to update the script, run ./run.sh self-update.
@@ -20,21 +20,84 @@ export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
-base_dir="$(dirname "$0")"
+cd "$(dirname "$0")"
+
+if [ ! -f pyproject.toml ]; then
+    echo "No pyproject.toml found, please migrate from setup.cfg."
+    echo "See https://github.com/oarepo/oarepo/blob/main/README.md for details."
+    exit 1
+fi
+
+if [ -f setup.cfg ]; then
+    echo "setup.cfg found, please migrate to pyproject.toml."
+    echo "See https://github.com/oarepo/oarepo/blob/main/README.md for details."
+    exit 1
+fi
+
+get_package_name() {
+    name=$(
+        cat "pyproject.toml" | 
+        egrep '^name' | 
+        head -n 1 | 
+        sed 's/[^"]*"//' | 
+        sed 's/".*//'
+    )
+
+    if [ -z "$name" ]; then
+        echo "No package name found in pyproject.toml, please add one."
+        exit 1
+    else
+        echo "$name"
+    fi
+}
+
+get_home_page() {
+    hp=$(
+        cat "pyproject.toml" | 
+        egrep '^Homepage' | 
+        head -n 1 | 
+        sed 's/[^"]*"//' | 
+        sed 's/".*//'
+    )
+    if [ -z "$hp" ]; then
+        echo "No homepage found in pyproject.toml, please add one."
+        exit 1
+    else
+        echo "$hp"
+    fi
+}
+
+package_name=$(get_package_name)
+code_directories=()
+
+if [ -d "src" ]; then
+    code_directories+=("src")
+else
+    code_directories+=($(echo ${package_name} | tr '-' '_'))
+fi
+
+if [ -d "tests" ]; then
+    code_directories+=("tests")
+fi
+
+export package_name
+export code_directories
 
 run_tools() {
     set -e
     set -o pipefail    
     
     # Parse the commandline according to the options defined above.
-    OAREPO_VERSION=${OAREPO_VERSION:-"13"}
-    PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
-    PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
-    TASK_NAME=${TASK_NAME:-""}
+    export OAREPO_VERSION=${OAREPO_VERSION:-"13"}
+    export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
+    export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
+    export WITH_COVERAGE=${WITH_COVERAGE:-0}
+    export NO_EDITABLE=${NO_EDITABLE:-0}
 
     while [[ $# -gt 0 ]]; do
         case $1 in
             venv)
+                export NO_EDITABLE
                 FORCE=1 setup_venv
                 return 0
                 ;;
@@ -48,6 +111,8 @@ run_tools() {
                 ;;
             test)
                 shift
+                export WITH_COVERAGE
+                export SKIP_SERVICES
                 run_tests "$@"
                 return 0
                 ;;
@@ -81,6 +146,21 @@ run_tools() {
                 uvx --from oarepo-tools make-translations
                 return 0
                 ;;
+            lint)
+                shift
+                run_linters "$@"
+                return 0
+                ;;
+            format)
+                shift
+                format_code "$@"
+                return 0
+                ;;
+            license-headers)
+                shift
+                add_license_headers "$@"
+                return 0
+                ;;
             -h|--help)
                 show_help
                 return 0
@@ -91,6 +171,14 @@ run_tools() {
                 ;;
             --skip-services)
                 SKIP_SERVICES=1
+                shift
+                ;;
+            --with-coverage)
+                WITH_COVERAGE=1
+                shift
+                ;;
+            --no-editable)
+                NO_EDITABLE=1
                 shift
                 ;;
             check-script-working)
@@ -123,6 +211,9 @@ show_help() {
     echo "  shell             Start a shell with the virtual environment and services running"
     echo "  invenio           Run an Invenio command with the virtual environment and services running"
     echo "  translations      Extract/compile translations for this package"
+    echo "  lint              Run linters on the codebase"
+    echo "  format            Format the codebase using ruff"
+    echo "  license-headers   Add license headers in the codebase"
     echo "  -h, --help        Show this help message"
     echo ""
     echo "Environment variables:"
@@ -132,6 +223,8 @@ show_help() {
     echo ""
     echo "Options:"
     echo "  --skip-services   Skip starting/stopping services"
+    echo "  --with-coverage   Run tests with coverage enabled"
+    echo "  --no-editable     Do not install the package in editable mode, build it first"
     echo ""
     echo "Housekeeping commands:"
     echo "  self-update       Update the runner script"
@@ -145,7 +238,7 @@ stop_services() {
     set -e
     set -o pipefail    
 
-    eval "$(uvx docker-services-cli down --env)"
+    eval "$(uvx --with setuptools docker-services-cli down --env)"
     if [ -f .env-services ]; then
         rm .env-services
     fi
@@ -158,7 +251,11 @@ start_services() {
     set -e
     set -o pipefail    
 
-    uvx docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-opensearch} --mq ${MQ:-rabbitmq} --cache ${CACHE:-redis} --env > .env-services
+    uvx --with setuptools docker-services-cli up \
+        --db ${DB:-postgresql} --search ${SEARCH:-opensearch} \
+        --mq ${MQ:-rabbitmq} --cache ${CACHE:-redis} --env \
+    > .env-services
+
     source .env-services
 }
 
@@ -174,7 +271,7 @@ list_oarepo_versions() {
         echo -n ", "
         echo -n "\"python_versions\": "
         python_version_string=$(grep 'requires-python' pyproject.toml | head -n 1)
-        get_python_versions "$python_version_string"
+        get_python_versions $(get_versions "$oarepo_version_string")
         echo -n ", "
         echo -n "\"node_versions\": [\"24\"]"
         echo "}"
@@ -199,16 +296,20 @@ get_versions() {
 }
 
 get_python_versions() {
-    version_string=$(echo "$1" | sed 's/.*>=//' | sed 's/".*//')
-    lower_bound=$(echo "$version_string" | cut -d',' -f1 | sed 's/^3\.//')
-    upper_bound=$(echo "$version_string" | cut -d',' -f2 | sed 's/<//' | sed 's/^3\.//')
-    if [ -z "$upper_bound" ]; then
-        upper_bound=$((lower_bound + 1))
+    oarepo_versions="$1"
+    python_versions=()
+
+    # if there is "12" inside oarepo_versions, return 3.12
+    if [[ "$oarepo_versions" == *"12"* ]]; then
+        python_versions+=("\"3.12\"")
     fi
-    upper_bound=$((upper_bound - 1))
-    versions=$(seq "$lower_bound" "$upper_bound")
-    versions=$(echo "$versions" | sed 's/^/"3./' | sed 's/$/"/' | tr '\n' ',' | sed 's/,$//')
-    echo -n "[$versions]"
+    # for oarepo 13, return 3.13
+    if [[ "$oarepo_versions" == *"13"* ]]; then
+        python_versions+=("\"3.13\"")
+    fi
+
+    # return concatenated string of python versions as json array of strings
+    echo -n "[$python_versions]"
 }
 
 setup_venv() {
@@ -228,8 +329,18 @@ setup_venv() {
     uv venv --python=$PYTHON --seed
     source .venv/bin/activate
 
+    uv pip install setuptools
     uv pip install "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
-    uv pip install '.[tests]'
+
+    if [ $NO_EDITABLE -eq 0 ]; then
+        echo "Installing the package in editable mode."
+        uv pip install -e '.[tests]'
+    else
+        echo "Building and Installing the package."
+        uv build --wheel
+        wheel_package=$(ls dist/*.whl | head -n 1)
+        uv pip install "${wheel_package}[tests]"
+    fi
 }
 
 run_tests() {
@@ -237,6 +348,11 @@ run_tests() {
     set -o pipefail
     setup_venv
     start_services
+    if [ $WITH_COVERAGE -eq 1 ]; then
+        uv pip install pytest-cov
+        export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-report=json --cov-report=html --cov-report=term-missing:skip-covered"
+        echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"
+    fi
     source .venv/bin/activate
     source .env-services
     pytest "$@"
@@ -267,16 +383,176 @@ self_update() {
     set -o pipefail
 
     echo "Updating runner script..."
-    curl --fail -o "${base_dir}/.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/runner.sh
-    chmod +x "${base_dir}/.runner-new.sh"
-    if "${base_dir}/.runner-new.sh" check-script-working ; then
-        mv "${base_dir}/.runner-new.sh" "${base_dir}/.runner.sh"
+    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/runner.sh
+    chmod +x "./.runner-new.sh"
+    if "./.runner-new.sh" check-script-working ; then
+        mv "./.runner-new.sh" "./.runner.sh"
         echo "Runner script updated successfully."
     else
         echo "New runner script is not working, keeping the old one."
-        rm "${base_dir}/.runner-new.sh"
+        rm "./.runner-new.sh"
     fi
     return 0
+}
+
+check_license_headers() {
+    set -e
+    set -o pipefail
+
+    if [ -f .check_ok.txt ]; then
+        rm .check_ok.txt
+    fi
+    if [ -f .check_errors.txt ]; then
+        rm .check_errors.txt
+    fi
+    touch .check_ok.txt
+    touch .check_errors.txt
+    # Check for license headers in Python files
+    find ${code_directories[@]} -name "*.py" | while read -r file; do
+        if cat $file | grep -i "Copyright (c)" >/dev/null; then
+            echo "$file" >>.check_ok.txt
+        else
+            echo "Missing license header in $file"
+            cat $file | grep -i "Copyright (c)"
+            echo "$file" >>.check_errors.txt
+        fi
+    done
+
+    ok=$(wc -l < .check_ok.txt)
+    errors=$(wc -l < .check_errors.txt)
+
+    rm .check_ok.txt
+    rm .check_errors.txt
+
+    if [ $errors -gt 0 ]; then
+        echo "${errors} file(s) are missing license headers."
+        return 1
+    fi
+}
+
+check_future_annotations() {
+    set -e
+    set -o pipefail
+
+    if [ -f .check_ok.txt ]; then
+        rm .check_ok.txt
+    fi
+    if [ -f .check_errors.txt ]; then
+        rm .check_errors.txt
+    fi
+    touch .check_ok.txt
+    touch .check_errors.txt
+
+    # Check for future annotations in Python files
+    find ${code_directories[@]} -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if cat $file | grep "from __future__" | grep "annotations" >/dev/null; then
+            echo "$file" >>.check_ok.txt
+        else
+            echo "Missing 'from __future__ import annotations' in $file"
+            echo "$file" >>.check_errors.txt
+        fi
+    done
+
+    ok=$(wc -l < .check_ok.txt)
+    errors=$(wc -l < .check_errors.txt)
+
+    rm .check_ok.txt
+    rm .check_errors.txt
+
+    if [ $errors -gt 0 ]; then
+        echo "${errors} file(s) are missing future annotations."
+        return 1
+    fi
+}
+
+run_linters() {
+    set -e
+    set -o pipefail
+
+    cat <<EOF >.ruff.toml
+target-version = "py313"
+line-length = 120
+indent-width = 4
+
+[lint]
+select = [ "ALL" ]
+ignore = [
+    "FIX002",  # exclude TODO comments
+    "TD003",   # Missing issue link for this TODO
+    "TD002",   # Missing author in TODO
+    "N806",    # Variable name should be lowercase as we dynamically create classes
+    "ANN204",  # Missing return type annotation for __init__
+    "ANN401",  # Any in *args/**kwargs
+    "TRY003",  # Avoid long exception messages
+    "EM101",   # Avoid using string literal in exception
+    "EM102",   # Avoid using f-string literal in exception
+    "TRY301",  # Avoid raising/catching the same exception type
+    "PLC0415",  # Place imports to the top of the file
+    "PGH004",  # Use specific noqa for pylint
+    "TID252",  # Prefer absolute imports
+    "D203",    # Using D211
+    "D213",    # Using D212 (multi-line-summary-first-line) instead
+    "COM812",
+]
+
+[lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = [
+    "E402", 
+    "S101", 
+    "ANN001", 
+    "ARG001", 
+    "D103", 
+    "ANN201", 
+    "D100",
+    "INP",
+    "PLR",
+    "PLC"
+    ]
+
+[format]
+docstring-code-format = true
+docstring-code-line-length = 40
+EOF
+
+    uvx ruff check
+    uvx ruff format --check
+    check_license_headers
+    check_future_annotations
+}
+
+format_code() {
+    set -e
+    set -o pipefail
+
+    uvx ruff format
+    uvx ruff check --fix
+}   
+
+add_license_headers() {
+    set -e
+    set -o pipefail
+
+    current_year=$(date +%Y)
+    ORGANIZATION=${ORGANIZATION:-"CESNET z.s.p.o"}
+    home_page=$(get_home_page)
+
+    cat <<'EOF' > /tmp/license-header.txt
+Copyright (c) ${years} ${owner}.
+
+This file is a part of ${projectname} (see ${projecturl}).
+
+${projectname} is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+EOF
+
+    find ${code_directories[*]} -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if ! cat $file | grep -iq "Copyright (C)"; then
+            uvx licenseheaders -t /tmp/license-header.txt -y $current_year \
+                -o "$ORGANIZATION" -n $package_name \
+                -u $home_page -f $file
+        fi
+    done
 }
 
 # run the tools and exit to prevent evaluation after this line in case the script

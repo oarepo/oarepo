@@ -141,3 +141,42 @@ your GitHub repository and draft a release there. After publishing the release,
 the version file inside the release branch (normally main) will be
 updated with the version number specified in the release, and the release
 should be propagated to pypi.org.
+
+## Migrating an existing library
+
+To migrate an existing library to use the OARepo tools, follow these steps:
+
+1. Backup your existing library
+2. Remove the `.github`, .gitignore and run-tests.sh files
+3. Copy the content of the `library` directory from the main trunk of this repository to the root of your repository.
+4. If there is a setup.py/setup.cfg file
+    1. if there also is a pyproject.toml file containing just the buildsystem declaration,
+       remove the toml file
+    2. run `uvx hatch new --init` to create a new pyproject.toml file
+    3. check that the file contains the correct dependencies and entry points and modify it if necessary
+    4. if the library did not store the version in the `__init__.py` file, add the actual
+       version string to that file. See [invenio example](https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/__init__.py) on how to do that.
+    5. run the `uvx hatch build` command to build the package and correct any errors (for example, set license type to MIT)
+    6. remove the `setup.py` and `setup.cfg` files
+    7. make sure that the library contains the `oarepo` dependency in the `pyproject.toml` file
+       (e.g. `oarepo[rdm,tests]>=13,<14`)
+    8. add mypy &  pytest configuration to the `pyproject.toml` file, for example:
+
+    ```toml
+        [tool.mypy.overrides]
+        module = ["untyped_package.*"]
+        follow_untyped_imports = true
+
+        [tool.pytest.ini_options]
+        testpaths = [
+            "tests",
+            "src"
+        ]
+    ```
+
+5. run the `run.sh clean` command to remove the old virtual environment and other files
+6. run the `run.sh test` command to check that the library is working correctly after the migration
+7. run the `run.sh lint` command and fix any issues reported by the linter
+8. set the secrets in your repository as described above
+9. set up the ruleset for the main branch as described above
+10. commit the changes to a branch and create a pull request to the main branch

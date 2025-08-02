@@ -1,0 +1,183 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2025 CESNET z.s.p.o.
+# OARepo is free software; you can redistribute it and/or modify
+# it under the terms of the MIT License; see LICENSE file for more details.
+
+name: Python CI
+
+on:
+  workflow_call:
+    inputs: {}
+
+jobs:
+  extract_dependencies:
+    name: Extract dependencies
+    runs-on: ubuntu-24.04
+    outputs:
+      python_versions: ${{ steps.extract.outputs.python_versions }}
+      oarepo_versions: ${{ steps.extract.outputs.oarepo_versions }}
+      node_versions: ${{ steps.extract.outputs.node_versions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get install jq -y
+
+      - name: Extract dependencies
+        id: extract
+        shell: "bash"
+        run: |
+          ./run.sh oarepo-versions > versions.json
+          # The versions.json file looks like this:
+          # {
+          #   "python-versions": ["3.13", "3.12"],
+          #   "oarepo-versions": ["13", "12"],
+          #   "node-versions": ["20", "18"]
+          # }
+          #
+          # Extract the versions using jq
+          echo "Extracting versions from versions.json"
+          echo "versions.json content:"
+          cat versions.json
+          echo "========================="
+          PYTHON_VERSIONS=$(jq -r --indent 0 '.["python_versions"]' versions.json)
+          OAREPO_VERSIONS=$(jq -r --indent 0 '.["oarepo_versions"]' versions.json)
+          NODE_VERSIONS=$(jq -r --indent 0 '.["node_versions"]' versions.json)
+
+          echo "Python versions: $PYTHON_VERSIONS"
+          echo "OARepo versions: $OAREPO_VERSIONS"
+          echo "Node.js versions: $NODE_VERSIONS"
+
+          echo "python_versions=${PYTHON_VERSIONS}" >> $GITHUB_OUTPUT
+          echo "oarepo_versions=${OAREPO_VERSIONS}" >> $GITHUB_OUTPUT
+          echo "node_versions=${NODE_VERSIONS}" >> $GITHUB_OUTPUT
+
+      # save the versions.json to artifacts
+      - name: Save versions.json
+        uses: actions/upload-artifact@v4
+        with:
+          name: versions
+          path: versions.json
+
+
+  tests:
+    name: Run tests on all combinations of Python, OARepo, and Node.js versions
+    runs-on: ubuntu-24.04
+    needs: extract_dependencies
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: ${{ fromJson(needs.extract_dependencies.outputs.python_versions) }}
+        oarepo_version: ${{ fromJson(needs.extract_dependencies.outputs.oarepo_versions) }}
+        node_version: ${{ fromJson(needs.extract_dependencies.outputs.node_versions) }}
+
+    env:
+      PYTHON_VERSION: ${{ matrix.python_version }}
+      OAREPO_VERSION: ${{ matrix.oarepo_version }}
+      NODE_VERSION: ${{ matrix.node_version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check out actions
+        uses: actions/checkout@v4
+        with:
+          repository: oarepo/oarepo
+          ref: main
+          path: _oarepo
+
+      - name: Install actions
+        shell: "bash"
+        run: |
+          cp -R _oarepo/.github/actions/ ./.github/actions/
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: ${{ matrix.python_version }}
+          node_version: ${{ matrix.node_version }}
+
+      - name: Run pytests
+        uses: ./.github/actions/pytest
+        with:
+          python_version: ${{ matrix.python_version }}
+          use_coverage: "true"
+          install_editable: "true"
+
+  tests_on_installed:
+    name: Run tests on built & installed package
+    runs-on: ubuntu-24.04
+    needs: extract_dependencies
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: ${{ fromJson(needs.extract_dependencies.outputs.python_versions) }}
+        oarepo_version: ${{ fromJson(needs.extract_dependencies.outputs.oarepo_versions) }}
+        node_version: ${{ fromJson(needs.extract_dependencies.outputs.node_versions) }}
+
+    env:
+      PYTHON_VERSION: ${{ matrix.python_version }}
+      OAREPO_VERSION: ${{ matrix.oarepo_version }}
+      NODE_VERSION: ${{ matrix.node_version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check out actions
+        uses: actions/checkout@v4
+        with:
+          repository: oarepo/oarepo
+          ref: main
+          path: _oarepo
+
+      - name: Install actions
+        shell: "bash"
+        run: |
+          cp -R _oarepo/.github/actions/ ./.github/actions/
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: ${{ matrix.python_version }}
+          node_version: ${{ matrix.node_version }}
+
+      - name: Run pytests
+        uses: ./.github/actions/pytest
+        with:
+          python_version: ${{ matrix.python_version }}
+          use_coverage: "false"
+          install_editable: "false"
+
+  lint:
+    runs-on: ubuntu-24.04
+    needs: extract_dependencies
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check out actions
+        uses: actions/checkout@v4
+        with:
+          repository: oarepo/oarepo
+          ref: main
+          path: _oarepo
+
+      - name: Install actions
+        shell: "bash"
+        run: |
+          cp -R _oarepo/.github/actions/ ./.github/actions/
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: "3.13"
+          node_version: "24"
+
+      - name: Run linter
+        shell: "bash"
+        run: |
+          ./run.sh lint
