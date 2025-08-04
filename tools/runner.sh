@@ -469,6 +469,8 @@ run_linters() {
     set -e
     set -o pipefail
 
+    setup_venv
+
     cat <<EOF >.ruff.toml
 target-version = "py313"
 line-length = 120
@@ -515,10 +517,20 @@ docstring-code-format = true
 docstring-code-line-length = 40
 EOF
 
-    uvx ruff check
-    uvx ruff format --check
+    uvx -p python3.13 ruff check
+    uvx -p python3.13 ruff format --check
     check_license_headers
     check_future_annotations
+
+    cat <<EOF >.mypy.ini
+[mypy]
+warn_return_any = True
+warn_unused_configs = True
+warn_unreachable = True
+follow_untyped_imports = True
+EOF
+    uvx --with types-PyYAML -p .venv/bin/python  mypy "${code_directories[0]}" --ignore-missing-imports
+    uvx pyright --pythonpath .venv/bin/python "${code_directories[0]}"
 }
 
 format_code() {

@@ -163,10 +163,6 @@ To migrate an existing library to use the OARepo tools, follow these steps:
     8. add mypy &  pytest configuration to the `pyproject.toml` file, for example:
 
     ```toml
-        [tool.mypy.overrides]
-        module = ["untyped_package.*"]
-        follow_untyped_imports = true
-
         [tool.pytest.ini_options]
         testpaths = [
             "tests",

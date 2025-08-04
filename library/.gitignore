@@ -157,6 +157,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.mypy.ini
 .dmypy.json
 dmypy.json
 
@@ -192,6 +193,7 @@ cython_debug/
 # Ruff stuff:
 .ruff.toml
 .ruff_cache/
+.mypy.ini
 
 # PyPI configuration file
 .pypirc
