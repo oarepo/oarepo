@@ -161,6 +161,11 @@ run_tools() {
                 add_license_headers "$@"
                 return 0
                 ;;
+            jslint)
+                shift
+                run_jslint "$@"
+                return 0
+                ;;
             -h|--help)
                 show_help
                 return 0
@@ -214,6 +219,7 @@ show_help() {
     echo "  lint              Run linters on the codebase"
     echo "  format            Format the codebase using ruff"
     echo "  license-headers   Add license headers in the codebase"
+    echo "  jslint            Run JavaScript linters (ESLint and Prettier)"
     echo "  -h, --help        Show this help message"
     echo ""
     echo "Environment variables:"
@@ -529,7 +535,7 @@ warn_unused_configs = True
 warn_unreachable = True
 follow_untyped_imports = True
 EOF
-    uvx --with types-PyYAML -p .venv/bin/python  mypy "${code_directories[0]}" --ignore-missing-imports
+    uvx --with types-PyYAML -p .venv/bin/python mypy "${code_directories[0]}" --ignore-missing-imports
     uvx pyright --pythonpath .venv/bin/python "${code_directories[0]}"
 }
 
@@ -540,6 +546,45 @@ format_code() {
     uvx ruff format
     uvx ruff check --fix
 }   
+
+run_jslint() {
+    set -e
+    set -o pipefail
+
+    if [ ! -f package.json ]; then
+        echo "No package.json found, skipping JavaScript linting."
+        return 0
+    fi
+
+    if ! jq -e '.devDependencies."@inveniosoftware/eslint-config-invenio"' package.json > /dev/null; then
+        echo "Adding @inveniosoftware/eslint-config-invenio to dev dependencies..."
+        pnpm add -D @inveniosoftware/eslint-config-invenio
+    fi
+
+    if [ ! -x node_modules/.bin/eslint ] ; then
+        echo "Installing ESLint..."
+        pnpm install
+    fi
+
+    echo "Copying ESLint configuration files..."
+    # create eslint config file
+    cat <<'EOF' >.eslintrc.yaml
+extends:
+- '@inveniosoftware/eslint-config-invenio'
+- '@inveniosoftware/eslint-config-invenio/prettier'
+EOF
+
+    # run eslint
+    echo "Running ESLint..."
+    node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx --fix "${code_directories[@]}"
+
+    # run prettier
+    echo "Running Prettier..."
+    node_modules/.bin/prettier --write "${code_directories[@]}"
+
+    return 0
+}
+
 
 add_license_headers() {
     set -e
