@@ -1,9 +1,19 @@
+from __future__ import annotations
+
 import inspect
+from typing import TYPE_CHECKING
 
 from flask_babel import LazyString
+from flask_babel import lazy_gettext as _
 from invenio_base.utils import obj_or_import_string
-from oarepo_workflows import WorkflowRequestPolicy
-from oarepo_workflows.services.permissions import DefaultWorkflowPermissions
+
+if TYPE_CHECKING:
+    try:
+        from oarepo_workflows import WorkflowRequestPolicy
+        from oarepo_workflows.services.permissions import DefaultWorkflowPermissions
+    except ImportError:
+        WorkflowRequestPolicy = None
+        DefaultWorkflowPermissions = None
 
 from .base import get_constant_from_caller, set_constants_in_caller
 
@@ -14,11 +24,15 @@ def register_workflow(
     permissions_policy: "str | DefaultWorkflowPermissions",
     requests_policy: "str | WorkflowRequestPolicy",
 ):
-    from flask_babel import lazy_gettext as _
+    if WorkflowRequestPolicy is None:
+        raise ImportError(
+            "oarepo_workflows package is required for workflow registration."
+        )
     from oarepo_requests.services.permissions.workflow_policies import (
         CreatorsFromWorkflowRequestsPermissionPolicy,
     )
-    from oarepo_workflows import Workflow
+    from oarepo_workflows import Workflow, WorkflowRequestPolicy
+    from oarepo_workflows.services.permissions import DefaultWorkflowPermissions
 
     WORKFLOWS = get_constant_from_caller("WORKFLOWS", {})
     permission_policy_cls = obj_or_import_string(permissions_policy)

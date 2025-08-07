@@ -4,7 +4,11 @@ from typing import Any
 
 from invenio_i18n import lazy_gettext as _
 from invenio_oauthclient.views.client import auto_redirect_login
-from oarepo_global_search.proxies import global_search_view_function
+
+try:
+    from oarepo_global_search.proxies import global_search_view_function
+except ImportError:
+    global_search_view_function = None
 
 from .base import load_configuration_variables, set_constants_in_caller
 
@@ -132,7 +136,9 @@ def configure_generic_parameters(
         ca_certs=env.get("INVENIO_OPENSEARCH_CA_CERTS_PATH", None),
     )
     SEARCH_UI_SEARCH_TEMPLATE = "invenio_search_ui/search.html"
-    SEARCH_UI_SEARCH_VIEW = global_search_view_function
+    if global_search_view_function:
+        SEARCH_UI_SEARCH_VIEW = global_search_view_function
+
     GLOBAL_SEARCH_MODELS: list[Any] = []
 
     # caches
