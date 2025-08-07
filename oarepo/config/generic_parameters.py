@@ -166,11 +166,15 @@ def configure_generic_parameters(
     JSONSCHEMAS_HOST = SITE_UI_URL
 
     # vocabularies
-    from oarepo_vocabularies.resources.config import VocabulariesResourceConfig
-    from oarepo_vocabularies.services.config import VocabulariesConfig
+    try:
+        from oarepo_vocabularies.resources.config import VocabulariesResourceConfig
+        from oarepo_vocabularies.services.config import VocabulariesConfig
 
-    VOCABULARIES_SERVICE_CONFIG = VocabulariesConfig
-    VOCABULARIES_RESOURCE_CONFIG = VocabulariesResourceConfig
+        VOCABULARIES_SERVICE_CONFIG = VocabulariesConfig
+        VOCABULARIES_RESOURCE_CONFIG = VocabulariesResourceConfig
+    except ImportError:
+        # keep the default Invenio vocabularies config
+        pass
 
     # Redis port redirection
     # ---------------------
@@ -242,6 +246,7 @@ def configure_generic_parameters(
     # RDM
     INVENIO_RDM_ENABLED = True
     RDM_PERSISTENT_IDENTIFIERS: dict = {}
+    RDM_PARENT_PERSISTENT_IDENTIFIERS: dict = {}
     RDM_USER_MODERATION_ENABLED = False
     RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD = False
     RDM_ALLOW_METADATA_ONLY_RECORDS = True
@@ -325,5 +330,7 @@ def configure_generic_parameters(
         "doi": {"label": _("DOI"), "validator": idutils.is_doi},
         "isbn": {"label": _("ISBN"), "validator": idutils.is_isbn},
     }
+
+    WEBPACKEXT_PROJECT = "invenio_assets.webpack:rspack_project"
 
     set_constants_in_caller(locals())

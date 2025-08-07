@@ -109,6 +109,12 @@ def load_configuration_overrides():
     """
     env = Config(os.path.dirname(__file__))
 
+    # import the contents of the "variables" file in the root of the repository
+    # note: we suppose that we are always started from the root of the repository
+    if Path("variables").exists():
+        vals = dotenv_values("variables")
+        env.from_mapping(vals)
+
     # then overwrite it with .env file in the local directory
     if Path(".env").exists():
         vals = dotenv_values(".env")
@@ -125,6 +131,17 @@ def load_configuration_overrides():
         setattr(env, k, transform_value(v))
 
     return env
+
+
+class DictWithGetAttr(dict):
+    """Dictionary that allows access to its items as attributes."""
+
+    def __getattr__(self, item):
+        if item in self:
+            return self[item]
+        raise AttributeError(
+            f"'{self.__class__.__name__}' object has no attribute '{item}'"
+        )
 
 
 # Import the configuration from the local .env if it exists
@@ -154,7 +171,7 @@ def load_configuration_variables():
 
     env.update(load_configuration_overrides())
 
-    return env
+    return DictWithGetAttr(**env)
 
 
 def transform_value(x):
