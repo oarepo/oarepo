@@ -65,3 +65,5 @@ requirements.txt
 .travis*
 
 .runner.sh
+
+.vscode/

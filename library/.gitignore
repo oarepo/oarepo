@@ -356,6 +356,27 @@ vite.config.ts.timestamp-*
 # OARepo specific gitignore
 #
 .runner.sh
+.env-services
 .eslintrc.yaml
 .mypy.ini
 .ruff.toml
+
+#
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
+*.kate-swp
+*.kate-swp.*
+*.komodoproject
+*.komodotools
+*.komodoide
+*.komodotools
+*.komodotools.*
+.DS_Store
+*.DS_Store?
+#
