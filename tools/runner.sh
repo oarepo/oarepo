@@ -83,6 +83,7 @@ fi
 export package_name
 export code_directories
 
+
 run_tools() {
     set -e
     set -o pipefail    
@@ -91,14 +92,13 @@ run_tools() {
     export OAREPO_VERSION=${OAREPO_VERSION:-"13"}
     export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
     export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
-    export WITH_COVERAGE=${WITH_COVERAGE:-0}
     export NO_EDITABLE=${NO_EDITABLE:-0}
 
     while [[ $# -gt 0 ]]; do
         case $1 in
             venv)
-                export NO_EDITABLE
-                FORCE=1 setup_venv
+                shift
+                setup_venv --force "$@"
                 return 0
                 ;;
             start)
@@ -111,8 +111,6 @@ run_tools() {
                 ;;
             test)
                 shift
-                export WITH_COVERAGE
-                export SKIP_SERVICES
                 run_tests "$@"
                 return 0
                 ;;
@@ -125,20 +123,13 @@ run_tools() {
                 return 0
                 ;;
             shell)
-                setup_venv
-                start_services
-                source .venv/bin/activate
-                source .env-services
-                bash
+                shift
+                run_command bash "$@"
                 return 0
                 ;;
             invenio)
                 shift
-                setup_venv
-                start_services
-                source .venv/bin/activate
-                source .env-services
-                invenio "$@"
+                run_command invenio "$@"
                 return 0
                 ;;
             translations)
@@ -174,14 +165,6 @@ run_tools() {
                 self_update
                 return 0
                 ;;
-            --skip-services)
-                SKIP_SERVICES=1
-                shift
-                ;;
-            --with-coverage)
-                WITH_COVERAGE=1
-                shift
-                ;;
             --no-editable)
                 NO_EDITABLE=1
                 shift
@@ -208,13 +191,19 @@ show_help() {
     echo ""
     echo "Commands:"
     echo "  venv              Set up the virtual environment"
+    echo "      --no-editable     Do not install the package in editable mode, build it first"
+    echo "      --force           Force the creation of the virtual environment, removing any existing one"
     echo "  start             Start the services for testing"
     echo "  stop              Stop the services after testing"
     echo "  test              Run the tests"
+    echo "      --skip-services   Skip starting/stopping services"
+    echo "      --with-coverage   Run tests with coverage enabled"
     echo "  oarepo-versions   List the supported OARepo versions for this package"
     echo "  clean             Clean up the environment (stop services, remove venv, etc.)"
     echo "  shell             Start a shell with the virtual environment and services running"
+    echo "      --skip-services   Skip starting/stopping services"
     echo "  invenio           Run an Invenio command with the virtual environment and services running"
+    echo "      --skip-services   Skip starting/stopping services"
     echo "  translations      Extract/compile translations for this package"
     echo "  lint              Run linters on the codebase"
     echo "  format            Format the codebase using ruff"
@@ -226,11 +215,6 @@ show_help() {
     echo "  OAREPO_VERSION    The version of OARepo to use (default: 13)"
     echo "  PYTHON_VERSION    The Python interpreter to use (default: 3.13)"
     echo "  PYTHON            The Python executable to use (default: python3.13)"
-    echo ""
-    echo "Options:"
-    echo "  --skip-services   Skip starting/stopping services"
-    echo "  --with-coverage   Run tests with coverage enabled"
-    echo "  --no-editable     Do not install the package in editable mode, build it first"
     echo ""
     echo "Housekeeping commands:"
     echo "  self-update       Update the runner script"
@@ -318,9 +302,59 @@ get_python_versions() {
     echo -n "[$python_versions]"
 }
 
+run_command() {
+    set -e
+    set -o pipefail    
+
+    command_name="$1"
+    shift
+
+    non_processed_args=()
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            *)
+                non_processed_args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    setup_venv
+    if [ -z "$SKIP_SERVICES" ]; then
+        start_services
+    fi
+
+    source .venv/bin/activate
+    source .env-services
+    "$command_name" "${non_processed_args[@]}"
+}
+
 setup_venv() {
     set -e
     set -o pipefail    
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --force)
+                FORCE=1
+                shift
+                ;;
+            --no-editable)
+                NO_EDITABLE=1
+                shift
+                ;;
+            *)
+                echo "Unknown venv option: $1"
+                exit 1
+                ;;            
+        esac
+    done
+
 
     if [ "$FORCE" = "1" ] && [ -d .venv ]; then
         echo "Removing existing virtual environment..."
@@ -338,11 +372,15 @@ setup_venv() {
     uv pip install setuptools
     uv pip install "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
 
-    if [ $NO_EDITABLE -eq 0 ]; then
+    if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."
         uv pip install -e '.[tests]'
     else
         echo "Building and Installing the package."
+        if [ -d dist ]; then
+            echo "Removing existing dist directory..."
+            rm -rf dist
+        fi
         uv build --wheel
         wheel_package=$(ls dist/*.whl | head -n 1)
         uv pip install "${wheel_package}[tests]"
@@ -352,9 +390,32 @@ setup_venv() {
 run_tests() {
     set -e
     set -o pipefail
+
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            --with-coverage)
+                WITH_COVERAGE=1
+                shift
+                ;;
+            *)
+                echo "Unknown test option: $1"
+                exit 1
+                ;;
+        esac
+    done
+
     setup_venv
-    start_services
-    if [ $WITH_COVERAGE -eq 1 ]; then
+
+    if [ -z "$SKIP_SERVICES" ]; then
+        start_services
+    fi
+
+    if [ ! -z "$WITH_COVERAGE" ]; then
         uv pip install pytest-cov
         export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-report=json --cov-report=html --cov-report=term-missing:skip-covered"
         echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"
@@ -501,6 +562,7 @@ ignore = [
     "D203",    # Using D211
     "D213",    # Using D212 (multi-line-summary-first-line) instead
     "COM812",
+    "FBT001",  # Avoid using boolean function parameters
 ]
 
 [lint.per-file-ignores]
@@ -523,8 +585,8 @@ docstring-code-format = true
 docstring-code-line-length = 40
 EOF
 
-    uvx -p python3.13 ruff check
-    uvx -p python3.13 ruff format --check
+    uvx -p python3.13 ruff check --exclude pyproject.toml
+    uvx -p python3.13 ruff format --check --exclude pyproject.toml
     check_license_headers
     check_future_annotations
 
@@ -543,9 +605,9 @@ format_code() {
     set -e
     set -o pipefail
 
-    uvx ruff format
-    uvx ruff check --fix
-}   
+    uvx ruff format --exclude pyproject.toml
+    uvx ruff check --fix --exclude pyproject.toml
+}
 
 run_jslint() {
     set -e

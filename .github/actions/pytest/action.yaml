@@ -43,7 +43,7 @@ runs:
       run: |
         export PYTHONWARNINGS="ignore"
         if [ "${{ inputs.use_coverage }}" == "true" ]; then
-          ./run.sh --with-coverage test
+          ./run.sh test --with-coverage
         else
           ./run.sh test
         fi
