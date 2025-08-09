@@ -563,6 +563,7 @@ ignore = [
     "D213",    # Using D212 (multi-line-summary-first-line) instead
     "COM812",
     "FBT001",  # Avoid using boolean function parameters
+    "FBT002",  # Avoid using boolean function parameters
 ]
 
 [lint.per-file-ignores]
