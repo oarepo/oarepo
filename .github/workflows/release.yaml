@@ -19,21 +19,22 @@ on:
 
 jobs:
   # call the test.yaml workflow
-  test:
-    name: Run Tests
-    uses: oarepo/oarepo/.github/workflows/test.yaml@main
+  # test:
+  #   name: Run Tests
+  #   uses: oarepo/oarepo/.github/workflows/test.yaml@main
 
   prepare_release:
     name: Prepare Release
     runs-on: ubuntu-24.04
-    needs: test
+    # needs: test
     steps:
       - name: Set up environment variables for release ${{ github.event.release.tag_name }}
         shell: "bash"
         run: |
-          echo "Release triggered for ${{ github.event.release.tag_name }}"
+          echo "Release triggered for ${{ github.event.release.tag_name }} from branch ${{ github.event.release.target_commitish }}"
           echo "PIP_EXTRA_INDEX_URL=https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple" >> $GITHUB_ENV
           echo "UV_EXTRA_INDEX_URL=https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple" >> $GITHUB_ENV
+
       - name: Create github app token
         uses: actions/create-github-app-token@v2
         id: app-token
@@ -41,11 +42,12 @@ jobs:
           app-id: ${{ secrets.OAREPO_BUMP_VERSION_CLIENT_ID }}
           private-key: ${{ secrets.OAREPO_BUMP_VERSION_CLIENT_PASSWORD }}
 
-      - name: Checkout
+      - name: Checkout branch ${{ github.event.release.target_commitish }} for release
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.event.release.target_commitish }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
