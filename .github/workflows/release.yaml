@@ -106,7 +106,7 @@ jobs:
           fi
 
           echo "Checking if new version is greater than the current version"
-          uv install packaging
+          uv pip install packaging
           python -c "from packaging.version import parse; exit(0 if parse('${{ github.ref_name }}') > parse('$actual_version') else 1)"
           if [[ $? -eq 1 ]]; then
               echo "${{ github.ref_name }} is lower than or equal to $actual_version, exiting."
