@@ -420,6 +420,7 @@ run_tests() {
     fi
 
     if [ ! -z "$WITH_COVERAGE" ]; then
+        echo "Enabling coverage for tests..."
         uv pip install pytest-cov
         export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-report=json --cov-report=html --cov-report=term-missing:skip-covered"
         echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"
