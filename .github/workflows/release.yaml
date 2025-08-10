@@ -29,7 +29,7 @@ jobs:
     # needs: test
     steps:
       - name: Create github app token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ secrets.OAREPO_BUMP_VERSION_CLIENT_ID }}
