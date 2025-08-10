@@ -131,17 +131,17 @@ jobs:
         run: |
           uv build
 
-      # - name: Commit version bump
-      #   shell: "bash"
-      #   run: |
-      #     git config user.name github-actions
-      #     git config user.email github-actions@github.com
-      #     git add $file_with_version
-      #     git commit -m "Bump version to ${{ github.ref_name }}"
-      #     git push
+      - name: Commit version bump
+        shell: "bash"
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add $file_with_version
+          git commit -m "Bump version to ${{ github.ref_name }}"
+          git push
 
-      # - name: Publish package
-      #   uses: pypa/gh-action-pypi-publish@master
-      #   with:
-      #     user: __token__
-      #     password: ${{ secrets.PYPI_PASSWORD }}
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_PASSWORD }}
