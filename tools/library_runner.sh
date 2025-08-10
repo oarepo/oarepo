@@ -391,7 +391,6 @@ run_tests() {
     set -e
     set -o pipefail
 
-
     while [[ $# -gt 0 ]]; do
         case $1 in
             --skip-services)
@@ -413,6 +412,11 @@ run_tests() {
 
     if [ -z "$SKIP_SERVICES" ]; then
         start_services
+    fi
+
+    if [ -f test-setup.sh ]; then
+        echo "Sourcing test setup script..."
+        source test-setup.sh
     fi
 
     if [ ! -z "$WITH_COVERAGE" ]; then
