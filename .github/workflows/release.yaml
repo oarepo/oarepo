@@ -118,7 +118,7 @@ jobs:
           }
 
           echo "Bumping version in $file_with_version to $new_version"
-          cat $file_with_version | sed "s/__version__ = .*'/__version__ = \"$new_version\"/" > $file_with_version.tmp
+          cat $file_with_version | sed "s/^__version__ = .*\"/__version__ = \"$new_version\"/" > $file_with_version.tmp
           mv $file_with_version.tmp $file_with_version
 
           echo "Version bumped to $new_version:"
