@@ -10,9 +10,11 @@ on:
   workflow_call:
     inputs: {}
     secrets:
-      github_client_id:
+      OAREPO_BUMP_VERSION_CLIENT_ID:
         required: true
-      github_client_password:
+      OAREPO_BUMP_VERSION_CLIENT_PASSWORD:
+        required: true
+      PYPI_PASSWORD:
         required: true
 
 jobs:
