@@ -79,8 +79,10 @@ jobs:
       - name: Bump version to ${{ github.ref_name }}
         shell: "bash"
         run: |
+          new_version=${{ github.ref_name }}
           source .venv/bin/activate
-          echo "Bumping version to ${{ github.ref_name }}"
+
+          echo "Bumping version to $new_version"
 
           echo "Getting current version from $file_with_version"
           echo "==========================="
@@ -98,26 +100,29 @@ jobs:
 
           echo "Checking if major versions are the same"
           actual_major_version=$(echo $actual_version | cut -d. -f1)
-          new_major_version=$(echo ${{ github.ref_name }} | cut -d. -f1)
+          new_major_version=$(echo $new_version | cut -d. -f1)
 
           if [[ "$actual_major_version" != "$new_major_version" ]]; then
             echo "Bumping major version not allowed, exiting."
             exit 1
+          else
+            echo "Ok, Major versions match for: actual: $actual_version == new: $new_version"
           fi
 
-          echo "Checking if new version is greater than the current version"
-          uv pip install packaging
-          python -c "from packaging.version import parse; exit(0 if parse('${{ github.ref_name }}') > parse('$actual_version') else 1)"
+          echo "Checking if new version ('$new_version') is greater than the current version ('$actual_version')"
+          python -c "from packaging.version import parse; exit(0 if parse('$new_version') > parse('$actual_version') else 1)"
           if [[ $? -eq 1 ]]; then
-              echo "${{ github.ref_name }} is lower than or equal to $actual_version, exiting."
+              echo "$new_version is lower than or equal to $actual_version, exiting."
               exit 1
+          else
+              echo "$new_version is greater than $actual_version, continuing."
           fi
 
-          echo "Bumping version in $file_with_version to ${{ github.ref_name }}"
-          cat $file_with_version | sed "s/__version__ = .*'/__version__ = \"${{ github.ref_name }}\"/" > $file_with_version.tmp
+          echo "Bumping version in $file_with_version to $new_version"
+          cat $file_with_version | sed "s/__version__ = .*'/__version__ = \"$new_version\"/" > $file_with_version.tmp
           mv $file_with_version.tmp $file_with_version
 
-          echo "Version bumped to ${{ github.ref_name }}:"
+          echo "Version bumped to $new_version:"
           echo "=========================="
           cat $file_with_version
           echo "=========================="
