@@ -64,11 +64,28 @@ jobs:
             echo "init_with_version=$(ls */__init__.py | grep -v tests | head -n 1)" > $GITHUB_ENV
           fi
 
-      - name: Bump version
+      - name: Bump version to ${{ github.ref_name }}
         shell: "bash"
         run: |
-          echo "Bumping version..."
-          cat $init_with_version | sed "s/__version__ = .*'/__version__ = '${{ github.ref_name }}'/" > $init_with_version.tmp
+          source .venv/bin/activate
+          echo "Bumping version to ${{ github.ref_name }}"
+
+          # get the actual version from the file
+          actual_version=$(
+            echo ${init_with_version} 
+            | egrep '__version__ = ' 
+            | head -n 1
+            | sed 's/__version__ = "//'
+            | sed 's/"$//'
+          )
+          echo "Current package version: $actual_version"
+          uv install packaging
+          python -c "from packaging.version import parse; exit(0 if parse('${{ github.ref_name }}') > parse('$actual_version') else 1)"
+          if [[ $? -eq 1 ]]; then
+              echo "${{ github.ref_name }} is lower than or equal to $actual_version, are you on a correct branch?"
+              exit 1
+          fi
+          cat $init_with_version | sed "s/__version__ = .*'/__version__ = \"${{ github.ref_name }}\"/" > $init_with_version.tmp
           mv $init_with_version.tmp $init_with_version
           echo "Version bumped to ${{ github.ref_name }}:"
           echo "=========================="
