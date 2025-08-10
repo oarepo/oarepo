@@ -83,8 +83,12 @@ jobs:
           echo "Bumping version to ${{ github.ref_name }}"
 
           echo "Getting current version from $file_with_version"
+          echo "==========================="
+          cat $file_with_version
+          echo "==========================="
+
           actual_version=$(
-            echo "${file_with_version}"        \
+            cat "${file_with_version}"        \
             | egrep '__version__ = '           \
             | head -n 1                        \
             | sed 's/__version__ = "//'        \
