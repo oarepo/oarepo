@@ -446,8 +446,7 @@ cleanup() {
 }
 
 self_update() {
-    set -e
-    set -o pipefail
+    set -euo pipefail
 
     echo "Updating runner script..."
     curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/runner.sh

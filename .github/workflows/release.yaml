@@ -1,0 +1,96 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2025 CESNET z.s.p.o.
+# OARepo is free software; you can redistribute it and/or modify
+# it under the terms of the MIT License; see LICENSE file for more details.
+
+name: Release Workflow
+
+on:
+  workflow_call:
+    inputs: {}
+    secrets:
+      github_client_id:
+        required: true
+      github_client_password:
+        required: true
+
+jobs:
+  # call the test.yaml workflow
+  test:
+    name: Run Tests
+    uses: oarepo/oarepo/.github/workflows/test.yaml
+
+  prepare_release:
+    name: Prepare Release
+    runs-on: ubuntu-24.04
+    needs: test
+    steps:
+      - name: Create github app token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.OAREPO_BUMP_VERSION_CLIENT_ID }}
+          private-key: ${{ secrets.OAREPO_BUMP_VERSION_CLIENT_PASSWORD }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install the project
+        shell: "bash"
+        run: |
+          uv sync
+
+      - name: Get location of the module including the version variable
+        shell: "bash"
+        run: |
+          if [ -d src ]; then
+            # if there is a src directory, there should be a single subdirectory
+            # containing the __init__.py file
+            echo "init_with_version=$(ls src/*/__init__.py)" > $GITHUB_ENV
+          else
+            # need to handle the case where there is no src directory
+            echo "init_with_version=$(ls */__init__.py | grep -v tests | head -n 1)" > $GITHUB_ENV
+          fi
+
+      - name: Bump version
+        shell: "bash"
+        run: |
+          echo "Bumping version..."
+          cat $init_with_version | sed "s/__version__ = .*'/__version__ = '${{ github.ref_name }}'/" > $init_with_version.tmp
+          mv $init_with_version.tmp $init_with_version
+          echo "Version bumped to ${{ github.ref_name }}:"
+          echo "=========================="
+          cat $init_with_version
+          echo "=========================="
+
+      - name: Build the project
+        shell: "bash"
+        run: |
+          uv build
+
+      # - name: Commit version bump
+      #   shell: "bash"
+      #   run: |
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      #     git add $init_with_version
+      #     git commit -m "Bump version to ${{ github.ref_name }}"
+      #     git push
+
+      # - name: Publish package
+      #   uses: pypa/gh-action-pypi-publish@master
+      #   with:
+      #     user: __token__
+      #     password: ${{ secrets.PYPI_PASSWORD }}

@@ -1,0 +1,11 @@
+name: Release
+
+on:
+  release:
+    types: [released, prereleased]
+
+jobs:
+  bump-test-publish:
+    name: Bump, Test, and Publish the Release
+    uses: oarepo/oarepo/.github/workflows/release.yaml@main
+    secrets: inherit
