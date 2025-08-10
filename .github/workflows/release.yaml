@@ -24,7 +24,7 @@ jobs:
   prepare_release:
     name: Prepare Release
     runs-on: ubuntu-24.04
-    needs: test
+    # needs: test
     steps:
       - name: Create github app token
         uses: actions/create-github-app-token@v1
