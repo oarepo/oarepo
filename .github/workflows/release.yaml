@@ -70,7 +70,7 @@ jobs:
           source .venv/bin/activate
           echo "Bumping version to ${{ github.ref_name }}"
 
-          # get the actual version from the file
+          echo "Getting current version from $init_with_version"
           actual_version=$(
             echo ${init_with_version} 
             | egrep '__version__ = ' 
@@ -79,14 +79,28 @@ jobs:
             | sed 's/"$//'
           )
           echo "Current package version: $actual_version"
+
+          echo "Checking if major versions are the same"
+          actual_major_version=$(echo $actual_version | cut -d. -f1)
+          new_major_version=$(echo ${{ github.ref_name }} | cut -d. -f1)
+
+          if [[ "$actual_major_version" != "$new_major_version" ]]; then
+            echo "Bumping major version not allowed, exiting."
+            exit 1
+          fi
+
+          echo "Checking if new version is greater than the current version"
           uv install packaging
           python -c "from packaging.version import parse; exit(0 if parse('${{ github.ref_name }}') > parse('$actual_version') else 1)"
           if [[ $? -eq 1 ]]; then
-              echo "${{ github.ref_name }} is lower than or equal to $actual_version, are you on a correct branch?"
+              echo "${{ github.ref_name }} is lower than or equal to $actual_version, exiting."
               exit 1
           fi
+
+          echo "Bumping version in $init_with_version to ${{ github.ref_name }}"
           cat $init_with_version | sed "s/__version__ = .*'/__version__ = \"${{ github.ref_name }}\"/" > $init_with_version.tmp
           mv $init_with_version.tmp $init_with_version
+
           echo "Version bumped to ${{ github.ref_name }}:"
           echo "=========================="
           cat $init_with_version
