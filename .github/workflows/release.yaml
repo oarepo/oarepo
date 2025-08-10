@@ -110,13 +110,12 @@ jobs:
           fi
 
           echo "Checking if new version ('$new_version') is greater than the current version ('$actual_version')"
-          python -c "from packaging.version import parse; exit(0 if parse('$new_version') > parse('$actual_version') else 1)"
-          if [[ $? -eq 1 ]]; then
+          python -c "from packaging.version import parse; exit(0 if parse('$new_version') > parse('$actual_version') else 1)" && {
+              echo "$new_version is greater than $actual_version, continuing."
+          } || {
               echo "$new_version is lower than or equal to $actual_version, exiting."
               exit 1
-          else
-              echo "$new_version is greater than $actual_version, continuing."
-          fi
+          }
 
           echo "Bumping version in $file_with_version to $new_version"
           cat $file_with_version | sed "s/__version__ = .*'/__version__ = \"$new_version\"/" > $file_with_version.tmp
