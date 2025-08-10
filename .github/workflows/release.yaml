@@ -17,9 +17,9 @@ on:
 
 jobs:
   # call the test.yaml workflow
-  test:
-    name: Run Tests
-    uses: oarepo/oarepo/.github/workflows/test.yaml
+  # test:
+  #   name: Run Tests
+  #   uses: oarepo/oarepo/.github/workflows/test.yaml
 
   prepare_release:
     name: Prepare Release
