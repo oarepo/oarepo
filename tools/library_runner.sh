@@ -410,13 +410,15 @@ run_tests() {
 
     setup_venv
 
-    if [ -z "$SKIP_SERVICES" ]; then
-        start_services
-    fi
-
     if [ -f test-setup.sh ]; then
         echo "Sourcing test setup script..."
         source test-setup.sh
+    else
+        echo "No test-setup.sh found, skipping extra test setup."
+    fi
+
+    if [ -z "$SKIP_SERVICES" ]; then
+        start_services
     fi
 
     if [ ! -z "$WITH_COVERAGE" ]; then
