@@ -410,7 +410,7 @@ run_tests() {
 
     setup_venv
 
-    if [ -f test-setup.sh ]; then
+    if [ -f ./test-setup.sh ]; then
         echo "Sourcing test setup script..."
         ./test-setup.sh
     else
