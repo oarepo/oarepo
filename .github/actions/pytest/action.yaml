@@ -27,6 +27,13 @@ runs:
         source .venv/bin/activate
         uv pip freeze > requirements.txt
 
+        if [ -f ./test-setup.sh ]; then
+          echo "Running test setup script..."
+          ./test-setup.sh
+        else
+          echo "No test-setup.sh found, skipping extra test setup."
+        fi
+
     - name: Store requirements.txt for reference
       uses: actions/upload-artifact@v4
       with:
