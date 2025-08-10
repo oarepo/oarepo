@@ -66,10 +66,14 @@ jobs:
           if [ -d src ]; then
             # if there is a src directory, there should be a single subdirectory
             # containing the __init__.py file
-            echo "init_with_version=$(ls src/*/__init__.py)" > $GITHUB_ENV
+            file_with_version=$(ls src/*/__init__.py)
+            echo "file_with_version=$file_with_version" > $GITHUB_ENV
+            echo "Using the following file for version bump: $file_with_version"
           else
             # need to handle the case where there is no src directory
-            echo "init_with_version=$(ls */__init__.py | grep -v tests | head -n 1)" > $GITHUB_ENV
+            file_with_version=$(ls */__init__.py | grep -v tests | head -n 1)
+            echo "file_with_version=$file_with_version" > $GITHUB_ENV
+            echo "Using the following file for version bump: $file_with_version"
           fi
 
       - name: Bump version to ${{ github.ref_name }}
@@ -78,12 +82,12 @@ jobs:
           source .venv/bin/activate
           echo "Bumping version to ${{ github.ref_name }}"
 
-          echo "Getting current version from $init_with_version"
+          echo "Getting current version from $file_with_version"
           actual_version=$(
-            echo ${init_with_version} 
-            | egrep '__version__ = ' 
-            | head -n 1
-            | sed 's/__version__ = "//'
+            echo "${file_with_version}"        \
+            | egrep '__version__ = '           \
+            | head -n 1                        \
+            | sed 's/__version__ = "//'        \
             | sed 's/"$//'
           )
           echo "Current package version: $actual_version"
@@ -105,13 +109,13 @@ jobs:
               exit 1
           fi
 
-          echo "Bumping version in $init_with_version to ${{ github.ref_name }}"
-          cat $init_with_version | sed "s/__version__ = .*'/__version__ = \"${{ github.ref_name }}\"/" > $init_with_version.tmp
-          mv $init_with_version.tmp $init_with_version
+          echo "Bumping version in $file_with_version to ${{ github.ref_name }}"
+          cat $file_with_version | sed "s/__version__ = .*'/__version__ = \"${{ github.ref_name }}\"/" > $file_with_version.tmp
+          mv $file_with_version.tmp $file_with_version
 
           echo "Version bumped to ${{ github.ref_name }}:"
           echo "=========================="
-          cat $init_with_version
+          cat $file_with_version
           echo "=========================="
 
       - name: Build the project
@@ -124,7 +128,7 @@ jobs:
       #   run: |
       #     git config user.name github-actions
       #     git config user.email github-actions@github.com
-      #     git add $init_with_version
+      #     git add $file_with_version
       #     git commit -m "Bump version to ${{ github.ref_name }}"
       #     git push
 
