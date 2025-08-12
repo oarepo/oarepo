@@ -647,9 +647,15 @@ EOF
     echo "Running ESLint..."
     node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx --fix "${code_directories[@]}"
 
-    # run prettier
+    # run prettier. Locally do --write and in CI just --check
     echo "Running Prettier..."
-    node_modules/.bin/prettier --write "${code_directories[@]}"
+    if [ "$CI" = "true" ]; then
+        prettier_flag="--check"
+    else
+        prettier_flag="--write"
+    fi
+
+    node_modules/.bin/prettier $prettier_flag "${code_directories[@]}"
 
     return 0
 }
