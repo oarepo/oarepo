@@ -97,6 +97,7 @@ run_tools() {
     export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
     export NO_EDITABLE=${NO_EDITABLE:-""}
     export SKIP_SERVICES=${SKIP_SERVICES:-""}
+    export WITH_COVERAGE=${WITH_COVERAGE:-""}
 
     while [[ $# -gt 0 ]]; do
         case $1 in
