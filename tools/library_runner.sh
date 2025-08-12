@@ -627,7 +627,7 @@ run_jslint() {
 
     if ! jq -e '.devDependencies."@inveniosoftware/eslint-config-invenio"' package.json > /dev/null; then
         echo "Adding @inveniosoftware/eslint-config-invenio to dev dependencies..."
-        pnpm add -D @inveniosoftware/eslint-config-invenio
+        pnpm add -D @inveniosoftware/eslint-config-invenio@2
     fi
 
     if [ ! -x node_modules/.bin/eslint ] ; then
