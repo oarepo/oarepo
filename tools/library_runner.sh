@@ -95,7 +95,8 @@ run_tools() {
     export OAREPO_VERSION=${OAREPO_VERSION:-"13"}
     export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
     export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
-    export NO_EDITABLE=${NO_EDITABLE:-0}
+    export NO_EDITABLE=${NO_EDITABLE:-""}
+    export SKIP_SERVICES=${SKIP_SERVICES:-""}
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -463,7 +464,7 @@ self_update() {
     set -euo pipefail
 
     echo "Updating runner script..."  >&2
-    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/runner.sh
+    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/library_runner.sh
     chmod +x "./.runner-new.sh"
     if "./.runner-new.sh" check-script-working ; then
         mv "./.runner-new.sh" "./.runner.sh"
