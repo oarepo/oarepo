@@ -16,6 +16,9 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 #
 
+set -euo pipefail
+
+
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
@@ -23,14 +26,14 @@ export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 cd "$(dirname "$0")"
 
 if [ ! -f pyproject.toml ]; then
-    echo "No pyproject.toml found, please migrate from setup.cfg."
-    echo "See https://github.com/oarepo/oarepo/blob/main/README.md for details."
+    echo "No pyproject.toml found, please migrate from setup.cfg."  >&2
+    echo "See https://github.com/oarepo/oarepo/blob/main/README.md for details."  >&2
     exit 1
 fi
 
 if [ -f setup.cfg ]; then
-    echo "setup.cfg found, please migrate to pyproject.toml."
-    echo "See https://github.com/oarepo/oarepo/blob/main/README.md for details."
+    echo "setup.cfg found, please migrate to pyproject.toml."  >&2
+    echo "See https://github.com/oarepo/oarepo/blob/main/README.md for details."  >&2
     exit 1
 fi
 
@@ -44,7 +47,7 @@ get_package_name() {
     )
 
     if [ -z "$name" ]; then
-        echo "No package name found in pyproject.toml, please add one."
+        echo "No package name found in pyproject.toml, please add one."  >&2
         exit 1
     else
         echo "$name"
@@ -60,7 +63,7 @@ get_home_page() {
         sed 's/".*//'
     )
     if [ -z "$hp" ]; then
-        echo "No homepage found in pyproject.toml, please add one."
+        echo "No homepage found in pyproject.toml, please add one."  >&2
         exit 1
     else
         echo "$hp"
@@ -176,7 +179,7 @@ run_tools() {
                 return 0
                 ;;
             *)
-                echo "Unknown command: $1"
+                echo "Unknown command: $1"  >&2
                 show_help
                 exit 1
                 ;;
@@ -187,6 +190,7 @@ run_tools() {
 }
 
 show_help() {
+    (
     echo "Usage: $0 [options] [command]"
     echo ""
     echo "Commands:"
@@ -218,6 +222,7 @@ show_help() {
     echo ""
     echo "Housekeeping commands:"
     echo "  self-update       Update the runner script"
+    ) >&2
     return 0
 }   
 
@@ -266,8 +271,8 @@ list_oarepo_versions() {
         echo -n "\"node_versions\": [\"24\"]"
         echo "}"
     else
-        echo "No pyproject.toml found and other types are not supported yet."
-        echo "Please ensure you are in the correct directory."
+        echo "No pyproject.toml found and other types are not supported yet." >&2
+        echo "Please ensure you are in the correct directory." >&2
         exit 1
     fi
 }
@@ -338,6 +343,8 @@ setup_venv() {
     set -e
     set -o pipefail    
 
+    FORCE=${FORCE:-0}
+
     while [[ $# -gt 0 ]]; do
         case $1 in
             --force)
@@ -349,7 +356,7 @@ setup_venv() {
                 shift
                 ;;
             *)
-                echo "Unknown venv option: $1"
+                echo "Unknown venv option: $1" >&2
                 exit 1
                 ;;            
         esac
@@ -357,7 +364,7 @@ setup_venv() {
 
 
     if [ "$FORCE" = "1" ] && [ -d .venv ]; then
-        echo "Removing existing virtual environment..."
+        echo "Removing existing virtual environment..." >&2
         rm -rf .venv
     fi
 
@@ -365,7 +372,7 @@ setup_venv() {
         return 0
     fi
 
-    echo "Setting up virtual environment with Python $PYTHON and oarepo version $OAREPO_VERSION"
+    echo "Setting up virtual environment with Python $PYTHON and oarepo version $OAREPO_VERSION"  >&2
     uv venv --python=$PYTHON --seed
     source .venv/bin/activate
 
@@ -373,12 +380,12 @@ setup_venv() {
     uv pip install "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
 
     if [ -z "$NO_EDITABLE" ]; then
-        echo "Installing the package in editable mode."
+        echo "Installing the package in editable mode."  >&2
         uv pip install -e '.[tests]'
     else
-        echo "Building and Installing the package."
+        echo "Building and Installing the package."  >&2
         if [ -d dist ]; then
-            echo "Removing existing dist directory..."
+            echo "Removing existing dist directory..."  >&2
             rm -rf dist
         fi
         uv build --wheel
@@ -402,7 +409,7 @@ run_tests() {
                 shift
                 ;;
             *)
-                echo "Unknown test option: $1"
+                echo "Unknown test option: $1"  >&2
                 exit 1
                 ;;
         esac
@@ -411,10 +418,10 @@ run_tests() {
     setup_venv
 
     if [ -f ./test-setup.sh ]; then
-        echo "Sourcing test setup script..."
+        echo "Sourcing test setup script..."  >&2
         ./test-setup.sh
     else
-        echo "No test-setup.sh found, skipping extra test setup."
+        echo "No test-setup.sh found, skipping extra test setup."  >&2
     fi
 
     if [ -z "$SKIP_SERVICES" ]; then
@@ -422,10 +429,10 @@ run_tests() {
     fi
 
     if [ ! -z "$WITH_COVERAGE" ]; then
-        echo "Enabling coverage for tests..."
+        echo "Enabling coverage for tests..."  >&2
         uv pip install pytest-cov
         export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-report=json --cov-report=html --cov-report=term-missing:skip-covered"
-        echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"
+        echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"  >&2
     fi
     source .venv/bin/activate
     source .env-services
@@ -436,33 +443,33 @@ cleanup() {
     set -e
     set -o pipefail    
 
-    echo "Stopping services..."
-    stop_services
+    echo "Stopping services..."  >&2
+    stop_services 
 
     if [ -d .venv ]; then
-        echo "Removing virtual environment..."
+        echo "Removing virtual environment..."  >&2
         rm -rf .venv
     fi
 
     if [ -f .env-services ]; then
-        echo "Removing environment file..."
+        echo "Removing environment file..."  >&2
         rm -f .env-services
     fi
 
-    echo "Cleanup completed."
+    echo "Cleanup completed."  >&2
 }
 
 self_update() {
     set -euo pipefail
 
-    echo "Updating runner script..."
+    echo "Updating runner script..."  >&2
     curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/runner.sh
     chmod +x "./.runner-new.sh"
     if "./.runner-new.sh" check-script-working ; then
         mv "./.runner-new.sh" "./.runner.sh"
-        echo "Runner script updated successfully."
+        echo "Runner script updated successfully."  >&2
     else
-        echo "New runner script is not working, keeping the old one."
+        echo "New runner script is not working, keeping the old one."  >&2
         rm "./.runner-new.sh"
     fi
     return 0
@@ -498,7 +505,7 @@ check_license_headers() {
     rm .check_errors.txt
 
     if [ $errors -gt 0 ]; then
-        echo "${errors} file(s) are missing license headers."
+        echo "${errors} file(s) are missing license headers."  >&2
         return 1
     fi
 }
@@ -521,7 +528,7 @@ check_future_annotations() {
         if cat $file | grep "from __future__" | grep "annotations" >/dev/null; then
             echo "$file" >>.check_ok.txt
         else
-            echo "Missing 'from __future__ import annotations' in $file"
+            echo "Missing 'from __future__ import annotations' in $file"  >&2
             echo "$file" >>.check_errors.txt
         fi
     done
@@ -533,7 +540,7 @@ check_future_annotations() {
     rm .check_errors.txt
 
     if [ $errors -gt 0 ]; then
-        echo "${errors} file(s) are missing future annotations."
+        echo "${errors} file(s) are missing future annotations."  >&2
         return 1
     fi
 }

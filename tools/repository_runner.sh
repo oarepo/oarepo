@@ -25,7 +25,7 @@ show_help() {
     echo "Usage: run.sh command [options]"
     echo ""
     echo "Commands:"
-    echo "  build                 Build the repository for production"
+    echo "  install               Install the repository"
     echo "  self-update           Update the runner script to the latest version"
     echo "Options:"
     echo "  --help                Show this help message"
@@ -68,6 +68,10 @@ run() {
                 ;;
             self-update)
                 self_update
+                exit 0
+                ;;
+            build)
+                build_repository
                 exit 0
                 ;;
             check-script-working)
