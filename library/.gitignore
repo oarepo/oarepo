@@ -380,3 +380,5 @@ vite.config.ts.timestamp-*
 .DS_Store
 *.DS_Store?
 #
+package-lock.json
+pnpm-lock.yaml

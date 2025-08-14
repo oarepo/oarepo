@@ -636,7 +636,7 @@ run_jslint() {
 
     if ! jq -e '.devDependencies."@inveniosoftware/eslint-config-invenio"' package.json > /dev/null; then
         echo "Adding @inveniosoftware/eslint-config-invenio to dev dependencies..."
-        pnpm add -D @inveniosoftware/eslint-config-invenio
+        pnpm add -D @inveniosoftware/eslint-config-invenio@2
     fi
 
     if [ ! -x node_modules/.bin/eslint ] ; then
@@ -650,15 +650,30 @@ run_jslint() {
 extends:
 - '@inveniosoftware/eslint-config-invenio'
 - '@inveniosoftware/eslint-config-invenio/prettier'
+
+rules:
+  react/require-default-props: 'off'
+
+settings:
+  react:
+    version: "16"
+
+parser: '@babel/eslint-parser'
 EOF
 
     # run eslint
     echo "Running ESLint..."
     node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx --fix "${code_directories[@]}"
 
-    # run prettier
+    # run prettier. Locally do --write and in CI just --check
     echo "Running Prettier..."
-    node_modules/.bin/prettier --write "${code_directories[@]}"
+    if [ "$CI" = "true" ]; then
+        prettier_flag="--check"
+    else
+        prettier_flag="--write"
+    fi
+
+    node_modules/.bin/prettier $prettier_flag "${code_directories[@]}"
 
     return 0
 }
