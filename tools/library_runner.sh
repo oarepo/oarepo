@@ -641,6 +641,15 @@ run_jslint() {
 extends:
 - '@inveniosoftware/eslint-config-invenio'
 - '@inveniosoftware/eslint-config-invenio/prettier'
+
+rules:
+  react/require-default-props: 'off'
+
+settings:
+  react:
+    version: "16"
+
+parser: '@babel/eslint-parser'
 EOF
 
     # run eslint
