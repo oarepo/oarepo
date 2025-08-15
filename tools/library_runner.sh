@@ -719,12 +719,13 @@ run_jstest() {
     d=yaml.safe_load(open(f)) or {};d.setdefault('packages',[]);yaml.safe_dump(d,open(f,'w'),sort_keys=False)"
     # Ensure "test" script is defined & configured
     run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';\
-    d=json.load(open(f));d.setdefault('scripts',{})['test']='jest ./js/${package_name}';json.dump(d,open(f,'w'),indent=2)"
+    d=json.load(open(f));d.setdefault('scripts',{})['test']='jest';json.dump(d,open(f,'w'),indent=2)"
 
     # Figure out asset paths for entries in .venv
-    webpack_entries=$(run_command invenio --skip-services shell -c "import importlib_metadata; dist = importlib_metadata.distribution('oarepo-dashboard'); eps = [list(ep.load().themes['semantic-ui'].entry.values()) for ep in dist.entry_points if ep.group == 'invenio_assets.webpack']; print(','.join([','.join(v) for v in eps if len(v) != 0]))")
-#    TODO: map over entries & format & include as roots in config file below
+    webpack_entries=$(run_command invenio --skip-services shell -c  "import importlib_metadata; dist = importlib_metadata.distribution(${package_name}); eps = [list(ep.load().themes['semantic-ui'].entry.values()) for ep in dist.entry_points if ep.group == 'invenio_assets.webpack']; print(','.join([','.join(['\"{0}\"'.format(i) for i in v]) for v in eps if len(v) != 0]))")
 
+
+#    TODO: fix coverage paths below
     cat <<EOF >"${assets_path}/jest.config.js"
 /**
  * For a detailed explanation regarding each configuration property, visit:
@@ -751,7 +752,7 @@ const config = {
       })),
     '^axios\$': require.resolve('axios'),
   },
-  roots: ["js/${package_name}"],
+  roots: [${webpack_entries}],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: [
     '<rootDir>/setupTests.js',
