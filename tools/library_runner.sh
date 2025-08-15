@@ -721,6 +721,7 @@ run_jstest() {
     run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';\
     d=json.load(open(f));d.setdefault('scripts',{})['test']='jest';json.dump(d,open(f,'w'),indent=2)"
 
+#    TODO: basedir paths
     # Figure out asset paths for entries in .venv
     webpack_entries=$(run_command invenio --skip-services shell -c  "import importlib_metadata; dist = importlib_metadata.distribution('${package_name}'); eps = [list(ep.load().themes['semantic-ui'].entry.values()) for ep in dist.entry_points if ep.group == 'invenio_assets.webpack']; print(','.join([','.join(['\"{0}\"'.format(i) for i in v]) for v in eps if len(v) != 0]))")
 
