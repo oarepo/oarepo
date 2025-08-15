@@ -21,6 +21,11 @@ set -euo pipefail
 
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
+export INVENIO_APP_THEME='["semantic-ui"]'
+export INVENIO_WEBPACKEXT_NPM_PKG_CLS="pynpm.package:PNPMPackage"
+export INVENIO_JAVASCRIPT_PACKAGES_MANAGER="pnpm"
+export INVENIO_ASSETS_BUILDER="rspack"
+export INVENIO_THEME_FRONTPAGE="False"
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
 cd "$(dirname "$0")"
@@ -160,6 +165,11 @@ run_tools() {
             jslint)
                 shift
                 run_jslint "$@"
+                return 0
+                ;;
+            jstest)
+                shift
+                run_jstest "$@"
                 return 0
                 ;;
             -h|--help)
@@ -675,6 +685,135 @@ EOF
 
     node_modules/.bin/prettier $prettier_flag "${code_directories[@]}"
 
+    return 0
+}
+
+run_jstest() {
+    set -e
+    set -o pipefail
+
+    export PYTHON_BASIC_REPL=0
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            --with-coverage)
+                WITH_COVERAGE=1
+                shift
+                ;;
+            *)
+                echo "Unknown test option: $1"  >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
+    instance_path=$(run_command invenio --skip-services shell --no-term-title -c "print(app.instance_path, end='')" | tail -n1)
+    assets_path="${instance_path}/assets"
+    # Needed to work around Invenio RSPack error:
+    #  ERROR: packages field missing or empty
+    run_command invenio --skip-services shell -c "import yaml;f='${assets_path}/pnpm-workspace.yaml';d=yaml.safe_load(open(f)) or {};d.setdefault('packages',[]);yaml.safe_dump(d,open(f,'w'),sort_keys=False)"
+    # Ensure "test" script is defined & configured
+    run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';d=json.load(open(f));d.setdefault('scripts',{})['test']='jest ./js/${package_name};json.dump(d,open(f,'w'),indent=2)"
+    cat <<EOF >"${assets_path}/jest.config.js"
+/**
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+const webpackConfig = require("./build/config.json");
+
+/** @type {import('jest').Config} */
+const config = {
+  clearMocks: true,
+  collectCoverage: $([ "$WITH_COVERAGE" = "1" ] && echo true || echo false),
+  collectCoverageFrom: [
+    "js/${package_name}/**/*.{js,jsx}",
+    "!**/node_modules/**",
+  ],
+  coverageDirectory: "_coverage",
+  moduleFileExtensions: ["js", "jsx", "json"],
+  moduleNameMapper: {
+    ...Object.fromEntries(
+      Object.entries(webpackConfig.aliases).map(([alias, path]) => {
+        const escapedAlias = alias.replace(/[.*+?^\${}()|[\]\\]/g, "\\\$&");
+        return [\`^\${escapedAlias}(.*)\$\`, \`<rootDir>/\${path}\$1\`];
+      })),
+    '^axios\$': require.resolve('axios'),
+  },
+  roots: ["js/${package_name}"],
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: [
+    '<rootDir>/setupTests.js',
+  ],
+  transform: {
+    "^.+\\.(js|jsx)\$": [
+      'babel-jest', {
+      presets: [
+        ['@babel/preset-env', {
+          targets: { chrome: '48' },
+          modules: 'auto'
+        }],
+        '@babel/preset-react'
+      ],
+      plugins: [
+        '@babel/plugin-transform-modules-commonjs',
+        '@babel/plugin-transform-runtime'
+      ]
+    }]
+  },
+  // Environment variables simulation
+  globals: {
+    'process.env': {
+      NODE_ENV: 'test',
+      ...process.env  // Preserve existing environment variables
+    }
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!axios)",
+  ],
+};
+
+module.exports = config;
+EOF
+
+    cat <<'EOF' >"${assets_path}/setupTests.js"
+// This file is part of Invenio-RDM-Records
+// Copyright (C) 2020 CERN.
+// Copyright (C) 2020 Northwestern University.
+//
+// Invenio-RDM-Records is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+EOF
+    # Collect statics & install rspack project dependencies
+    run_command invenio --skip-services collect
+    run_command invenio --skip-services webpack install
+
+    # Fetch & install testing devDeps from invenio-rdm-records (Jest & friends)
+    cd $assets_path
+    # shellcheck disable=SC2046
+    pnpm add -w -D $(run_command invenio --skip-services shell -c "import invenio_rdm_records, pathlib, json; \
+    p=pathlib.Path(invenio_rdm_records.__file__).parent / 'assets/semantic-ui/js/invenio_rdm_records/package.json'; \
+    print(' '.join(f'{k}@{v}' for k,v in json.load(open(p)).get('devDependencies', {}).items()))")
+    pnpm run test
+    cd -
     return 0
 }
 
