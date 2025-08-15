@@ -3,7 +3,7 @@
 # This script sets up a Python virtual environment, installs necessary packages,
 # runs tests and other tasks for libraries which are part of the OARepo Invenio RDM
 # flavour.
-# 
+#
 # Usage: ./run --help
 #
 # Note: To ensure consistency, this script is never committed to the library.
@@ -44,10 +44,10 @@ fi
 
 get_package_name() {
     name=$(
-        cat "pyproject.toml" | 
-        egrep '^name' | 
-        head -n 1 | 
-        sed 's/[^"]*"//' | 
+        cat "pyproject.toml" |
+        egrep '^name' |
+        head -n 1 |
+        sed 's/[^"]*"//' |
         sed 's/".*//'
     )
 
@@ -61,10 +61,10 @@ get_package_name() {
 
 get_home_page() {
     hp=$(
-        cat "pyproject.toml" | 
-        egrep '^Homepage' | 
-        head -n 1 | 
-        sed 's/[^"]*"//' | 
+        cat "pyproject.toml" |
+        egrep '^Homepage' |
+        head -n 1 |
+        sed 's/[^"]*"//' |
         sed 's/".*//'
     )
     if [ -z "$hp" ]; then
@@ -84,7 +84,7 @@ else
     code_directories+=($(echo ${package_name} | tr '-' '_'))
 fi
 
-if [ -d "tests" ]; then
+if [ -d "tests" ] && [ "$1" != "jslint" ]; then
     code_directories+=("tests")
 fi
 
@@ -94,8 +94,8 @@ export code_directories
 
 run_tools() {
     set -e
-    set -o pipefail    
-    
+    set -o pipefail
+
     # Parse the commandline according to the options defined above.
     export OAREPO_VERSION=${OAREPO_VERSION:-"13"}
     export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
@@ -236,14 +236,14 @@ show_help() {
     echo "  self-update       Update the runner script"
     ) >&2
     return 0
-}   
+}
 
 stop_services() {
     if [ ! -z "$SKIP_SERVICES" ]; then
         return 0
     fi
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     eval "$(uvx --with setuptools docker-services-cli down --env)"
     if [ -f .env-services ]; then
@@ -256,7 +256,7 @@ start_services() {
         return 0
     fi
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     uvx --with setuptools docker-services-cli up \
         --db ${DB:-postgresql} --search ${SEARCH:-opensearch} \
@@ -321,7 +321,7 @@ get_python_versions() {
 
 run_command() {
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     command_name="$1"
     shift
@@ -353,7 +353,7 @@ run_command() {
 
 setup_venv() {
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     FORCE=${FORCE:-0}
 
@@ -370,7 +370,7 @@ setup_venv() {
             *)
                 echo "Unknown venv option: $1" >&2
                 exit 1
-                ;;            
+                ;;
         esac
     done
 
@@ -453,10 +453,10 @@ run_tests() {
 
 cleanup() {
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     echo "Stopping services..."  >&2
-    stop_services 
+    stop_services
 
     if [ -d .venv ]; then
         echo "Removing virtual environment..."  >&2
@@ -594,12 +594,12 @@ ignore = [
 [lint.per-file-ignores]
 "__init__.py" = ["E402"]
 "**/{tests,docs,tools}/*" = [
-    "E402", 
-    "S101", 
-    "ANN001", 
-    "ARG001", 
-    "D103", 
-    "ANN201", 
+    "E402",
+    "S101",
+    "ANN001",
+    "ARG001",
+    "D103",
+    "ANN201",
     "D100",
     "INP",
     "PLR",
@@ -715,9 +715,16 @@ run_jstest() {
     assets_path="${instance_path}/assets"
     # Needed to work around Invenio RSPack error:
     #  ERROR: packages field missing or empty
-    run_command invenio --skip-services shell -c "import yaml;f='${assets_path}/pnpm-workspace.yaml';d=yaml.safe_load(open(f)) or {};d.setdefault('packages',[]);yaml.safe_dump(d,open(f,'w'),sort_keys=False)"
+    run_command invenio --skip-services shell -c "import yaml;f='${assets_path}/pnpm-workspace.yaml';\
+    d=yaml.safe_load(open(f)) or {};d.setdefault('packages',[]);yaml.safe_dump(d,open(f,'w'),sort_keys=False)"
     # Ensure "test" script is defined & configured
-    run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';d=json.load(open(f));d.setdefault('scripts',{})['test']='jest ./js/${package_name};json.dump(d,open(f,'w'),indent=2)"
+    run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';\
+    d=json.load(open(f));d.setdefault('scripts',{})['test']='jest ./js/${package_name}';json.dump(d,open(f,'w'),indent=2)"
+
+    # Figure out asset paths for entries in .venv
+    webpack_entries=$(run_command invenio --skip-services shell -c "import importlib_metadata; dist = importlib_metadata.distribution('oarepo-dashboard'); eps = [list(ep.load().themes['semantic-ui'].entry.values()) for ep in dist.entry_points if ep.group == 'invenio_assets.webpack']; print(','.join([','.join(v) for v in eps if len(v) != 0]))")
+#    TODO: map over entries & format & include as roots in config file below
+
     cat <<EOF >"${assets_path}/jest.config.js"
 /**
  * For a detailed explanation regarding each configuration property, visit:
@@ -739,7 +746,7 @@ const config = {
   moduleNameMapper: {
     ...Object.fromEntries(
       Object.entries(webpackConfig.aliases).map(([alias, path]) => {
-        const escapedAlias = alias.replace(/[.*+?^\${}()|[\]\\]/g, "\\\$&");
+        const escapedAlias = alias.replace(/[.*+?^\${}()|[\]\\\]/g, "\\\\$&");
         return [\`^\${escapedAlias}(.*)\$\`, \`<rootDir>/\${path}\$1\`];
       })),
     '^axios\$': require.resolve('axios'),
@@ -807,11 +814,12 @@ EOF
     run_command invenio --skip-services webpack install
 
     # Fetch & install testing devDeps from invenio-rdm-records (Jest & friends)
-    cd $assets_path
-    # shellcheck disable=SC2046
-    pnpm add -w -D $(run_command invenio --skip-services shell -c "import invenio_rdm_records, pathlib, json; \
+    test_dependencies=$(run_command invenio --skip-services shell -c "import invenio_rdm_records, pathlib, json; \
     p=pathlib.Path(invenio_rdm_records.__file__).parent / 'assets/semantic-ui/js/invenio_rdm_records/package.json'; \
     print(' '.join(f'{k}@{v}' for k,v in json.load(open(p)).get('devDependencies', {}).items()))")
+
+    cd $assets_path
+    pnpm add -w -D $test_dependencies
     pnpm run test
     cd -
     return 0
