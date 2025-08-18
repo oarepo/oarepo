@@ -721,12 +721,25 @@ run_jstest() {
     run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';\
     d=json.load(open(f));d.setdefault('scripts',{})['test']='jest';json.dump(d,open(f,'w'),indent=2)"
 
-#    TODO: basedir paths
     # Figure out asset paths for entries in .venv
-    webpack_entries=$(run_command invenio --skip-services shell -c  "import importlib_metadata; dist = importlib_metadata.distribution('${package_name}'); eps = [list(ep.load().themes['semantic-ui'].entry.values()) for ep in dist.entry_points if ep.group == 'invenio_assets.webpack']; print(','.join([','.join(['\"{0}\"'.format(i) for i in v]) for v in eps if len(v) != 0]))")
+    webpack_entries=$(run_command invenio --skip-services shell -c "import importlib_metadata; import os; \
+    dist = importlib_metadata.distribution('${package_name}');\
+    eps = [p for ep in dist.entry_points if ep.group == 'invenio_assets.webpack' for p in ep.load().themes['semantic-ui'].entry.values()]; \
+    common_roots = {os.path.dirname(p) for p in eps if not any(p != q and p.startswith(q.rstrip('/') + '/') for q in eps)}; \
+    print(','.join(sorted([v for v in common_roots if len(v) != 0])))")
+    echo $webpack_entries
 
+    collect_coverage_from=$(
+      echo "$webpack_entries" \
+      | tr ',' '\n' \
+      | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' \
+      | while read -r entry; do
+          [ -n "$entry" ] && echo "\"${entry#./}/**/*.{js,jsx}\","
+        done
+    )
 
-#    TODO: fix coverage paths below
+    test_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed -E 's#^\./?##' | awk '{print "\"<rootDir>/" $0 "\","}')
+
     cat <<EOF >"${assets_path}/jest.config.js"
 /**
  * For a detailed explanation regarding each configuration property, visit:
@@ -740,7 +753,7 @@ const config = {
   clearMocks: true,
   collectCoverage: $([ "$WITH_COVERAGE" = "1" ] && echo true || echo false),
   collectCoverageFrom: [
-    "js/${package_name}/**/*.{js,jsx}",
+    ${collect_coverage_from}
     "!**/node_modules/**",
   ],
   coverageDirectory: "_coverage",
@@ -753,7 +766,7 @@ const config = {
       })),
     '^axios\$': require.resolve('axios'),
   },
-  roots: [${webpack_entries}],
+  roots: [${test_roots}],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: [
     '<rootDir>/setupTests.js',
