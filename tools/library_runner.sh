@@ -26,6 +26,7 @@ export INVENIO_WEBPACKEXT_NPM_PKG_CLS="pynpm.package:PNPMPackage"
 export INVENIO_JAVASCRIPT_PACKAGES_MANAGER="pnpm"
 export INVENIO_ASSETS_BUILDER="rspack"
 export INVENIO_THEME_FRONTPAGE="False"
+export FLASK_DEBUG=1
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
 cd "$(dirname "$0")"
@@ -733,16 +734,8 @@ run_jstest() {
     print(','.join(sorted([v for v in common_roots if len(v) != 0])))")
     echo $webpack_entries
 
-    collect_coverage_from=$(
-      echo "$webpack_entries" \
-      | tr ',' '\n' \
-      | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' \
-      | while read -r entry; do
-          [ -n "$entry" ] && echo "\"${entry#./}/**/*.{js,jsx}\","
-        done
-    )
-
-    test_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed -E 's#^\./?##' | awk '{print "\"<rootDir>/" $0 "\","}')
+    coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{}  | sed 's|$|/**/*.{js,jsx}|' | sed 's/^/"/; s/$/"/' | paste -sd, -)
+    test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{} | sed 's/^/"/; s/$/"/' | paste -sd, -)
 
     cat <<EOF >"${assets_path}/jest.config.js"
 /**
@@ -757,10 +750,11 @@ const config = {
   clearMocks: true,
   collectCoverage: $([ "$WITH_COVERAGE" = "1" ] && echo true || echo false),
   collectCoverageFrom: [
-    ${collect_coverage_from}
+    ${coverage_roots},
     "!**/node_modules/**",
   ],
   coverageDirectory: "_coverage",
+  moduleDirectories: ["${assets_path}/node_modules"],
   moduleFileExtensions: ["js", "jsx", "json"],
   moduleNameMapper: {
     ...Object.fromEntries(
