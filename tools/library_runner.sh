@@ -744,6 +744,7 @@ run_jstest() {
  * https://jestjs.io/docs/configuration
  */
 
+const fs = require("fs");
 const webpackConfig = require("./build/config.json");
 
 /** @type {import('jest').Config} */
