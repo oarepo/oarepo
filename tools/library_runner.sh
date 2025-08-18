@@ -718,6 +718,7 @@ run_jstest() {
     run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
     instance_path=$(run_command invenio --skip-services shell --no-term-title -c "print(app.instance_path, end='')" | tail -n1)
     assets_path="${instance_path}/assets"
+    package_root=${PWD}
     # Needed to work around Invenio RSPack error:
     #  ERROR: packages field missing or empty
     run_command invenio --skip-services shell -c "import yaml;f='${assets_path}/pnpm-workspace.yaml';\
@@ -734,7 +735,7 @@ run_jstest() {
     print(','.join(sorted([v for v in common_roots if len(v) != 0])))")
     echo $webpack_entries
 
-    coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{}  | sed 's|$|/**/*.{js,jsx}|' | sed 's/^/"/; s/$/"/' | paste -sd, -)
+    coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.{js,jsx}|' | sed 's/^\./"**/; s/$/"/' | paste -sd, -)
     test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{} | sed 's/^/"/; s/$/"/' | paste -sd, -)
 
     cat <<EOF >"${assets_path}/jest.config.js"
@@ -754,20 +755,27 @@ const config = {
     "!**/node_modules/**",
   ],
   coverageDirectory: "_coverage",
+  coverageProvider: "v8",
   moduleDirectories: ["${assets_path}/node_modules"],
   moduleFileExtensions: ["js", "jsx", "json"],
   moduleNameMapper: {
     ...Object.fromEntries(
       Object.entries(webpackConfig.aliases).map(([alias, path]) => {
         const escapedAlias = alias.replace(/[.*+?^\${}()|[\]\\\]/g, "\\\\$&");
-        return [\`^\${escapedAlias}(.*)\$\`, \`<rootDir>/\${path}\$1\`];
+        try {
+          const realPath = fs.realpathSync(path)
+          return [\`^\${escapedAlias}(.*)\$\`, \`\${realPath}\$1\`];
+        } catch {
+          return [\`^\${escapedAlias}(.*)\$\`, \`<rootDir>/\${path}\$1\`]
+        }
       })),
-    '^axios\$': require.resolve('axios'),
+    '^axios$': require.resolve('axios'),
   },
+  rootDir: "${package_root}",
   roots: [${test_roots}],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: [
-    '<rootDir>/setupTests.js',
+    '${assets_path}/setupTests.js',
   ],
   transform: {
     "^.+\\.(js|jsx)\$": [
