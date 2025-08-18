@@ -703,6 +703,10 @@ run_jstest() {
                 WITH_COVERAGE=1
                 shift
                 ;;
+            --watch)
+                WITH_WATCH=1
+                shift
+                ;;
             *)
                 echo "Unknown test option: $1"  >&2
                 exit 1
@@ -719,7 +723,7 @@ run_jstest() {
     d=yaml.safe_load(open(f)) or {};d.setdefault('packages',[]);yaml.safe_dump(d,open(f,'w'),sort_keys=False)"
     # Ensure "test" script is defined & configured
     run_command invenio --skip-services shell -c "import json;f='${assets_path}/package.json';\
-    d=json.load(open(f));d.setdefault('scripts',{})['test']='jest';json.dump(d,open(f,'w'),indent=2)"
+    d=json.load(open(f));d.setdefault('scripts',{})['test']='jest $([ "$WITH_WATCH" = "1" ] && echo '--watch')';json.dump(d,open(f,'w'),indent=2)"
 
     # Figure out asset paths for entries in .venv
     webpack_entries=$(run_command invenio --skip-services shell -c "import importlib_metadata; import os; \
