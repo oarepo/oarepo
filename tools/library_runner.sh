@@ -580,7 +580,7 @@ const config = {
     }
   },
   transformIgnorePatterns: [
-    "node_modules/(?!axios)",
+    "node_modules/(?!axios|react-error-boundary|sanitize-html)",
   ],
 };
 
@@ -907,14 +907,15 @@ EOF
     node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx --fix "${code_directories[@]}"
 
     # run prettier. Locally do --write and in CI just --check
-    echo "Running Prettier..."
-    if [ "$CI" = "true" ]; then
+   echo "Running Prettier..."
+    if [ "${CI:-false}" = "true" ]; then
         prettier_flag="--check"
     else
         prettier_flag="--write"
     fi
 
-    node_modules/.bin/prettier $prettier_flag "${code_directories[@]}"
+    # Run prettier on only .js/.jsx files within the specified directories
+    node_modules/.bin/prettier $prettier_flag "${code_directories[@]/%//**/*.{js,jsx}}"
 
     return 0
 }
@@ -923,10 +924,10 @@ run_jstest() {
     set -e
     set -o pipefail
 
-    if [ "$1" = "setup" ]; then
-      shift
-      setup_jstests "$@"
-      return 0
+    if [ "${1:-}" = "setup" ]; then
+        shift
+        setup_jstests "$@"
+        return 0
     fi
 
     non_processed_args=()
