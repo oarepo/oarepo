@@ -3,7 +3,7 @@
 # This script sets up a Python virtual environment, installs necessary packages,
 # runs tests and other tasks for libraries which are part of the OARepo Invenio RDM
 # flavour.
-# 
+#
 # Usage: ./run --help
 #
 # Note: To ensure consistency, this script is never committed to the library.
@@ -21,6 +21,12 @@ set -euo pipefail
 
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
+export INVENIO_APP_THEME='["semantic-ui"]'
+export INVENIO_WEBPACKEXT_NPM_PKG_CLS="pynpm.package:PNPMPackage"
+export INVENIO_JAVASCRIPT_PACKAGES_MANAGER="pnpm"
+export INVENIO_ASSETS_BUILDER="rspack"
+export INVENIO_THEME_FRONTPAGE="False"
+export FLASK_DEBUG=1
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
 cd "$(dirname "$0")"
@@ -39,10 +45,10 @@ fi
 
 get_package_name() {
     name=$(
-        cat "pyproject.toml" | 
-        egrep '^name' | 
-        head -n 1 | 
-        sed 's/[^"]*"//' | 
+        cat "pyproject.toml" |
+        egrep '^name' |
+        head -n 1 |
+        sed 's/[^"]*"//' |
         sed 's/".*//'
     )
 
@@ -56,10 +62,10 @@ get_package_name() {
 
 get_home_page() {
     hp=$(
-        cat "pyproject.toml" | 
-        egrep '^Homepage' | 
-        head -n 1 | 
-        sed 's/[^"]*"//' | 
+        cat "pyproject.toml" |
+        egrep '^Homepage' |
+        head -n 1 |
+        sed 's/[^"]*"//' |
         sed 's/".*//'
     )
     if [ -z "$hp" ]; then
@@ -79,7 +85,7 @@ else
     code_directories+=($(echo ${package_name} | tr '-' '_'))
 fi
 
-if [ -d "tests" ]; then
+if [ -d "tests" ] && [ "$1" != "jslint" ]; then
     code_directories+=("tests")
 fi
 
@@ -89,8 +95,8 @@ export code_directories
 
 run_tools() {
     set -e
-    set -o pipefail    
-    
+    set -o pipefail
+
     # Parse the commandline according to the options defined above.
     export OAREPO_VERSION=${OAREPO_VERSION:-"13"}
     export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
@@ -162,6 +168,11 @@ run_tools() {
                 run_jslint "$@"
                 return 0
                 ;;
+            jstest)
+                shift
+                run_jstest "$@"
+                return 0
+                ;;
             -h|--help)
                 show_help
                 return 0
@@ -226,14 +237,14 @@ show_help() {
     echo "  self-update       Update the runner script"
     ) >&2
     return 0
-}   
+}
 
 stop_services() {
     if [ ! -z "$SKIP_SERVICES" ]; then
         return 0
     fi
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     eval "$(uvx --with setuptools docker-services-cli down --env)"
     if [ -f .env-services ]; then
@@ -246,7 +257,7 @@ start_services() {
         return 0
     fi
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     uvx --with setuptools docker-services-cli up \
         --db ${DB:-postgresql} --search ${SEARCH:-opensearch} \
@@ -311,7 +322,7 @@ get_python_versions() {
 
 run_command() {
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     command_name="$1"
     shift
@@ -341,9 +352,25 @@ run_command() {
     "$command_name" "${non_processed_args[@]}"
 }
 
+# shellcheck disable=SC2120
+in_invenio_shell() {
+    set -e
+    set -o pipefail
+
+    export PYTHON_BASIC_REPL=0
+    if [ -t 0 ]; then
+        # stdin is a terminal, so take args instead
+        cmd="$*"
+    else
+        cmd=$(cat)
+    fi
+
+    run_command invenio shell --no-term-title ${SKIP_SERVICES:+--skip-services} -c "${cmd}"
+}
+
 setup_venv() {
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     FORCE=${FORCE:-0}
 
@@ -360,7 +387,7 @@ setup_venv() {
             *)
                 echo "Unknown venv option: $1" >&2
                 exit 1
-                ;;            
+                ;;
         esac
     done
 
@@ -395,6 +422,220 @@ setup_venv() {
         uv pip install "${wheel_package}[tests]"
     fi
 }
+
+setup_jstests() {
+    set -e
+    set -o pipefail
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            *)
+                echo "Unknown setup tests option: $1"  >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root=${PWD}
+
+    run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
+
+    # Needed to work around Invenio RSPack error:
+    #  ERROR: packages field missing or empty
+    in_invenio_shell <<EOF
+import yaml
+from pathlib import Path
+workspace_file = Path("${assets_path}") / "pnpm-workspace.yaml"
+with workspace_file.open("r") as f:
+    workspace = yaml.safe_load(f) or {}
+
+workspace.setdefault("packages", [])
+
+with workspace_file.open("w") as f:
+    yaml.safe_dump(workspace, f, sort_keys=False)
+EOF
+
+    # Ensure "test" script is defined & configured
+    in_invenio_shell <<EOF
+import json
+from pathlib import Path
+
+package_file = Path("${assets_path}") / "package.json"
+
+with package_file.open("r") as f:
+    package_data = json.load(f)
+
+scripts = package_data.setdefault("scripts", {})
+scripts["test"] = 'jest $@'
+
+with package_file.open("w") as f:
+    json.dump(package_data, f, indent=2)
+EOF
+
+    # Figure out asset paths for entries in .venv
+    webpack_entries=$(in_invenio_shell <<EOF
+import os
+import importlib_metadata
+
+dist = importlib_metadata.distribution("${package_name}")
+
+def flatten(v):
+    if isinstance(v, str): return [v]
+    if isinstance(v, (list, tuple, set)):
+        return [p for x in v for p in flatten(x)]
+    return []
+
+
+current_theme = app.config.get("APP_THEME", "semantic-ui")
+entries = [
+    e
+    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
+    for v in ep.load().themes.get("semantic-ui", {}).entry.values()
+    for e in flatten(v)
+]
+
+common_roots = {
+    os.path.dirname(path)
+    for path in entries
+    if not any(
+        path != other and path.startswith(other.rstrip("/") + "/")
+        for other in entries
+    )
+}
+
+roots_list = sorted([root for root in common_roots if root])
+print(",".join(roots_list))
+EOF
+    )
+
+    coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.{js,jsx}|' | sed 's/^\./"**/; s/$/"/' | paste -sd, -)
+    test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{} | sed 's/^/"/; s/$/"/' | paste -sd, -)
+
+    cat <<EOF >"${assets_path}/jest.config.js"
+/**
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+const fs = require("fs");
+const webpackConfig = require("./build/config.json");
+
+/** @type {import('jest').Config} */
+const config = {
+  clearMocks: true,
+  collectCoverageFrom: [
+    ${coverage_roots},
+    "!**/node_modules/**",
+  ],
+  coverageDirectory: "_coverage",
+  coverageProvider: "v8",
+  moduleDirectories: ["${assets_path}/node_modules"],
+  moduleFileExtensions: ["js", "jsx", "json"],
+  moduleNameMapper: {
+    ...Object.fromEntries(
+      Object.entries(webpackConfig.aliases).map(([alias, path]) => {
+        const escapedAlias = alias.replace(/[.*+?^\${}()|[\]\\\]/g, "\\\\$&");
+        try {
+          const realPath = fs.realpathSync(path)
+          return [\`^\${escapedAlias}(.*)\$\`, \`\${realPath}\$1\`];
+        } catch {
+          return [\`^\${escapedAlias}(.*)\$\`, \`<rootDir>/\${path}\$1\`]
+        }
+      })),
+    '^axios$': require.resolve('axios'),
+  },
+  rootDir: "${package_root}",
+  roots: [${test_roots}],
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: [
+    '${assets_path}/setupTests.js',
+  ],
+  transform: {
+    "^.+\\.(js|jsx)\$": [
+      'babel-jest', {
+      presets: [
+        ['@babel/preset-env', {
+          targets: { chrome: '48' },
+          modules: 'auto'
+        }],
+        '@babel/preset-react'
+      ],
+      plugins: [
+        '@babel/plugin-transform-modules-commonjs',
+        '@babel/plugin-transform-runtime'
+      ]
+    }]
+  },
+  // Environment variables simulation
+  globals: {
+    'process.env': {
+      NODE_ENV: 'test',
+      ...process.env  // Preserve existing environment variables
+    }
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!axios)",
+  ],
+};
+
+module.exports = config;
+EOF
+
+    cat <<'EOF' >"${assets_path}/setupTests.js"
+// This file is part of Invenio-RDM-Records
+// Copyright (C) 2020 CERN.
+// Copyright (C) 2020 Northwestern University.
+//
+// Invenio-RDM-Records is free software; you can redistribute it and/or modify it
+// under the terms of the MIT License; see LICENSE file for more details.
+
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+EOF
+    # Collect statics & install rspack project dependencies
+    run_command invenio --skip-services collect
+    run_command invenio --skip-services webpack install
+
+    # Fetch & install testing devDeps from invenio-rdm-records (Jest & friends)
+    rdm_dev_dependencies=$(in_invenio_shell << EOF
+import json
+import pathlib
+import invenio_rdm_records
+
+package_json_path = (
+    pathlib.Path(invenio_rdm_records.__file__).parent
+    / "assets/semantic-ui/js/invenio_rdm_records/package.json"
+)
+
+with package_json_path.open("r") as f:
+    package_json = json.load(f)
+
+dev_deps = package_json.get("devDependencies", {})
+
+print(" ".join(f"{name}@{version}" for name, version in dev_deps.items()))
+EOF
+    )
+
+    pnpm add -C $assets_path -w -D $rdm_dev_dependencies
+}
+
 
 run_tests() {
     set -e
@@ -443,10 +684,10 @@ run_tests() {
 
 cleanup() {
     set -e
-    set -o pipefail    
+    set -o pipefail
 
     echo "Stopping services..."  >&2
-    stop_services 
+    stop_services
 
     if [ -d .venv ]; then
         echo "Removing virtual environment..."  >&2
@@ -584,12 +825,12 @@ ignore = [
 [lint.per-file-ignores]
 "__init__.py" = ["E402"]
 "**/{tests,docs,tools}/*" = [
-    "E402", 
-    "S101", 
-    "ANN001", 
-    "ARG001", 
-    "D103", 
-    "ANN201", 
+    "E402",
+    "S101",
+    "ANN001",
+    "ARG001",
+    "D103",
+    "ANN201",
     "D100",
     "INP",
     "PLR",
@@ -675,6 +916,37 @@ EOF
 
     node_modules/.bin/prettier $prettier_flag "${code_directories[@]}"
 
+    return 0
+}
+
+run_jstest() {
+    set -e
+    set -o pipefail
+
+    if [ "$1" = "setup" ]; then
+      shift
+      setup_jstests "$@"
+      return 0
+    fi
+
+    non_processed_args=()
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            *)
+                non_processed_args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+
+    run_command invenio ${SKIP_SERVICES:+--skip-services} webpack run test "${non_processed_args[@]}"
+    cd -
     return 0
 }
 
