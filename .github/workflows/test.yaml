@@ -151,10 +151,20 @@ jobs:
           python_version: ${{ matrix.python_version }}
           use_coverage: "false"
           install_editable: "false"
+  javascript_support:
+    name: Javascript support
+    needs: extract_dependencies
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Determine javascript support
+        shell: "bash"
+        run: |
+          echo "supports_js=$([ -f 'package.json' ] && echo -n \"true\" || echo -n \"false\")" >> $GITHUB_OUTPUT
   test_javascript:
     name: Run Javascript tests
     runs-on: ubuntu-24.04
-    needs: extract_dependencies
+    needs: javascript_support
+    if: ${{ needs.javascript_support.outputs.supports_js == 'true' }}
     strategy:
       fail-fast: false
       matrix:
@@ -192,7 +202,6 @@ jobs:
         with:
           node_version: ${{ matrix.node_version }}
           use_coverage: "true"
-
   lint_python:
     name: Lint Python
     runs-on: ubuntu-24.04
@@ -223,10 +232,12 @@ jobs:
         shell: "bash"
         run: |
           ./run.sh lint
+
   lint_javascript:
     name: Lint Javascript
     runs-on: ubuntu-24.04
-    needs: extract_dependencies
+    needs: javascript_support
+    if: ${{ needs.javascript_support.outputs.supports_js == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
