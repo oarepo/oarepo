@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "13.0.5"
+version = "13.0.6"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
@@ -510,6 +510,9 @@ s3 = []
 
 [project.entry-points."invenio_assets.webpack"]
 oarepo = "oarepo.webpack:theme"
+
+[project.entry-points."invenio_config.module"]
+oarepo = "oarepo.config.initial_configuration"
 
 [tool.setuptools.package-data]
 oarepo = [ "oarepo/assets/semantic-ui/*",
