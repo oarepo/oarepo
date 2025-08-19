@@ -433,10 +433,6 @@ setup_jstests() {
                 SKIP_SERVICES=1
                 shift
                 ;;
-            --with-coverage)
-                WITH_COVERAGE=1
-                shift
-                ;;
             *)
                 echo "Unknown setup tests option: $1"  >&2
                 exit 1
