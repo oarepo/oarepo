@@ -1,0 +1,21 @@
+name: "Install JS dependencies and run JS tests"
+description: "Installs the JS dependencies from package.js and runs tests using Jest"
+inputs:
+  use_coverage:
+    description: "Instructs Jest to collect coverage results"
+    required: true
+    default: "true"
+  node_version:
+    description: "The version of NodeJS to use"
+    required: true
+    default: "24"
+runs:
+  using: "composite"
+  steps:
+    - name: Install JS dependencies & configure test environment
+      shell: "bash"
+      run: ./run.sh jstest setup
+    - name: Run Jest tests
+      shell: "bash"
+      run: |
+        ./run.sh jstest --skip-services --passWithNoTests $([ "$inputs.use_coverage" = "true" ] && echo "--collectCoverage")

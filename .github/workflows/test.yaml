@@ -151,8 +151,50 @@ jobs:
           python_version: ${{ matrix.python_version }}
           use_coverage: "false"
           install_editable: "false"
+  test_javascript:
+    name: Run Javascript tests
+    runs-on: ubuntu-24.04
+    needs: extract_dependencies
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: ${{ fromJson(needs.extract_dependencies.outputs.python_versions) }}
+        oarepo_version: ${{ fromJson(needs.extract_dependencies.outputs.oarepo_versions) }}
+        node_version: ${{ fromJson(needs.extract_dependencies.outputs.node_versions) }}
+    env:
+      PYTHON_VERSION: ${{ matrix.python_version }}
+      OAREPO_VERSION: ${{ matrix.oarepo_version }}
+      NODE_VERSION: ${{ matrix.node_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  lint:
+      - name: Check out actions
+        uses: actions/checkout@v4
+        with:
+          repository: oarepo/oarepo
+          ref: main
+          path: _oarepo
+
+      - name: Install actions
+        shell: "bash"
+        run: |
+          cp -R _oarepo/.github/actions/ ./.github/actions/
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: ${{ matrix.python_version }}
+          node_version: ${{ matrix.node_version }}
+
+      - name: Run jest tests
+        uses: ./.github/actions/jstest
+        with:
+          node_version: ${{ matrix.node_version }}
+          use_coverage: "true"
+
+  lint_python:
+    name: Lint Python
     runs-on: ubuntu-24.04
     needs: extract_dependencies
     steps:
@@ -174,10 +216,40 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install_dependencies
         with:
-          python_version: "3.13"
-          node_version: "24"
+          python_version: ${{ matrix.python_version }}
+          node_version: ${{ matrix.node_version }}
 
       - name: Run linter
         shell: "bash"
         run: |
           ./run.sh lint
+  lint_javascript:
+    name: Lint Javascript
+    runs-on: ubuntu-24.04
+    needs: extract_dependencies
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check out actions
+        uses: actions/checkout@v4
+        with:
+          repository: oarepo/oarepo
+          ref: main
+          path: _oarepo
+
+      - name: Install actions
+        shell: "bash"
+        run: |
+          cp -R _oarepo/.github/actions/ ./.github/actions/
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: ${{ matrix.python_version }}
+          node_version: ${{ matrix.node_version }}
+
+      - name: Run linter
+        shell: "bash"
+        run: |
+          CI=true ./run.sh jslint
