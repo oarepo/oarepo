@@ -128,6 +128,7 @@ def load_configuration_overrides():
 
     # transform values from strings to their actual types
     for k, v in list(env.items()):
+        env[k] = transform_value(v)
         setattr(env, k, transform_value(v))
 
     return env
@@ -165,11 +166,12 @@ def load_configuration_variables():
         vals = dotenv_values(str(bundled_env))
         env.from_mapping(vals)
 
+    env.update(load_configuration_overrides())
+
     # transform values from strings to their actual types
     for k, v in list(env.items()):
+        env[k] = transform_value(v)
         setattr(env, k, transform_value(v))
-
-    env.update(load_configuration_overrides())
 
     return DictWithGetAttr(**env)
 
