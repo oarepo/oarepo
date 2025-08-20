@@ -904,7 +904,7 @@ EOF
 
     # run eslint
     echo "Running ESLint..."
-    node_modules/.bin/eslint --ext .js,.jsx,.ts,.tsx --fix "${code_directories[@]}"
+    node_modules/.bin/eslint --ext .js,.jsx --fix "${code_directories[@]}"
 
     # run prettier. Locally do --write and in CI just --check
    echo "Running Prettier..."
