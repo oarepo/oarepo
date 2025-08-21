@@ -202,6 +202,15 @@ run_tools() {
     return 0
 }
 
+run_invenio_cli() {
+    set -euo pipefail
+
+    # temporary implementation until release
+    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-13 \
+        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
+        invenio-cli "$@"
+}
+
 show_help() {
     (
     echo "Usage: $0 [options] [command]"
@@ -564,6 +573,9 @@ const preview = {
 
 export default preview;
 EOF
+
+    run_invenio_cli less register
+    run_command invenio webpack build
 }
 
 setup_jstests() {
