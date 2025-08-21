@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "13.0.9"
+version = "13.0.10"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
@@ -48,7 +48,7 @@ dependencies = [ "aiobotocore==2.24.1",
      "cffi==1.17.1",
      "charset-normalizer==3.4.3",
      "citeproc-py==0.8.3",
-     "citeproc-py-styles==0.1.5.post1031",
+     "citeproc-py-styles==0.1.5.post1034",
      "click==8.2.1",
      "click-default-group==1.2.4",
      "click-didyoumean==0.3.1",
@@ -322,7 +322,7 @@ Homepage = "https://github.com/oarepo/oarepo"
 
 [project.optional-dependencies]
 rdm = [ "invenio-app-rdm==13.0.1.post1001",
-     "invenio-rdm-records==19.5.4.post1000",
+     "invenio-rdm-records==19.5.4.post1001",
     ]
 test = [ "alabaster==1.0.0",
      "black==25.1.0",
