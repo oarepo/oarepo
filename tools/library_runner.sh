@@ -593,6 +593,24 @@ setup_jstests() {
 
     run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
 
+    # Apply webpack-bundle-tracker patch to fix: https://github.com/django-webpack/webpack-bundle-tracker/issues/121
+    cat <<EOF > "${assets_path}/patches/webpack-bundle-tracker+1.8.1.patch"
+diff --git a/node_modules/webpack-bundle-tracker/lib/index.js b/node_modules/webpack-bundle-tracker/lib/index.js
+index 0127501..4fd3f42 100644
+--- a/node_modules/webpack-bundle-tracker/lib/index.js
++++ b/node_modules/webpack-bundle-tracker/lib/index.js
+@@ -20,7 +20,8 @@ const get = require('lodash.get');
+ const each = require('lodash.foreach');
+ const fromPairs = require('lodash.frompairs');
+ const toPairs = require('lodash.topairs');
+-const stripAnsi = require('strip-ansi');
++// @ts-ignore
++const stripAnsi = require('strip-ansi').default;
+
+ function getAssetPath(compilation, name) {
+   return path.join(compilation.getPath(compilation.compiler.outputPath), name.split('?')[0]);
+EOF
+
     # Needed to work around Invenio RSPack error:
     #  ERROR: packages field missing or empty
     in_invenio_shell <<EOF
