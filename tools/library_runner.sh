@@ -417,7 +417,7 @@ ensure_npm_script() {
     script_name=$1
     shift
 
-    script_index=$(pnpm -C ${assets_path} -c exec "cat package.json | jq -r '(.scripts | keys | index(\"${script_name}\"))'")
+    script_index=$(pnpm -C "${assets_path}" -c exec "cat package.json | jq -r '(.scripts | keys | index(\"${script_name}\"))'")
 
     if [ "${script_index}" == "null" ]; then
         # Ensure script is defined in package.json
