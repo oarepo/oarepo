@@ -320,6 +320,47 @@ get_python_versions() {
     echo -n "[$python_versions]"
 }
 
+get_webpack_entries() {
+    set -eo pipefail
+
+    # Figure out asset paths for entries in .venv
+    webpack_entries=$(in_invenio_shell <<EOF
+import os
+import importlib_metadata
+
+dist = importlib_metadata.distribution("${package_name}")
+
+def flatten(v):
+    if isinstance(v, str): return [v]
+    if isinstance(v, (list, tuple, set)):
+        return [p for x in v for p in flatten(x)]
+    return []
+
+
+current_theme = app.config.get("APP_THEME", ["semantic-ui"])[0]
+entries = [
+    e
+    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
+    for v in ep.load().themes.get(current_theme, {}).entry.values()
+    for e in flatten(v)
+]
+
+common_roots = {
+    os.path.dirname(path)
+    for path in entries
+    if not any(
+        path != other and path.startswith(other.rstrip("/") + "/")
+        for other in entries
+    )
+}
+
+roots_list = sorted([root for root in common_roots if root])
+print(",".join(roots_list))
+EOF
+    )
+    echo -n $webpack_entries
+}
+
 run_command() {
     set -e
     set -o pipefail
@@ -366,6 +407,36 @@ in_invenio_shell() {
     fi
 
     run_command invenio shell --no-term-title ${SKIP_SERVICES:+--skip-services} -c "${cmd}"
+}
+
+ensure_npm_script() {
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root=${PWD}
+
+    script_name=$1
+    shift
+
+    script_index=$(pnpm -C ${assets_path} -c exec "cat package.json | jq -r '(.scripts | keys | index(\"${script_name}\"))'")
+
+    if [ "${script_index}" == "null" ]; then
+        # Ensure script is defined in package.json
+        in_invenio_shell <<EOF
+import json
+from pathlib import Path
+
+package_file = Path("${assets_path}") / "package.json"
+
+with package_file.open("r") as f:
+    package_data = json.load(f)
+
+scripts = package_data.setdefault("scripts", {})
+scripts["${script_name}"] = '$@'
+
+with package_file.open("w") as f:
+    json.dump(package_data, f, indent=2)
+EOF
+    fi
 }
 
 setup_venv() {
@@ -423,6 +494,78 @@ setup_venv() {
     fi
 }
 
+setup_storybook() {
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root=${PWD}
+
+    pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2
+
+    ensure_npm_script "storybook" "storybook dev -p 6006"
+    ensure_npm_script "build-storybook" "storybook build"
+
+    if [ ! -d  "${assets_path}/.storybook" ]; then
+        mkdir -p "${assets_path}/.storybook"
+    fi
+
+    webpack_entries=$(get_webpack_entries)
+    story_paths=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.stories.@\(js\|jsx\)|' | sed 's/^\./"../; s/$/"/' | paste -sd, -)
+
+    cat <<EOF > "${assets_path}/.storybook/main.js"
+import path from "path"
+
+/** @type { import('@storybook/react-webpack5').StorybookConfig } */
+const config = {
+  stories: [
+    ${story_paths}
+  ],
+  addons: [
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-docs"
+  ],
+  core: {
+    "disableTelemetry": true,
+  },
+  webpackFinal: async (config) => {
+    // Always resolve symlinked imports against local node_modules
+    config.resolve.modules = [
+      path.resolve(__dirname, "../node_modules"),
+      "node_modules",
+    ];
+    config.resolve.symlinks = false;
+    return config;
+  },
+  staticDirs: [
+    { from: "../../static/", to: "/static/" }
+  ],
+  framework: {
+    "name": "@storybook/react-webpack5",
+    "options": {}
+  }
+};
+export default config;
+EOF
+
+    cat <<EOF > "${assets_path}/.storybook/preview.js"
+import 'semantic-ui-css/semantic.min.css';
+
+/** @type { import('@storybook/react-webpack5').Preview } */
+const preview = {
+  parameters: {
+    autodocs: true,
+    controls: {
+      matchers: {
+       color: /(background|color)$/i,
+       date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
+EOF
+}
+
 setup_jstests() {
     set -e
     set -o pipefail
@@ -431,6 +574,10 @@ setup_jstests() {
         case $1 in
             --skip-services)
                 SKIP_SERVICES=1
+                shift
+                ;;
+            --with-storybook)
+                WITH_STORYBOOK=1
                 shift
                 ;;
             *)
@@ -461,59 +608,9 @@ with workspace_file.open("w") as f:
     yaml.safe_dump(workspace, f, sort_keys=False)
 EOF
 
-    # Ensure "test" script is defined & configured
-    in_invenio_shell <<EOF
-import json
-from pathlib import Path
+    ensure_npm_script test 'jest $@'
 
-package_file = Path("${assets_path}") / "package.json"
-
-with package_file.open("r") as f:
-    package_data = json.load(f)
-
-scripts = package_data.setdefault("scripts", {})
-scripts["test"] = 'jest $@'
-
-with package_file.open("w") as f:
-    json.dump(package_data, f, indent=2)
-EOF
-
-    # Figure out asset paths for entries in .venv
-    webpack_entries=$(in_invenio_shell <<EOF
-import os
-import importlib_metadata
-
-dist = importlib_metadata.distribution("${package_name}")
-
-def flatten(v):
-    if isinstance(v, str): return [v]
-    if isinstance(v, (list, tuple, set)):
-        return [p for x in v for p in flatten(x)]
-    return []
-
-
-current_theme = app.config.get("APP_THEME", "semantic-ui")
-entries = [
-    e
-    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
-    for v in ep.load().themes.get("semantic-ui", {}).entry.values()
-    for e in flatten(v)
-]
-
-common_roots = {
-    os.path.dirname(path)
-    for path in entries
-    if not any(
-        path != other and path.startswith(other.rstrip("/") + "/")
-        for other in entries
-    )
-}
-
-roots_list = sorted([root for root in common_roots if root])
-print(",".join(roots_list))
-EOF
-    )
-
+    webpack_entries=$(get_webpack_entries)
     coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.{js,jsx}|' | sed 's/^\./"**/; s/$/"/' | paste -sd, -)
     test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{} | sed 's/^/"/; s/$/"/' | paste -sd, -)
 
@@ -634,6 +731,10 @@ EOF
     )
 
     pnpm add -C $assets_path -w -D $rdm_dev_dependencies
+
+    if [ $WITH_STORYBOOK -eq 1 ]; then
+        setup_storybook
+    fi
 }
 
 
