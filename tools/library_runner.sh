@@ -924,15 +924,14 @@ run_jstest() {
     set -e
     set -o pipefail
 
-    if [ "$1" = "setup" ]; then
-      shift
-      setup_jstests "$@"
-      return 0
-    fi
-
     non_processed_args=()
 
     while [[ $# -gt 0 ]]; do
+        if [ "$1" = "setup" ]; then
+          shift
+          setup_jstests "$@"
+          return 0
+        fi
         case $1 in
             --skip-services)
                 SKIP_SERVICES=1
@@ -947,7 +946,6 @@ run_jstest() {
 
 
     run_command invenio ${SKIP_SERVICES:+--skip-services} webpack run test "${non_processed_args[@]}"
-    cd -
     return 0
 }
 
