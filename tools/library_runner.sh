@@ -26,7 +26,7 @@ export INVENIO_WEBPACKEXT_NPM_PKG_CLS="pynpm.package:PNPMPackage"
 export INVENIO_JAVASCRIPT_PACKAGES_MANAGER="pnpm"
 export INVENIO_ASSETS_BUILDER="rspack"
 export INVENIO_THEME_FRONTPAGE="False"
-export INVENIO_THEME_CSS_TEMPLATE=oarepo_ui/css.html
+export INVENIO_THEME_CSS_TEMPLATE="oarepo_ui/css.html"
 export FLASK_DEBUG=1
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
