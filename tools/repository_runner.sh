@@ -47,12 +47,37 @@ self_update() {
     return 0    
 }
 
-install() {
+run_invenio_cli() {
     set -euo pipefail
 
-    echo "Installing the repository..."
-    uvx /Users/m/w/invenio-patches/invenio-cli install
-    echo "Repository installed successfully."
+    # temporary implementation until release
+    uvx \
+        --with git+https://github.com/oarepo/oarepo-cli@rdm-13 \
+        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
+        invenio-cli "$@"
+}
+
+install() {
+    set -euo pipefail
+    run_invenio_cli less register
+    run_invenio_cli install
+}
+
+services() {
+    set -euo pipefail
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            setup)
+                run_invenio_cli services setup
+                exit 0
+                ;;
+            *)
+                echo "Unknown services option $1"
+                show_help
+                exit 1
+        esac
+    done
 }
 
 run() {
@@ -64,6 +89,11 @@ run() {
                 ;;
             install)
                 install
+                exit 0
+                ;;
+            services)
+                shift
+                services "$@"
                 exit 0
                 ;;
             self-update)
