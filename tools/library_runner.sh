@@ -509,7 +509,8 @@ setup_storybook() {
     assets_path="${instance_path}/assets"
     package_root=${PWD}
 
-    pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2
+    pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2 @storybook/test@^8.6.14
+
 
     ensure_npm_script "storybook" "storybook dev -p 6006"
     ensure_npm_script "build-storybook" "storybook build"
