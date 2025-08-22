@@ -8,7 +8,13 @@ name: Python CI
 
 on:
   workflow_call:
-    inputs: {}
+    inputs:
+      lint_python_version:
+        type: string
+        default: 3.13
+      lint_node_version:
+        type: string
+        default: 22
 
 jobs:
   extract_dependencies:
@@ -202,6 +208,7 @@ jobs:
         with:
           node_version: ${{ matrix.node_version }}
           use_coverage: "true"
+
   lint_python:
     name: Lint Python
     runs-on: ubuntu-24.04
@@ -225,8 +232,8 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install_dependencies
         with:
-          python_version: ${{ matrix.python_version }}
-          node_version: ${{ matrix.node_version }}
+          python_version: ${{ inputs.lint_python_version }}
+          node_version: ${{ inputs.lint_node_version }}
 
       - name: Run linter
         shell: "bash"
@@ -257,8 +264,8 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install_dependencies
         with:
-          python_version: ${{ matrix.python_version }}
-          node_version: ${{ matrix.node_version }}
+          python_version: ${{ inputs.lint_python_version }}
+          node_version: ${{ inputs.lint_node_version }}
 
       - name: Run linter
         shell: "bash"
