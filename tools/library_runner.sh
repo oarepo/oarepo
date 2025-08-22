@@ -574,8 +574,38 @@ const preview = {
 export default preview;
 EOF
 
-    run_invenio_cli less register
+    cat <<EOF >.invenio
+[cli]
+flavour = RDM
+EOF
+
+    cat <<EOF >.invenio.private
+[cli]
+services_setup = True
+instance_path = ${instance_path}
+EOF
+
+    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
     run_command invenio webpack build
+
+    in_invenio_shell <<EOF
+from flask import render_template
+from bs4 import BeautifulSoup
+
+with app.test_request_context("/", method="GET"):
+    html = render_template("oarepo_ui/base_page.html", embedded=True)
+
+soup = BeautifulSoup(html, "html.parser")
+
+head_content = soup.head.decode_contents().strip()
+body_content = soup.body.decode_contents().strip()
+
+with open("${assets_path}/.storybook/preview-head.html", "w", encoding="utf-8") as f:
+    f.write(head_content)
+
+with open("${assets_path}/.storybook/preview-body.html", "w", encoding="utf-8") as f:
+    f.write(body_content)
+EOF
 }
 
 setup_jstests() {
