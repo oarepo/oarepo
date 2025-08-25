@@ -410,7 +410,7 @@ setup_venv() {
 
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
-        uv pip install -e '.[tests]'
+        uv pip install -e '.[dev,tests]'
     else
         echo "Building and Installing the package."  >&2
         if [ -d dist ]; then
