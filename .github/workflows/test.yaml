@@ -113,6 +113,11 @@ jobs:
           use_coverage: "true"
           install_editable: "true"
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   tests_on_installed:
     name: Run tests on built & installed package
     runs-on: ubuntu-24.04
