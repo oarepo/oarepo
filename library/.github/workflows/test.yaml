@@ -14,3 +14,4 @@ on:
 jobs:
   Tests:
     uses: oarepo/oarepo/.github/workflows/test.yaml@main
+    secrets: inherit
