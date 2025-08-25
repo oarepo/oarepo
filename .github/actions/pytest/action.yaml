@@ -63,3 +63,9 @@ runs:
         path: |
           coverage.json
           htmlcov/
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      if: ${{ inputs.use_coverage == 'true' }}
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
