@@ -99,7 +99,6 @@ services() {
 
 run_server() {
     set -euo pipefail
-    set -x
 
     no_services=0
 
@@ -125,6 +124,12 @@ run_server() {
     export PYTHONWARNINGS=ignore
     source .venv/bin/activate
     invenio run --cert ./docker/development.crt --key ./docker/development.key
+}
+
+run_invenio() {
+    export PYTHONWARNINGS=ignore
+    source .venv/bin/activate
+    invenio "$@"
 }
 
 run() {
@@ -153,6 +158,11 @@ run() {
                 ;;
             run)
                 run_server
+                exit 0
+                ;;
+            invenio)
+                shift
+                run_invenio "$@"
                 exit 0
                 ;;
             check-script-working)
