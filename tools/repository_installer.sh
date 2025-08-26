@@ -15,6 +15,7 @@
 #
 
 set -euo pipefail
+set -x
 
 python_binary="python3.13"
 template="https://github.com/oarepo/nrp-app-copier"
@@ -22,10 +23,15 @@ version="rdm-13"
 uv_binary="uv"
 uvx_binary="uvx"
 repository_name=""
+copier_arguments=()
 
 parse_arguments() {
     while [[ $# -gt 0 ]]; do
         case $1 in
+            --config)
+                copier_arguments+=("--data-file" "$2")
+                shift 2
+                ;;
             --python)
                 python_binary="$2"
                 shift 2
@@ -96,6 +102,8 @@ show_help() {
     echo "Usage: $0 <options> REPOSITORY_NAME"
     echo ""
     echo "Options:"
+    echo "  --config config_file      Specify initial config"
+    echo
     echo "  --python <python_binary>  Specify the Python binary to use (default: python3.13)"
     echo "  --template <template>     Default is https://github.com/oarepo/nrp-app-copier"
     echo "  --version <rdm-13>        Specify the version of the template if it is a github URL."
@@ -112,12 +120,14 @@ create_repository() {
         uvx --python "${python_binary}" \
             --with copier-template-extensions --with pycountry \
             copier copy --trust --vcs-ref ${version} \
+            "${copier_arguments[@]}" \
             "${template}" "${repository_name}"
     else
         echo "Using local template: ${template}"
         uvx --python "${python_binary}" \
             --with copier-template-extensions --with pycountry \
             copier copy --trust \
+            "${copier_arguments[@]}" \
             "${template}" "${repository_name}"
     fi
 }

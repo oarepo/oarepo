@@ -59,6 +59,7 @@ run_invenio_cli() {
 
 install() {
     set -euo pipefail
+    uv sync
     run_invenio_cli less register
     run_invenio_cli install
 }
