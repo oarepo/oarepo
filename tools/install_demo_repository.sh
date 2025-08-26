@@ -2,6 +2,17 @@
 
 set -euo pipefail
 
+echo "###############################################################################"
+echo "#                                                                             #"
+echo "#                   OAREPO Demo Repository Installer                          #"
+echo "#                                                                             #"
+echo "###############################################################################"
+echo
+echo "This command will install a sample repository with a simple metadata schema."
+echo
+echo "Please wait, installation in progress"
+echo
+
 LOCAL_OAREPO_DIR=${LOCAL_OAREPO_DIR:-""}
 
 # download the installer script
@@ -104,4 +115,19 @@ chmod +x datasets/sample_data.sh
 ./run.sh install
 ./run.sh services setup
 ./run.sh invenio files location create --default default s3://default
-./run.sh 
+
+echo "Sample repository has been created successfully."
+echo "To run it, use the following command:"
+echo
+echo "  cd sample_repository"
+echo "  ./run.sh run"
+echo
+echo
+echo "To load sample data, call the following while the repository is running:"
+echo
+echo "  cd sample_repository"
+echo "  ./datasets/sample_data.sh"
+echo
+echo "They you can visit https://127.0.0.1:5000/"
+echo "Log in as user demo@test.com with password demodemo"
+echo "and visit https://127.0.0.1:5000/api/user/datasets to see your sample record"
