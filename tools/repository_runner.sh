@@ -26,6 +26,11 @@ show_help() {
     echo ""
     echo "Commands:"
     echo "  install               Install the repository"
+    echo "  services setup        Setup docker services"
+    echo "  services start        Start docker services"
+    echo "  services stop         Stop docker services"
+    echo "  run [--no-services]   Run the repository"
+    echo
     echo "  self-update           Update the runner script to the latest version"
     echo "Options:"
     echo "  --help                Show this help message"
@@ -59,6 +64,9 @@ run_invenio_cli() {
 
 install() {
     set -euo pipefail
+    # TODO: need to sync before the installation as I need to call invenio to register
+    # less components. This should be put directly into the install as an extra step
+    # after the project is installed and before the collect is called.
     uv sync
     run_invenio_cli less register
     run_invenio_cli install
@@ -71,14 +79,52 @@ services() {
         case $1 in
             setup)
                 run_invenio_cli services setup
-                exit 0
+                return 0
                 ;;
+            start)
+                run_invenio_cli services start
+                return 0
+            ;;
+            stop)
+                run_invenio_cli services stop
+                return 0
+            ;;
             *)
                 echo "Unknown services option $1"
                 show_help
                 exit 1
         esac
     done
+}
+
+run_server() {
+    set -euo pipefail
+    set -x
+
+    no_services=0
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --no-services)
+                no_services=1
+                shift
+                ;;
+            *)
+                echo "Unknown option: $1"
+                show_help
+                exit 1
+                ;;
+        esac
+    done
+
+    if [[ $no_services -eq 0 ]]; then
+        services start
+    fi
+
+    export FLASK_DEBUG=1 
+    export PYTHONWARNINGS=ignore
+    source .venv/bin/activate
+    invenio run --cert ./docker/development.crt --key ./docker/development.key
 }
 
 run() {
@@ -103,6 +149,10 @@ run() {
                 ;;
             build)
                 build_repository
+                exit 0
+                ;;
+            run)
+                run_server
                 exit 0
                 ;;
             check-script-working)

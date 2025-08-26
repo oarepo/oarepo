@@ -15,7 +15,6 @@
 #
 
 set -euo pipefail
-set -x
 
 python_binary="python3.13"
 template="https://github.com/oarepo/nrp-app-copier"
@@ -135,3 +134,17 @@ create_repository() {
 parse_arguments "$@"
 echo "Creating repository '${repository_name}' using template '${template}' with version '${version}'..."
 create_repository
+
+echo "Generating certificates"
+openssl req -x509 -newkey rsa:4096 -nodes \
+    -out ${repository_name}/docker/development.crt \
+    -keyout ${repository_name}/docker/development.key \
+    -days 3650 -subj "/C=CH/ST=./L=./O=./OU=./CN=localhost/emailAddress=."
+
+echo "Removing previous containers"
+(
+    cd "${repository_name}"/docker
+    ln -s ../variables .env
+    docker compose down || true
+    rm .env
+)
