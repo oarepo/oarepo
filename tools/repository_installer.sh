@@ -100,6 +100,7 @@ show_help() {
     echo "  --template <template>     Default is https://github.com/oarepo/nrp-app-copier"
     echo "  --version <rdm-13>        Specify the version of the template if it is a github URL."
     echo "  --uv <uv_binary>          Specify the uv binary to use (default: uv)."
+    echo "  --uvx <uvx_binary>       Specify the uvx binary to use (default: uvx)."
 }
 
 create_repository() {
