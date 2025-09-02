@@ -86,7 +86,7 @@ else
     code_directories+=($(echo ${package_name} | tr '-' '_'))
 fi
 
-if [ -d "tests" ] && [ "$1" != "jslint" ]; then
+if [ -d "tests" ] && [ "${1:-''}" != "jslint" ]; then
     code_directories+=("tests")
 fi
 
