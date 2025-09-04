@@ -346,12 +346,10 @@ def flatten(v):
         return [p for x in v for p in flatten(x)]
     return []
 
-
-current_theme = app.config.get("APP_THEME", ["semantic-ui"])[0]
 entries = [
     e
     for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
-    for v in ep.load().themes.get(current_theme, {}).entry.values()
+    for v in ep.load().entry.values()
     for e in flatten(v)
 ]
 
@@ -636,24 +634,6 @@ setup_jstests() {
     package_root=${PWD}
 
     run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
-
-    # Apply webpack-bundle-tracker patch to fix: https://github.com/django-webpack/webpack-bundle-tracker/issues/121
-    cat <<EOF > "${assets_path}/patches/webpack-bundle-tracker+1.8.1.patch"
-diff --git a/node_modules/webpack-bundle-tracker/lib/index.js b/node_modules/webpack-bundle-tracker/lib/index.js
-index 0127501..4fd3f42 100644
---- a/node_modules/webpack-bundle-tracker/lib/index.js
-+++ b/node_modules/webpack-bundle-tracker/lib/index.js
-@@ -20,7 +20,8 @@ const get = require('lodash.get');
- const each = require('lodash.foreach');
- const fromPairs = require('lodash.frompairs');
- const toPairs = require('lodash.topairs');
--const stripAnsi = require('strip-ansi');
-+// @ts-ignore
-+const stripAnsi = require('strip-ansi').default;
-
- function getAssetPath(compilation, name) {
-   return path.join(compilation.getPath(compilation.compiler.outputPath), name.split('?')[0]);
-EOF
 
     # Needed to work around Invenio RSPack error:
     #  ERROR: packages field missing or empty
