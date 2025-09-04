@@ -52,6 +52,24 @@ self_update() {
     return 0    
 }
 
+
+# shellcheck disable=SC2120
+in_invenio_shell() {
+    set -e
+    set -o pipefail
+
+    export PYTHON_BASIC_REPL=0
+    if [ -t 0 ]; then
+        # stdin is a terminal, so take args instead
+        cmd="$*"
+    else
+        cmd=$(cat)
+    fi
+
+    uv run invenio shell --no-term-title -c "${cmd}"
+}
+
+
 run_invenio_cli() {
     set -euo pipefail
 
@@ -64,12 +82,16 @@ run_invenio_cli() {
 
 install() {
     set -euo pipefail
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
     uv sync
-    run_invenio_cli less register
     run_invenio_cli install
+    # TODO: update nrp-cli to use correct config-file
+    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
 }
 
 services() {

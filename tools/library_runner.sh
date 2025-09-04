@@ -584,7 +584,7 @@ EOF
 services_setup = True
 instance_path = ${instance_path}
 EOF
-
+    # TODO: update nrp-cli to use correct config-file
     run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
     run_command invenio webpack build
 
