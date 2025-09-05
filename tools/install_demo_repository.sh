@@ -56,15 +56,15 @@ from __future__ import annotations
 
 from invenio_i18n import lazy_gettext as _
 from oarepo_model.api import model
-from oarepo_model.presets.drafts import drafts_presets
-from oarepo_model.presets.rdm import rdm_presets
-from oarepo_model.presets.records_resources import records_resources_presets
+from oarepo_model.presets.drafts import drafts_preset
+from oarepo_model.presets.rdm import rdm_preset
+from oarepo_model.presets.records_resources import records_resources_preset
 from oarepo_model.datatypes.registry import from_yaml
 
 datasets = model(
     "datasets",
     version="1.0.0",
-    presets=[records_resources_presets, drafts_presets, rdm_presets],
+    presets=[records_resources_preset, drafts_preset, rdm_preset],
     types=[
         from_yaml("metadata.yaml", __file__)
     ],
@@ -106,7 +106,7 @@ curl -k -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $t
     "title": "Sample Dataset",
     "description": "This is a sample dataset."
   }
-}' https://localhost:5000/api/datasets
+}' https://127.0.0.1:5000/api/datasets
 EOF
 
 chmod +x datasets/sample_data.sh
