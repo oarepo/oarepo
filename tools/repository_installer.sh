@@ -18,6 +18,7 @@ set -euo pipefail
 
 python_binary="python3.13"
 template="https://github.com/oarepo/nrp-app-copier"
+model_template="https://github.com/oarepo/nrp-model-copier"
 version="rdm-13"
 uv_binary="uv"
 uvx_binary="uvx"
@@ -131,9 +132,32 @@ create_repository() {
     fi
 }
 
+create_model() {
+    set -euo pipefail
+    # if template starts with https, it is a github url
+    if [[ "${model_template}" == https://* ]]; then
+        echo "Using template from GitHub: ${model_template} with version ${version}"
+        uvx --python "${python_binary}" \
+            --with tomli --with tomli-w --with copier-templates-extensions \
+            copier copy --trust --vcs-ref ${version}\
+            "${copier_arguments[@]}" \
+            "${model_template}" "${repository_name}"
+    else
+        echo "Using local template: ${model_template}"
+        uvx --python "${python_binary}" \
+            --with tomli --with tomli-w --with copier-templates-extensions\
+            copier copy --trust --vcs-ref ${version}\
+            "${copier_arguments[@]}" \
+            "${model_template}" "${repository_name}"
+    fi
+}
+
 parse_arguments "$@"
 echo "Creating repository '${repository_name}' using template '${template}' with version '${version}'..."
 create_repository
+
+echo "Creating metadata model using template '${template}' with version '${version}'..."
+create_model
 
 echo "Generating certificates"
 openssl req -x509 -newkey rsa:4096 -nodes \

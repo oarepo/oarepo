@@ -31,57 +31,15 @@ languages: 'cs'
 repository_name: 'sample_repository'
 repository_description: 'Sample Repository'
 repository_human_name: Sample Repository
+model_name: 'datasets'
+model_human_name: 'Datasets'
 EOF
 
 chmod +x repository_installer.sh
 ./repository_installer.sh --config initial_config.yaml sample_repository
 
-
 cd sample_repository
 
-# create sample model
-mkdir datasets
-touch datasets/__init__.py
-cat <<EOF >datasets/model.py
-
-#
-# Copyright (c) 2025 CESNET z.s.p.o.
-#
-# This file is a part of oarepo-rdm (see https://github.com/oarepo/oarepo-rdm).
-#
-# oarepo-rdm is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
-#
-from __future__ import annotations
-
-from invenio_i18n import lazy_gettext as _
-from oarepo_model.api import model
-from oarepo_model.presets.drafts import drafts_preset
-from oarepo_model.presets.rdm import rdm_preset
-from oarepo_model.presets.records_resources import records_resources_preset
-from oarepo_model.datatypes.registry import from_yaml
-
-datasets = model(
-    "datasets",
-    version="1.0.0",
-    presets=[records_resources_preset, drafts_preset, rdm_preset],
-    types=[
-        from_yaml("metadata.yaml", __file__)
-    ],
-    metadata_type="Metadata",
-    customizations=[],
-)
-EOF
-
-cat <<EOF >datasets/metadata.yaml
-Metadata:
-  properties:
-    title:
-      type: keyword
-      required: true
-    description:
-      type: keyword
-EOF
 
 # register the model to the invenio.cfg
 cat <<EOF >>invenio.cfg
