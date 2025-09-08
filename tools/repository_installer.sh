@@ -121,34 +121,14 @@ create_repository() {
             --with copier-template-extensions --with pycountry \
             copier copy --trust --vcs-ref ${version} \
             "${copier_arguments[@]}" \
-            "${template}" "${repository_name}"
+            "${template}" "${repository_name}" "${@}"
     else
         echo "Using local template: ${template}"
         uvx --python "${python_binary}" \
             --with copier-template-extensions --with pycountry \
             copier copy --trust \
             "${copier_arguments[@]}" \
-            "${template}" "${repository_name}"
-    fi
-}
-
-create_model() {
-    set -euo pipefail
-    # if template starts with https, it is a github url
-    if [[ "${model_template}" == https://* ]]; then
-        echo "Using template from GitHub: ${model_template} with version ${version}"
-        uvx --python "${python_binary}" \
-            --with tomli --with tomli-w --with copier-templates-extensions \
-            copier copy --trust --vcs-ref ${version}\
-            "${copier_arguments[@]}" \
-            "${model_template}" "${repository_name}"
-    else
-        echo "Using local template: ${model_template}"
-        uvx --python "${python_binary}" \
-            --with tomli --with tomli-w --with copier-templates-extensions\
-            copier copy --trust\
-            "${copier_arguments[@]}" \
-            "${model_template}" "${repository_name}"
+            "${template}" "${repository_name}" "${@}"
     fi
 }
 
@@ -156,8 +136,6 @@ parse_arguments "$@"
 echo "Creating repository '${repository_name}' using template '${template}' with version '${version}'..."
 create_repository
 
-echo "Creating metadata model using template '${template}' with version '${version}'..."
-create_model
 
 echo "Generating certificates"
 openssl req -x509 -newkey rsa:4096 -nodes \
