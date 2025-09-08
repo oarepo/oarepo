@@ -146,7 +146,7 @@ create_model() {
         echo "Using local template: ${model_template}"
         uvx --python "${python_binary}" \
             --with tomli --with tomli-w --with copier-templates-extensions\
-            copier copy --trust --vcs-ref ${version}\
+            copier copy --trust\
             "${copier_arguments[@]}" \
             "${model_template}" "${repository_name}"
     fi

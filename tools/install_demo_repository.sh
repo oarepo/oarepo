@@ -33,6 +33,7 @@ repository_description: 'Sample Repository'
 repository_human_name: Sample Repository
 model_name: 'datasets'
 model_human_name: 'Datasets'
+model_description: 'A generic dataset model'
 EOF
 
 chmod +x repository_installer.sh
@@ -45,9 +46,9 @@ cd sample_repository
 cat <<EOF >>invenio.cfg
 
 # datasets model registration
-from datasets.model import datasets
+from datasets import datasets_model
 
-datasets.register()
+datasets_model.register()
 EOF
 
 # add the model to the pyproject.toml
