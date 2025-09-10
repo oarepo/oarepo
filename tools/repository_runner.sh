@@ -83,7 +83,7 @@ run_invenio_cli() {
         invenio-cli "$@"
 }
 
-install() {
+install_repository() {
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
 
@@ -91,11 +91,15 @@ install() {
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
     uv sync
+
+    # TODO: update nrp-cli to use correct config-file
+    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
     run_invenio_cli install
 
     echo "Configuring local service ports in .invenio.private"
     source variables
     (
+        # TODO: fix sed | conditons
         cat .invenio.private | sed 's/(search|db|redis|rabbitmq|s3|web)_port.*$//'
         echo "search_port = ${INVENIO_OPENSEARCH_PORT}"
         echo "db_port = ${INVENIO_DATABASE_PORT}"
@@ -106,9 +110,6 @@ install() {
     ) > .invenio.private.tmp
 
     mv .invenio.private.tmp .invenio.private
-
-    # TODO: update nrp-cli to use correct config-file
-    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
 }
 
 model() {
@@ -149,6 +150,10 @@ create_model() {
             copier copy --trust\
             --data-file "${model_config_file}" \
             "${MODEL_TEMPLATE}" . "${@}"
+    fi
+
+    if [ -d ".venv" ]; then
+        install_repository
     fi
 }
 
@@ -221,7 +226,7 @@ run() {
                 exit 0
                 ;;
             install)
-                install
+                install_repository
                 exit 0
                 ;;
             model)
@@ -236,10 +241,6 @@ run() {
                 ;;
             self-update)
                 self_update
-                exit 0
-                ;;
-            build)
-                build_repository
                 exit 0
                 ;;
             run)

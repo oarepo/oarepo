@@ -18,7 +18,6 @@ set -euo pipefail
 
 python_binary="python3.13"
 template="https://github.com/oarepo/nrp-app-copier"
-model_template="https://github.com/oarepo/nrp-model-copier"
 version="rdm-13"
 uv_binary="uv"
 uvx_binary="uvx"
