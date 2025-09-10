@@ -120,20 +120,21 @@ create_repository() {
             --with copier-template-extensions --with pycountry \
             copier copy --trust --vcs-ref ${version} \
             "${copier_arguments[@]}" \
-            "${template}" "${repository_name}"
+            "${template}" "${repository_name}" "${@}"
     else
         echo "Using local template: ${template}"
         uvx --python "${python_binary}" \
             --with copier-template-extensions --with pycountry \
             copier copy --trust \
             "${copier_arguments[@]}" \
-            "${template}" "${repository_name}"
+            "${template}" "${repository_name}" "${@}"
     fi
 }
 
 parse_arguments "$@"
 echo "Creating repository '${repository_name}' using template '${template}' with version '${version}'..."
 create_repository
+
 
 echo "Generating certificates"
 openssl req -x509 -newkey rsa:4096 -nodes \

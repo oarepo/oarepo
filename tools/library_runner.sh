@@ -26,6 +26,7 @@ export INVENIO_WEBPACKEXT_NPM_PKG_CLS="pynpm.package:PNPMPackage"
 export INVENIO_JAVASCRIPT_PACKAGES_MANAGER="pnpm"
 export INVENIO_ASSETS_BUILDER="rspack"
 export INVENIO_THEME_FRONTPAGE="False"
+export INVENIO_THEME_CSS_TEMPLATE="oarepo_ui/css.html"
 export FLASK_DEBUG=1
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
@@ -85,7 +86,7 @@ else
     code_directories+=($(echo ${package_name} | tr '-' '_'))
 fi
 
-if [ -d "tests" ] && [ "$1" != "jslint" ]; then
+if [ -d "tests" ] && [ "${1:-''}" != "jslint" ]; then
     code_directories+=("tests")
 fi
 
@@ -200,6 +201,15 @@ run_tools() {
     done
     show_help
     return 0
+}
+
+run_invenio_cli() {
+    set -euo pipefail
+
+    # temporary implementation until release
+    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-13 \
+        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
+        invenio-cli "$@"
 }
 
 show_help() {
@@ -320,6 +330,45 @@ get_python_versions() {
     echo -n "[$python_versions]"
 }
 
+get_webpack_entries() {
+    set -eo pipefail
+
+    # Figure out asset paths for entries in .venv
+    webpack_entries=$(in_invenio_shell <<EOF
+import os
+import importlib_metadata
+
+dist = importlib_metadata.distribution("${package_name}")
+
+def flatten(v):
+    if isinstance(v, str): return [v]
+    if isinstance(v, (list, tuple, set)):
+        return [p for x in v for p in flatten(x)]
+    return []
+
+entries = [
+    e
+    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
+    for v in ep.load().entry.values()
+    for e in flatten(v)
+]
+
+common_roots = {
+    os.path.dirname(path)
+    for path in entries
+    if not any(
+        path != other and path.startswith(other.rstrip("/") + "/")
+        for other in entries
+    )
+}
+
+roots_list = sorted([root for root in common_roots if root])
+print(",".join(roots_list))
+EOF
+    )
+    echo -n $webpack_entries
+}
+
 run_command() {
     set -e
     set -o pipefail
@@ -366,6 +415,36 @@ in_invenio_shell() {
     fi
 
     run_command invenio shell --no-term-title ${SKIP_SERVICES:+--skip-services} -c "${cmd}"
+}
+
+ensure_npm_script() {
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root=${PWD}
+
+    script_name=$1
+    shift
+
+    script_index=$(pnpm -C "${assets_path}" -c exec "cat package.json | jq -r '(.scripts | keys | index(\"${script_name}\"))'")
+
+    if [ "${script_index}" == "null" ]; then
+        # Ensure script is defined in package.json
+        in_invenio_shell <<EOF
+import json
+from pathlib import Path
+
+package_file = Path("${assets_path}") / "package.json"
+
+with package_file.open("r") as f:
+    package_data = json.load(f)
+
+scripts = package_data.setdefault("scripts", {})
+scripts["${script_name}"] = '$@'
+
+with package_file.open("w") as f:
+    json.dump(package_data, f, indent=2)
+EOF
+    fi
 }
 
 setup_venv() {
@@ -423,6 +502,112 @@ setup_venv() {
     fi
 }
 
+setup_storybook() {
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root=${PWD}
+
+    pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2 @storybook/test@^8.6.14
+
+
+    ensure_npm_script "storybook" "storybook dev -p 6006"
+    ensure_npm_script "build-storybook" "storybook build"
+
+    if [ ! -d  "${assets_path}/.storybook" ]; then
+        mkdir -p "${assets_path}/.storybook"
+    fi
+
+    webpack_entries=$(get_webpack_entries)
+    story_paths=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.stories.@\(js\|jsx\)|' | sed 's/^\./"../; s/$/"/' | paste -sd, -)
+
+    cat <<EOF > "${assets_path}/.storybook/main.js"
+import path from "path"
+
+/** @type { import('@storybook/react-webpack5').StorybookConfig } */
+const config = {
+  stories: [
+    ${story_paths}
+  ],
+  addons: [
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-docs"
+  ],
+  core: {
+    "disableTelemetry": true,
+  },
+  webpackFinal: async (config) => {
+    // Always resolve symlinked imports against local node_modules
+    config.resolve.modules = [
+      path.resolve(__dirname, "../node_modules"),
+      "node_modules",
+    ];
+    config.resolve.symlinks = false;
+    return config;
+  },
+  staticDirs: [
+    { from: "../../static/", to: "/static/" }
+  ],
+  framework: {
+    "name": "@storybook/react-webpack5",
+    "options": {}
+  }
+};
+export default config;
+EOF
+
+    cat <<EOF > "${assets_path}/.storybook/preview.js"
+import 'semantic-ui-css/semantic.min.css';
+
+/** @type { import('@storybook/react-webpack5').Preview } */
+const preview = {
+  parameters: {
+    autodocs: true,
+    controls: {
+      matchers: {
+       color: /(background|color)$/i,
+       date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
+EOF
+
+    cat <<EOF >.invenio
+[cli]
+flavour = RDM
+EOF
+
+    cat <<EOF >.invenio.private
+[cli]
+services_setup = True
+instance_path = ${instance_path}
+EOF
+    # TODO: update nrp-cli to use correct config-file
+    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
+    run_command invenio webpack build
+
+    in_invenio_shell <<EOF
+from flask import render_template
+from bs4 import BeautifulSoup
+
+with app.test_request_context("/", method="GET"):
+    html = render_template("oarepo_ui/base_page.html", embedded=True)
+
+soup = BeautifulSoup(html, "html.parser")
+
+head_content = soup.head.decode_contents().strip()
+body_content = soup.body.decode_contents().strip()
+
+with open("${assets_path}/.storybook/preview-head.html", "w", encoding="utf-8") as f:
+    f.write(head_content)
+
+with open("${assets_path}/.storybook/preview-body.html", "w", encoding="utf-8") as f:
+    f.write(body_content)
+EOF
+}
+
 setup_jstests() {
     set -e
     set -o pipefail
@@ -431,6 +616,10 @@ setup_jstests() {
         case $1 in
             --skip-services)
                 SKIP_SERVICES=1
+                shift
+                ;;
+            --with-storybook)
+                WITH_STORYBOOK=1
                 shift
                 ;;
             *)
@@ -461,59 +650,9 @@ with workspace_file.open("w") as f:
     yaml.safe_dump(workspace, f, sort_keys=False)
 EOF
 
-    # Ensure "test" script is defined & configured
-    in_invenio_shell <<EOF
-import json
-from pathlib import Path
+    ensure_npm_script test 'jest $@'
 
-package_file = Path("${assets_path}") / "package.json"
-
-with package_file.open("r") as f:
-    package_data = json.load(f)
-
-scripts = package_data.setdefault("scripts", {})
-scripts["test"] = 'jest $@'
-
-with package_file.open("w") as f:
-    json.dump(package_data, f, indent=2)
-EOF
-
-    # Figure out asset paths for entries in .venv
-    webpack_entries=$(in_invenio_shell <<EOF
-import os
-import importlib_metadata
-
-dist = importlib_metadata.distribution("${package_name}")
-
-def flatten(v):
-    if isinstance(v, str): return [v]
-    if isinstance(v, (list, tuple, set)):
-        return [p for x in v for p in flatten(x)]
-    return []
-
-
-current_theme = app.config.get("APP_THEME", "semantic-ui")
-entries = [
-    e
-    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
-    for v in ep.load().themes.get("semantic-ui", {}).entry.values()
-    for e in flatten(v)
-]
-
-common_roots = {
-    os.path.dirname(path)
-    for path in entries
-    if not any(
-        path != other and path.startswith(other.rstrip("/") + "/")
-        for other in entries
-    )
-}
-
-roots_list = sorted([root for root in common_roots if root])
-print(",".join(roots_list))
-EOF
-    )
-
+    webpack_entries=$(get_webpack_entries)
     coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.{js,jsx}|' | sed 's/^\./"**/; s/$/"/' | paste -sd, -)
     test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{} | sed 's/^/"/; s/$/"/' | paste -sd, -)
 
@@ -634,6 +773,10 @@ EOF
     )
 
     pnpm add -C $assets_path -w -D $rdm_dev_dependencies
+
+    if [ $WITH_STORYBOOK -eq 1 ]; then
+        setup_storybook
+    fi
 }
 
 

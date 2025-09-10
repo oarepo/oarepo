@@ -19,21 +19,24 @@ set -euo pipefail
 
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
+export MODEL_TEMPLATE=${MODEL_TEMPLATE:-"https://github.com/oarepo/nrp-model-copier"}
+export MODEL_TEMPLATE_VERSION=${MODEL_TEMPLATE_VERSION:-"rdm-13"}
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
 show_help() {
     echo "Usage: run.sh command [options]"
     echo ""
     echo "Commands:"
-    echo "  install               Install the repository"
-    echo "  services setup        Setup docker services"
-    echo "  services start        Start docker services"
-    echo "  services stop         Stop docker services"
-    echo "  run [--no-services]   Run the repository"
+    echo "  install                    Install the repository"
+    echo "  services setup             Setup docker services"
+    echo "  services start             Start docker services"
+    echo "  services stop              Stop docker services"
+    echo "  model create [config-file]   Create a new record model"
+    echo "  run [--no-services]        Run the repository"
     echo
-    echo "  self-update           Update the runner script to the latest version"
+    echo "  self-update                Update the runner script to the latest version"
     echo "Options:"
-    echo "  --help                Show this help message"
+    echo "  --help                     Show this help message"
 }
 
 self_update() {
@@ -52,6 +55,24 @@ self_update() {
     return 0    
 }
 
+
+# shellcheck disable=SC2120
+in_invenio_shell() {
+    set -e
+    set -o pipefail
+
+    export PYTHON_BASIC_REPL=0
+    if [ -t 0 ]; then
+        # stdin is a terminal, so take args instead
+        cmd="$*"
+    else
+        cmd=$(cat)
+    fi
+
+    uv run invenio shell --no-term-title -c "${cmd}"
+}
+
+
 run_invenio_cli() {
     set -euo pipefail
 
@@ -62,15 +83,80 @@ run_invenio_cli() {
         invenio-cli "$@"
 }
 
-install() {
-    set -euo pipefail
+install_repository() {
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
     uv sync
-    run_invenio_cli less register
+
+    # TODO: update nrp-cli to use correct config-file
+    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
     run_invenio_cli install
+
+    echo "Configuring local service ports in .invenio.private"
+    source variables
+    (
+        # TODO: fix sed | conditons
+        cat .invenio.private | sed 's/(search|db|redis|rabbitmq|s3|web)_port.*$//'
+        echo "search_port = ${INVENIO_OPENSEARCH_PORT}"
+        echo "db_port = ${INVENIO_DATABASE_PORT}"
+        echo "redis_port = ${INVENIO_REDIS_PORT}"
+        echo "rabbitmq_port = ${INVENIO_RABBIT_PORT}"
+        echo "s3_port = ${INVENIO_S3_PORT}"
+        echo "web_port = ${INVENIO_UI_PORT}"
+    ) > .invenio.private.tmp
+
+    mv .invenio.private.tmp .invenio.private
 }
+
+model() {
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            create)
+                create_model $2
+                return 0
+                ;;
+            *)
+                echo "Unknown model option $1"
+                show_help
+                exit 1
+        esac
+    done
+}    
+
+create_model() {
+    set -euo pipefail
+    model_config_file=$1
+    shift
+
+    if [ ! -f "${model_config_file}" ]; then
+        echo "Missing model config: ${model_config_file}"
+        exit 1
+    fi
+
+    # if template starts with https, it is a github url
+    if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
+        echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
+        uvx --with tomli --with tomli-w --with copier-templates-extensions \
+            copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
+            --data-file "${model_config_file}" \
+            "${MODEL_TEMPLATE}" . "${@}"
+    else
+        echo "Using local template: ${MODEL_TEMPLATE}"
+        uvx --with tomli --with tomli-w --with copier-templates-extensions\
+            copier copy --trust\
+            --data-file "${model_config_file}" \
+            "${MODEL_TEMPLATE}" . "${@}"
+    fi
+
+    if [ -d ".venv" ]; then
+        install_repository
+    fi
+}
+
 
 services() {
     set -euo pipefail
@@ -140,7 +226,12 @@ run() {
                 exit 0
                 ;;
             install)
-                install
+                install_repository
+                exit 0
+                ;;
+            model)
+                shift
+                model "$@"
                 exit 0
                 ;;
             services)
@@ -150,10 +241,6 @@ run() {
                 ;;
             self-update)
                 self_update
-                exit 0
-                ;;
-            build)
-                build_repository
                 exit 0
                 ;;
             run)
