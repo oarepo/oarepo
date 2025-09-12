@@ -62,10 +62,7 @@ chmod +x fixtures/sample_data.sh
 
 # install the repository
 ./run.sh install
-
-cd sample_repository
 ./run.sh model create ../initial_model_config.yaml
-
 ./run.sh services setup
 ./run.sh invenio files location create --default default s3://default
 
@@ -73,7 +70,7 @@ echo "Sample repository has been created successfully."
 echo "To run it, use the following command:"
 echo
 echo "  cd sample_repository"
-echo "  
+echo
 echo "  ./run.sh run"
 echo
 echo
