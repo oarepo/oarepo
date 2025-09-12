@@ -997,7 +997,7 @@ warn_unused_configs = True
 warn_unreachable = True
 follow_untyped_imports = True
 EOF
-    uvx --with types-PyYAML -p .venv/bin/python mypy "${code_directories[0]}" --ignore-missing-imports --exclude os-v2
+    uvx --with types-PyYAML --with types-requests -p .venv/bin/python mypy "${code_directories[0]}" --ignore-missing-imports --exclude os-v2
     uvx pyright --pythonpath .venv/bin/python "${code_directories[0]}"
 }
 
