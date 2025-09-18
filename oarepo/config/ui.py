@@ -1,10 +1,11 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-try:
-    from oarepo_global_search.proxies import global_search_view_function
-except ImportError:
-    global_search_view_function = None
+# TODO: find out what this SEARCH_VIEW is for RDM-14
+# try:
+#     from oarepo_global_search.proxies import global_search_view_function
+# except ImportError:
+#     global_search_view_function = None
 from invenio_i18n import lazy_gettext as _
 from .base import get_constant_from_caller, load_configuration_variables, set_constants_in_caller
 
@@ -53,8 +54,9 @@ def configure_ui(
     SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
     OAREPO_UI_THEME_HEADER_FRONTPAGE = "oarepo_ui/header_frontpage.html"
     SEARCH_UI_SEARCH_TEMPLATE = "oarepo_ui/search.html"
-    if global_search_view_function:
-        SEARCH_UI_SEARCH_VIEW = global_search_view_function
+    # TODO: find out what this SEARCH_VIEW is for RDM-14
+    # if global_search_view_function:
+    #     SEARCH_UI_SEARCH_VIEW = global_search_view_function
 
     if analytics and analytics["type"] == "matomo" and DEPLOYMENT_VERSION != "local development":
         MATOMO_ANALYTICS_TEMPLATE = "oarepo_ui/matomo_analytics.html"
