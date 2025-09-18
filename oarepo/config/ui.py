@@ -1,6 +1,10 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+try:
+    from oarepo_global_search.proxies import global_search_view_function
+except ImportError:
+    global_search_view_function = None
 from invenio_i18n import lazy_gettext as _
 from .base import get_constant_from_caller, load_configuration_variables, set_constants_in_caller
 
@@ -16,15 +20,8 @@ def configure_ui(
     languages=(("cs", _("Czech")),),
 ) -> None:
     env = load_configuration_variables()
-    # hack:
-    # Invenio has problems with order of loading templates. If invenio-userprofiles is loaded
-    # before invenio-theme, the userprofile page will not work because base settings page
-    # will be taken from userprofiles/semantic-ui/userprofiles/settings/base.html which is faulty.
-    # If invenio-theme is loaded first, SETTINGS_TEMPLATE is filled, then userprofiles will use
-    # it and the UI loads correctly.
-    #
+    
     APP_THEME = [code, "oarepo", "semantic-ui"]
-    INSTANCE_THEME_FILE = "./less/theme.less"
     APP_DEFAULT_SECURE_HEADERS: dict[str, Any] = get_constant_from_caller(
         "APP_DEFAULT_SECURE_HEADERS", {}
     )
@@ -32,6 +29,8 @@ def configure_ui(
         # hack for displaying images from another source (this one is for licenses specifically)
         "https://licensebuttons.net/"
     )
+
+    INSTANCE_THEME_FILE = "./less/theme.less"
 
     # Template config
     BASE_TEMPLATE = "oarepo_ui/base_page.html"
@@ -41,12 +40,20 @@ def configure_ui(
     THEME_FOOTER_TEMPLATE = "footer.html"
     THEME_TRACKINGCODE_TEMPLATE = "oarepo_ui/trackingcode.html"
     THEME_FRONTPAGE_TEMPLATE = "frontpage.html"
+    # hack:
+    # Invenio has problems with order of loading templates. If invenio-userprofiles is loaded
+    # before invenio-theme, the userprofile page will not work because base settings page
+    # will be taken from userprofiles/semantic-ui/userprofiles/settings/base.html which is faulty.
+    # If invenio-theme is loaded first, SETTINGS_TEMPLATE is filled, then userprofiles will use
+    # it and the UI loads correctly.
     # This line just makes sure that SETTINGS_TEMPLATE is always set up.
     SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
     # TODO: revisit this when oarepo-global-search gets migrated to RDM13
-    SEARCH_UI_SEARCH_TEMPLATE = "oarepo_ui/search.html"
     MATOMO_ANALYTICS_TEMPLATE = "oarepo_ui/matomo_analytics.html"
     OAREPO_UI_THEME_HEADER_FRONTPAGE = "oarepo_ui/header_frontpage.html"
+    SEARCH_UI_SEARCH_TEMPLATE = "oarepo_ui/search.html"
+    if global_search_view_function:
+        SEARCH_UI_SEARCH_VIEW = global_search_view_function
 
     THEME_FRONTPAGE = use_default_frontpage
 

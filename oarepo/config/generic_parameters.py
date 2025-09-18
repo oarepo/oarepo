@@ -5,11 +5,6 @@ from typing import Any
 from invenio_i18n import lazy_gettext as _
 from invenio_oauthclient.views.client import auto_redirect_login
 
-try:
-    from oarepo_global_search.proxies import global_search_view_function
-except ImportError:
-    global_search_view_function = None
-
 from .base import load_configuration_variables, set_constants_in_caller
 
 
@@ -132,10 +127,7 @@ def configure_generic_parameters(
         ssl_show_warn=env.INVENIO_OPENSEARCH_SHOW_WARN,
         ca_certs=env.get("INVENIO_OPENSEARCH_CA_CERTS_PATH", None),
     )
-    SEARCH_UI_SEARCH_TEMPLATE = "invenio_search_ui/search.html"
-    if global_search_view_function:
-        SEARCH_UI_SEARCH_VIEW = global_search_view_function
-
+    
     # caches
     INVENIO_CACHE_TYPE = "redis"
     CACHE_REDIS_URL = env.get("INVENIO_CACHE_REDIS_URL", None) or (
@@ -204,9 +196,6 @@ def configure_generic_parameters(
     RDM_RECORDS_RESTRICTION_GRACE_PERIOD = timedelta(days=30)
     RDM_ARCHIVE_DOWNLOAD_ENABLED = True
     """Grace period for changing record access to restricted."""
-
-    # Global search
-    GLOBAL_SEARCH_MODELS: list[Any] = []
 
     # datacite & dois default
     DATACITE_TEST_MODE = True
