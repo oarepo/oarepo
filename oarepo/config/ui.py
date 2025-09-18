@@ -17,10 +17,13 @@ def configure_ui(
     name=_("My Repository"),
     description="",
     use_default_frontpage=False,
+    analytics=False,
     languages=(("cs", _("Czech")),),
 ) -> None:
     env = load_configuration_variables()
     
+    DEPLOYMENT_VERSION = env.get("INVENIO_DEPLOYMENT_VERSION", "local development") 
+
     APP_THEME = [code, "oarepo", "semantic-ui"]
     APP_DEFAULT_SECURE_HEADERS: dict[str, Any] = get_constant_from_caller(
         "APP_DEFAULT_SECURE_HEADERS", {}
@@ -48,12 +51,15 @@ def configure_ui(
     # it and the UI loads correctly.
     # This line just makes sure that SETTINGS_TEMPLATE is always set up.
     SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
-    # TODO: revisit this when oarepo-global-search gets migrated to RDM13
-    MATOMO_ANALYTICS_TEMPLATE = "oarepo_ui/matomo_analytics.html"
     OAREPO_UI_THEME_HEADER_FRONTPAGE = "oarepo_ui/header_frontpage.html"
     SEARCH_UI_SEARCH_TEMPLATE = "oarepo_ui/search.html"
     if global_search_view_function:
         SEARCH_UI_SEARCH_VIEW = global_search_view_function
+
+    if analytics and analytics["type"] == "matomo" and DEPLOYMENT_VERSION != "local development":
+        MATOMO_ANALYTICS_TEMPLATE = "oarepo_ui/matomo_analytics.html"
+        MATOMO_ANALYTICS_URL = analytics["url"]
+        MATOMO_ANALYTICS_SITE_ID = analytics["site_id"]
 
     THEME_FRONTPAGE = use_default_frontpage
 
