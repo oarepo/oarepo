@@ -1,11 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-# TODO: find out what this SEARCH_VIEW is for RDM-14
-# try:
-#     from oarepo_global_search.proxies import global_search_view_function
-# except ImportError:
-#     global_search_view_function = None
+
 from invenio_i18n import lazy_gettext as _
 from .base import get_constant_from_caller, load_configuration_variables, set_constants_in_caller
 
@@ -50,18 +46,19 @@ def configure_ui(
     # will be taken from userprofiles/semantic-ui/userprofiles/settings/base.html which is faulty.
     # If invenio-theme is loaded first, SETTINGS_TEMPLATE is filled, then userprofiles will use
     # it and the UI loads correctly.
-    # This line just makes sure that SETTINGS_TEMPLATE is always set up.
+    # This line just makes sure that SETTINGS_TEMPLATE and HEADER_TEMPLATE is always set up.
     SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
+    HEADER_TEMPLATE = "invenio_theme/header.html"
     OAREPO_UI_THEME_HEADER_FRONTPAGE = "oarepo_ui/header_frontpage.html"
-    SEARCH_UI_SEARCH_TEMPLATE = "oarepo_ui/search.html"
-    # TODO: find out what this SEARCH_VIEW is for RDM-14
-    # if global_search_view_function:
-    #     SEARCH_UI_SEARCH_VIEW = global_search_view_function
+    SEARCH_UI_SEARCH_TEMPLATE = "invenio_app_rdm/records/search.html"
 
-    if analytics and analytics["type"] == "matomo" and DEPLOYMENT_VERSION != "local development":
+    if analytics and analytics == "matomo" and DEPLOYMENT_VERSION != "local development":
         MATOMO_ANALYTICS_TEMPLATE = "oarepo_ui/matomo_analytics.html"
-        MATOMO_ANALYTICS_URL = analytics["url"]
-        MATOMO_ANALYTICS_SITE_ID = analytics["site_id"]
+        MATOMO_ANALYTICS_URL = env.INVENIO_MATOMO_ANALYTICS_URL
+        MATOMO_ANALYTICS_SITE_ID = env.INVENIO_MATOMO_ANALYTICS_SITE_ID
+        APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
+            env.INVENIO_MATOMO_ANALYTICS_URL
+        )
 
     THEME_FRONTPAGE = use_default_frontpage
 

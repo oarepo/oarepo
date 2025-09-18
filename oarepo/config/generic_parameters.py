@@ -182,7 +182,7 @@ def configure_generic_parameters(
 
     # Do not add default records as we provide our own compatibility layer
     RECORD_ROUTES = {}
-    RECORDS_REST_ENDPOINTS = []
+    RECORDS_REST_ENDPOINTS = {}
 
     # RDM
     INVENIO_RDM_ENABLED = True
