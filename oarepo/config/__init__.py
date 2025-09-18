@@ -44,6 +44,7 @@ from .base import load_configuration_variables, override_configuration
 from .communities import configure_communities
 from .cron import configure_cron
 from .generic_parameters import configure_generic_parameters
+from .ui import configure_ui
 from .i18n import initialize_i18n
 from .models import add_model
 from .vocabulary import configure_vocabulary
@@ -51,6 +52,7 @@ from .workflows import register_workflow
 
 __all__ = [
     "configure_generic_parameters",
+    "configure_ui",
     "initialize_i18n",
     "initialize_glitchtip",
     "register_workflow",

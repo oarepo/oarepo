@@ -14,9 +14,6 @@ from .base import load_configuration_variables, set_constants_in_caller
 
 
 def configure_generic_parameters(
-    code="myrepo",
-    name=_("My Repository"),
-    description="",
     languages=(("cs", _("Czech")),),
 ) -> None:
     # see https://inveniordm.docs.cern.ch/install/configuration/ for the meaning
@@ -139,8 +136,6 @@ def configure_generic_parameters(
     if global_search_view_function:
         SEARCH_UI_SEARCH_VIEW = global_search_view_function
 
-    GLOBAL_SEARCH_MODELS: list[Any] = []
-
     # caches
     INVENIO_CACHE_TYPE = "redis"
     CACHE_REDIS_URL = env.get("INVENIO_CACHE_REDIS_URL", None) or (
@@ -191,57 +186,11 @@ def configure_generic_parameters(
     # Instance secret key, used to encrypt stuff (for example, access tokens) inside database
     SECRET_KEY = env.INVENIO_SECRET_KEY
 
-    # hack:
-    # Invenio has problems with order of loading templates. If invenio-userprofiles is loaded
-    # before invenio-theme, the userprofile page will not work because base settings page
-    # will be taken from userprofiles/semantic-ui/userprofiles/settings/base.html which is faulty.
-    # If invenio-theme is loaded first, SETTINGS_TEMPLATE is filled, then userprofiles will use
-    # it and the UI loads correctly.
-    #
-    # This line just makes sure that SETTINGS_TEMPLATE is always set up.
-    SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
-
-    # ui
-    APP_THEME = [code, "oarepo", "semantic-ui"]
-    INSTANCE_THEME_FILE = "./less/theme.less"
-    APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
-        # hack for displaying images from another source (this one is for licenses specifically)
-        "https://licensebuttons.net/"
-    )
-
-    THEME_HEADER_TEMPLATE = "header.html"
-    THEME_FOOTER_TEMPLATE = "footer.html"
-    THEME_JAVASCRIPT_TEMPLATE = "base/javascript.html"
-    THEME_TRACKINGCODE_TEMPLATE = "oarepo_ui/trackingcode.html"
-    THEME_CSS_TEMPLATE = "base/css.html"
-
-    # remove when you create your own title page
-    THEME_FRONTPAGE = False
-
-    # Header logo
-    THEME_LOGO = "images/logo-invenio-white.svg"
-
-    THEME_SITENAME = _(name)
-    THEME_FRONTPAGE_TITLE = name
-    THEME_FRONTPAGE_TEMPLATE = "frontpage.html"
-    THEME_FRONTPAGE_LOGO = None
-
-    REPOSITORY_NAME = name
-    REPOSITORY_DESCRIPTION = description
-
-    # We set this to avoid bug: https://github.com/inveniosoftware/invenio-administration/issues/180
-    THEME_HEADER_LOGIN_TEMPLATE = "header_login.html"
-
-    BASE_TEMPLATE = "oarepo_ui/base_page.html"
-
-    WEBPACKEXT_PROJECT = "oarepo_ui.webpack:project"
-
     DASHBOARD_RECORD_CREATE_URL = None
 
     # Do not add default records as we provide our own compatibility layer
     RECORD_ROUTES = {}
     RECORDS_REST_ENDPOINTS = []
-    RECORDS_UI_ENDPOINTS = []
 
     # RDM
     INVENIO_RDM_ENABLED = True
@@ -257,7 +206,7 @@ def configure_generic_parameters(
     """Grace period for changing record access to restricted."""
 
     # Global search
-    GLOBAL_SEARCH_MODELS = []
+    GLOBAL_SEARCH_MODELS: list[Any] = []
 
     # datacite & dois default
     DATACITE_TEST_MODE = True
@@ -330,7 +279,5 @@ def configure_generic_parameters(
         "doi": {"label": _("DOI"), "validator": idutils.is_doi},
         "isbn": {"label": _("ISBN"), "validator": idutils.is_isbn},
     }
-
-    WEBPACKEXT_PROJECT = "invenio_assets.webpack:rspack_project"
 
     set_constants_in_caller(locals())
