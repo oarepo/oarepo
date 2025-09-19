@@ -30,6 +30,11 @@ show_help() {
     echo "  services start        Start docker services"
     echo "  services stop         Stop docker services"
     echo "  run [--no-services]   Run the repository"
+    echo ""
+    echo "  model add <name>      Add a new model"
+    echo "     --template         Path to the model template directory"
+    echo "     --version          Version of the model template."
+    echo "     --with-ccmm        Add the Czech Core Metadata Model support."
     echo
     echo "  self-update           Update the runner script to the latest version"
     echo "Options:"
@@ -127,12 +132,106 @@ run_server() {
 }
 
 run_invenio() {
+    set -euo pipefail
+
     export PYTHONWARNINGS=ignore
     source .venv/bin/activate
     invenio "$@"
 }
 
+model_commands() {
+    set -euo pipefail
+    echo "Model commands $@"
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            add)
+                shift
+                add_new_model "$@"
+                return 0
+                ;;
+            *)
+                echo "Unknown model command: $1"
+                show_help
+                exit 1
+                ;;
+        esac
+    done
+
+    echo "Model command required"
+    show_help
+    exit 1
+}
+
+add_new_model() {
+    set -euo pipefail
+    set -x
+
+    vcs_ref="rdm13"
+    template="https://github.com/oarepo/nrp-model-copier"
+    model_name=""
+    parameters=()
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --version)
+                shift
+                if [[ $# -lt 1 ]]; then
+                    echo "--version requires a value."
+                    show_help
+                    exit 1
+                fi
+                vcs_ref=$1
+                shift
+                ;;
+            --template)
+                shift
+                if [[ $# -lt 1 ]]; then
+                    echo "--template requires a value."
+                    show_help
+                    exit 1
+                fi
+                template=$1
+                shift
+                ;;
+            --with-ccmm)
+                with_ccmm=true
+                parameters+=("-d" 'ccmm=true')
+                shift
+                ;;
+            *)
+                if [ -z "$model_name" ] ;
+                then
+                    model_name=$1
+                    shift
+                else
+                    echo "Model name already specified: $model_name"
+                    show_help
+                    exit 1
+                fi
+                ;;
+        esac
+    done
+
+    if [ -z "$model_name" ]; then
+        echo "Model name is required."
+        show_help
+        exit 1
+    fi
+
+    parameters+=("-d" "model_name:$1")
+    parameters+=("--vcs-ref" "$1")
+
+    uvx \
+        --with tomli --with tomli-w \
+        --with copier-templates-extensions \
+        copier copy --trust $template \
+        "${parameters[@]}" \
+        .
+}
+
 run() {
+    set -euo pipefail
+
     while [[ $# -gt 0 ]]; do
         case $1 in
             --help)
@@ -140,7 +239,8 @@ run() {
                 exit 0
                 ;;
             install)
-                install
+                shift
+                install "$@"
                 exit 0
                 ;;
             services)
@@ -152,12 +252,19 @@ run() {
                 self_update
                 exit 0
                 ;;
+            model)
+            shift
+                model_commands "$@"
+                exit 0
+                ;;
             build)
-                build_repository
+                shift
+                build_repository "$@"
                 exit 0
                 ;;
             run)
-                run_server
+                shift
+                run_server "$@"
                 exit 0
                 ;;
             invenio)

@@ -788,11 +788,9 @@ check_future_annotations() {
     fi
 }
 
-run_linters() {
+_prepare_linter_configs() {
     set -e
     set -o pipefail
-
-    setup_venv
 
     cat <<EOF >.ruff.toml
 target-version = "py313"
@@ -842,11 +840,6 @@ docstring-code-format = true
 docstring-code-line-length = 40
 EOF
 
-    uvx -p python3.13 ruff check --exclude pyproject.toml
-    uvx -p python3.13 ruff format --check --exclude pyproject.toml
-    check_license_headers
-    check_future_annotations
-
     cat <<EOF >.mypy.ini
 [mypy]
 warn_return_any = True
@@ -854,16 +847,33 @@ warn_unused_configs = True
 warn_unreachable = True
 follow_untyped_imports = True
 EOF
-    uvx --with types-PyYAML -p .venv/bin/python mypy "${code_directories[0]}" --ignore-missing-imports --exclude os-v2
-    uvx pyright --pythonpath .venv/bin/python "${code_directories[0]}"
 }
 
 format_code() {
     set -e
     set -o pipefail
 
+    _prepare_linter_configs
+
     uvx ruff format --exclude pyproject.toml
     uvx ruff check --fix --exclude pyproject.toml
+}
+
+run_linters() {
+    set -e
+    set -o pipefail
+
+    setup_venv
+
+    _prepare_linter_configs
+
+    uvx -p python3.13 ruff check --exclude pyproject.toml
+    uvx -p python3.13 ruff format --check --exclude pyproject.toml
+    check_license_headers
+    check_future_annotations
+
+    uvx --with types-PyYAML -p .venv/bin/python mypy "${code_directories[0]}" --ignore-missing-imports --exclude os-v2
+    uvx pyright --pythonpath .venv/bin/python "${code_directories[0]}"
 }
 
 run_jslint() {
