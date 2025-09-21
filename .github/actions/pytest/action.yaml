@@ -13,6 +13,10 @@ inputs:
     description: "The version of Python to use"
     required: true
     default: "3.13"
+  oarepo_version:
+    description: "The version of OARepo to use"
+    required: true
+    default: "14"
 runs:
   using: "composite"
   steps:
@@ -37,7 +41,7 @@ runs:
     - name: Store requirements.txt for reference
       uses: actions/upload-artifact@v4
       with:
-        name: requirements-${{inputs.python_version}}-${{ inputs.install_editable }}-${{ inputs.use_coverage }}
+        name: requirements-${{inputs.python_version}}-${{ inputs.oarepo_version }}-${{ inputs.install_editable }}-${{ inputs.use_coverage }}
         path: requirements.txt
 
     - name: Start services
@@ -59,7 +63,7 @@ runs:
       uses: actions/upload-artifact@v4
       if: ${{ inputs.use_coverage == 'true' }}
       with:
-        name: coverage-report
+        name: coverage-report-${{inputs.python_version}}-${{ inputs.oarepo_version }}-${{ inputs.install_editable }}
         path: |
           coverage.json
           htmlcov/
