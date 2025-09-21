@@ -167,6 +167,7 @@ jobs:
         uses: ./.github/actions/pytest
         with:
           python_version: ${{ matrix.python_version }}
+          oarepo_version: ${{ matrix.oarepo_version }}
           use_coverage: "false"
           install_editable: "false"
   javascript_support:
