@@ -320,14 +320,15 @@ get_python_versions() {
     # if there is "12" inside oarepo_versions, return 3.12
     if [[ "$oarepo_versions" == *"12"* ]]; then
         python_versions+=("\"3.12\"")
-    fi
     # for oarepo 13, return 3.13
-    if [[ "$oarepo_versions" == *"13"* ]]; then
+    elif [[ "$oarepo_versions" == *"13"* ]]; then
         python_versions+=("\"3.13\"")
-    fi
     # for oarepo 14, return 3.13
-    if [[ "$oarepo_versions" == *"14"* ]]; then
+    elif [[ "$oarepo_versions" == *"14"* ]]; then
         python_versions+=("\"3.13\"")
+    else
+        echo "Unknown oarepo version(s) $oarepo_versions, cannot determine python versions." >&2
+        exit 1
     fi
 
     # return concatenated string of python versions as json array of strings
