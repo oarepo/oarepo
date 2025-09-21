@@ -23,6 +23,10 @@ runs:
     - name: Install package
       shell: "bash"
       run: |
+        export OAREPO_VERSION=${{ inputs.oarepo_version }}
+        export PYTHON_VERSION=${{ inputs.python_version }}
+        echo "Using OARepo version: $OAREPO_VERSION"
+        echo "Using Python version: $PYTHON_VERSION"
         if [ "${{ inputs.install_editable }}" == "true" ]; then
           ./run.sh venv
         else
