@@ -325,6 +325,10 @@ get_python_versions() {
     if [[ "$oarepo_versions" == *"13"* ]]; then
         python_versions+=("\"3.13\"")
     fi
+    # for oarepo 14, return 3.13
+    if [[ "$oarepo_versions" == *"14"* ]]; then
+        python_versions+=("\"3.13\"")
+    fi
 
     # return concatenated string of python versions as json array of strings
     echo -n "[$python_versions]"
@@ -485,11 +489,11 @@ setup_venv() {
     source .venv/bin/activate
 
     uv pip install setuptools
-    uv pip install "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
+    uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
 
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
-        uv pip install -e '.[dev,tests]'
+        uv pip install --prerelease allow -e '.[dev,tests]'
     else
         echo "Building and Installing the package."  >&2
         if [ -d dist ]; then
@@ -498,7 +502,7 @@ setup_venv() {
         fi
         uv build --wheel
         wheel_package=$(ls dist/*.whl | head -n 1)
-        uv pip install "${wheel_package}[tests]"
+        uv pip install --prerelease allow "${wheel_package}[tests]"
     fi
 }
 
