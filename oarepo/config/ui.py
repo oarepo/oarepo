@@ -86,28 +86,4 @@ def configure_ui(
     # Do not add default records UI as we provide our own compatibility layer
     RECORDS_UI_ENDPOINTS = []
 
-    # TODO: uncomment when certain route is registered to some UI blueprint
-    # or move to oarepo-rdm?
-    # Not everything could be directly used RN
-    APP_RDM_ROUTES = {
-        "index": "/",
-        "robots": "/robots.txt",
-        "help_search": "/help/search",
-        # "help_statistics": "/help/statistics",
-        # "help_versioning": "/help/versioning",
-        # "record_search": "/search",
-        "record_detail": "/records/<pid_value>",
-        # "record_export": "/records/<pid_value>/export/<export_format>",
-        # "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
-        # "record_file_download": "/records/<pid_value>/files/<path:filename>",
-        # "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
-        # "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
-        # "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
-        # "record_latest": "/records/<pid_value>/latest",
-        # "dashboard_home": "/me",
-        # "deposit_create": "/uploads/new",
-        # "deposit_edit": "/uploads/<pid_value>",
-    }
-    """RDM blueprint routes."""
-
     set_constants_in_caller(locals())
