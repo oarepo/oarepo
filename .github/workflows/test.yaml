@@ -15,6 +15,12 @@ on:
       lint_node_version:
         type: string
         default: 22
+      lint_enabled:
+        type: boolean
+        default: true
+      tests_enabled:
+        type: boolean
+        default: true
 
 jobs:
   extract_dependencies:
@@ -67,11 +73,11 @@ jobs:
           name: versions
           path: versions.json
 
-
   tests:
     name: Run tests on all combinations of Python, OARepo, and Node.js versions
     runs-on: ubuntu-24.04
     needs: extract_dependencies
+    if: ${{ inputs.tests_enabled }}
     strategy:
       fail-fast: false
       matrix:
@@ -129,6 +135,7 @@ jobs:
     name: Run tests on built & installed package
     runs-on: ubuntu-24.04
     needs: extract_dependencies
+    if: ${{ inputs.tests_enabled }}
     strategy:
       fail-fast: false
       matrix:
@@ -170,6 +177,7 @@ jobs:
           oarepo_version: ${{ matrix.oarepo_version }}
           use_coverage: "false"
           install_editable: "false"
+
   javascript_support:
     name: Javascript support
     needs: extract_dependencies
@@ -179,11 +187,12 @@ jobs:
         shell: "bash"
         run: |
           echo "supports_js=$([ -f 'package.json' ] && echo -n \"true\" || echo -n \"false\")" >> $GITHUB_OUTPUT
+
   test_javascript:
     name: Run Javascript tests
     runs-on: ubuntu-24.04
     needs: javascript_support
-    if: ${{ needs.javascript_support.outputs.supports_js == 'true' }}
+    if: ${{ needs.javascript_support.outputs.supports_js == 'true' and inputs.tests_enabled }}
     strategy:
       fail-fast: false
       matrix:
@@ -226,6 +235,7 @@ jobs:
     name: Lint Python
     runs-on: ubuntu-24.04
     needs: extract_dependencies
+    if: ${{ inputs.lint_enabled }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -257,7 +267,7 @@ jobs:
     name: Lint Javascript
     runs-on: ubuntu-24.04
     needs: javascript_support
-    if: ${{ needs.javascript_support.outputs.supports_js == 'true' }}
+    if: ${{ needs.javascript_support.outputs.supports_js == 'true' and inputs.lint_enabled }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
