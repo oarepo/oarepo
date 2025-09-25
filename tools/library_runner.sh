@@ -18,6 +18,11 @@
 
 set -euo pipefail
 
+# needed for osx to get DYLD_LIBRARY_PATH working
+if [ -f ~/.envrc.local ] ; then
+    # shellcheck disable=SC1090
+    source ~/.envrc.local
+fi
 
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
