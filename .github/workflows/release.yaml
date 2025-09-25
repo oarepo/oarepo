@@ -64,7 +64,8 @@ jobs:
       - name: Install the project
         shell: "bash"
         run: |
-          uv sync
+          uv venv
+          uv pip install -e .
 
       - name: Get location of the module including the version variable
         shell: "bash"
