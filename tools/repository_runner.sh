@@ -99,14 +99,12 @@ install_repository() {
     uv sync
 
     # TODO: update nrp-cli to use correct config-file
-    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
     run_invenio_cli install
 
     echo "Configuring local service ports in .invenio.private"
     source variables
     (
-        # TODO: fix sed | conditons
-        cat .invenio.private | sed 's/(search|db|redis|rabbitmq|s3|web)_port.*$//'
+        cat .invenio.private | sed -E '/^(search|db|redis|rabbitmq|s3|web)_port/d'
         echo "search_port = ${INVENIO_OPENSEARCH_PORT}"
         echo "db_port = ${INVENIO_DATABASE_PORT}"
         echo "redis_port = ${INVENIO_REDIS_PORT}"
