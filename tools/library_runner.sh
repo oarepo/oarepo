@@ -104,6 +104,16 @@ run_tools() {
     set -o pipefail
 
     # Parse the commandline according to the options defined above.
+    echo "-------- debug --------"
+    egrep '^oarepo\d\d *=' pyproject.toml
+    echo "-----------------------"
+    egrep '^oarepo\d\d *=' pyproject.toml | head -n1
+    echo "-----------------------"
+    egrep '^oarepo\d\d *=' pyproject.toml | head -n1 | sed 's/oarepo//'
+    echo "-----------------------"
+    egrep '^oarepo\d\d *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    echo "-----------------------"
+
     export OAREPO_VERSION=${OAREPO_VERSION:-$(first_oarepo_version)}
     export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
     export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
