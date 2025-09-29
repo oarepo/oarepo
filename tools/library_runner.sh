@@ -105,6 +105,8 @@ run_tools() {
 
     # Parse the commandline according to the options defined above.
     echo "-------- debug --------" >&2
+    cat pyproject.toml >&2
+    echo "-------- debug --------" >&2
     cat pyproject.toml | egrep '^oarepo\d\d *='   >&2
     echo "-----------------------"  >&2
     cat pyproject.toml | egrep '^oarepo\d\d *=' | head -n1 >&2
