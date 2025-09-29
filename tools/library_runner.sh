@@ -104,7 +104,7 @@ run_tools() {
     set -o pipefail
 
     # Parse the commandline according to the options defined above.
-    export OAREPO_VERSION=${OAREPO_VERSION:-${first_oarepo_version}}
+    export OAREPO_VERSION=${OAREPO_VERSION:-$(first_oarepo_version)}
     export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
     export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
     export NO_EDITABLE=${NO_EDITABLE:-""}
