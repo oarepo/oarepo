@@ -24,6 +24,8 @@ if [ -f ~/.envrc.local ] ; then
 fi
 
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
+# Allow resolution & installation of RDM packages with pre-release versioning, e.g: `invenio-app-rdm==14.0.0.68614b0.dev3`
+export UV_PRERELEASE=${UV_PRERELEASE:-"allow"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export MODEL_TEMPLATE=${MODEL_TEMPLATE:-"https://github.com/oarepo/nrp-model-copier"}
 export MODEL_TEMPLATE_VERSION=${MODEL_TEMPLATE_VERSION:-"rdm-13"}
@@ -84,7 +86,7 @@ run_invenio_cli() {
 
     # temporary implementation until release
     uvx \
-        --with git+https://github.com/oarepo/oarepo-cli@rdm-13 \
+        --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
         --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
         invenio-cli "$@"
 }
@@ -98,7 +100,6 @@ install_repository() {
     # after the project is installed and before the collect is called.
     uv sync
 
-    # TODO: update nrp-cli to use correct config-file
     run_invenio_cli install
 
     echo "Configuring local service ports in .invenio.private"
