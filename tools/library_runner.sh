@@ -105,13 +105,13 @@ run_tools() {
 
     # Parse the commandline according to the options defined above.
     echo "-------- debug --------" >&2
-    egrep '^oarepo\d\d *=' pyproject.toml   >&2
+    cat pyproject.toml | egrep '^oarepo\d\d *='   >&2
     echo "-----------------------"  >&2
-    egrep '^oarepo\d\d *=' pyproject.toml | head -n1 >&2
+    cat pyproject.toml | egrep '^oarepo\d\d *=' | head -n1 >&2
     echo "-----------------------"  >&2
-    egrep '^oarepo\d\d *=' pyproject.toml | head -n1 | sed 's/oarepo//' >&2
+    cat pyproject.toml | egrep '^oarepo\d\d *=' | head -n1 | sed 's/oarepo//' >&2
     echo "-----------------------"  >&2
-    egrep '^oarepo\d\d *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//' >&2
+    cat pyproject.toml | egrep '^oarepo\d\d *=' | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//' >&2
     echo "-----------------------"  >&2
 
     export OAREPO_VERSION=${OAREPO_VERSION:-$(first_oarepo_version)}
@@ -293,7 +293,7 @@ start_services() {
 }
 
 first_oarepo_version() {
-    egrep '^oarepo\d\d *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    cat pyproject.toml | egrep '^oarepo\d\d *=' | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
 }
 
 list_oarepo_versions() {
