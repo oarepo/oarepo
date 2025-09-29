@@ -84,7 +84,7 @@ run_invenio_cli() {
 
     # temporary implementation until release
     uvx \
-        --with git+https://github.com/oarepo/oarepo-cli@rdm-13 \
+        --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
         --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
         invenio-cli "$@"
 }
@@ -98,7 +98,6 @@ install_repository() {
     # after the project is installed and before the collect is called.
     uv sync
 
-    # TODO: update nrp-cli to use correct config-file
     run_invenio_cli install
 
     echo "Configuring local service ports in .invenio.private"
