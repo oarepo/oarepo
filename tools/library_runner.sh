@@ -107,7 +107,7 @@ run_tools() {
     echo "-------- debug --------" >&2
     cat pyproject.toml >&2
     echo "-------- debug --------" >&2
-    cat pyproject.toml | egrep '^oarepo\d\d *='   >&2
+    cat pyproject.toml | egrep '^oarepo[0-9][0-9] *='   >&2
     echo "-----------------------"  >&2
     cat pyproject.toml | egrep '^oarepo\d\d *=' | head -n1 >&2
     echo "-----------------------"  >&2
