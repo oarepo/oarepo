@@ -270,4 +270,11 @@ def configure_generic_parameters(
         "isbn": {"label": _("ISBN"), "validator": idutils.is_isbn},
     }
 
+    FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
+
+    APP_RDM_DEPOSIT_FORM_QUOTA = {
+        "maxFiles": 10,
+        "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
+    }
+
     set_constants_in_caller(locals())
