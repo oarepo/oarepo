@@ -24,8 +24,9 @@ tools parse this information to determine how to set up the package and test it.
 
 The main trunk of the repository is used for development tools, does not contain
 the RDM packages. For these, there are separate branches
-[`rdm-12`](https://github.com/oarepo/oarepo/tree/rdm-12) and
-[`rdm-13`](https://github.com/oarepo/oarepo/tree/rdm-13).
+[`rdm-12`](https://github.com/oarepo/oarepo/tree/rdm-12),
+[`rdm-13`](https://github.com/oarepo/oarepo/tree/rdm-13) and
+[`rdm-14`](https://github.com/oarepo/oarepo/tree/rdm-14).
 Please visit these branches to see the actual packages and their dependencies.
 
 ## Tools

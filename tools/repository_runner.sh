@@ -28,7 +28,7 @@ export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4
 export UV_PRERELEASE=${UV_PRERELEASE:-"allow"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export MODEL_TEMPLATE=${MODEL_TEMPLATE:-"https://github.com/oarepo/nrp-model-copier"}
-export MODEL_TEMPLATE_VERSION=${MODEL_TEMPLATE_VERSION:-"rdm-13"}
+export MODEL_TEMPLATE_VERSION=${MODEL_TEMPLATE_VERSION:-"rdm-14"}
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
 
 show_help() {

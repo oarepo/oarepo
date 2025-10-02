@@ -214,7 +214,7 @@ run_invenio_cli() {
     set -euo pipefail
 
     # temporary implementation until release
-    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-13 \
+    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
         --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
         invenio-cli "$@"
 }
