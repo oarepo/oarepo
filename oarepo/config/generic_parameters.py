@@ -127,7 +127,7 @@ def configure_generic_parameters(
         ssl_show_warn=env.INVENIO_OPENSEARCH_SHOW_WARN,
         ca_certs=env.get("INVENIO_OPENSEARCH_CA_CERTS_PATH", None),
     )
-    
+
     # caches
     INVENIO_CACHE_TYPE = "redis"
     CACHE_REDIS_URL = env.get("INVENIO_CACHE_REDIS_URL", None) or (
@@ -191,7 +191,8 @@ def configure_generic_parameters(
     RDM_USER_MODERATION_ENABLED = False
     RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD = False
     RDM_ALLOW_METADATA_ONLY_RECORDS = True
-    RDM_DEFAULT_FILES_ENABLED = False
+    # Files enabled will be default in our repositories
+    RDM_DEFAULT_FILES_ENABLED = True
     RDM_SEARCH_SORT_BY_VERIFIED = False
     RDM_RECORDS_RESTRICTION_GRACE_PERIOD = timedelta(days=30)
     """Grace period for changing record access to restricted."""
@@ -267,6 +268,13 @@ def configure_generic_parameters(
     RDM_RECORDS_IDENTIFIERS_SCHEMES = {
         "doi": {"label": _("DOI"), "validator": idutils.is_doi},
         "isbn": {"label": _("ISBN"), "validator": idutils.is_isbn},
+    }
+
+    FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
+
+    APP_RDM_DEPOSIT_FORM_QUOTA = {
+        "maxFiles": 10,
+        "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
     }
 
     set_constants_in_caller(locals())

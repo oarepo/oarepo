@@ -85,5 +85,7 @@ def configure_ui(
 
     # Do not add default records UI as we provide our own compatibility layer
     RECORDS_UI_ENDPOINTS = []
+    #UPPY uploader is default for us
+    APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = True
 
     set_constants_in_caller(locals())
