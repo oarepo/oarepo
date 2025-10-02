@@ -5,6 +5,10 @@ inputs:
     description: "The version of Python to install"
     required: true
     default: "3.13"
+  pnpm_version:
+    description: "The version of PNPM package manager"
+    required: true
+    default: "10"
   node_version:
     description: "The version of Node.js to install"
     required: true
@@ -42,6 +46,12 @@ runs:
 
       uv --version
       uvx --version
+
+  - name: Install pnpm
+    uses: pnpm/action-setup@v4
+    with:
+      version: ${{ inputs.pnpm_version }}
+      run_install: false
 
   - name: Set up Node.js ${{ inputs.node_version }}
     uses: actions/setup-node@v4
