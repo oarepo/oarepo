@@ -183,6 +183,8 @@ jobs:
     needs: extract_dependencies
     runs-on: ubuntu-24.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Determine javascript support
         shell: "bash"
         run: |
