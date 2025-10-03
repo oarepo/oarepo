@@ -14,7 +14,7 @@ def configure_ui(
     name=_("My Repository"),
     description="",
     use_default_frontpage=False,
-    show_frontpage_intro=False,
+    show_frontpage_intro=True,
     analytics=False,
     languages=(("cs", _("Czech")),),
 ) -> None:
