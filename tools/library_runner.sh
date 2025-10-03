@@ -790,7 +790,7 @@ EOF
 
     pnpm add -C $assets_path -w -D $rdm_dev_dependencies
 
-    if [ $WITH_STORYBOOK -eq 1 ]; then
+    if [ -n "${WITH_STORYBOOK:-}" ]; then
         setup_storybook
     fi
 }
