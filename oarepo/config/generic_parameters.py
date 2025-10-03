@@ -32,10 +32,15 @@ def configure_generic_parameters(
         "content_security_policy": {
             "default-src": [
                 "'self'",
-                "data:",  # for fonts
+                "data:", # for fonts
                 "'unsafe-inline'",  # for inline scripts and styles
-                "blob:",  # for pdf preview
+                "blob:",            # for pdf preview
                 # Add your own policies here (e.g. analytics)
+            ],
+            "script-src": [
+                "'self'", "blob:", "'wasm-unsafe-eval'"  # for WASM-based workers
+                # Multipart file uploads use a Web Worker running `hash-wasm` to compute content checksums
+                # (e.g., MD5) of uploaded parts. This requires both 'blob:' and 'wasm-unsafe-eval' enabled in `script-src`.
             ],
         },
         "content_security_policy_report_only": False,
