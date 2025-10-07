@@ -121,7 +121,8 @@ model() {
     while [[ $# -gt 0 ]]; do
         case $1 in
             create)
-                create_model $2
+                shift
+                create_model "$@"
                 return 0
                 ;;
             *)
@@ -134,27 +135,42 @@ model() {
 
 create_model() {
     set -euo pipefail
-    model_config_file=$1
-    shift
-
-    if [ ! -f "${model_config_file}" ]; then
-        echo "Missing model config: ${model_config_file}"
-        exit 1
-    fi
-
-    # if template starts with https, it is a github url
-    if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
-        echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-        uvx --with tomli --with tomli-w --with copier-templates-extensions \
-            copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
-            --data-file "${model_config_file}" \
-            "${MODEL_TEMPLATE}" . "${@}"
+    if [ $# -eq 0 ]; then
+        # if template starts with https, it is a github url
+        if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
+            echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
+            uvx --with tomli --with tomli-w --with copier-templates-extensions \
+                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
+                "${MODEL_TEMPLATE}" . 
+        else
+            echo "Using local template: ${MODEL_TEMPLATE}"
+            uvx --with tomli --with tomli-w --with copier-templates-extensions\
+                copier copy --trust\
+                "${MODEL_TEMPLATE}" . 
+        fi
     else
-        echo "Using local template: ${MODEL_TEMPLATE}"
-        uvx --with tomli --with tomli-w --with copier-templates-extensions\
-            copier copy --trust\
-            --data-file "${model_config_file}" \
-            "${MODEL_TEMPLATE}" . "${@}"
+        model_config_file="$1"
+        shift
+
+        if [ ! -f "${model_config_file}" ]; then
+            echo "Missing model config file: ${model_config_file}"
+            exit 1
+        fi
+
+        # if template starts with https, it is a github url
+        if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
+            echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
+            uvx --with tomli --with tomli-w --with copier-templates-extensions \
+                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
+                --data-file "${model_config_file}" \
+                "${MODEL_TEMPLATE}" . "${@}"
+        else
+            echo "Using local template: ${MODEL_TEMPLATE}"
+            uvx --with tomli --with tomli-w --with copier-templates-extensions\
+                copier copy --trust\
+                --data-file "${model_config_file}" \
+                "${MODEL_TEMPLATE}" . "${@}"
+        fi
     fi
 
     if [ -d ".venv" ]; then
