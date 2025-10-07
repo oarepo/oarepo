@@ -120,6 +120,7 @@ create_repository() {
             --with copier-template-extensions --with pycountry \
             copier copy --trust --vcs-ref ${version} \
             "${copier_arguments[@]}" \
+            -d repository_name="${repository_name}" \
             "${template}" "${repository_name}" "${@}"
     else
         echo "Using local template: ${template}"
@@ -127,6 +128,7 @@ create_repository() {
             --with copier-template-extensions --with pycountry \
             copier copy --trust \
             "${copier_arguments[@]}" \
+            -d repository_name="${repository_name}" \
             "${template}" "${repository_name}" "${@}"
     fi
 }
