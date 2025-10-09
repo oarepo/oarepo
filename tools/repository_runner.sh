@@ -30,6 +30,7 @@ export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/
 export MODEL_TEMPLATE=${MODEL_TEMPLATE:-"https://github.com/oarepo/nrp-model-copier"}
 export MODEL_TEMPLATE_VERSION=${MODEL_TEMPLATE_VERSION:-"rdm-14"}
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
+export UV_PROJECT_ENVIRONMENT=${UV_PROJECT_ENVIRONMENT:-".venv"}
 
 # MacOS workaround for crashing celery workers
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -106,6 +107,10 @@ run_invenio_cli() {
 install_repository() {
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
+
+    echo "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
+    echo "Instance path: ${instance_path}"
+    echo "Assets path: ${assets_path}"
 
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
