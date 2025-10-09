@@ -30,6 +30,16 @@ export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/
 export MODEL_TEMPLATE=${MODEL_TEMPLATE:-"https://github.com/oarepo/nrp-model-copier"}
 export MODEL_TEMPLATE_VERSION=${MODEL_TEMPLATE_VERSION:-"rdm-14"}
 export LC_TIME=${LC_TIME:-"en_US.UTF-8"}
+export UV_PROJECT_ENVIRONMENT=${UV_PROJECT_ENVIRONMENT:-".venv"}
+
+# MacOS workaround for crashing celery workers
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export INVENIO_CELERY_WORKER_POOL=threads
+    export INVENIO_CELERY_WORKER_CONCURRENCY=4
+    # alternative:
+    # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
+    # export INVENIO_CELERY_WORKER_POOL="solo"
+fi
 
 show_help() {
     echo "Usage: run.sh command [options]"
@@ -40,7 +50,10 @@ show_help() {
     echo "  services start             Start docker services"
     echo "  services stop              Stop docker services"
     echo "  model create [config-file]   Create a new record model"
-    echo "  run [--no-services]        Run the repository"
+    echo "  run                        Run the repository"
+    echo "      [--no-services]        Do not start docker services"
+    echo "      [--no-celery]          Do not start background tasks"
+    echo "  cli [subcommand]           Run the invenio-cli command"
     echo
     echo "  self-update                Update the runner script to the latest version"
     echo "Options:"
@@ -95,10 +108,21 @@ install_repository() {
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
 
+    echo "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
+    echo "Instance path: ${instance_path}"
+    echo "Assets path: ${assets_path}"
+
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
     uv sync
+    if [ ! -d ${instance_path} ]; then
+        echo "Creating instance path: ${instance_path}"
+        mkdir -p "${instance_path}"
+    fi
+    if [ ! -f ${instance_path}/invenio.cfg ]; then
+        ln -s $PWD/invenio.cfg "${instance_path}/invenio.cfg" || true
+    fi
 
     run_invenio_cli install
 
@@ -208,6 +232,11 @@ run_server() {
     set -euo pipefail
 
     no_services=0
+    no_celery=0
+    extra_options=()
+
+    export INVENIO_SITE_CERT_PATH="$PWD/docker/development.crt"
+    export INVENIO_SITE_KEY_PATH="$PWD/docker/development.key"
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -215,10 +244,13 @@ run_server() {
                 no_services=1
                 shift
                 ;;
+            --no-celery)
+                no_celery=1
+                shift
+                ;;
             *)
-                echo "Unknown option: $1"
-                show_help
-                exit 1
+                extra_options+=("$1")
+                shift
                 ;;
         esac
     done
@@ -227,10 +259,15 @@ run_server() {
         services start
     fi
 
-    export FLASK_DEBUG=1 
-    export PYTHONWARNINGS=ignore
-    source .venv/bin/activate
-    invenio run --cert ./docker/development.crt --key ./docker/development.key
+    if [[ $no_celery -eq 0 ]]; then
+        # start celery worker in the background
+        run_invenio_cli run ${extra_options[@]}
+    else
+        export FLASK_DEBUG=1 
+        export PYTHONWARNINGS=ignore
+        source .venv/bin/activate
+        invenio run --cert ./docker/development.crt --key ./docker/development.key ${extra_options[@]}
+    fi
 }
 
 run_invenio() {
@@ -271,6 +308,11 @@ run() {
             invenio)
                 shift
                 run_invenio "$@"
+                exit 0
+                ;;
+            cli)
+                shift
+                run_invenio_cli "$@"
                 exit 0
                 ;;
             check-script-working)
