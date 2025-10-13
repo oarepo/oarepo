@@ -149,13 +149,18 @@ model() {
                 create_model "$@"
                 return 0
                 ;;
+            update)
+                shift
+                update_model "$@"
+                return 0
+                ;;
             *)
                 echo "Unknown model option $1"
                 show_help
                 exit 1
         esac
     done
-}    
+} 
 
 create_model() {
     set -euo pipefail
@@ -186,13 +191,13 @@ create_model() {
             echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
             uvx --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
-                --data-file "${model_config_file}" \
+                --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         else
             echo "Using local template: ${MODEL_TEMPLATE}"
             uvx --with tomli --with tomli-w --with copier-templates-extensions\
                 copier copy --trust\
-                --data-file "${model_config_file}" \
+                --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         fi
     fi
@@ -200,6 +205,49 @@ create_model() {
     if [ -d ".venv" ]; then
         install_repository
     fi
+}
+
+# update model works based on .copier-answers.yml, so if you wish to use a local template
+# you would need to pass specific config file where you specify the template to be used
+update_model() {
+    set -euo pipefail
+    if [ $# -eq 0 ]; then
+        echo "Missing model name for update."
+        exit 1
+    fi
+
+    model_name="$1"
+    shift
+
+    if [ ! -d "${model_name}" ]; then
+        echo "Model directory '${model_name}' does not exist."
+        exit 1
+    fi
+
+    answers_file="./${model_name}/.copier-answers.yml"
+
+    if [ $# -ge 1 ]; then
+         model_config_file="$1"
+    if [ -f "${model_config_file}" ]; then
+        answers_file="${model_config_file}"
+    else
+        echo "Model config file does not exist: ${model_config_file}"
+        exit 1
+        fi
+    fi
+    
+    echo "answers file: ${answers_file}"
+    if [ ! -f "${answers_file}" ]; then
+        echo "Answers file '${answers_file}' does not exist."
+        exit 1
+    fi
+
+
+    echo "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
+    uvx --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
+        copier update --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} --conflict inline \
+        --answers-file "${answers_file}" 
+
 }
 
 
