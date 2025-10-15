@@ -50,6 +50,8 @@ show_help() {
     echo "  services start             Start docker services"
     echo "  services stop              Stop docker services"
     echo "  model create [config-file]   Create a new record model"
+    echo "  model update [model-name] [answers-file] Update an existing record model."
+    echo "      Answers file is optional."
     echo "  run                        Run the repository"
     echo "      [--no-services]        Do not start docker services"
     echo "      [--no-celery]          Do not start background tasks"
