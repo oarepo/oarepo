@@ -811,8 +811,8 @@ run_tests() {
                 shift
                 ;;
             *)
-                echo "Unknown test option: $1"  >&2
-                exit 1
+                test_args+=("$1")
+                shift
                 ;;
         esac
     done
@@ -838,7 +838,7 @@ run_tests() {
     fi
     source .venv/bin/activate
     source .env-services
-    pytest "$@"
+    pytest "${test_args[@]}"
 }
 
 cleanup() {
