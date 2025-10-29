@@ -49,7 +49,8 @@ show_help() {
     echo "  services setup             Setup docker services"
     echo "  services start             Start docker services"
     echo "  services stop              Stop docker services"
-    echo "  model create [config-file]   Create a new record model"
+    echo "  model create [model-name] [config-file]   Create a new record model."
+    echo "      Config file is optional."
     echo "  model update [model-name] [answers-file] Update an existing record model."
     echo "      Answers file is optional."
     echo "  run                        Run the repository"
@@ -167,16 +168,24 @@ model() {
 create_model() {
     set -euo pipefail
     if [ $# -eq 0 ]; then
+        echo "Model name is required."
+        exit 1
+    fi
+    model_name="$1"
+    shift
+    if [ $# -eq 0 ]; then
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
             uvx --with tomli --with tomli-w --with copier-templates-extensions \
-                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
+                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
+                -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
         else
             echo "Using local template: ${MODEL_TEMPLATE}"
-            uvx --with tomli --with tomli-w --with copier-templates-extensions\
-                copier copy --trust\
+            uvx --with tomli --with tomli-w --with copier-templates-extensions \
+                copier copy --trust \
+                -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
         fi
     else
