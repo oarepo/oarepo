@@ -261,22 +261,24 @@ update_model() {
 
 }
 
-
 services() {
     set -euo pipefail
 
     while [[ $# -gt 0 ]]; do
         case $1 in
             setup)
-                run_invenio_cli services setup
+                shift
+                run_invenio_cli services setup "$@"
                 return 0
                 ;;
             start)
-                run_invenio_cli services start
+                shift
+                run_invenio_cli services start "$@"
                 return 0
             ;;
             stop)
-                run_invenio_cli services stop
+                shift
+                run_invenio_cli services stop "$@"
                 return 0
             ;;
             *)
