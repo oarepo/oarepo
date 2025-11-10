@@ -285,7 +285,7 @@ start_services() {
 }
 
 first_oarepo_version() {
-    cat pyproject.toml | egrep '^oarepo[0-9][0-9] *=' | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    echo $(cat pyproject.toml | egrep '^oarepo[0-9][0-9] *=' | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//')
 }
 
 list_oarepo_versions() {
