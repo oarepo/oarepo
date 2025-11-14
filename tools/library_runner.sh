@@ -278,8 +278,8 @@ start_services() {
 
     uvx --with setuptools docker-services-cli up \
         --db ${DB:-postgresql} --search ${SEARCH:-opensearch} \
-        --mq ${MQ:-rabbitmq} --cache ${CACHE:-redis} --env \
-        --s3 ${S3:-minio}
+        --mq ${MQ:-rabbitmq} --cache ${CACHE:-redis} --s3 ${S3:-minio} --env \
+        
     > .env-services
 
     source .env-services
