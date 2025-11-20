@@ -821,7 +821,7 @@ run_tests() {
 
     if [ -f ./test-setup.sh ]; then
         echo "Sourcing test setup script..."  >&2
-        ./test-setup.sh
+        source ./test-setup.sh
     else
         echo "No test-setup.sh found, skipping extra test setup."  >&2
     fi
