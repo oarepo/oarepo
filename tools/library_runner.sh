@@ -826,6 +826,9 @@ run_tests() {
         echo "No test-setup.sh found, skipping extra test setup."  >&2
     fi
 
+    # unset all INVENIO_ environment variables to avoid interference with tests
+    unset $(env | grep ^INVENIO_ | sed 's/=.*//')
+
     if [ -z "$SKIP_SERVICES" ]; then
         start_services
     fi
