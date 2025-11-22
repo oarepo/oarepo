@@ -24,6 +24,7 @@ if [ -f ~/.envrc.local ] ; then
     source ~/.envrc.local
 fi
 
+# region: Initial setup
 export UV_EXTRA_INDEX_URL=${UV_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-"https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple"}
 export INVENIO_APP_THEME='["semantic-ui"]'
@@ -50,9 +51,9 @@ if [ -f setup.cfg ]; then
 fi
 
 get_package_name() {
+    local name
     name=$(
-        cat "pyproject.toml" |
-        egrep '^name' |
+        egrep '^name' "pyproject.toml" |
         head -n 1 |
         sed 's/[^"]*"//' |
         sed 's/".*//'
@@ -67,9 +68,9 @@ get_package_name() {
 }
 
 get_home_page() {
+    local hp
     hp=$(
-        cat "pyproject.toml" |
-        egrep '^Homepage' |
+        egrep '^Homepage' "pyproject.toml" |
         head -n 1 |
         sed 's/[^"]*"//' |
         sed 's/".*//'
@@ -88,7 +89,7 @@ code_directories=()
 if [ -d "src" ]; then
     code_directories+=("src")
 else
-    code_directories+=($(echo ${package_name} | tr '-' '_'))
+    code_directories+=($(echo "${package_name}" | tr '-' '_'))
 fi
 
 if [ -d "tests" ] && [ "${1:-''}" != "jslint" ]; then
@@ -97,8 +98,9 @@ fi
 
 export package_name
 export code_directories
+# endregion: Initial setup
 
-
+# region: Main command dispatcher and help output
 run_tools() {
     set -e
     set -o pipefail
@@ -208,15 +210,6 @@ run_tools() {
     return 0
 }
 
-run_invenio_cli() {
-    set -euo pipefail
-
-    # temporary implementation until release
-    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
-        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
-        invenio-cli "$@"
-}
-
 show_help() {
     (
     echo "Usage: $0 [options] [command]"
@@ -253,38 +246,12 @@ show_help() {
     return 0
 }
 
-stop_services() {
-    if [ ! -z "$SKIP_SERVICES" ]; then
-        return 0
-    fi
-    set -e
-    set -o pipefail
-
-    eval "$(uvx --with setuptools docker-services-cli down --env)"
-    if [ -f .env-services ]; then
-        rm .env-services
-    fi
-}
-
-start_services() {
-    if [ ! -z "$SKIP_SERVICES" ]; then
-        return 0
-    fi
-    set -e
-    set -o pipefail
-
-    uvx --with setuptools docker-services-cli up \
-        --db ${DB:-postgresql} --search ${SEARCH:-opensearch} \
-        --mq ${MQ:-rabbitmq} --cache ${CACHE:-redis} --s3 ${S3:-minio} --env \
-    > .env-services
-
-    source .env-services
-}
-
 first_oarepo_version() {
-    cat pyproject.toml | egrep '^oarepo[0-9][0-9] *=' | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    egrep '^oarepo[0-9][0-9] *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
 }
+# endregion: Main command dispatcher and help output
 
+# region: Version commands
 list_oarepo_versions() {
     # if there is a pyproject.toml, get its dependencies section and parse the
     # "oarepo[rdm,tests]>=13.0.0,<15.0.0" line to get the version of oarepo.
@@ -309,6 +276,7 @@ list_oarepo_versions() {
 }
 
 get_versions() {
+    local version_string lower_bound upper_bound versions
     version_string=$(echo "$1" | sed 's/.*>=//' | sed 's/".*//')
     lower_bound=$(echo "$version_string" | cut -d',' -f1 | cut -d'.' -f1)
     upper_bound=$(echo "$version_string" | cut -d',' -f2 | cut -d'.' -f1 | sed 's/<//')
@@ -322,6 +290,7 @@ get_versions() {
 }
 
 get_python_versions() {
+    local oarepo_versions python_versions
     oarepo_versions="$1"
     python_versions=()
     if [[ "$oarepo_versions" == *"14"* ]]; then
@@ -335,123 +304,39 @@ get_python_versions() {
     # return concatenated string of python versions as json array of strings
     echo -n "[$python_versions]"
 }
+# endregion: Version commands
 
-get_webpack_entries() {
-    set -eo pipefail
-
-    # Figure out asset paths for entries in .venv
-    webpack_entries=$(in_invenio_shell <<EOF
-import os
-import importlib_metadata
-
-dist = importlib_metadata.distribution("${package_name}")
-
-def flatten(v):
-    if isinstance(v, str): return [v]
-    if isinstance(v, (list, tuple, set)):
-        return [p for x in v for p in flatten(x)]
-    return []
-
-entries = [
-    e
-    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
-    for v in ep.load().entry.values()
-    for e in flatten(v)
-]
-
-common_roots = {
-    os.path.dirname(path)
-    for path in entries
-    if not any(
-        path != other and path.startswith(other.rstrip("/") + "/")
-        for other in entries
-    )
-}
-
-roots_list = sorted([root for root in common_roots if root])
-print(",".join(roots_list))
-EOF
-    )
-    echo -n $webpack_entries
-}
-
-run_command() {
+# region: Services management
+stop_services() {
+    if [ -n "$SKIP_SERVICES" ]; then
+        return 0
+    fi
     set -e
     set -o pipefail
 
-    command_name="$1"
-    shift
-
-    non_processed_args=()
-
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            --skip-services)
-                SKIP_SERVICES=1
-                shift
-                ;;
-            *)
-                non_processed_args+=("$1")
-                shift
-                ;;
-        esac
-    done
-
-    setup_venv
-    if [ -z "$SKIP_SERVICES" ]; then
-        start_services
+    eval "$(uvx --with setuptools docker-services-cli down --env)"
+    if [ -f .env-services ]; then
+        rm .env-services
     fi
+}
 
-    source .venv/bin/activate
+start_services() {
+    if [ -n "$SKIP_SERVICES" ]; then
+        return 0
+    fi
+    set -e
+    set -o pipefail
+
+    uvx --with setuptools docker-services-cli up \
+        --db "${DB:-postgresql}" --search "${SEARCH:-opensearch}" \
+        --mq "${MQ:-rabbitmq}" --cache "${CACHE:-redis}" --s3 "${S3:-minio}" --env \
+    > .env-services
+
     source .env-services
-    "$command_name" "${non_processed_args[@]}"
 }
+# endregion: Services management
 
-# shellcheck disable=SC2120
-in_invenio_shell() {
-    set -e
-    set -o pipefail
-
-    export PYTHON_BASIC_REPL=0
-    if [ -t 0 ]; then
-        # stdin is a terminal, so take args instead
-        cmd="$*"
-    else
-        cmd=$(cat)
-    fi
-
-    run_command invenio shell --no-term-title ${SKIP_SERVICES:+--skip-services} -c "${cmd}"
-}
-
-ensure_npm_script() {
-    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
-    assets_path="${instance_path}/assets"
-    package_root=${PWD}
-
-    script_name=$1
-    shift
-
-    script_index=$(pnpm -C "${assets_path}" -c exec "cat package.json | jq -r '(.scripts | keys | index(\"${script_name}\"))'")
-
-    if [ "${script_index}" == "null" ]; then
-        # Ensure script is defined in package.json
-        in_invenio_shell <<EOF
-import json
-from pathlib import Path
-
-package_file = Path("${assets_path}") / "package.json"
-
-with package_file.open("r") as f:
-    package_data = json.load(f)
-
-scripts = package_data.setdefault("scripts", {})
-scripts["${script_name}"] = '$@'
-
-with package_file.open("w") as f:
-    json.dump(package_data, f, indent=2)
-EOF
-    fi
-}
+# region: Python Virtual Environment Management
 
 get_highest_available_python() {
     # Get python versions from oarepo-versions
@@ -522,11 +407,11 @@ setup_venv() {
     fi
 
     echo "Setting up virtual environment with Python $PYTHON and oarepo version $OAREPO_VERSION"  >&2
-    uv venv --python=$PYTHON --seed
+    uv venv --python="$PYTHON" --seed
     source .venv/bin/activate
 
     uv pip install setuptools
-    uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
+    uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$((OAREPO_VERSION + 1))"
 
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
@@ -542,116 +427,126 @@ setup_venv() {
         uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}]"
     fi
 }
+# endregion: Python Virtual Environment Management
 
-setup_storybook() {
-    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
-    assets_path="${instance_path}/assets"
-    package_root=${PWD}
+# region: Run commands in the virtual environment (invenio, cli, with services, ...)
+run_command() {
+    set -e
+    set -o pipefail
 
-    pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2 @storybook/test@^8.6.14
+    local command_name="$1"
+    shift
 
+    local non_processed_args=()
 
-    ensure_npm_script "storybook" "storybook dev -p 6006"
-    ensure_npm_script "build-storybook" "storybook build"
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            *)
+                non_processed_args+=("$1")
+                shift
+                ;;
+        esac
+    done
 
-    if [ ! -d  "${assets_path}/.storybook" ]; then
-        mkdir -p "${assets_path}/.storybook"
+    setup_venv
+    if [ -z "${SKIP_SERVICES:-}" ]; then
+        start_services
     fi
 
-    webpack_entries=$(get_webpack_entries)
-    story_paths=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.stories.@\(js\|jsx\)|' | sed 's/^\./"../; s/$/"/' | paste -sd, -)
+    source .venv/bin/activate
+    source .env-services
+    "$command_name" "${non_processed_args[@]}"
+}
 
-    cat <<EOF > "${assets_path}/.storybook/main.js"
-import path from "path"
+# shellcheck disable=SC2120
+in_invenio_shell() {
+    set -e
+    set -o pipefail
 
-/** @type { import('@storybook/react-webpack5').StorybookConfig } */
-const config = {
-  stories: [
-    ${story_paths}
-  ],
-  addons: [
-    "@storybook/addon-webpack5-compiler-swc",
-    "@storybook/addon-docs"
-  ],
-  core: {
-    "disableTelemetry": true,
-  },
-  webpackFinal: async (config) => {
-    // Always resolve symlinked imports against local node_modules
-    config.resolve.modules = [
-      path.resolve(__dirname, "../node_modules"),
-      "node_modules",
-    ];
-    config.resolve.symlinks = false;
-    return config;
-  },
-  staticDirs: [
-    { from: "../../static/", to: "/static/" }
-  ],
-  framework: {
-    "name": "@storybook/react-webpack5",
-    "options": {}
-  }
-};
-export default config;
-EOF
+    local cmd
+    export PYTHON_BASIC_REPL=0
+    if [ -t 0 ]; then
+        # stdin is a terminal, so take args instead
+        cmd="$*"
+    else
+        cmd=$(cat)
+    fi
 
-    cat <<EOF > "${assets_path}/.storybook/preview.js"
-import 'semantic-ui-css/semantic.min.css';
+    run_command invenio shell --no-term-title ${SKIP_SERVICES:+--skip-services} -c "${cmd}"
+}
 
-/** @type { import('@storybook/react-webpack5').Preview } */
-const preview = {
-  parameters: {
-    autodocs: true,
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
-  },
-};
+run_invenio_cli() {
+    set -euo pipefail
 
-export default preview;
-EOF
+    # temporary implementation until release
+    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
+        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
+        invenio-cli "$@"
+}
 
-    cat <<EOF >.invenio
-[cli]
-flavour = RDM
-EOF
+# endregion: Run commands in the virtual environment (invenio, cli, with services, ...)
 
-    cat <<EOF >.invenio.private
-[cli]
-services_setup = True
-instance_path = ${instance_path}
-EOF
-    # TODO: update nrp-cli to use correct config-file
-    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
-    run_command invenio webpack build
+# region: Python and javascript tests
 
-    in_invenio_shell <<EOF
-from flask import render_template
-from bs4 import BeautifulSoup
+run_tests() {
+    set -e
+    set -o pipefail
 
-with app.test_request_context("/", method="GET"):
-    html = render_template("oarepo_ui/base_page.html", embedded=True)
+    local test_args=()
 
-soup = BeautifulSoup(html, "html.parser")
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                SKIP_SERVICES=1
+                shift
+                ;;
+            --with-coverage)
+                WITH_COVERAGE=1
+                shift
+                ;;
+            *)
+                test_args+=("$1")
+                shift
+                ;;
+        esac
+    done
 
-head_content = soup.head.decode_contents().strip()
-body_content = soup.body.decode_contents().strip()
+    setup_venv
 
-with open("${assets_path}/.storybook/preview-head.html", "w", encoding="utf-8") as f:
-    f.write(head_content)
+    if [ -f ./test-setup.sh ]; then
+        echo "Sourcing test setup script..."  >&2
+        source ./test-setup.sh
+    else
+        echo "No test-setup.sh found, skipping extra test setup."  >&2
+    fi
 
-with open("${assets_path}/.storybook/preview-body.html", "w", encoding="utf-8") as f:
-    f.write(body_content)
-EOF
+    # unset all INVENIO_ environment variables to avoid interference with tests
+    unset $(env | grep ^INVENIO_ | sed 's/=.*//')
+
+    if [ -z "${SKIP_SERVICES:-}" ]; then
+        start_services
+    fi
+
+    if [ -n "$WITH_COVERAGE" ]; then
+        echo "Enabling coverage for tests..."  >&2
+        uv pip install pytest-cov
+        export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-branch --cov-report=json --cov-report=html --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=junit.xml -o junit_family=legacy"
+        echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"  >&2
+    fi
+    source .venv/bin/activate
+    source .env-services
+    pytest "${test_args[@]}"
 }
 
 setup_jstests() {
     set -e
     set -o pipefail
+
+    local instance_path assets_path package_root webpack_entries coverage_roots test_roots rdm_dev_dependencies
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -672,7 +567,7 @@ setup_jstests() {
 
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
-    package_root=${PWD}
+    package_root="${PWD}"
 
     run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
 
@@ -794,7 +689,7 @@ EOF
     run_command invenio --skip-services webpack install
 
     # Fetch & install testing devDeps from invenio-rdm-records (Jest & friends)
-    rdm_dev_dependencies=$(in_invenio_shell << EOF
+    rdm_dev_dependencies=$(in_invenio_shell <<EOF
 import json
 import pathlib
 import invenio_rdm_records
@@ -813,167 +708,222 @@ print(" ".join(f"{name}@{version}" for name, version in dev_deps.items()))
 EOF
     )
 
-    pnpm add -C $assets_path -w -D $rdm_dev_dependencies
+    pnpm add -C "$assets_path" -w -D $rdm_dev_dependencies
 
     if [ -n "${WITH_STORYBOOK:-}" ]; then
         setup_storybook
     fi
 }
 
+setup_storybook() {
+    local instance_path assets_path package_root webpack_entries story_paths
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root="${PWD}"
 
-run_tests() {
+    pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2 @storybook/test@^8.6.14
+
+
+    ensure_npm_script "storybook" "storybook dev -p 6006"
+    ensure_npm_script "build-storybook" "storybook build"
+
+    if [ ! -d  "${assets_path}/.storybook" ]; then
+        mkdir -p "${assets_path}/.storybook"
+    fi
+
+    webpack_entries=$(get_webpack_entries)
+    story_paths=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.stories.@\(js\|jsx\)|' | sed 's/^\./"../; s/$/"/' | paste -sd, -)
+
+    cat <<EOF > "${assets_path}/.storybook/main.js"
+import path from "path"
+
+/** @type { import('@storybook/react-webpack5').StorybookConfig } */
+const config = {
+  stories: [
+    ${story_paths}
+  ],
+  addons: [
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-docs"
+  ],
+  core: {
+    "disableTelemetry": true,
+  },
+  webpackFinal: async (config) => {
+    // Always resolve symlinked imports against local node_modules
+    config.resolve.modules = [
+      path.resolve(__dirname, "../node_modules"),
+      "node_modules",
+    ];
+    config.resolve.symlinks = false;
+    return config;
+  },
+  staticDirs: [
+    { from: "../../static/", to: "/static/" }
+  ],
+  framework: {
+    "name": "@storybook/react-webpack5",
+    "options": {}
+  }
+};
+export default config;
+EOF
+
+    cat <<EOF > "${assets_path}/.storybook/preview.js"
+import 'semantic-ui-css/semantic.min.css';
+
+/** @type { import('@storybook/react-webpack5').Preview } */
+const preview = {
+  parameters: {
+    autodocs: true,
+    controls: {
+      matchers: {
+       color: /(background|color)$/i,
+       date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
+EOF
+
+    cat <<EOF >.invenio
+[cli]
+flavour = RDM
+EOF
+
+    cat <<EOF >.invenio.private
+[cli]
+services_setup = True
+instance_path = ${instance_path}
+EOF
+    # TODO: update nrp-cli to use correct config-file
+    run_invenio_cli less register --theme-config-file "${assets_path}/less/theme.config"
+    run_command invenio webpack build
+
+    in_invenio_shell <<EOF
+from flask import render_template
+from bs4 import BeautifulSoup
+
+with app.test_request_context("/", method="GET"):
+    html = render_template("oarepo_ui/base_page.html", embedded=True)
+
+soup = BeautifulSoup(html, "html.parser")
+
+head_content = soup.head.decode_contents().strip()
+body_content = soup.body.decode_contents().strip()
+
+with open("${assets_path}/.storybook/preview-head.html", "w", encoding="utf-8") as f:
+    f.write(head_content)
+
+with open("${assets_path}/.storybook/preview-body.html", "w", encoding="utf-8") as f:
+    f.write(body_content)
+EOF
+}
+
+run_jstest() {
     set -e
     set -o pipefail
 
+    local non_processed_args=()
+
     while [[ $# -gt 0 ]]; do
+        if [ "$1" = "setup" ]; then
+          shift
+          setup_jstests "$@"
+          return 0
+        fi
         case $1 in
             --skip-services)
                 SKIP_SERVICES=1
                 shift
                 ;;
-            --with-coverage)
-                WITH_COVERAGE=1
-                shift
-                ;;
             *)
-                test_args+=("$1")
+                non_processed_args+=("$1")
                 shift
                 ;;
         esac
     done
 
-    setup_venv
 
-    if [ -f ./test-setup.sh ]; then
-        echo "Sourcing test setup script..."  >&2
-        source ./test-setup.sh
-    else
-        echo "No test-setup.sh found, skipping extra test setup."  >&2
-    fi
-
-    # unset all INVENIO_ environment variables to avoid interference with tests
-    unset $(env | grep ^INVENIO_ | sed 's/=.*//')
-
-    if [ -z "$SKIP_SERVICES" ]; then
-        start_services
-    fi
-
-    if [ ! -z "$WITH_COVERAGE" ]; then
-        echo "Enabling coverage for tests..."  >&2
-        uv pip install pytest-cov
-        export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-branch --cov-report=json --cov-report=html --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=junit.xml -o junit_family=legacy"
-        echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"  >&2
-    fi
-    source .venv/bin/activate
-    source .env-services
-    pytest "${test_args[@]}"
-}
-
-cleanup() {
-    set -e
-    set -o pipefail
-
-    echo "Stopping services..."  >&2
-    stop_services
-
-    if [ -d .venv ]; then
-        echo "Removing virtual environment..."  >&2
-        rm -rf .venv
-    fi
-
-    if [ -f .env-services ]; then
-        echo "Removing environment file..."  >&2
-        rm -f .env-services
-    fi
-
-    echo "Cleanup completed."  >&2
-}
-
-self_update() {
-    set -euo pipefail
-
-    echo "Updating runner script..."  >&2
-    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/library_runner.sh
-    chmod +x "./.runner-new.sh"
-    if "./.runner-new.sh" check-script-working ; then
-        mv "./.runner-new.sh" "./.runner.sh"
-        echo "Runner script updated successfully."  >&2
-    else
-        echo "New runner script is not working, keeping the old one."  >&2
-        rm "./.runner-new.sh"
-    fi
+    run_command invenio ${SKIP_SERVICES:+--skip-services} webpack run test "${non_processed_args[@]}"
     return 0
 }
 
-check_license_headers() {
-    set -e
-    set -o pipefail
+get_webpack_entries() {
+    set -eo pipefail
 
-    if [ -f .check_ok.txt ]; then
-        rm .check_ok.txt
-    fi
-    if [ -f .check_errors.txt ]; then
-        rm .check_errors.txt
-    fi
-    touch .check_ok.txt
-    touch .check_errors.txt
-    # Check for license headers in Python files
-    find ${code_directories[@]} -name "*.py" | while read -r file; do
-        if cat $file | grep -i "Copyright (c)" >/dev/null; then
-            echo "$file" >>.check_ok.txt
-        else
-            echo "Missing license header in $file"
-            cat $file | grep -i "Copyright (c)"
-            echo "$file" >>.check_errors.txt
-        fi
-    done
+    local webpack_entries
+    # Figure out asset paths for entries in .venv
+    webpack_entries=$(in_invenio_shell <<EOF
+import os
+import importlib_metadata
 
-    ok=$(wc -l < .check_ok.txt)
-    errors=$(wc -l < .check_errors.txt)
+dist = importlib_metadata.distribution("${package_name}")
 
-    rm .check_ok.txt
-    rm .check_errors.txt
+def flatten(v):
+    if isinstance(v, str): return [v]
+    if isinstance(v, (list, tuple, set)):
+        return [p for x in v for p in flatten(x)]
+    return []
 
-    if [ $errors -gt 0 ]; then
-        echo "${errors} file(s) are missing license headers."  >&2
-        return 1
-    fi
+entries = [
+    e
+    for ep in dist.entry_points if ep.group == "invenio_assets.webpack"
+    for v in ep.load().entry.values()
+    for e in flatten(v)
+]
+
+common_roots = {
+    os.path.dirname(path)
+    for path in entries
+    if not any(
+        path != other and path.startswith(other.rstrip("/") + "/")
+        for other in entries
+    )
 }
 
-check_future_annotations() {
-    set -e
-    set -o pipefail
+roots_list = sorted([root for root in common_roots if root])
+print(",".join(roots_list))
+EOF
+    )
+    echo -n "$webpack_entries"
+}
 
-    if [ -f .check_ok.txt ]; then
-        rm .check_ok.txt
-    fi
-    if [ -f .check_errors.txt ]; then
-        rm .check_errors.txt
-    fi
-    touch .check_ok.txt
-    touch .check_errors.txt
+ensure_npm_script() {
+    local instance_path assets_path package_root script_name script_index
+    instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
+    assets_path="${instance_path}/assets"
+    package_root="${PWD}"
 
-    # Check for future annotations in Python files
-    find ${code_directories[@]} -name "*.py" -not -path "./.venv/*" | while read -r file; do
-        if cat $file | grep "from __future__" | grep "annotations" >/dev/null; then
-            echo "$file" >>.check_ok.txt
-        else
-            echo "Missing 'from __future__ import annotations' in $file"  >&2
-            echo "$file" >>.check_errors.txt
-        fi
-    done
+    script_name="$1"
+    shift
 
-    ok=$(wc -l < .check_ok.txt)
-    errors=$(wc -l < .check_errors.txt)
+    script_index=$(pnpm -C "${assets_path}" -c exec "jq -r '(.scripts | keys | index(\"${script_name}\"))' package.json")
 
-    rm .check_ok.txt
-    rm .check_errors.txt
+    if [ "${script_index}" == "null" ]; then
+        # Ensure script is defined in package.json
+        in_invenio_shell <<EOF
+import json
+from pathlib import Path
 
-    if [ $errors -gt 0 ]; then
-        echo "${errors} file(s) are missing future annotations."  >&2
-        return 1
+package_file = Path("${assets_path}") / "package.json"
+
+with package_file.open("r") as f:
+    package_data = json.load(f)
+
+scripts = package_data.setdefault("scripts", {})
+scripts["${script_name}"] = '$@'
+
+with package_file.open("w") as f:
+    json.dump(package_data, f, indent=2)
+EOF
     fi
 }
+# endregion: Python and javascript tests
+
+# region: Linters and code formatters
 
 run_linters() {
     set -e
@@ -1102,45 +1052,16 @@ EOF
     fi
 
     # Run prettier on only .js/.jsx files within the specified directories
-    node_modules/.bin/prettier $prettier_flag "${code_directories[@]/%//**/*.{js,jsx}}"
+    node_modules/.bin/prettier "$prettier_flag" "${code_directories[@]/%//**/*.{js,jsx}}"
 
     return 0
 }
-
-run_jstest() {
-    set -e
-    set -o pipefail
-
-    non_processed_args=()
-
-    while [[ $# -gt 0 ]]; do
-        if [ "$1" = "setup" ]; then
-          shift
-          setup_jstests "$@"
-          return 0
-        fi
-        case $1 in
-            --skip-services)
-                SKIP_SERVICES=1
-                shift
-                ;;
-            *)
-                non_processed_args+=("$1")
-                shift
-                ;;
-        esac
-    done
-
-
-    run_command invenio ${SKIP_SERVICES:+--skip-services} webpack run test "${non_processed_args[@]}"
-    return 0
-}
-
 
 add_license_headers() {
     set -e
     set -o pipefail
 
+    local current_year home_page
     current_year=$(date +%Y)
     ORGANIZATION=${ORGANIZATION:-"CESNET z.s.p.o"}
     home_page=$(get_home_page)
@@ -1154,14 +1075,123 @@ ${projectname} is free software; you can redistribute it and/or modify it
 under the terms of the MIT License; see LICENSE file for more details.
 EOF
 
-    find ${code_directories[*]} -name "*.py" -not -path "./.venv/*" | while read -r file; do
-        if ! cat $file | grep -iq "Copyright (C)"; then
-            uvx licenseheaders -t /tmp/license-header.txt -y $current_year \
-                -o "$ORGANIZATION" -n $package_name \
-                -u $home_page -f $file
+    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if ! grep -iq "Copyright (C)" "$file"; then
+            uvx licenseheaders -t /tmp/license-header.txt -y "$current_year" \
+                -o "$ORGANIZATION" -n "$package_name" \
+                -u "$home_page" -f "$file"
         fi
     done
 }
+check_future_annotations() {
+    set -e
+    set -o pipefail
+
+    if [ -f .check_ok.txt ]; then
+        rm .check_ok.txt
+    fi
+    if [ -f .check_errors.txt ]; then
+        rm .check_errors.txt
+    fi
+    touch .check_ok.txt
+    touch .check_errors.txt
+
+    # Check for future annotations in Python files
+    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if grep "from __future__" "$file" | grep -q "annotations"; then
+            echo "$file" >>.check_ok.txt
+        else
+            echo "Missing 'from __future__ import annotations' in $file"  >&2
+            echo "$file" >>.check_errors.txt
+        fi
+    done
+
+    local errors
+    errors=$(wc -l < .check_errors.txt)
+
+    rm .check_ok.txt
+    rm .check_errors.txt
+
+    if [ "$errors" -gt 0 ]; then
+        echo "${errors} file(s) are missing future annotations."  >&2
+        return 1
+    fi
+}
+
+check_license_headers() {
+    set -e
+    set -o pipefail
+
+    if [ -f .check_ok.txt ]; then
+        rm .check_ok.txt
+    fi
+    if [ -f .check_errors.txt ]; then
+        rm .check_errors.txt
+    fi
+    touch .check_ok.txt
+    touch .check_errors.txt
+    # Check for license headers in Python files
+    find "${code_directories[@]}" -name "*.py" | while read -r file; do
+        if grep -iq "Copyright (c)" "$file"; then
+            echo "$file" >>.check_ok.txt
+        else
+            echo "Missing license header in $file"
+            grep -i "Copyright (c)" "$file" || true
+            echo "$file" >>.check_errors.txt
+        fi
+    done
+
+    local errors
+    errors=$(wc -l < .check_errors.txt)
+
+    rm .check_ok.txt
+    rm .check_errors.txt
+
+    if [ "$errors" -gt 0 ]; then
+        echo "${errors} file(s) are missing license headers."  >&2
+        return 1
+    fi
+}
+# endregion: Linters and code formatters
+
+# region: Housekeeping
+cleanup() {
+    set -e
+    set -o pipefail
+
+    echo "Stopping services..."  >&2
+    stop_services
+
+    if [ -d .venv ]; then
+        echo "Removing virtual environment..."  >&2
+        rm -rf .venv
+    fi
+
+    if [ -f .env-services ]; then
+        echo "Removing environment file..."  >&2
+        rm -f .env-services
+    fi
+
+    echo "Cleanup completed."  >&2
+}
+
+self_update() {
+    set -euo pipefail
+
+    echo "Updating runner script..."  >&2
+    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/library_runner.sh
+    chmod +x "./.runner-new.sh"
+    if "./.runner-new.sh" check-script-working ; then
+        mv "./.runner-new.sh" "./.runner.sh"
+        echo "Runner script updated successfully."  >&2
+    else
+        echo "New runner script is not working, keeping the old one."  >&2
+        rm "./.runner-new.sh"
+    fi
+    return 0
+}
+# endregion: Housekeeping
+
 
 # run the tools and exit to prevent evaluation after this line in case the script
 # is self updated
