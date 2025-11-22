@@ -8,7 +8,7 @@ name: Release Workflow
 
 on:
   workflow_call:
-    inputs: 
+    inputs:
       skip_tests:
         type: boolean
         default: false
@@ -145,7 +145,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add $file_with_version
-          git commit -m "Bump version to ${{ github.ref_name }}"
+          git commit -m "[skip ci] Bump version to ${{ github.ref_name }}"
           git push
 
       - name: Publish package
