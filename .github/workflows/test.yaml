@@ -74,7 +74,7 @@ jobs:
           path: versions.json
 
   tests:
-    name: Tests
+    name: Tests [editable]
     runs-on: ubuntu-24.04
     needs: extract_dependencies
     if: ${{ inputs.tests_enabled }}
@@ -132,7 +132,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   tests_on_installed:
-    name: Run tests on built & installed package
+    name: Tests [installed]
     runs-on: ubuntu-24.04
     needs: extract_dependencies
     if: ${{ inputs.tests_enabled }}
