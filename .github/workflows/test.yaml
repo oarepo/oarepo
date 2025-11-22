@@ -74,7 +74,7 @@ jobs:
           path: versions.json
 
   tests:
-    name: Run tests on all combinations of Python, OARepo, and Node.js versions
+    name: Tests
     runs-on: ubuntu-24.04
     needs: extract_dependencies
     if: ${{ inputs.tests_enabled }}
@@ -196,9 +196,9 @@ jobs:
   test_javascript:
     name: Run Javascript tests
     runs-on: ubuntu-24.04
-    needs: 
-    - detect_js
-    - extract_dependencies
+    needs:
+      - detect_js
+      - extract_dependencies
     if: ${{ needs.detect_js.outputs.supports_js == 'true' && inputs.tests_enabled }}
     strategy:
       fail-fast: false
