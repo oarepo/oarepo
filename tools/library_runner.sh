@@ -51,9 +51,9 @@ if [ -f setup.cfg ]; then
 fi
 
 get_package_name() {
+    local name
     name=$(
-        cat "pyproject.toml" |
-        egrep '^name' |
+        egrep '^name' "pyproject.toml" |
         head -n 1 |
         sed 's/[^"]*"//' |
         sed 's/".*//'
@@ -68,9 +68,9 @@ get_package_name() {
 }
 
 get_home_page() {
+    local hp
     hp=$(
-        cat "pyproject.toml" |
-        egrep '^Homepage' |
+        egrep '^Homepage' "pyproject.toml" |
         head -n 1 |
         sed 's/[^"]*"//' |
         sed 's/".*//'
@@ -89,7 +89,7 @@ code_directories=()
 if [ -d "src" ]; then
     code_directories+=("src")
 else
-    code_directories+=($(echo ${package_name} | tr '-' '_'))
+    code_directories+=($(echo "${package_name}" | tr '-' '_'))
 fi
 
 if [ -d "tests" ] && [ "${1:-''}" != "jslint" ]; then
@@ -247,7 +247,7 @@ show_help() {
 }
 
 first_oarepo_version() {
-    cat pyproject.toml | egrep '^oarepo[0-9][0-9] *=' | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    egrep '^oarepo[0-9][0-9] *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
 }
 # endregion: Main command dispatcher and help output
 
@@ -276,6 +276,7 @@ list_oarepo_versions() {
 }
 
 get_versions() {
+    local version_string lower_bound upper_bound versions
     version_string=$(echo "$1" | sed 's/.*>=//' | sed 's/".*//')
     lower_bound=$(echo "$version_string" | cut -d',' -f1 | cut -d'.' -f1)
     upper_bound=$(echo "$version_string" | cut -d',' -f2 | cut -d'.' -f1 | sed 's/<//')
@@ -289,6 +290,7 @@ get_versions() {
 }
 
 get_python_versions() {
+    local oarepo_versions python_versions
     oarepo_versions="$1"
     python_versions=()
     if [[ "$oarepo_versions" == *"14"* ]]; then
@@ -306,7 +308,7 @@ get_python_versions() {
 
 # region: Services management
 stop_services() {
-    if [ ! -z "$SKIP_SERVICES" ]; then
+    if [ -n "$SKIP_SERVICES" ]; then
         return 0
     fi
     set -e
@@ -319,15 +321,15 @@ stop_services() {
 }
 
 start_services() {
-    if [ ! -z "$SKIP_SERVICES" ]; then
+    if [ -n "$SKIP_SERVICES" ]; then
         return 0
     fi
     set -e
     set -o pipefail
 
     uvx --with setuptools docker-services-cli up \
-        --db ${DB:-postgresql} --search ${SEARCH:-opensearch} \
-        --mq ${MQ:-rabbitmq} --cache ${CACHE:-redis} --s3 ${S3:-minio} --env \
+        --db "${DB:-postgresql}" --search "${SEARCH:-opensearch}" \
+        --mq "${MQ:-rabbitmq}" --cache "${CACHE:-redis}" --s3 "${S3:-minio}" --env \
     > .env-services
 
     source .env-services
@@ -405,11 +407,11 @@ setup_venv() {
     fi
 
     echo "Setting up virtual environment with Python $PYTHON and oarepo version $OAREPO_VERSION"  >&2
-    uv venv --python=$PYTHON --seed
+    uv venv --python="$PYTHON" --seed
     source .venv/bin/activate
 
     uv pip install setuptools
-    uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$(($OAREPO_VERSION + 1))"
+    uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$((OAREPO_VERSION + 1))"
 
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
@@ -432,10 +434,10 @@ run_command() {
     set -e
     set -o pipefail
 
-    command_name="$1"
+    local command_name="$1"
     shift
 
-    non_processed_args=()
+    local non_processed_args=()
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -451,7 +453,7 @@ run_command() {
     done
 
     setup_venv
-    if [ -z "$SKIP_SERVICES" ]; then
+    if [ -z "${SKIP_SERVICES:-}" ]; then
         start_services
     fi
 
@@ -465,6 +467,7 @@ in_invenio_shell() {
     set -e
     set -o pipefail
 
+    local cmd
     export PYTHON_BASIC_REPL=0
     if [ -t 0 ]; then
         # stdin is a terminal, so take args instead
@@ -492,6 +495,8 @@ run_invenio_cli() {
 run_tests() {
     set -e
     set -o pipefail
+
+    local test_args=()
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -522,11 +527,11 @@ run_tests() {
     # unset all INVENIO_ environment variables to avoid interference with tests
     unset $(env | grep ^INVENIO_ | sed 's/=.*//')
 
-    if [ -z "$SKIP_SERVICES" ]; then
+    if [ -z "${SKIP_SERVICES:-}" ]; then
         start_services
     fi
 
-    if [ ! -z "$WITH_COVERAGE" ]; then
+    if [ -n "$WITH_COVERAGE" ]; then
         echo "Enabling coverage for tests..."  >&2
         uv pip install pytest-cov
         export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-branch --cov-report=json --cov-report=html --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=junit.xml -o junit_family=legacy"
@@ -540,6 +545,8 @@ run_tests() {
 setup_jstests() {
     set -e
     set -o pipefail
+
+    local instance_path assets_path package_root webpack_entries coverage_roots test_roots rdm_dev_dependencies
 
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -560,7 +567,7 @@ setup_jstests() {
 
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
-    package_root=${PWD}
+    package_root="${PWD}"
 
     run_command invenio ${SKIP_SERVICES:+--skip-services} webpack clean create
 
@@ -682,7 +689,7 @@ EOF
     run_command invenio --skip-services webpack install
 
     # Fetch & install testing devDeps from invenio-rdm-records (Jest & friends)
-    rdm_dev_dependencies=$(in_invenio_shell << EOF
+    rdm_dev_dependencies=$(in_invenio_shell <<EOF
 import json
 import pathlib
 import invenio_rdm_records
@@ -701,7 +708,7 @@ print(" ".join(f"{name}@{version}" for name, version in dev_deps.items()))
 EOF
     )
 
-    pnpm add -C $assets_path -w -D $rdm_dev_dependencies
+    pnpm add -C "$assets_path" -w -D $rdm_dev_dependencies
 
     if [ -n "${WITH_STORYBOOK:-}" ]; then
         setup_storybook
@@ -709,9 +716,10 @@ EOF
 }
 
 setup_storybook() {
+    local instance_path assets_path package_root webpack_entries story_paths
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
-    package_root=${PWD}
+    package_root="${PWD}"
 
     pnpm add -C "${assets_path}" -w -D @storybook/addon-docs@^9.1.2 @storybook/addon-webpack5-compiler-swc@^3.0.0 @storybook/react-webpack5@^9.1.2 storybook@^9.1.2 @storybook/test@^8.6.14
 
@@ -818,7 +826,7 @@ run_jstest() {
     set -e
     set -o pipefail
 
-    non_processed_args=()
+    local non_processed_args=()
 
     while [[ $# -gt 0 ]]; do
         if [ "$1" = "setup" ]; then
@@ -846,6 +854,7 @@ run_jstest() {
 get_webpack_entries() {
     set -eo pipefail
 
+    local webpack_entries
     # Figure out asset paths for entries in .venv
     webpack_entries=$(in_invenio_shell <<EOF
 import os
@@ -879,18 +888,19 @@ roots_list = sorted([root for root in common_roots if root])
 print(",".join(roots_list))
 EOF
     )
-    echo -n $webpack_entries
+    echo -n "$webpack_entries"
 }
 
 ensure_npm_script() {
+    local instance_path assets_path package_root script_name script_index
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
-    package_root=${PWD}
+    package_root="${PWD}"
 
-    script_name=$1
+    script_name="$1"
     shift
 
-    script_index=$(pnpm -C "${assets_path}" -c exec "cat package.json | jq -r '(.scripts | keys | index(\"${script_name}\"))'")
+    script_index=$(pnpm -C "${assets_path}" -c exec "jq -r '(.scripts | keys | index(\"${script_name}\"))' package.json")
 
     if [ "${script_index}" == "null" ]; then
         # Ensure script is defined in package.json
@@ -1042,7 +1052,7 @@ EOF
     fi
 
     # Run prettier on only .js/.jsx files within the specified directories
-    node_modules/.bin/prettier $prettier_flag "${code_directories[@]/%//**/*.{js,jsx}}"
+    node_modules/.bin/prettier "$prettier_flag" "${code_directories[@]/%//**/*.{js,jsx}}"
 
     return 0
 }
@@ -1051,6 +1061,7 @@ add_license_headers() {
     set -e
     set -o pipefail
 
+    local current_year home_page
     current_year=$(date +%Y)
     ORGANIZATION=${ORGANIZATION:-"CESNET z.s.p.o"}
     home_page=$(get_home_page)
@@ -1064,11 +1075,11 @@ ${projectname} is free software; you can redistribute it and/or modify it
 under the terms of the MIT License; see LICENSE file for more details.
 EOF
 
-    find ${code_directories[*]} -name "*.py" -not -path "./.venv/*" | while read -r file; do
-        if ! cat $file | grep -iq "Copyright (C)"; then
-            uvx licenseheaders -t /tmp/license-header.txt -y $current_year \
-                -o "$ORGANIZATION" -n $package_name \
-                -u $home_page -f $file
+    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if ! grep -iq "Copyright (C)" "$file"; then
+            uvx licenseheaders -t /tmp/license-header.txt -y "$current_year" \
+                -o "$ORGANIZATION" -n "$package_name" \
+                -u "$home_page" -f "$file"
         fi
     done
 }
@@ -1086,8 +1097,8 @@ check_future_annotations() {
     touch .check_errors.txt
 
     # Check for future annotations in Python files
-    find ${code_directories[@]} -name "*.py" -not -path "./.venv/*" | while read -r file; do
-        if cat $file | grep "from __future__" | grep "annotations" >/dev/null; then
+    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if grep "from __future__" "$file" | grep -q "annotations"; then
             echo "$file" >>.check_ok.txt
         else
             echo "Missing 'from __future__ import annotations' in $file"  >&2
@@ -1095,13 +1106,13 @@ check_future_annotations() {
         fi
     done
 
-    ok=$(wc -l < .check_ok.txt)
+    local errors
     errors=$(wc -l < .check_errors.txt)
 
     rm .check_ok.txt
     rm .check_errors.txt
 
-    if [ $errors -gt 0 ]; then
+    if [ "$errors" -gt 0 ]; then
         echo "${errors} file(s) are missing future annotations."  >&2
         return 1
     fi
@@ -1120,23 +1131,23 @@ check_license_headers() {
     touch .check_ok.txt
     touch .check_errors.txt
     # Check for license headers in Python files
-    find ${code_directories[@]} -name "*.py" | while read -r file; do
-        if cat $file | grep -i "Copyright (c)" >/dev/null; then
+    find "${code_directories[@]}" -name "*.py" | while read -r file; do
+        if grep -iq "Copyright (c)" "$file"; then
             echo "$file" >>.check_ok.txt
         else
             echo "Missing license header in $file"
-            cat $file | grep -i "Copyright (c)"
+            grep -i "Copyright (c)" "$file" || true
             echo "$file" >>.check_errors.txt
         fi
     done
 
-    ok=$(wc -l < .check_ok.txt)
+    local errors
     errors=$(wc -l < .check_errors.txt)
 
     rm .check_ok.txt
     rm .check_errors.txt
 
-    if [ $errors -gt 0 ]; then
+    if [ "$errors" -gt 0 ]; then
         echo "${errors} file(s) are missing license headers."  >&2
         return 1
     fi
