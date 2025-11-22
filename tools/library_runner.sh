@@ -107,8 +107,6 @@ run_tools() {
 
     export FIRST_OAREPO_VERSION=$(first_oarepo_version)
     export OAREPO_VERSION=${OAREPO_VERSION:-${FIRST_OAREPO_VERSION}}
-    export PYTHON_VERSION=${PYTHON_VERSION:-"3.13"}
-    export PYTHON=${PYTHON:-"python${PYTHON_VERSION}"}
     export NO_EDITABLE=${NO_EDITABLE:-""}
     export SKIP_SERVICES=${SKIP_SERVICES:-""}
     export WITH_COVERAGE=${WITH_COVERAGE:-""}
@@ -246,9 +244,8 @@ show_help() {
     echo "  -h, --help        Show this help message"
     echo ""
     echo "Environment variables:"
-    echo "  OAREPO_VERSION    The version of OARepo to use (default: 13)"
-    echo "  PYTHON_VERSION    The Python interpreter to use (default: 3.13)"
-    echo "  PYTHON            The Python executable to use (default: python3.13)"
+    echo "  OAREPO_VERSION    The version of OARepo to use (default: first oarepoXY in pyproject.toml)"
+    echo "  PYTHON            The Python executable to use (default: highest version from oarepo-versions available on system)"
     echo ""
     echo "Housekeeping commands:"
     echo "  self-update       Update the runner script"
@@ -327,21 +324,14 @@ get_versions() {
 get_python_versions() {
     oarepo_versions="$1"
     python_versions=()
-
-    # if there is "12" inside oarepo_versions, return 3.12
-    if [[ "$oarepo_versions" == *"12"* ]]; then
-        python_versions+=("\"3.12\"")
-    # for oarepo 13, return 3.13
-    elif [[ "$oarepo_versions" == *"13"* ]]; then
+    if [[ "$oarepo_versions" == *"14"* ]]; then
         python_versions+=("\"3.13\"")
-    # for oarepo 14, return 3.13
-    elif [[ "$oarepo_versions" == *"14"* ]]; then
-        python_versions+=("\"3.13\"")
+        python_versions+=("\"3.14\"")
     else
         echo "Unknown oarepo version(s) $oarepo_versions, cannot determine python versions." >&2
         exit 1
     fi
-
+    python_versions=$(echo "${python_versions[@]}" | tr ' ' ',' )
     # return concatenated string of python versions as json array of strings
     echo -n "[$python_versions]"
 }
@@ -463,6 +453,35 @@ EOF
     fi
 }
 
+get_highest_available_python() {
+    # Get python versions from oarepo-versions
+    local python_versions=$(list_oarepo_versions | grep -o '"python_versions":[^]]*]' | sed 's/"python_versions"://' | sed 's/[][]//g' | sed 's/"//g' | tr ',' ' ')
+    
+    # Try each version from highest to lowest
+    local highest_version=""
+    local highest_minor=0
+    
+    for version in $python_versions; do
+        # Check if this python version exists on the system
+        if command -v "python${version}" >/dev/null 2>&1; then
+            # Extract minor version number for comparison (e.g., "3.14" -> 14)
+            local minor=$(echo "$version" | cut -d'.' -f2)
+            if [ "$minor" -gt "$highest_minor" ]; then
+                highest_minor=$minor
+                highest_version=$version
+            fi
+        fi
+    done
+    
+    if [ -z "$highest_version" ]; then
+        echo "No compatible Python version found on the system." >&2
+        echo "Available versions according to oarepo-versions: $python_versions" >&2
+        exit 1
+    fi
+    
+    echo "$highest_version"
+}
+
 setup_venv() {
     set -e
     set -o pipefail
@@ -494,6 +513,12 @@ setup_venv() {
 
     if [ -d .venv ] ; then
         return 0
+    fi
+
+    # If PYTHON is set, use it directly. Otherwise, find the highest available version.
+    if [ -z "${PYTHON:-}" ]; then
+        export PYTHON_VERSION=$(get_highest_available_python)
+        export PYTHON="python${PYTHON_VERSION}"
     fi
 
     echo "Setting up virtual environment with Python $PYTHON and oarepo version $OAREPO_VERSION"  >&2
