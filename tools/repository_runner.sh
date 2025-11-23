@@ -141,6 +141,7 @@ show_help() {
     echo ""
     echo "Commands:"
     echo "  install                    Install the repository"
+    echo "  upgrade                    Upgrade the repository (clean cache and reinstall)"
     echo "  services setup             Setup docker services"
     echo "  services start             Start docker services"
     echo "  services stop              Stop docker services"
@@ -232,17 +233,17 @@ run_invenio_cli() {
 }
 
 install_repository() {
+    # TODO: need to sync before the installation as I need to call invenio to register
+    # less components. This should be put directly into the install as an extra step
+    # after the project is installed and before the collect is called.
+    uv sync --python="$PYTHON" 
+
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
 
     echo "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
     echo "Instance path: ${instance_path}"
     echo "Assets path: ${assets_path}"
-
-    # TODO: need to sync before the installation as I need to call invenio to register
-    # less components. This should be put directly into the install as an extra step
-    # after the project is installed and before the collect is called.
-    uv sync --python="$PYTHON" 
     if [ ! -d ${instance_path} ]; then
         echo "Creating instance path: ${instance_path}"
         mkdir -p "${instance_path}"
@@ -266,6 +267,34 @@ install_repository() {
     ) > .invenio.private.tmp
 
     mv .invenio.private.tmp .invenio.private
+}
+
+upgrade_repository() {
+    set -euo pipefail
+
+    echo "Upgrading repository..."
+    
+    # Remove .venv if it exists
+    if [ -d .venv ]; then
+        echo "Removing virtual environment..."
+        rm -rf .venv
+    fi
+    
+    # Remove uv.lock if it exists
+    if [ -f uv.lock ]; then
+        echo "Removing uv.lock..."
+        rm -f uv.lock
+    fi
+    
+    # Clean uv cache
+    echo "Cleaning uv cache..."
+    uv cache clean
+    
+    # Reinstall repository
+    echo "Reinstalling repository..."
+    install_repository
+    
+    echo "Upgrade completed successfully."
 }
 
 model() {
@@ -470,6 +499,10 @@ run() {
                 ;;
             install)
                 install_repository
+                exit 0
+                ;;
+            upgrade)
+                upgrade_repository
                 exit 0
                 ;;
             info)

@@ -120,6 +120,10 @@ run_tools() {
                 setup_venv --force "$@"
                 return 0
                 ;;
+            upgrade)
+                upgrade_environment
+                return 0
+                ;;
             start)
                 start_services
                 return 0
@@ -218,6 +222,7 @@ show_help() {
     echo "  venv              Set up the virtual environment"
     echo "      --no-editable     Do not install the package in editable mode, build it first"
     echo "      --force           Force the creation of the virtual environment, removing any existing one"
+    echo "  upgrade           Upgrade the environment (clean cache and recreate venv)"
     echo "  start             Start the services for testing"
     echo "  stop              Stop the services after testing"
     echo "  test              Run the tests"
@@ -426,6 +431,33 @@ setup_venv() {
         wheel_package=$(ls dist/*.whl | head -n 1)
         uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}]"
     fi
+}
+
+upgrade_environment() {
+    set -e
+    set -o pipefail
+
+    echo "Upgrading environment..."  >&2
+    
+    # Stop services if running
+    echo "Stopping services..."  >&2
+    stop_services || true
+    
+    # Remove .venv if it exists
+    if [ -d .venv ]; then
+        echo "Removing virtual environment..."  >&2
+        rm -rf .venv
+    fi
+    
+    # Clean uv cache
+    echo "Cleaning uv cache..."  >&2
+    uv cache clean
+    
+    # Recreate virtual environment
+    echo "Setting up virtual environment..."  >&2
+    setup_venv --force
+    
+    echo "Upgrade completed successfully."  >&2
 }
 # endregion: Python Virtual Environment Management
 
