@@ -150,6 +150,8 @@ show_help() {
     echo "  model update [model-name] [answers-file] Update an existing record model."
     echo "      Answers file is optional."
     echo "  info                       Show Python version and models information"
+    echo "  local add <path>           Add a local package to tool.uv.sources"
+    echo "  local remove <name|--all>  Remove a local package or all from tool.uv.sources"
     echo "  run                        Run the repository"
     echo "      [--no-services]        Do not start docker services"
     echo "      [--no-celery]          Do not start background tasks"
@@ -158,6 +160,42 @@ show_help() {
     echo "  self-update                Update the runner script to the latest version"
     echo "Options:"
     echo "  --help                     Show this help message"
+}
+
+local_sources_cmd() {
+    set -euo pipefail
+    local subcmd="$1"; shift || true
+    local pyproject="pyproject.toml"
+    if [ ! -f "$pyproject" ]; then
+        echo "pyproject.toml not found in current directory" >&2
+        exit 1
+    fi
+    case "$subcmd" in
+        add)
+            shift
+            if [ $# -lt 1 ]; then
+                echo "Usage: $0 local add <path>" >&2
+                exit 1
+            fi
+            local pkgdir="$1"
+            shift
+            if [ ! -f "$pkgdir/pyproject.toml" ]; then
+                echo "No pyproject.toml in $pkgdir" >&2; exit 1
+            fi
+            uv add "$pkgdir" --editable "$@"
+            upgrade_repository
+        ;;
+        remove)
+            echo "Removing local package from tool.uv.sources is not yet implemented." >&2
+            echo "Please remove them manually from pyproject.toml" >&2
+            echo "and then run ./run.sh upgrade" >&2
+            exit 1
+            ;;
+        *)  
+            echo "Usage: $0 local [add <path>|remove]" >&2
+            exit 1
+            ;;
+    esac
 }
 
 self_update() {
@@ -512,6 +550,11 @@ run() {
             model)
                 shift
                 model "$@"
+                exit 0
+                ;;
+            local)
+                shift
+                local_sources_cmd "$@"
                 exit 0
                 ;;
             services)
