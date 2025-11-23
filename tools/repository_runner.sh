@@ -141,6 +141,7 @@ show_help() {
     echo ""
     echo "Commands:"
     echo "  install                    Install the repository"
+    echo "  upgrade                    Upgrade the repository (clean cache and reinstall)"
     echo "  services setup             Setup docker services"
     echo "  services start             Start docker services"
     echo "  services stop              Stop docker services"
@@ -149,6 +150,8 @@ show_help() {
     echo "  model update [model-name] [answers-file] Update an existing record model."
     echo "      Answers file is optional."
     echo "  info                       Show Python version and models information"
+    echo "  local add <path>           Add a local package to tool.uv.sources"
+    echo "  local remove <name|--all>  Remove a local package or all from tool.uv.sources"
     echo "  run                        Run the repository"
     echo "      [--no-services]        Do not start docker services"
     echo "      [--no-celery]          Do not start background tasks"
@@ -157,6 +160,42 @@ show_help() {
     echo "  self-update                Update the runner script to the latest version"
     echo "Options:"
     echo "  --help                     Show this help message"
+}
+
+local_sources_cmd() {
+    set -euo pipefail
+    local subcmd="$1"; shift || true
+    local pyproject="pyproject.toml"
+    if [ ! -f "$pyproject" ]; then
+        echo "pyproject.toml not found in current directory" >&2
+        exit 1
+    fi
+    case "$subcmd" in
+        add)
+            shift
+            if [ $# -lt 1 ]; then
+                echo "Usage: $0 local add <path>" >&2
+                exit 1
+            fi
+            local pkgdir="$1"
+            shift
+            if [ ! -f "$pkgdir/pyproject.toml" ]; then
+                echo "No pyproject.toml in $pkgdir" >&2; exit 1
+            fi
+            uv add "$pkgdir" --editable "$@"
+            upgrade_repository
+        ;;
+        remove)
+            echo "Removing local package from tool.uv.sources is not yet implemented." >&2
+            echo "Please remove them manually from pyproject.toml" >&2
+            echo "and then run ./run.sh upgrade" >&2
+            exit 1
+            ;;
+        *)  
+            echo "Usage: $0 local [add <path>|remove]" >&2
+            exit 1
+            ;;
+    esac
 }
 
 self_update() {
@@ -232,17 +271,17 @@ run_invenio_cli() {
 }
 
 install_repository() {
+    # TODO: need to sync before the installation as I need to call invenio to register
+    # less components. This should be put directly into the install as an extra step
+    # after the project is installed and before the collect is called.
+    uv sync --python="$PYTHON" 
+
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
 
     echo "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
     echo "Instance path: ${instance_path}"
     echo "Assets path: ${assets_path}"
-
-    # TODO: need to sync before the installation as I need to call invenio to register
-    # less components. This should be put directly into the install as an extra step
-    # after the project is installed and before the collect is called.
-    uv sync --python="$PYTHON" 
     if [ ! -d ${instance_path} ]; then
         echo "Creating instance path: ${instance_path}"
         mkdir -p "${instance_path}"
@@ -266,6 +305,34 @@ install_repository() {
     ) > .invenio.private.tmp
 
     mv .invenio.private.tmp .invenio.private
+}
+
+upgrade_repository() {
+    set -euo pipefail
+
+    echo "Upgrading repository..."
+    
+    # Remove .venv if it exists
+    if [ -d .venv ]; then
+        echo "Removing virtual environment..."
+        rm -rf .venv
+    fi
+    
+    # Remove uv.lock if it exists
+    if [ -f uv.lock ]; then
+        echo "Removing uv.lock..."
+        rm -f uv.lock
+    fi
+    
+    # Clean uv cache
+    echo "Cleaning uv cache..."
+    uv cache clean
+    
+    # Reinstall repository
+    echo "Reinstalling repository..."
+    install_repository
+    
+    echo "Upgrade completed successfully."
 }
 
 model() {
@@ -472,6 +539,10 @@ run() {
                 install_repository
                 exit 0
                 ;;
+            upgrade)
+                upgrade_repository
+                exit 0
+                ;;
             info)
                 show_info
                 exit 0
@@ -479,6 +550,11 @@ run() {
             model)
                 shift
                 model "$@"
+                exit 0
+                ;;
+            local)
+                shift
+                local_sources_cmd "$@"
                 exit 0
                 ;;
             services)
