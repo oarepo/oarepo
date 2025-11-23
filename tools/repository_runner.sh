@@ -41,6 +41,101 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # export INVENIO_CELERY_WORKER_POOL="solo"
 fi
 
+# region: Python version detection
+get_python_versions_from_pyproject() {
+    # Parse requires-python from pyproject.toml to get supported Python versions
+    if [ ! -f pyproject.toml ]; then
+        echo "No pyproject.toml found in the current directory." >&2
+        exit 1
+    fi
+    
+    local requires_python
+    requires_python=$(grep 'requires-python' pyproject.toml | head -n 1 || echo "")
+    
+    if [ -z "$requires_python" ]; then
+        echo "No 'requires-python' field found in pyproject.toml." >&2
+        exit 1
+    fi
+    
+    # Extract version constraints (e.g., ">=3.12,<3.15" or ">=3.12")
+    local version_string
+    version_string=$(echo "$requires_python" | sed 's/.*>=//' | sed 's/["<].*//')
+    
+    local lower_bound
+    lower_bound=$(echo "$version_string" | cut -d',' -f1 | sed 's/3\.//')
+    
+    # Check if there's an upper bound
+    local upper_bound
+    if echo "$requires_python" | grep -q '<'; then
+        upper_bound=$(echo "$requires_python" | sed 's/.*<//' | sed 's/".*//' | sed 's/3\.//')
+        upper_bound=$((upper_bound - 1))
+    else
+        echo "No upper bound found; please add <3.15 into the requires-python field in pyproject.toml." >&2
+        exit 1
+    fi
+    
+    # Generate list of versions
+    local versions=()
+    for minor in $(seq "$lower_bound" "$upper_bound"); do
+        versions+=("3.$minor")
+    done
+    
+    echo "${versions[@]}"
+}
+
+get_highest_available_python() {
+    # Get python versions from pyproject.toml
+    local python_versions
+    python_versions=$(get_python_versions_from_pyproject)
+    
+    # Temporarily deactivate virtual environment if active to check system Python versions
+    local was_in_venv=0
+    local old_path="$PATH"
+    if [ -n "${VIRTUAL_ENV:-}" ]; then
+        was_in_venv=1
+        # Remove venv paths from PATH
+        PATH=$(echo "$PATH" | tr ':' '\n' | grep -v "$VIRTUAL_ENV" | tr '\n' ':' | sed 's/:$//')
+        unset VIRTUAL_ENV
+    fi
+    
+    # Try each version from highest to lowest
+    local highest_version=""
+    local highest_minor=0
+    
+    for version in $python_versions; do
+        # Check if this python version exists on the system
+        if command -v "python${version}" >/dev/null 2>&1; then
+            # Extract minor version number for comparison (e.g., "3.14" -> 14)
+            local minor
+            minor=$(echo "$version" | cut -d'.' -f2)
+            if [ "$minor" -gt "$highest_minor" ]; then
+                highest_minor=$minor
+                highest_version=$version
+            fi
+        fi
+    done
+    
+    # Restore PATH if we modified it
+    if [ "$was_in_venv" -eq 1 ]; then
+        PATH="$old_path"
+    fi
+    
+    if [ -z "$highest_version" ]; then
+        echo "No compatible Python version found on the system." >&2
+        echo "Required versions according to pyproject.toml: $python_versions" >&2
+        echo "Please install one of the required Python versions." >&2
+        exit 1
+    fi
+    
+    echo "python${highest_version}"
+}
+
+# Detect and set Python version
+if [ -z "${PYTHON:-}" ]; then
+    export PYTHON=$(get_highest_available_python)
+fi
+# endregion: Python version detection
+
 show_help() {
     echo "Usage: run.sh command [options]"
     echo ""
@@ -53,6 +148,7 @@ show_help() {
     echo "      Config file is optional."
     echo "  model update [model-name] [answers-file] Update an existing record model."
     echo "      Answers file is optional."
+    echo "  info                       Show Python version and models information"
     echo "  run                        Run the repository"
     echo "      [--no-services]        Do not start docker services"
     echo "      [--no-celery]          Do not start background tasks"
@@ -79,6 +175,34 @@ self_update() {
     return 0    
 }
 
+show_info() {
+    set -euo pipefail
+
+    echo "Python version: $PYTHON"
+    "$PYTHON" --version
+    echo ""
+    echo "Models:"
+    
+    # Find all directories containing .copier-answers.yml
+    local found_models=0
+    for dir in */; do
+        if [ -f "${dir}.copier-answers.yml" ] && [ -f "${dir}model.py" ]; then
+            found_models=1
+            local model_name="${dir%/}"
+            
+            # Extract version from model.py
+            local version
+            version=$(grep -E 'version\s*=\s*["\x27]' "${dir}model.py" | head -n 1 | sed -E 's/.*version\s*=\s*["\x27]([^"\x27]+)["\x27].*/\1/' || echo "unknown")
+            
+            echo "  - $model_name: $version"
+        fi
+    done
+    
+    if [ "$found_models" -eq 0 ]; then
+        echo "  No models found."
+    fi
+}
+
 
 # shellcheck disable=SC2120
 in_invenio_shell() {
@@ -101,7 +225,7 @@ run_invenio_cli() {
     set -euo pipefail
 
     # temporary implementation until release
-    uvx \
+    uvx --python="$PYTHON" \
         --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
         --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
         invenio-cli "$@"
@@ -118,7 +242,7 @@ install_repository() {
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
-    uv sync
+    uv sync --python="$PYTHON" 
     if [ ! -d ${instance_path} ]; then
         echo "Creating instance path: ${instance_path}"
         mkdir -p "${instance_path}"
@@ -177,13 +301,13 @@ create_model() {
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-            uvx --with tomli --with tomli-w --with copier-templates-extensions \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
                 -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
         else
             echo "Using local template: ${MODEL_TEMPLATE}"
-            uvx --with tomli --with tomli-w --with copier-templates-extensions \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust \
                 -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
@@ -200,13 +324,13 @@ create_model() {
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-            uvx --with tomli --with tomli-w --with copier-templates-extensions \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
                 --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         else
             echo "Using local template: ${MODEL_TEMPLATE}"
-            uvx --with tomli --with tomli-w --with copier-templates-extensions\
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions\
                 copier copy --trust\
                 --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
@@ -255,7 +379,7 @@ update_model() {
 
 
     echo "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
-    uvx --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
+    uvx --python="$PYTHON" --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
         copier update --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} --conflict inline \
         --answers-file "${answers_file}" 
 
@@ -346,6 +470,10 @@ run() {
                 ;;
             install)
                 install_repository
+                exit 0
+                ;;
+            info)
+                show_info
                 exit 0
                 ;;
             model)
