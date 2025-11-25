@@ -262,14 +262,13 @@ list_oarepo_versions() {
     # "oarepo[rdm,tests]>=13.0.0,<15.0.0" line to get the version of oarepo.
     # return 13,14 in this case
     if [ -f pyproject.toml ]; then
-        oarepo_version_string=$(grep 'oarepo\[rdm,tests\]' pyproject.toml | head -n 1)
         echo -n "{"
         echo -n "\"oarepo_versions\": "
-        get_versions "$oarepo_version_string"
+        get_oarepo_versions
         echo -n ", "
         echo -n "\"python_versions\": "
         python_version_string=$(grep 'requires-python' pyproject.toml | head -n 1)
-        get_python_versions $(get_versions "$oarepo_version_string")
+        get_python_versions $(get_oarepo_versions)
         echo -n ", "
         echo -n "\"node_versions\": [\"24\"]"
         echo "}"
@@ -280,19 +279,12 @@ list_oarepo_versions() {
     fi
 }
 
-get_versions() {
-    local version_string lower_bound upper_bound versions
-    version_string=$(echo "$1" | sed 's/.*>=//' | sed 's/".*//')
-    lower_bound=$(echo "$version_string" | cut -d',' -f1 | cut -d'.' -f1)
-    upper_bound=$(echo "$version_string" | cut -d',' -f2 | cut -d'.' -f1 | sed 's/<//')
-    if [ -z "$upper_bound" ]; then
-        upper_bound=$((lower_bound + 1))
-    fi
-    upper_bound=$((upper_bound - 1))
-    versions=$(seq "$lower_bound" "$upper_bound")
-    versions=$(echo "$versions" | sed 's/^/"/' | sed 's/$/"/' | tr '\n' ',' | sed 's/,$//')
+get_oarepo_versions()
+{
+    versions=$(egrep "^oarepo[0-9]{2} =" pyproject.toml | sed "s/oarepo\([0-9][0-9]\) =.*/\"\1\"/" | sort -n |tr '\n' ',' | sed 's/,$//')
     echo -n "[$versions]"
 }
+
 
 get_python_versions() {
     local oarepo_versions python_versions
