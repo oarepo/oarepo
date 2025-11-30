@@ -252,7 +252,7 @@ show_help() {
 }
 
 first_oarepo_version() {
-    egrep '^oarepo[0-9][0-9] *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    egrep '^oarepo[0-9][0-9]\s*=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/\s*=.*//'
 }
 # endregion: Main command dispatcher and help output
 
@@ -281,7 +281,7 @@ list_oarepo_versions() {
 
 get_oarepo_versions()
 {
-    versions=$(egrep "^oarepo[0-9]{2} =" pyproject.toml | sed "s/oarepo\([0-9][0-9]\) =.*/\"\1\"/" | sort -n |tr '\n' ',' | sed 's/,$//')
+    versions=$(egrep "^oarepo[0-9]{2}\s*=" pyproject.toml | sed "s/oarepo\([0-9][0-9]\)\s*=.*/\"\1\"/" | sort -n |tr '\n' ',' | sed 's/,$//')
     echo -n "[$versions]"
 }
 
