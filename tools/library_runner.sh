@@ -252,7 +252,7 @@ show_help() {
 }
 
 first_oarepo_version() {
-    egrep '^oarepo[0-9][0-9] *=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/ *=.*//'
+    egrep '^oarepo[0-9][0-9]\s*=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/\s*=.*//'
 }
 # endregion: Main command dispatcher and help output
 
