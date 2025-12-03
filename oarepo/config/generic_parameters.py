@@ -32,7 +32,9 @@ def configure_generic_parameters(
         "content_security_policy": {
             "default-src": [
                 "'self'",
-                "data:", # for fonts
+                "fonts.googleapis.com",  # for fonts
+                "*.gstatic.com",  # for fonts
+                "data:",  # for fonts
                 "'unsafe-inline'",  # for inline scripts and styles
                 "blob:",            # for pdf preview
                 # Add your own policies here (e.g. analytics)
