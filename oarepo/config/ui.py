@@ -13,6 +13,7 @@ def configure_ui(
     code="myrepo",
     name=_("My Repository"),
     description="",
+    support_contact=""
     use_default_frontpage=False,
     show_frontpage_intro=True,
     analytics=False,
@@ -76,6 +77,7 @@ def configure_ui(
     THEME_SHOW_FRONTPAGE_INTRO_SECTION = show_frontpage_intro
     REPOSITORY_NAME = name
     REPOSITORY_DESCRIPTION = description
+    REPOSITORY_SUPPORT_CONTACT = support_contact
 
     # Build pipeline config
     JAVASCRIPT_PACKAGES_MANAGER = "pnpm"
