@@ -14,6 +14,7 @@ def configure_ui(
     name=_("My Repository"),
     subtitle="",
     description="",
+    support_contact="",
     keywords="",
     use_default_frontpage=False,
     show_frontpage_intro=True,
@@ -80,6 +81,7 @@ def configure_ui(
     # SEO & Front-page information
     REPOSITORY_NAME = name
     REPOSITORY_DESCRIPTION = description
+    REPOSITORY_SUPPORT_CONTACT = support_contact
     REPOSITORY_SUBTITLE = subtitle
     REPOSITORY_KEYWORDS = keywords
 
