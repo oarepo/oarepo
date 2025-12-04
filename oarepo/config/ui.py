@@ -12,8 +12,10 @@ if TYPE_CHECKING:
 def configure_ui(
     code="myrepo",
     name=_("My Repository"),
+    subtitle="",
     description="",
     support_contact=""
+    keywords="",
     use_default_frontpage=False,
     show_frontpage_intro=True,
     analytics=False,
@@ -75,9 +77,13 @@ def configure_ui(
     THEME_SITENAME = _(name)
     THEME_FRONTPAGE_TITLE = name
     THEME_SHOW_FRONTPAGE_INTRO_SECTION = show_frontpage_intro
+
+    # SEO & Front-page information
     REPOSITORY_NAME = name
     REPOSITORY_DESCRIPTION = description
     REPOSITORY_SUPPORT_CONTACT = support_contact
+    REPOSITORY_SUBTITLE = subtitle
+    REPOSITORY_KEYWORDS = keywords
 
     # Build pipeline config
     JAVASCRIPT_PACKAGES_MANAGER = "pnpm"
