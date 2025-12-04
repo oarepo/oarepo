@@ -14,7 +14,7 @@ def configure_ui(
     name=_("My Repository"),
     subtitle="",
     description="",
-    support_contact=""
+    support_contact="",
     keywords="",
     use_default_frontpage=False,
     show_frontpage_intro=True,
