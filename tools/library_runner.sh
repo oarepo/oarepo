@@ -89,7 +89,27 @@ code_directories=()
 if [ -d "src" ]; then
     code_directories+=("src")
 else
-    code_directories+=($(echo "${package_name}" | tr '-' '_'))
+    top_level=$(echo "${package_name}" | tr '-' '_')
+    if [ -d "${top_level}" ]; then
+        code_directories+=("${top_level}")
+    else
+        # check [tool.hatch.build.targets.wheel] packages = ["oarepo_oaipmh_harvester"]
+
+        if grep -q '^\[tool.hatch.build.targets.wheel\]' pyproject.toml; then
+            top_level=$(
+                cat pyproject.toml | 
+                tr '\n' '$$$' | 
+                sed 's/.*\[tool.hatch.build.targets.wheel\]//' | 
+                tr '$$$' '\n' | 
+                grep '^packages' | 
+                sed 's/packages *= *\[ *"//' | sed 's/".*//'
+            )
+            code_directories+=("${top_level}")
+        else
+            echo "No src/ or ${top_level}/ directory found, please ensure your package structure is correct."  >&2
+            exit 1
+        fi
+    fi
 fi
 
 if [ -d "tests" ] && [ "${1:-''}" != "jslint" ]; then
