@@ -158,6 +158,10 @@ show_help() {
     echo "  cli [subcommand]           Run the invenio-cli command"
     echo
     echo "  self-update                Update the runner script to the latest version"
+    echo "  translations init <lang>   Initialize backend translations for the given language"
+    echo "  translations extract       Extract backend translations"
+    echo "  translations compile       Compile backend translations"
+    echo "  jstranslations extract     Extract frontend (JS) translations"
     echo "Options:"
     echo "  --help                     Show this help message"
 }
@@ -326,7 +330,7 @@ upgrade_repository() {
     
     # Clean uv cache
     echo "Cleaning uv cache..."
-    uv cache clean
+    uv cache clean --force
     
     # Reinstall repository
     echo "Reinstalling repository..."
@@ -480,13 +484,102 @@ services() {
     done
 }
 
+compile_be_translations() {
+    set -euo pipefail
+
+    source .venv/bin/activate
+    run_invenio_cli translations compile
+}
+
+extract_be_translations() {
+    set -euo pipefail
+
+    source .venv/bin/activate
+    run_invenio_cli translations extract
+}
+
+initialize_be_translations() {
+    set -euo pipefail
+
+    if [ $# -eq 0 ]; then
+        echo "Language code is required."
+        echo "Usage: ./run.sh translations init <language-code>"
+        echo "Example: ./run.sh translations init cs"
+        exit 1
+    fi
+
+    source .venv/bin/activate
+    run_invenio_cli translations init -l "$1"
+}
+
+extract_js_translations() {
+    set -euo pipefail
+    cd i18n/semantic-ui/translations
+    npm install
+    npm run extract_messages
+}
+
+translations() {
+    set -euo pipefail
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            init)
+                shift
+                initialize_be_translations "$@"
+                return 0
+                ;;
+            extract)
+                shift
+                extract_be_translations
+                return 0
+                ;;
+            compile)
+                shift
+                compile_be_translations
+                return 0
+                ;;
+            *)
+                echo "Unknown translations option: $1"
+                echo "Usage: ./run.sh translations [init <lang>|extract|compile]"
+                exit 1
+                ;;
+        esac
+    done
+
+    echo "Usage: ./run.sh translations [init <lang>|extract|compile]"
+    exit 1
+}
+
+jstranslations() {
+    set -euo pipefail
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            extract)
+                shift
+                extract_js_translations
+                return 0
+                ;;
+            *)
+                echo "Unknown jstranslations option: $1"
+                echo "Usage: ./run.sh jstranslations extract"
+                exit 1
+                ;;
+        esac
+    done
+
+    echo "Usage: ./run.sh jstranslations extract"
+    exit 1
+}
+
+
 run_server() {
     set -euo pipefail
 
     no_services=0
     no_celery=0
     extra_options=()
-
     export INVENIO_SITE_CERT_PATH="$PWD/docker/development.crt"
     export INVENIO_SITE_KEY_PATH="$PWD/docker/development.key"
 
@@ -541,6 +634,16 @@ run() {
                 ;;
             upgrade)
                 upgrade_repository
+                exit 0
+                ;;
+            translations)
+                shift
+                translations "$@"
+                exit 0
+                ;;
+            jstranslations)
+                shift
+                jstranslations "$@"
                 exit 0
                 ;;
             info)
