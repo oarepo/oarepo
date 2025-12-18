@@ -160,6 +160,7 @@ show_help() {
     echo "  self-update                Update the runner script to the latest version"
     echo "  translations init <lang>   Initialize backend translations for the given language"
     echo "  translations extract       Extract backend translations"
+    echo "  translations update        Update backend translations"
     echo "  translations compile       Compile backend translations"
     echo "  jstranslations extract     Extract frontend (JS) translations"
     echo "Options:"
@@ -498,6 +499,13 @@ extract_be_translations() {
     run_invenio_cli translations extract
 }
 
+update_be_translations() {
+    set -euo pipefail
+
+    source .venv/bin/activate
+    run_invenio_cli translations update
+}
+
 initialize_be_translations() {
     set -euo pipefail
 
@@ -534,6 +542,11 @@ translations() {
                 extract_be_translations
                 return 0
                 ;;
+            update)
+                shift
+                update_be_translations
+                return 0
+                ;;
             compile)
                 shift
                 compile_be_translations
@@ -541,13 +554,13 @@ translations() {
                 ;;
             *)
                 echo "Unknown translations option: $1"
-                echo "Usage: ./run.sh translations [init <lang>|extract|compile]"
+                echo "Usage: ./run.sh translations [init <lang>|extract|update|compile]"
                 exit 1
                 ;;
         esac
     done
 
-    echo "Usage: ./run.sh translations [init <lang>|extract|compile]"
+    echo "Usage: ./run.sh translations [init <lang>|extract|update|compile]"
     exit 1
 }
 
