@@ -310,6 +310,9 @@ install_repository() {
     ) > .invenio.private.tmp
 
     mv .invenio.private.tmp .invenio.private
+
+    # Install translations and compile them
+    run_invenio_cli install translations compile
 }
 
 upgrade_repository() {
