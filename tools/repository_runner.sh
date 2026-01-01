@@ -138,6 +138,10 @@ fi
 
 activate_venv() {
     local venv_path="${UV_PROJECT_ENVIRONMENT:-.venv}"
+    if [ ! -d "$venv_path" ]; then
+        echo "Virtual environment not found at $venv_path. Please run './run.sh install' first." >&2
+        exit 1
+    fi
     source "$venv_path/bin/activate"
 }
 
@@ -493,21 +497,21 @@ services() {
 compile_be_translations() {
     set -euo pipefail
 
-    source activate_venv
+    activate_venv
     run_invenio_cli translations compile
 }
 
 extract_be_translations() {
     set -euo pipefail
 
-    source activate_venv
+    activate_venv
     run_invenio_cli translations extract
 }
 
 update_be_translations() {
     set -euo pipefail
 
-    source activate_venv
+    activate_venv
     run_invenio_cli translations update
 }
 
@@ -521,7 +525,7 @@ initialize_be_translations() {
         exit 1
     fi
 
-    source activate_venv
+    activate_venv
     run_invenio_cli translations init -l "$1"
 }
 
@@ -628,14 +632,14 @@ run_server() {
     else
         export FLASK_DEBUG=1 
         export PYTHONWARNINGS=ignore
-        source activate_venv
+        activate_venv
         invenio run --cert ./docker/development.crt --key ./docker/development.key ${extra_options[@]}
     fi
 }
 
 run_invenio() {
     export PYTHONWARNINGS=ignore
-    source activate_venv
+    activate_venv
     invenio "$@"
 }
 
