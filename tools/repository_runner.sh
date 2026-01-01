@@ -136,6 +136,11 @@ if [ -z "${PYTHON:-}" ]; then
 fi
 # endregion: Python version detection
 
+activate_venv() {
+    local venv_path="${UV_PROJECT_ENVIRONMENT:-.venv}"
+    source "$venv_path/bin/activate"
+}
+
 show_help() {
     echo "Usage: run.sh command [options]"
     echo ""
@@ -488,21 +493,21 @@ services() {
 compile_be_translations() {
     set -euo pipefail
 
-    if [ -d .venv ] ; then source .venv/bin/activate ; fi
+    source activate_venv
     run_invenio_cli translations compile
 }
 
 extract_be_translations() {
     set -euo pipefail
 
-    if [ -d .venv ] ; then source .venv/bin/activate ; fi
+    source activate_venv
     run_invenio_cli translations extract
 }
 
 update_be_translations() {
     set -euo pipefail
 
-    if [ -d .venv ] ; then source .venv/bin/activate ; fi
+    source activate_venv
     run_invenio_cli translations update
 }
 
@@ -516,7 +521,7 @@ initialize_be_translations() {
         exit 1
     fi
 
-    if [ -d .venv ] ; then source .venv/bin/activate ; fi
+    source activate_venv
     run_invenio_cli translations init -l "$1"
 }
 
@@ -623,14 +628,14 @@ run_server() {
     else
         export FLASK_DEBUG=1 
         export PYTHONWARNINGS=ignore
-        if [ -d .venv ] ; then source .venv/bin/activate ; fi
+        source activate_venv
         invenio run --cert ./docker/development.crt --key ./docker/development.key ${extra_options[@]}
     fi
 }
 
 run_invenio() {
     export PYTHONWARNINGS=ignore
-    if [ -d .venv ] ; then source .venv/bin/activate ; fi
+    source activate_venv
     invenio "$@"
 }
 
