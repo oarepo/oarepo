@@ -488,21 +488,21 @@ services() {
 compile_be_translations() {
     set -euo pipefail
 
-    source .venv/bin/activate
+    if [ -d .venv ] ; then source .venv/bin/activate ; fi
     run_invenio_cli translations compile
 }
 
 extract_be_translations() {
     set -euo pipefail
 
-    source .venv/bin/activate
+    if [ -d .venv ] ; then source .venv/bin/activate ; fi
     run_invenio_cli translations extract
 }
 
 update_be_translations() {
     set -euo pipefail
 
-    source .venv/bin/activate
+    if [ -d .venv ] ; then source .venv/bin/activate ; fi
     run_invenio_cli translations update
 }
 
@@ -516,7 +516,7 @@ initialize_be_translations() {
         exit 1
     fi
 
-    source .venv/bin/activate
+    if [ -d .venv ] ; then source .venv/bin/activate ; fi
     run_invenio_cli translations init -l "$1"
 }
 
@@ -623,14 +623,14 @@ run_server() {
     else
         export FLASK_DEBUG=1 
         export PYTHONWARNINGS=ignore
-        source .venv/bin/activate
+        if [ -d .venv ] ; then source .venv/bin/activate ; fi
         invenio run --cert ./docker/development.crt --key ./docker/development.key ${extra_options[@]}
     fi
 }
 
 run_invenio() {
     export PYTHONWARNINGS=ignore
-    source .venv/bin/activate
+    if [ -d .venv ] ; then source .venv/bin/activate ; fi
     invenio "$@"
 }
 
