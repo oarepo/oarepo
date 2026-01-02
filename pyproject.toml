@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.0.18"
+version = "14.0.19"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
@@ -233,7 +233,7 @@ dependencies = [ "aiobotocore==2.26.0",
      "pdbpp==0.11.7",
      "pexpect==4.9.0",
      "pikepdf==9.11.0",
-     "pillow==12.0.0",
+     "pillow==12.1.0",
      "pip==25.3",
      "platformdirs==4.5.1",
      "pluggy==1.6.0",
@@ -324,7 +324,7 @@ dependencies = [ "aiobotocore==2.26.0",
      "tzdata==2025.3",
      "tzlocal==5.3.1",
      "ua-parser==1.0.1",
-     "ua-parser-builtins==0.18.0.post1",
+     "ua-parser-builtins==202601",
      "uritemplate==4.2.0",
      "uritools==6.0.1",
      "urllib3==2.6.2",
