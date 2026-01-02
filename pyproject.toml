@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.0.19"
+version = "14.0.20"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [ "oarepo",
      "invenio",
@@ -127,7 +127,7 @@ dependencies = [ "aiobotocore==2.26.0",
      "intervals==0.9.2",
      "invenio-access==4.2.1",
      "invenio-accounts==6.2.1",
-     "invenio-administration==4.3.1.766565",
+     "invenio-administration==4.3.1.847151",
      "invenio-app==2.3.0",
      "invenio-assets==4.2.0.377295",
      "invenio-audit-logs==0.3.2",
