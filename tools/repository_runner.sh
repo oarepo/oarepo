@@ -319,6 +319,9 @@ install_repository() {
     ) > .invenio.private.tmp
 
     mv .invenio.private.tmp .invenio.private
+
+    # compile translations after installation so that they are symlinked correctly
+    compile_be_translations
 }
 
 upgrade_repository() {
