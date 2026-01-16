@@ -36,11 +36,13 @@ def configure_generic_parameters(
                 "*.gstatic.com",  # for fonts
                 "data:",  # for fonts
                 "'unsafe-inline'",  # for inline scripts and styles
-                "blob:",            # for pdf preview
+                "blob:",  # for pdf preview
                 # Add your own policies here (e.g. analytics)
             ],
             "script-src": [
-                "'self'", "blob:", "'wasm-unsafe-eval'"  # for WASM-based workers
+                "'self'",
+                "blob:",
+                "'wasm-unsafe-eval'",  # for WASM-based workers
                 # Multipart file uploads use a Web Worker running `hash-wasm` to compute content checksums
                 # (e.g., MD5) of uploaded parts. This requires both 'blob:' and 'wasm-unsafe-eval' enabled in `script-src`.
             ],
@@ -230,16 +232,18 @@ def configure_generic_parameters(
     def is_scopus_id(identifier):
         return identifier.replace(".0", "").isdigit()
 
+    from invenio_vocabularies import config as vocab_config
+
     VOCABULARIES_NAMES_SCHEMES = {
-        "orcid": {"label": "ORCID", "validator": idutils.is_orcid},
+        **vocab_config.VOCABULARIES_NAMES_SCHEMES,
         "vedidk": {"label": "VEDIDK", "validator": is_vedidk},
         "scopusId": {"label": "Scopus ID", "validator": is_scopus_id},
         "researcherId": {"label": "Researcher ID", "validator": is_researcher_id},
     }
 
-    # List of funders is curated, validators are not needed.
+    # adding crossrefFunderId to funder schemes
     VOCABULARIES_FUNDER_SCHEMES = {
-        "ror": {"label": "ROR", "validator": lambda identifier: True},
+        **vocab_config.VOCABULARIES_FUNDER_SCHEMES,
         "crossrefFunderId": {
             "label": "CrossrefFunderID",
             "validator": lambda identifier: True,
@@ -248,12 +252,15 @@ def configure_generic_parameters(
 
     # List of affiliations is curated, validators are not needed.
     VOCABULARIES_AFFILIATION_SCHEMES = {
-        "ror": {"label": "ROR", "validator": lambda identifier: True},
+        **vocab_config.VOCABULARIES_AFFILIATION_SCHEMES,
         "ico": {"label": "ICO", "validator": lambda identifier: True},
         "url": {"label": "URL", "validator": lambda identifier: True},
     }
+
+    from invenio_rdm_records import config as rdm_config
+
     RDM_RECORDS_PERSONORG_SCHEMES = {
-        "orcid": {"label": _("ORCID"), "validator": idutils.is_orcid},
+        **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
         "scopusId": {"label": _("ScopusID"), "validator": is_scopus_id},
         "researcherId": {"label": _("ResearcherID"), "validator": is_researcher_id},
         "czenasAutId": {
@@ -265,18 +272,14 @@ def configure_generic_parameters(
             "label": _("InstitutionalID"),
             "validator": lambda identifier: True,
         },
-        "isni": {"label": _("ISNI"), "validator": idutils.is_isni},
-        "ror": {"label": _("ROR"), "validator": idutils.is_ror},
         "ico": {"label": _("ICO"), "validator": lambda identifier: True},
         "doi": {"label": _("DOI"), "validator": idutils.is_doi},
         "url": {"label": _("URL"), "validator": lambda identifier: True},
     }
 
     RDM_RECORDS_IDENTIFIERS_SCHEMES = {
-        "doi": {"label": _("DOI"), "validator": idutils.is_doi},
-        "isbn": {"label": _("ISBN"), "validator": idutils.is_isbn},
+        **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
     }
-
     FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
 
     APP_RDM_DEPOSIT_FORM_QUOTA = {
