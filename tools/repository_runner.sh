@@ -34,11 +34,8 @@ export UV_PROJECT_ENVIRONMENT=${UV_PROJECT_ENVIRONMENT:-".venv"}
 
 # MacOS workaround for crashing celery workers
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export INVENIO_CELERY_WORKER_POOL=threads
-    export INVENIO_CELERY_WORKER_CONCURRENCY=4
-    # alternative:
-    # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
-    # export INVENIO_CELERY_WORKER_POOL="solo"
+    export INVENIO_CELERY_WORKER_POOL=${INVENIO_CELERY_WORKER_POOL:-threads}
+    export INVENIO_CELERY_WORKER_CONCURRENCY=${INVENIO_CELERY_WORKER_CONCURRENCY:-10}
 fi
 
 # region: Python version detection
