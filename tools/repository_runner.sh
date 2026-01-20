@@ -38,11 +38,37 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export INVENIO_CELERY_WORKER_CONCURRENCY=${INVENIO_CELERY_WORKER_CONCURRENCY:-10}
 fi
 
+# region: Colored echo functions
+echo_progress() {
+    echo -e "\033[0;37m→ $*\033[0m"
+}
+
+echo_success() {
+    echo
+    echo -e "\033[0;32m✓ $*\033[0m"
+}
+
+echo_warning() {
+    echo
+    echo -e "\033[0;33m⚠ $*\033[0m"
+}
+
+echo_error() {
+    echo
+    echo -e "\033[0;31m✗ $*\033[0m" >&2
+}
+
+echo_user() {
+    echo
+    echo -e "\033[0;36m➜ $*\033[0m"
+}
+# endregion: Colored echo functions
+
 # region: Python version detection
 get_python_versions_from_pyproject() {
     # Parse requires-python from pyproject.toml to get supported Python versions
     if [ ! -f pyproject.toml ]; then
-        echo "No pyproject.toml found in the current directory." >&2
+        echo_error "No pyproject.toml found in the current directory."
         exit 1
     fi
     
@@ -50,7 +76,7 @@ get_python_versions_from_pyproject() {
     requires_python=$(grep 'requires-python' pyproject.toml | head -n 1 || echo "")
     
     if [ -z "$requires_python" ]; then
-        echo "No 'requires-python' field found in pyproject.toml." >&2
+        echo_error "No 'requires-python' field found in pyproject.toml."
         exit 1
     fi
     
@@ -67,7 +93,7 @@ get_python_versions_from_pyproject() {
         upper_bound=$(echo "$requires_python" | sed 's/.*<//' | sed 's/".*//' | sed 's/3\.//')
         upper_bound=$((upper_bound - 1))
     else
-        echo "No upper bound found; please add <3.15 into the requires-python field in pyproject.toml." >&2
+        echo_error "No upper bound found; please add <3.15 into the requires-python field in pyproject.toml."
         exit 1
     fi
     
@@ -118,9 +144,9 @@ get_highest_available_python() {
     fi
     
     if [ -z "$highest_version" ]; then
-        echo "No compatible Python version found on the system." >&2
-        echo "Required versions according to pyproject.toml: $python_versions" >&2
-        echo "Please install one of the required Python versions." >&2
+        echo_error "No compatible Python version found on the system."
+        echo_error "Required versions according to pyproject.toml: $python_versions"
+        echo_user "Please install one of the required Python versions."
         exit 1
     fi
     
@@ -136,7 +162,8 @@ fi
 activate_venv() {
     local venv_path="${UV_PROJECT_ENVIRONMENT:-.venv}"
     if [ ! -d "$venv_path" ]; then
-        echo "Virtual environment not found at $venv_path. Please run './run.sh install' first." >&2
+        echo_error "Virtual environment not found at $venv_path."
+        echo_user "Please run './run.sh install' first."
         exit 1
     fi
     source "$venv_path/bin/activate"
@@ -181,32 +208,32 @@ local_sources_cmd() {
     local subcmd="$1"; shift || true
     local pyproject="pyproject.toml"
     if [ ! -f "$pyproject" ]; then
-        echo "pyproject.toml not found in current directory" >&2
+        echo_error "pyproject.toml not found in current directory"
         exit 1
     fi
     case "$subcmd" in
         add)
             shift
             if [ $# -lt 1 ]; then
-                echo "Usage: $0 local add <path>" >&2
+                echo_error "Usage: $0 local add <path>"
                 exit 1
             fi
             local pkgdir="$1"
             shift
             if [ ! -f "$pkgdir/pyproject.toml" ]; then
-                echo "No pyproject.toml in $pkgdir" >&2; exit 1
+                echo_error "No pyproject.toml in $pkgdir"; exit 1
             fi
             uv add "$pkgdir" --editable "$@"
             upgrade_repository
         ;;
         remove)
-            echo "Removing local package from tool.uv.sources is not yet implemented." >&2
-            echo "Please remove them manually from pyproject.toml" >&2
-            echo "and then run ./run.sh upgrade" >&2
+            echo_warning "Removing local package from tool.uv.sources is not yet implemented."
+            echo_user "Please remove them manually from pyproject.toml"
+            echo_user "and then run ./run.sh upgrade"
             exit 1
             ;;
         *)  
-            echo "Usage: $0 local [add <path>|remove]" >&2
+            echo_error "Usage: $0 local [add <path>|remove]"
             exit 1
             ;;
     esac
@@ -215,14 +242,14 @@ local_sources_cmd() {
 self_update() {
     set -euo pipefail
 
-    echo "Updating runner script..."
+    echo_progress "Updating runner script..."
     curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/repository_runner.sh
     chmod +x "./.runner-new.sh"
     if "./.runner-new.sh" check-script-working ; then
         mv "./.runner-new.sh" "./.runner.sh"
-        echo "Runner script updated successfully."
+        echo_success "Runner script updated successfully."
     else
-        echo "New runner script is not working, keeping the old one."
+        echo_error "New runner script is not working, keeping the old one."
         rm "./.runner-new.sh"
     fi
     return 0    
@@ -293,11 +320,11 @@ install_repository() {
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
 
-    echo "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
-    echo "Instance path: ${instance_path}"
-    echo "Assets path: ${assets_path}"
+    echo_progress "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
+    echo_progress "Instance path: ${instance_path}"
+    echo_progress "Assets path: ${assets_path}"
     if [ ! -d ${instance_path} ]; then
-        echo "Creating instance path: ${instance_path}"
+        echo_progress "Creating instance path: ${instance_path}"
         mkdir -p "${instance_path}"
     fi
     if [ ! -f ${instance_path}/invenio.cfg ]; then
@@ -306,7 +333,7 @@ install_repository() {
 
     run_invenio_cli install
 
-    echo "Configuring local service ports in .invenio.private"
+    echo_progress "Configuring local service ports in .invenio.private"
     source variables
     (
         cat .invenio.private | sed -E '/^(search|db|redis|rabbitmq|s3|web)_port/d'
@@ -327,29 +354,29 @@ install_repository() {
 upgrade_repository() {
     set -euo pipefail
 
-    echo "Upgrading repository..."
+    echo_progress "Upgrading repository..."
     
     # Remove .venv if it exists
     if [ -d .venv ]; then
-        echo "Removing virtual environment..."
+        echo_progress "Removing virtual environment..."
         rm -rf .venv
     fi
     
     # Remove uv.lock if it exists
     if [ -f uv.lock ]; then
-        echo "Removing uv.lock..."
+        echo_progress "Removing uv.lock..."
         rm -f uv.lock
     fi
     
     # Clean uv cache
-    echo "Cleaning uv cache..."
+    echo_progress "Cleaning uv cache..."
     uv cache clean --force
     
     # Reinstall repository
-    echo "Reinstalling repository..."
+    echo_progress "Reinstalling repository..."
     install_repository
     
-    echo "Upgrade completed successfully."
+    echo_success "Upgrade completed successfully."
 }
 
 model() {
@@ -376,7 +403,7 @@ model() {
 create_model() {
     set -euo pipefail
     if [ $# -eq 0 ]; then
-        echo "Model name is required."
+        echo_error "Model name is required."
         exit 1
     fi
     model_name="$1"
@@ -384,13 +411,13 @@ create_model() {
     if [ $# -eq 0 ]; then
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
-            echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
+            echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
                 -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
         else
-            echo "Using local template: ${MODEL_TEMPLATE}"
+            echo_progress "Using local template: ${MODEL_TEMPLATE}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust \
                 -d model_name="${model_name}" \
@@ -401,19 +428,19 @@ create_model() {
         shift
 
         if [ ! -f "${model_config_file}" ]; then
-            echo "Missing model config file: ${model_config_file}"
+            echo_error "Missing model config file: ${model_config_file}"
             exit 1
         fi
 
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
-            echo "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
+            echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
                 --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         else
-            echo "Using local template: ${MODEL_TEMPLATE}"
+            echo_progress "Using local template: ${MODEL_TEMPLATE}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions\
                 copier copy --trust\
                 --answers-file "${model_config_file}" \
@@ -431,7 +458,7 @@ create_model() {
 update_model() {
     set -euo pipefail
     if [ $# -eq 0 ]; then
-        echo "Missing model name for update."
+        echo_error "Missing model name for update."
         exit 1
     fi
 
@@ -439,7 +466,7 @@ update_model() {
     shift
 
     if [ ! -d "${model_name}" ]; then
-        echo "Model directory '${model_name}' does not exist."
+        echo_error "Model directory '${model_name}' does not exist."
         exit 1
     fi
 
@@ -450,19 +477,19 @@ update_model() {
     if [ -f "${model_config_file}" ]; then
         answers_file="${model_config_file}"
     else
-        echo "Model config file does not exist: ${model_config_file}"
+        echo_error "Model config file does not exist: ${model_config_file}"
         exit 1
         fi
     fi
     
-    echo "answers file: ${answers_file}"
+    echo_progress "answers file: ${answers_file}"
     if [ ! -f "${answers_file}" ]; then
-        echo "Answers file '${answers_file}' does not exist."
+        echo_error "Answers file '${answers_file}' does not exist."
         exit 1
     fi
 
 
-    echo "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
+    echo_progress "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
     uvx --python="$PYTHON" --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
         copier update --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} --conflict inline \
         --answers-file "${answers_file}" 
@@ -527,7 +554,7 @@ initialize_be_translations() {
     set -euo pipefail
 
     if [ $# -eq 0 ]; then
-        echo "Language code is required."
+        echo_error "Language code is required."
         echo "Usage: ./run.sh translations init <language-code>"
         echo "Example: ./run.sh translations init cs"
         exit 1
@@ -662,9 +689,9 @@ rebuild_index() {
     invenio rdm rebuild-all-indices
     echo ""
     echo ""
-    echo "Search index was destroyed and re-created"
+    echo_success "Search index was destroyed and re-created"
     echo ""
-    echo "Please run the server with workers ( ./run.sh run ) to complete the indexing."
+    echo_user "Please run the server with workers ( ./run.sh run ) to complete the indexing."
 }
 
 index_commands() {
@@ -692,52 +719,52 @@ index_commands() {
 reset_repository() {
     set -euo pipefail
 
-    echo "Performing full reset of the repository..."
+    echo_warning "Performing full reset of the repository..."
     echo ""
     echo "This will remove all data, virtual environment, and reinstall the repository."
-    echo "Please make sure that server is not running at the moment"
+    echo_user "Please make sure that server is not running at the moment"
     echo ""
     echo "Are you sure you want to continue? (yes/no)"
     read -r answer
     if [ "$answer" != "yes" ]; then
-        echo "Reset cancelled."
+        echo_warning "Reset cancelled."
         exit 0
     fi
     
     # Stop services
-    services stop || true
+    services destroy || true
 
     # Remove virtual environment
     if [ -d .venv ]; then
-        echo "Removing virtual environment..."
+        echo_progress "Removing virtual environment..."
         rm -rf .venv
     fi
 
     # Remove uv.lock if it exists
     if [ -f uv.lock ]; then
-        echo "Removing lock file with dependencies..."
+        echo_progress "Removing lock file with dependencies..."
         rm -f uv.lock
     fi
 
     # remove .invenio.private to reinitialize all services
     if [ -f .invenio.private ]; then
-        echo "Removing local invenio settings..."
+        echo_progress "Removing local invenio settings..."
         rm -f .invenio.private
     fi
 
     # Clean uv cache
-    echo "Cleaning uv cache..."
+    echo_progress "Cleaning uv cache..."
     uv cache clean --force
 
     # Reinstall repository
-    echo "Reinstalling repository..."
+    echo_progress "Reinstalling repository..."
     ( install_repository )
 
     # setting up services
-    echo "Setting up services..."
+    echo_progress "Setting up services..."
     ( services setup -N )
 
-    echo "Creating administration group and a sample user@demo.org"
+    echo_progress "Creating administration group and a sample user@demo.org"
     source .venv/bin/activate
     invenio roles create administration
     invenio access allow administration-access role administration
@@ -747,9 +774,11 @@ reset_repository() {
     invenio roles add user@demo.org administration
 
     echo ""
-    echo "Repository reset completed successfully."
+    echo_success "Repository reset completed successfully."
     echo ""
-    echo "Please run ./run.sh run to start the server and wait for the initial data to be loaded."
+    echo_user "Please run ./run.sh run to start the server and wait for the initial data to be loaded."
+    echo ""
+    echo ""
 }
 
 run() {
