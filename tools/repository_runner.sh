@@ -169,6 +169,9 @@ show_help() {
     echo "  translations update        Update backend translations"
     echo "  translations compile       Compile backend translations"
     echo "  jstranslations extract     Extract frontend (JS) translations"
+    echo "  index                      Index management commands"
+    echo "      rebuild                Rebuild the search index (drops and recreates)"
+    echo "  reset                      Perform a full reset of the repository (removes all data and re-installs)"
     echo "Options:"
     echo "  --help                     Show this help message"
 }
@@ -486,6 +489,11 @@ services() {
                 run_invenio_cli services stop "$@"
                 return 0
             ;;
+            destroy)
+                shift
+                run_invenio_cli services destroy "$@"
+                return 0
+            ;;
             *)
                 echo "Unknown services option $1"
                 show_help
@@ -643,6 +651,107 @@ run_invenio() {
     invenio "$@"
 }
 
+rebuild_index() {
+    set -euo pipefail
+
+    activate_venv
+    invenio index destroy --yes-i-know
+    invenio index init
+    invenio rdm-records custom-fields init
+    invenio communities custom-fields init
+    invenio rdm rebuild-all-indices
+    echo ""
+    echo ""
+    echo "Search index was destroyed and re-created"
+    echo ""
+    echo "Please run the server with workers ( ./run.sh run ) to complete the indexing."
+}
+
+index_commands() {
+    set -euo pipefail
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            rebuild)
+                shift
+                rebuild_index
+                return 0
+                ;;
+            *)
+                echo "Unknown index option: $1"
+                echo "Usage: ./run.sh index rebuild"
+                exit 1
+                ;;
+        esac
+    done
+
+    echo "Usage: ./run.sh index rebuild"
+    exit 1
+}
+
+reset_repository() {
+    set -euo pipefail
+
+    echo "Performing full reset of the repository..."
+    echo ""
+    echo "This will remove all data, virtual environment, and reinstall the repository."
+    echo "Please make sure that server is not running at the moment"
+    echo ""
+    echo "Are you sure you want to continue? (yes/no)"
+    read -r answer
+    if [ "$answer" != "yes" ]; then
+        echo "Reset cancelled."
+        exit 0
+    fi
+    
+    # Stop services
+    services stop || true
+
+    # Remove virtual environment
+    if [ -d .venv ]; then
+        echo "Removing virtual environment..."
+        rm -rf .venv
+    fi
+
+    # Remove uv.lock if it exists
+    if [ -f uv.lock ]; then
+        echo "Removing lock file with dependencies..."
+        rm -f uv.lock
+    fi
+
+    # remove .invenio.private to reinitialize all services
+    if [ -f .invenio.private ]; then
+        echo "Removing local invenio settings..."
+        rm -f .invenio.private
+    fi
+
+    # Clean uv cache
+    echo "Cleaning uv cache..."
+    uv cache clean --force
+
+    # Reinstall repository
+    echo "Reinstalling repository..."
+    ( install_repository )
+
+    # setting up services
+    echo "Setting up services..."
+    ( services setup -N )
+
+    echo "Creating administration group and a sample user@demo.org"
+    source .venv/bin/activate
+    invenio roles create administration
+    invenio access allow administration-access role administration
+    invenio access allow administration-moderation role administration
+
+    invenio users create -a -c user@demo.org --password ${DEMO_USER_PASSWORD:-123456}
+    invenio roles add user@demo.org administration
+
+    echo ""
+    echo "Repository reset completed successfully."
+    echo ""
+    echo "Please run ./run.sh run to start the server and wait for the initial data to be loaded."
+}
+
 run() {
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -687,6 +796,11 @@ run() {
                 services "$@"
                 exit 0
                 ;;
+            index)
+                shift
+                index_commands "$@"
+                exit 0
+                ;;
             self-update)
                 self_update
                 exit 0
@@ -703,6 +817,10 @@ run() {
             cli)
                 shift
                 run_invenio_cli "$@"
+                exit 0
+                ;;
+            reset)
+                reset_repository
                 exit 0
                 ;;
             check-script-working)
