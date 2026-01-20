@@ -184,6 +184,7 @@ show_help() {
     echo -e "      ${Y}setup${R}                  Setup docker services"
     echo -e "      ${Y}start${R}                  Start docker services"
     echo -e "      ${Y}stop${R}                   Stop docker services"
+    echo -e "      ${Y}destroy${R}                Destroy docker services"
     echo -e "  ${Y}model${R}                      Record model management"
     echo -e "      ${Y}create${R} ${C}[model-name] [config-file]${R}"
     echo "                             Create a new record model (config file is optional)"
@@ -231,7 +232,8 @@ local_sources_cmd() {
             local pkgdir="$1"
             shift
             if [ ! -f "$pkgdir/pyproject.toml" ]; then
-                echo_error "No pyproject.toml in $pkgdir"; exit 1
+                echo_error "No pyproject.toml in $pkgdir"
+                exit 1
             fi
             uv add "$pkgdir" --editable "$@"
             upgrade_repository
@@ -697,10 +699,7 @@ rebuild_index() {
     invenio rdm-records custom-fields init
     invenio communities custom-fields init
     invenio rdm rebuild-all-indices
-    echo ""
-    echo ""
     echo_success "Search index was destroyed and re-created"
-    echo ""
     echo_user "Please run the server with workers ( ./run.sh run ) to complete the indexing."
 }
 
@@ -742,6 +741,7 @@ reset_repository() {
     fi
     
     # Stop services
+    echo_progress "Stopping and removing services (if they are running)..."
     services destroy || true
 
     # Remove virtual environment
@@ -769,13 +769,21 @@ reset_repository() {
     # Reinstall repository
     echo_progress "Reinstalling repository..."
     ( install_repository )
+    if [ $? -ne 0 ]; then
+        echo_error "Repository installation failed. Aborting reset."
+        return 1
+    fi
 
     # setting up services
     echo_progress "Setting up services..."
     ( services setup -N )
+    if [ $? -ne 0 ]; then
+        echo_error "Service setup failed. Aborting reset."
+        return 1
+    fi
 
     echo_progress "Creating administration group and a sample user@demo.org"
-    source .venv/bin/activate
+    activate_venv
     invenio roles create administration
     invenio access allow administration-access role administration
     invenio access allow administration-moderation role administration
