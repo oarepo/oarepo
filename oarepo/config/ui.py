@@ -16,6 +16,7 @@ def configure_ui(
     description="",
     support_contact="",
     keywords="",
+    dashboard_record_create_url="",
     use_default_frontpage=False,
     show_frontpage_intro=True,
     analytics=False,
@@ -95,5 +96,8 @@ def configure_ui(
     RECORDS_UI_ENDPOINTS = []
     #UPPY uploader is default for us
     APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = True
+
+    WEBPACKEXT_NPM_PKG_CLS = "pynpm:PNPMPackage"
+    DASHBOARD_RECORD_CREATE_URL = f"/{code}/uploads/new" # todo ?
 
     set_constants_in_caller(locals())
