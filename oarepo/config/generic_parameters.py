@@ -279,22 +279,22 @@ def configure_generic_parameters(
     from invenio_rdm_records import config as rdm_config
     from invenio_app_rdm import config as app_rdm_config
 
-    # todo: recheck
+
     RDM_RECORDS_PERSONORG_SCHEMES = {
         **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
-        "scopusid": {"label": _("ScopusID"), "validator": is_scopus_id},
-        "researcherid": {"label": _("ResearcherID"), "validator": is_researcher_id},
-        "czenasAutId": {
+        "scopusid": {"label": _("Scopus Author ID"), "validator": is_scopus_id, "datacite": "Scopus Author ID",},
+        "researcherid": {"label": _("Researcher ID"), "validator": is_researcher_id, "datacite": "ResearcherID",},
+        "czenasautid": {
             "label": _("CzenasAutID"),
             "validator": lambda identifier: True,
         },
         "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
-        "institutionalId": {
+        "institutionalid": {
             "label": _("InstitutionalID"),
             "validator": lambda identifier: True,
         },
         "ico": {"label": _("ICO"), "validator": lambda identifier: True},
-        "doi": {"label": _("DOI"), "validator": idutils.is_doi},
+        "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},
         "url": {"label": _("URL"), "validator": lambda identifier: True},
     }
 
@@ -363,6 +363,6 @@ def configure_generic_parameters(
 
     import os
     import platform
-    if os.path.exists("/opt/homebrew/lib") and platform.system() == "Darwin": # todo: correct?
+    if os.path.exists("/opt/homebrew/lib") and platform.system() == "Darwin":
         os.environ["DYLD_FALLBACK_LIBRARY_PATH"] = "/opt/homebrew/lib"
     set_constants_in_caller(locals())

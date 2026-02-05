@@ -115,7 +115,6 @@ def configure_ui(
     # Communities not supported in this release
     THEME_LOGO = "images/theme-logo.png"
 
-    # TODO: ..
     COMMUNITIES_REGISTER_UI_BLUEPRINT = False
 
     THEME_SEARCH_ENDPOINT = theme_config.THEME_SEARCH_ENDPOINT
