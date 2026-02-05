@@ -29,10 +29,9 @@ config.configure_vocabulary(...)
 config.add_model(...)
 
 """
-from .datastreams import configure_datastream_readers, configure_datastream_writers, configure_datastream_transformers
+from .datastreams import configure_datastreams
 from .einfra import configure_einfra_oidc
 from .jobs import configure_jobs
-from .rdm_records import configure_rdm_records
 
 try:
     from oarepo_glitchtip import initialize_glitchtip
@@ -69,9 +68,6 @@ __all__ = [
     "load_configuration_variables",
     "override_configuration",
     "configure_einfra_oidc",
-    "configure_rdm_records",
-    "configure_datastream_readers",
-    "configure_datastream_writers",
-    "configure_datastream_transformers",
+    "configure_datastreams",
     "configure_jobs",
 ]

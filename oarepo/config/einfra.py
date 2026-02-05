@@ -28,6 +28,8 @@ def configure_einfra_oidc() -> None:
                 if k.startswith("EINFRA_")
             },
         )
+        # do not allow users to change profile info, we take this from EINFRA
+        USERPROFILES_READ_ONLY = True
     else:
         OAUTHCLIENT_REMOTE_APPS = {}
     set_constants_in_caller(locals())

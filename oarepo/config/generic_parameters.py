@@ -7,9 +7,28 @@ from invenio_oauthclient.views.client import auto_redirect_login
 
 from .base import load_configuration_variables, set_constants_in_caller
 
+class OverriddenRouteResourceConfigMixin:
+    @property
+    def routes(self):
+        """Override routes to use path instead of default converter for pid_value.
+
+        This was causing a problem when PID contained slashes (doi:1234/zenodo.12345 for example).
+        It would parse only first part before the slash.
+        """
+        routes = super().routes
+
+        updated_routes = {}
+        for (
+            key,
+            route,
+        ) in routes.items():
+            updated_route = route.replace("<pid_value>", "<path:pid_value>")
+            updated_routes[key] = updated_route
+
+        return updated_routes
 
 def configure_generic_parameters(
-    languages=(("cs", _("Czech")),),
+    languages=(("cs", _("Czech")),), use_path_pid_ids=False,
 ) -> None:
     # see https://inveniordm.docs.cern.ch/install/configuration/ for the meaning
     # of the variables here
@@ -258,11 +277,13 @@ def configure_generic_parameters(
     }
 
     from invenio_rdm_records import config as rdm_config
+    from invenio_app_rdm import config as app_rdm_config
 
+    # todo: recheck
     RDM_RECORDS_PERSONORG_SCHEMES = {
         **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
-        "scopusId": {"label": _("ScopusID"), "validator": is_scopus_id},
-        "researcherId": {"label": _("ResearcherID"), "validator": is_researcher_id},
+        "scopusid": {"label": _("ScopusID"), "validator": is_scopus_id},
+        "researcherid": {"label": _("ResearcherID"), "validator": is_researcher_id},
         "czenasAutId": {
             "label": _("CzenasAutID"),
             "validator": lambda identifier: True,
@@ -280,6 +301,18 @@ def configure_generic_parameters(
     RDM_RECORDS_IDENTIFIERS_SCHEMES = {
         **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
     }
+    RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
+    """This variable is used to separate related identifiers."""
+    RDM_RECORDS_LOCATION_SCHEMES = {
+        **rdm_config.RDM_RECORDS_LOCATION_SCHEMES
+    }
+
+    RDM_CITATION_STYLES = [
+        *app_rdm_config.RDM_CITATION_STYLES,
+        ("iso690-author-date-cs", _("ČSN ISO 690")),
+    ]
+    RDM_CITATION_STYLES_DEFAULT = "iso690-author-date-cs"
+
     FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
 
     APP_RDM_DEPOSIT_FORM_QUOTA = {
@@ -287,4 +320,49 @@ def configure_generic_parameters(
         "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
     }
 
+    APP_RDM_IDENTIFIER_SCHEMES_UI = {
+        "orcid": {
+            "url_prefix": "http://orcid.org/",
+            "icon": "images/orcid.svg",
+            "label": "ORCID",
+        },
+        "ror": {
+            "url_prefix": "https://ror.org/",
+            "icon": "images/ror-icon.svg",
+            "label": "ROR",
+        },
+        "gnd": {
+            "url_prefix": "http://d-nb.info/gnd/",
+            "icon": "images/gnd-icon.svg",
+            "label": "GND",
+        },
+    }
+
+    VOCABULARIES_DATASTREAM_READERS = app_rdm_config.VOCABULARIES_DATASTREAM_READERS
+    VOCABULARIES_DATASTREAM_WRITERS = app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS
+    VOCABULARIES_DATASTREAM_TRANSFORMERS = app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS
+
+    if use_path_pid_ids:
+        from invenio_rdm_records.resources.config import (
+            RDMGrantGroupAccessResourceConfig,
+            RDMGrantUserAccessResourceConfig,
+            RDMParentGrantsResourceConfig,
+            RDMParentRecordLinksResourceConfig,
+        )
+        RDMParentRecordLinksResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+        RDMParentGrantsResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+        RDMGrantUserAccessResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+        RDMGrantGroupAccessResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+
+
+    OAUTHCLIENT_AUTO_REDIRECT_TO_EXTERNAL_LOGIN = False
+
+    # ROR client id - not used for authentication, just to increase rate limits
+    ROR_CLIENT_ID = "3764CLXJ4R9GT9L496QSKU2G3ZWVF71A"
+    SESSION_COOKIE_DOMAIN = None
+
+    import os
+    import platform
+    if os.path.exists("/opt/homebrew/lib") and platform.system() == "Darwin": # todo: correct?
+        os.environ["DYLD_FALLBACK_LIBRARY_PATH"] = "/opt/homebrew/lib"
     set_constants_in_caller(locals())

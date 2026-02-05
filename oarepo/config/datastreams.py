@@ -1,41 +1,27 @@
-from invenio_app_rdm import config as rdm_config
+from typing import Any
 
-from oarepo.config.base import set_constants_in_caller
-
-"""
-config.configure_datastream_readers(catch_all=CatchAllReader, zenodo=ZenodoReader)
-config.configure_datastream_transformers(catch_all=CatchAllTransformer, zenode=ZenodoTransformer,
-                        lindat=LindatTransformerm, id_from_doi=IdFromDOITransformer)
-"""
+from invenio_base.utils import obj_or_import_string
+from oarepo.config.base import set_constants_in_caller, get_constant_from_caller
 
 
 
-def _transform_datastream_cfg(type_, add_rdm, catch_all, zenodo, lindat, id_from_doi,
-                                 **kwargs):
-    cfg = {}
-    if catch_all:
-        cfg["catch-all"] = catch_all
-    if zenodo:
-        cfg["zenodo"] = zenodo
-    if lindat:
-        cfg["lindat"] = lindat
-    if id_from_doi:
-        cfg["id-from-doi"] = id_from_doi
-    cfg |= {k.replace("_", "-"): v for k, v in kwargs.items()}
-    if add_rdm:
-        cfg |= getattr(rdm_config, f"VOCABULARIES_DATASTREAM_{type_.upper()}")
-    set_constants_in_caller(cfg)
+def configure_datastreams(readers: dict[str, Any] | None = None, writers: dict[str, Any] | None = None,
+                          transformers: dict[str, Any] | None = None)->None:
+    # can't move into a function cause of constant_from_caller methods
+    if readers:
+        objs = {k: obj_or_import_string(v) for k, v in readers.items()}
+        var_name = "VOCABULARIES_DATASTREAM_READERS"
+        original_objs = get_constant_from_caller(var_name)
+        set_constants_in_caller({var_name: {**original_objs, **objs}})
 
-def configure_datastream_readers(add_rdm=None, catch_all=None, zenodo=None, lindat=None, id_from_doi=None,
-                                 **kwargs):
-    _transform_datastream_cfg("READERS", add_rdm, catch_all, zenodo, lindat, id_from_doi, **kwargs)
+    if writers:
+        objs = {k: obj_or_import_string(v) for k, v in writers.items()}
+        var_name = "VOCABULARIES_DATASTREAM_WRITERS"
+        original_objs = get_constant_from_caller(var_name)
+        set_constants_in_caller({var_name: {**original_objs, **objs}})
 
-
-def configure_datastream_writers(add_rdm=None, catch_all=None, zenodo=None, lindat=None, id_from_doi=None,
-                                 **kwargs):
-    _transform_datastream_cfg("WRITERS", add_rdm, catch_all, zenodo, lindat, id_from_doi, **kwargs)
-
-
-def configure_datastream_transformers(add_rdm=None, catch_all=None, zenodo=None, lindat=None, id_from_doi=None,
-                                 **kwargs):
-    _transform_datastream_cfg("TRANSFORMERS", add_rdm, catch_all, zenodo, lindat, id_from_doi, **kwargs)
+    if transformers:
+        objs = {k: obj_or_import_string(v) for k, v in transformers.items()}
+        var_name = "VOCABULARIES_DATASTREAM_TRANSFORMERS"
+        original_objs = get_constant_from_caller(var_name)
+        set_constants_in_caller({var_name: {**original_objs, **objs}})
