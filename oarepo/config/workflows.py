@@ -3,8 +3,8 @@ from __future__ import annotations
 import inspect
 from typing import TYPE_CHECKING
 
+from invenio_i18n import gettext as _
 from flask_babel import LazyString
-from flask_babel import lazy_gettext as _
 from invenio_base.utils import obj_or_import_string
 
 if TYPE_CHECKING:
@@ -17,24 +17,24 @@ if TYPE_CHECKING:
 
 from .base import get_constant_from_caller, set_constants_in_caller
 
-
 def register_workflow(
     workflow_code: str,
     workflow_name: "str | LazyString",
     permissions_policy: "str | DefaultWorkflowPermissions",
     requests_policy: "str | WorkflowRequestPolicy",
 ):
-    if WorkflowRequestPolicy is None:
+    try:
+        from oarepo_requests.services.permissions.workflow_policies import (
+            CreatorsFromWorkflowRequestsPermissionPolicy,
+        )
+        from oarepo_workflows import Workflow, WorkflowRequestPolicy
+        from oarepo_workflows.services.permissions import DefaultWorkflowPermissions
+    except ImportError:
         raise ImportError(
             "oarepo_workflows package is required for workflow registration."
         )
-    from oarepo_requests.services.permissions.workflow_policies import (
-        CreatorsFromWorkflowRequestsPermissionPolicy,
-    )
-    from oarepo_workflows import Workflow, WorkflowRequestPolicy
-    from oarepo_workflows.services.permissions import DefaultWorkflowPermissions
 
-    WORKFLOWS = get_constant_from_caller("WORKFLOWS", {})
+    WORKFLOWS = get_constant_from_caller("WORKFLOWS", [])
     permission_policy_cls = obj_or_import_string(permissions_policy)
     assert inspect.isclass(permission_policy_cls) and issubclass(
         permission_policy_cls, DefaultWorkflowPermissions
@@ -45,11 +45,12 @@ def register_workflow(
         requests_policy_cls, WorkflowRequestPolicy
     )
 
-    WORKFLOWS[workflow_code] = Workflow(
+    WORKFLOWS.append(Workflow(
+        code=workflow_code,
         label=_(workflow_name),
         permission_policy_cls=permission_policy_cls,
         request_policy_cls=requests_policy_cls,
-    )
+    ))
     REQUESTS_PERMISSION_POLICY = get_constant_from_caller(
         "REQUESTS_PERMISSION_POLICY", CreatorsFromWorkflowRequestsPermissionPolicy
     )
