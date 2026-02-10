@@ -7,9 +7,8 @@ from invenio_oauthclient.views.client import auto_redirect_login
 
 from .base import load_configuration_variables, set_constants_in_caller
 
-
 def configure_generic_parameters(
-    languages=(("cs", _("Czech")),),
+    languages=(("cs", _("Czech")),), use_path_pid_ids=False,
 ) -> None:
     # see https://inveniordm.docs.cern.ch/install/configuration/ for the meaning
     # of the variables here
@@ -258,28 +257,42 @@ def configure_generic_parameters(
     }
 
     from invenio_rdm_records import config as rdm_config
+    from invenio_app_rdm import config as app_rdm_config
+
 
     RDM_RECORDS_PERSONORG_SCHEMES = {
         **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
-        "scopusId": {"label": _("ScopusID"), "validator": is_scopus_id},
-        "researcherId": {"label": _("ResearcherID"), "validator": is_researcher_id},
-        "czenasAutId": {
+        "scopusid": {"label": _("Scopus Author ID"), "validator": is_scopus_id, "datacite": "Scopus Author ID",},
+        "researcherid": {"label": _("Researcher ID"), "validator": is_researcher_id, "datacite": "ResearcherID",},
+        "czenasautid": {
             "label": _("CzenasAutID"),
             "validator": lambda identifier: True,
         },
         "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
-        "institutionalId": {
+        "institutionalid": {
             "label": _("InstitutionalID"),
             "validator": lambda identifier: True,
         },
         "ico": {"label": _("ICO"), "validator": lambda identifier: True},
-        "doi": {"label": _("DOI"), "validator": idutils.is_doi},
+        "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},
         "url": {"label": _("URL"), "validator": lambda identifier: True},
     }
 
     RDM_RECORDS_IDENTIFIERS_SCHEMES = {
         **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
     }
+    RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
+    """This variable is used to separate related identifiers."""
+    RDM_RECORDS_LOCATION_SCHEMES = {
+        **rdm_config.RDM_RECORDS_LOCATION_SCHEMES
+    }
+
+    RDM_CITATION_STYLES = [
+        *app_rdm_config.RDM_CITATION_STYLES,
+        ("iso690-author-date-cs", _("ČSN ISO 690")),
+    ]
+    RDM_CITATION_STYLES_DEFAULT = "iso690-author-date-cs"
+
     FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
 
     APP_RDM_DEPOSIT_FORM_QUOTA = {
@@ -287,4 +300,49 @@ def configure_generic_parameters(
         "maxStorage": FILES_REST_DEFAULT_QUOTA_SIZE,
     }
 
+    APP_RDM_IDENTIFIER_SCHEMES_UI = {
+        "orcid": {
+            "url_prefix": "http://orcid.org/",
+            "icon": "images/orcid.svg",
+            "label": "ORCID",
+        },
+        "ror": {
+            "url_prefix": "https://ror.org/",
+            "icon": "images/ror-icon.svg",
+            "label": "ROR",
+        },
+        "gnd": {
+            "url_prefix": "http://d-nb.info/gnd/",
+            "icon": "images/gnd-icon.svg",
+            "label": "GND",
+        },
+    }
+
+    VOCABULARIES_DATASTREAM_READERS = app_rdm_config.VOCABULARIES_DATASTREAM_READERS
+    VOCABULARIES_DATASTREAM_WRITERS = app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS
+    VOCABULARIES_DATASTREAM_TRANSFORMERS = app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS
+
+    if use_path_pid_ids:
+        from invenio_rdm_records.resources.config import (
+            RDMGrantGroupAccessResourceConfig,
+            RDMGrantUserAccessResourceConfig,
+            RDMParentGrantsResourceConfig,
+            RDMParentRecordLinksResourceConfig,
+        )
+        RDMParentRecordLinksResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+        RDMParentGrantsResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+        RDMGrantUserAccessResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+        RDMGrantGroupAccessResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+
+
+    OAUTHCLIENT_AUTO_REDIRECT_TO_EXTERNAL_LOGIN = False
+
+    # ROR client id - not used for authentication, just to increase rate limits
+    ROR_CLIENT_ID = "3764CLXJ4R9GT9L496QSKU2G3ZWVF71A"
+    SESSION_COOKIE_DOMAIN = None
+
+    import os
+    import platform
+    if os.path.exists("/opt/homebrew/lib") and platform.system() == "Darwin":
+        os.environ["DYLD_FALLBACK_LIBRARY_PATH"] = "/opt/homebrew/lib"
     set_constants_in_caller(locals())

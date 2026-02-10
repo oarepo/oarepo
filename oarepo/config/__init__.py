@@ -29,6 +29,9 @@ config.configure_vocabulary(...)
 config.add_model(...)
 
 """
+from .datastreams import configure_datastreams
+from .einfra import configure_einfra_oidc
+from .jobs import configure_jobs
 
 try:
     from oarepo_glitchtip import initialize_glitchtip
@@ -64,4 +67,7 @@ __all__ = [
     "configure_communities",
     "load_configuration_variables",
     "override_configuration",
+    "configure_einfra_oidc",
+    "configure_datastreams",
+    "configure_jobs",
 ]

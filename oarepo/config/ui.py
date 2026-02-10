@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-
+from invenio_app_rdm.config import APP_RDM_DETAIL_SIDE_BAR_TEMPLATES
 from invenio_i18n import lazy_gettext as _
 from .base import get_constant_from_caller, load_configuration_variables, set_constants_in_caller
 
@@ -95,5 +95,29 @@ def configure_ui(
     RECORDS_UI_ENDPOINTS = []
     #UPPY uploader is default for us
     APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = True
+
+    WEBPACKEXT_NPM_PKG_CLS = "pynpm:PNPMPackage"
+    DASHBOARD_RECORD_CREATE_URL = "/uploads/new"
+
+    # todo: consult using app_rdm ones @mirekys
+    APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = ["invenio_app_rdm/records/details/side_bar/manage_menu.html",
+     "invenio_app_rdm/records/details/side_bar/external_resources.html",
+     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
+     "invenio_app_rdm/records/details/side_bar/details.html",
+     "invenio_app_rdm/records/details/side_bar/licenses.html",
+     "oarepo_ui/record_detail/side_bar/export.html",
+     "invenio_app_rdm/records/details/side_bar/technical_metadata.html",
+     ]
+
+
+    from invenio_theme import config as theme_config
+    from invenio_search_ui import config as search_ui_config
+    # Communities not supported in this release
+    THEME_LOGO = "images/theme-logo.png"
+
+    COMMUNITIES_REGISTER_UI_BLUEPRINT = False
+
+    THEME_SEARCH_ENDPOINT = theme_config.THEME_SEARCH_ENDPOINT
+    SEARCH_UI_SEARCH_VIEW = search_ui_config.SEARCH_UI_SEARCH_VIEW
 
     set_constants_in_caller(locals())
