@@ -1,14 +1,22 @@
+from __future__ import annotations
+
 import re
 from datetime import timedelta
 from typing import Any
+from urllib.parse import urlparse
+
+from flask import current_app
+from werkzeug.local import LocalProxy
 
 from invenio_i18n import lazy_gettext as _
 from invenio_oauthclient.views.client import auto_redirect_login
 
 from .base import load_configuration_variables, set_constants_in_caller
 
+
 def configure_generic_parameters(
-    languages=(("cs", _("Czech")),), use_path_pid_ids=False,
+    languages=(("cs", _("Czech")),),
+    use_path_pid_ids=False,
 ) -> None:
     # see https://inveniordm.docs.cern.ch/install/configuration/ for the meaning
     # of the variables here
@@ -119,9 +127,13 @@ def configure_generic_parameters(
         False  # allow users to change profile info (name, email, etc...)
     )
 
-    # oai server
-    OAISERVER_ID_PREFIX = SITE_UI_URL
-    """The prefix that will be applied to the generated OAI-PMH ids."""
+    def _site_name(site_url: str) -> str:
+        """Get the hostname from the URL."""
+        return urlparse(site_url).netloc
+
+    OAISERVER_ID_PREFIX = LocalProxy(
+        lambda: _site_name(current_app.config["SITE_UI_URL"])
+    )
 
     # search
     SEARCH_INDEX_PREFIX = env.INVENIO_SEARCH_INDEX_PREFIX
@@ -259,11 +271,18 @@ def configure_generic_parameters(
     from invenio_rdm_records import config as rdm_config
     from invenio_app_rdm import config as app_rdm_config
 
-
     RDM_RECORDS_PERSONORG_SCHEMES = {
         **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
-        "scopusid": {"label": _("Scopus Author ID"), "validator": is_scopus_id, "datacite": "Scopus Author ID",},
-        "researcherid": {"label": _("Researcher ID"), "validator": is_researcher_id, "datacite": "ResearcherID",},
+        "scopusid": {
+            "label": _("Scopus Author ID"),
+            "validator": is_scopus_id,
+            "datacite": "Scopus Author ID",
+        },
+        "researcherid": {
+            "label": _("Researcher ID"),
+            "validator": is_researcher_id,
+            "datacite": "ResearcherID",
+        },
         "czenasautid": {
             "label": _("CzenasAutID"),
             "validator": lambda identifier: True,
@@ -283,9 +302,7 @@ def configure_generic_parameters(
     }
     RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
     """This variable is used to separate related identifiers."""
-    RDM_RECORDS_LOCATION_SCHEMES = {
-        **rdm_config.RDM_RECORDS_LOCATION_SCHEMES
-    }
+    RDM_RECORDS_LOCATION_SCHEMES = {**rdm_config.RDM_RECORDS_LOCATION_SCHEMES}
 
     RDM_CITATION_STYLES = [
         *app_rdm_config.RDM_CITATION_STYLES,
@@ -320,7 +337,9 @@ def configure_generic_parameters(
 
     VOCABULARIES_DATASTREAM_READERS = app_rdm_config.VOCABULARIES_DATASTREAM_READERS
     VOCABULARIES_DATASTREAM_WRITERS = app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS
-    VOCABULARIES_DATASTREAM_TRANSFORMERS = app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS
+    VOCABULARIES_DATASTREAM_TRANSFORMERS = (
+        app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS
+    )
 
     if use_path_pid_ids:
         from invenio_rdm_records.resources.config import (
@@ -329,11 +348,15 @@ def configure_generic_parameters(
             RDMParentGrantsResourceConfig,
             RDMParentRecordLinksResourceConfig,
         )
-        RDMParentRecordLinksResourceConfig.url_prefix = "/records/<path:pid_value>/access"
+
+        RDMParentRecordLinksResourceConfig.url_prefix = (
+            "/records/<path:pid_value>/access"
+        )
         RDMParentGrantsResourceConfig.url_prefix = "/records/<path:pid_value>/access"
         RDMGrantUserAccessResourceConfig.url_prefix = "/records/<path:pid_value>/access"
-        RDMGrantGroupAccessResourceConfig.url_prefix = "/records/<path:pid_value>/access"
-
+        RDMGrantGroupAccessResourceConfig.url_prefix = (
+            "/records/<path:pid_value>/access"
+        )
 
     OAUTHCLIENT_AUTO_REDIRECT_TO_EXTERNAL_LOGIN = False
 
@@ -343,6 +366,7 @@ def configure_generic_parameters(
 
     import os
     import platform
+
     if os.path.exists("/opt/homebrew/lib") and platform.system() == "Darwin":
         os.environ["DYLD_FALLBACK_LIBRARY_PATH"] = "/opt/homebrew/lib"
     set_constants_in_caller(locals())
