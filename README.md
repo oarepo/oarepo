@@ -13,7 +13,7 @@ This package also contains translations for all supported invenio languages,
 as downloaded from Transifex server on June 20, 2025. 
 
 If you want to make changes to translations, change them in the collected_translations
-directory (use poedit to make tham as it will compile the .mo files for you).
+directory (use poedit to make them as it will compile the .mo files for you).
 If you need to change the javascript translations, add those directly 
 to translation json files. Then create a PR to this repository with the changes.
 
