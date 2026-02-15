@@ -127,12 +127,8 @@ def configure_generic_parameters(
         False  # allow users to change profile info (name, email, etc...)
     )
 
-    def _site_name(site_url: str) -> str:
-        """Get the hostname from the URL."""
-        return urlparse(site_url).netloc
-
     OAISERVER_ID_PREFIX = LocalProxy(
-        lambda: _site_name(current_app.config["SITE_UI_URL"])
+        lambda: urlparse(current_app.config["SITE_UI_URL"]).netloc
     )
 
     # search
