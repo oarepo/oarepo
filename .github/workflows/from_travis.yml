@@ -81,7 +81,7 @@ jobs:
       # to RDM13.
       #
       # If you want to make changes to translations, do them in the collected_translations
-      # directory (use poedit to make tham as it will compile the .mo files for you).
+      # directory (use poedit to make them as it will compile the .mo files for you).
       # If you need to change the javascript translations, add those directly 
       # to translation json files.
       #
