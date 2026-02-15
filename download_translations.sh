@@ -17,7 +17,7 @@ download_module_translations() {
     git clone https://github.com/inveniosoftware/$module.git
     cd $module
     git pull
-    # if there is transifex tokenm, use it for tx pull
+    # if there is transifex token, use it for tx pull
     # otherwise, use the default one
     if [ -z "$TRANSIFEX_TOKEN" ]; then
         echo "No Transifex token found, using default one"
