@@ -9,10 +9,10 @@ name: Oarepo build script ported from travis
 
 on:
   push:
-    branches: [ 'rdm-13' ]
+    branches: [ 'rdm-14' ]
     tags: [ '*' ]
   pull_request:
-    branches: [ 'rdm-13' ]
+    branches: [ 'rdm-14' ]
   workflow_dispatch:
 
 env:
