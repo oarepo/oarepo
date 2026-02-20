@@ -18,7 +18,7 @@ classifiers = [ "Development Status :: 3 - Alpha",
      "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
      "Topic :: Software Development :: Libraries :: Python Modules",
     ]
-requires-python = ">=3.13,<3.14"
+requires-python = ">=3.14,<3.15"
 dependencies = [ "aiobotocore==2.26.0",
      "aiohappyeyeballs==2.6.1",
      "aiohttp==3.13.3",
@@ -358,7 +358,7 @@ dependencies = [ "aiobotocore==2.26.0",
      "marshmallow-i18n-messages>=0.1.0,<1.0.0",
     ]
 [[project.authors]]
-name = "UCT Prague, CESNET z.s.p.o., NTK"
+name = "CESNET z.s.p.o."
 email = "miroslav.simek@cesnet.cz"
 
 [build-system]
@@ -374,9 +374,6 @@ text = "MIT"
 Homepage = "https://github.com/oarepo/oarepo"
 
 [project.optional-dependencies]
-rdm = [ "invenio-app-rdm==14.0.0.98925620b3.dev6",
-     "invenio-rdm-records==22.7.3.20646835",
-    ]
 test = [ "pytest-invenio",
     ]
 tests = [ "pytest-invenio",
