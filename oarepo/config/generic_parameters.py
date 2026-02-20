@@ -6,10 +6,9 @@ from typing import Any
 from urllib.parse import urlparse
 
 from flask import current_app
-from werkzeug.local import LocalProxy
-
 from invenio_i18n import lazy_gettext as _
 from invenio_oauthclient.views.client import auto_redirect_login
+from werkzeug.local import LocalProxy
 
 from .base import load_configuration_variables, set_constants_in_caller
 
@@ -128,7 +127,7 @@ def configure_generic_parameters(
     )
 
     OAISERVER_ID_PREFIX = LocalProxy(
-        lambda: urlparse(current_app.config["SITE_UI_URL"]).netloc
+        lambda: urlparse(current_app.config["SITE_UI_URL"]).hostname or ""
     )
 
     # search
@@ -264,8 +263,8 @@ def configure_generic_parameters(
         "url": {"label": "URL", "validator": lambda identifier: True},
     }
 
-    from invenio_rdm_records import config as rdm_config
     from invenio_app_rdm import config as app_rdm_config
+    from invenio_rdm_records import config as rdm_config
 
     RDM_RECORDS_PERSONORG_SCHEMES = {
         **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
