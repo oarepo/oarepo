@@ -9,10 +9,10 @@ name: Oarepo build script ported from travis
 
 on:
   push:
-    branches: [ 'rdm-14' ]
-    tags: [ '*' ]
+    branches: ["rdm-14"]
+    tags: ["*"]
   pull_request:
-    branches: [ 'rdm-14' ]
+    branches: ["rdm-14"]
   workflow_dispatch:
 
 env:
@@ -25,20 +25,20 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        python-version: [ "3.14" ]
-        db-service: [ postgresql16 ]
-        search-service: [ opensearch2 ]
+        python-version: ["3.14"]
+        db-service: [postgresql16]
+        search-service: [opensearch2]
     env:
       SEARCH: ${{ matrix.search-service }}
       DB: ${{ matrix.db-service }}
       ES_HOST: 127.0.0.1
-      SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://invenio:invenio@localhost:5432/invenio'
+      SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
       POSTGRES_USER: invenio
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       POSTGRES_DB: invenio
       POSTGRES_PASS: invenio
-      OAR_BOT: '${{ secrets.OAR_BOT }}'
+      OAR_BOT: "${{ secrets.OAR_BOT }}"
     steps:
       - name: Checkout oarepo/oarepo
         uses: actions/checkout@v4
@@ -64,14 +64,15 @@ jobs:
           sudo sysctl -w vm.swappiness=1
           sudo sysctl -w fs.file-max=262144
           sudo sysctl -w vm.max_map_count=262144
-
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v7
       - name: Before_install
         run: |
-          pip install --upgrade pip setuptools twine wheel docker-services-cli
+          uv pip install --upgrade pip "setuptools<82" twine wheel docker-services-cli build
 
       - name: Install
         run: |
-          pip install --force-reinstall -e .[tests]
+          uv pip install --force-reinstall -e .[tests]
 
       - name: Run-tests
         run: |
@@ -82,7 +83,7 @@ jobs:
       #
       # If you want to make changes to translations, do them in the collected_translations
       # directory (use poedit to make them as it will compile the .mo files for you).
-      # If you need to change the javascript translations, add those directly 
+      # If you need to change the javascript translations, add those directly
       # to translation json files.
       #
       # Please report the translations to Danca so that she can propagate them to RDM13
@@ -104,7 +105,7 @@ jobs:
 
       - name: Build package to publish
         run: |
-          python setup.py sdist bdist_wheel
+          uv build
 
       - name: Debug
         run: |
@@ -116,4 +117,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_PASSWORD }}
-
