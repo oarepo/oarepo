@@ -66,16 +66,21 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v7
+
       - name: Before_install
         run: |
+          uv venv
+          source .venv/bin/activate
           uv pip install --upgrade pip "setuptools<82" twine wheel docker-services-cli build
 
       - name: Install
         run: |
+          source .venv/bin/activate
           uv pip install --force-reinstall -e .[tests]
 
       - name: Run-tests
         run: |
+          source .venv/bin/activate
           /bin/bash ./run-tests.sh
 
       # Downloading translations from transifex is disabled as transifex has moved
@@ -105,6 +110,7 @@ jobs:
 
       - name: Build package to publish
         run: |
+          source .venv/bin/activate
           uv build
 
       - name: Debug
