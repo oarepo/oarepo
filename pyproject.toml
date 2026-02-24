@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.2.1b5.dev4+2.rdm.14.0.0b5.dev4"
+version = "14.2.1b5.dev4+3.rdm.14.0.0b5.dev4"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [
     "oarepo",
@@ -207,8 +207,6 @@ dependencies = [
     "jupyter-core==5.9.1",
     "jupyterlab-pygments==0.3.0",
     "kombu==5.6.2",
-    "latest-build==1.0.0",
-    "latest-build-instance==14.0.0b99999999.dev0",
     "limits==5.8.0",
     "luqum==1.0.0",
     "lxml==6.0.2",
