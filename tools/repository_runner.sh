@@ -360,6 +360,9 @@ install_repository() {
     mv .invenio.private.tmp .invenio.private
 
     # compile translations after installation so that they are symlinked correctly
+    # necessary to extract and initialize, otherwise, compile crashes
+    extract_be_translations
+    initialize_be_translations en
     compile_be_translations
 }
 
