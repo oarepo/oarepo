@@ -361,8 +361,12 @@ install_repository() {
 
     # compile translations after installation so that they are symlinked correctly
     # necessary to extract and initialize, otherwise, compile crashes
-    extract_be_translations
-    initialize_be_translations en
+    if [ ! -f translations/messages.pot ]; then
+        extract_be_translations
+    fi
+    if [ ! -d translations/en/LC_MESSAGES ]; then
+        initialize_be_translations en
+    fi
     compile_be_translations
 }
 
