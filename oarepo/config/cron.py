@@ -4,11 +4,11 @@ from typing import Any
 from celery.schedules import crontab
 from invenio_stats.tasks import StatsAggregationTask, StatsEventTask
 
-from .base import set_constants_in_caller
+from .base import merge_with_caller, set_constants_in_caller
 
 
 def configure_cron(**extra_cron_items: Any) -> None:
-    CELERY_BEAT_SCHEDULE = {
+    CELERY_BEAT_SCHEDULE = merge_with_caller({
         "indexer": {
             "task": "invenio_records_resources.tasks.manage_indexer_queues",
             "schedule": timedelta(seconds=10),
@@ -70,6 +70,6 @@ def configure_cron(**extra_cron_items: Any) -> None:
             "schedule": crontab(minute=4, hour=0),
         },
         **extra_cron_items,
-    }
+    })
 
     set_constants_in_caller(locals())

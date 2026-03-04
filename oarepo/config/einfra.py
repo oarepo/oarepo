@@ -10,7 +10,7 @@
 import os
 import sys
 
-from .base import load_configuration_variables, set_constants_in_caller
+from .base import merge_with_caller, load_configuration_variables, set_constants_in_caller
 
 
 def configure_einfra_oidc() -> None:
@@ -27,7 +27,7 @@ def configure_einfra_oidc() -> None:
         "yes",
         "1",
     ):
-        OAUTHCLIENT_REMOTE_APPS = {"e-infra": EINFRA_LOGIN_APP}
+        OAUTHCLIENT_REMOTE_APPS = merge_with_caller({"e-infra": EINFRA_LOGIN_APP})
         # needed for disconnect
         EINFRA = dict(
             consumer_key=env.INVENIO_EINFRA_CONSUMER_KEY,
@@ -41,5 +41,5 @@ def configure_einfra_oidc() -> None:
         # do not allow users to change profile info, we take this from EINFRA
         USERPROFILES_READ_ONLY = True
     else:
-        OAUTHCLIENT_REMOTE_APPS = {}
+        OAUTHCLIENT_REMOTE_APPS = merge_with_caller({})
     set_constants_in_caller(locals())
