@@ -860,7 +860,8 @@ run() {
                 exit 0
                 ;;
             run)
-                run_server
+                shift
+                run_server "$@"
                 exit 0
                 ;;
             invenio)
