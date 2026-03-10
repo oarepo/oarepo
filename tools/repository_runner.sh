@@ -682,12 +682,12 @@ run_server() {
 
     if [[ $no_celery -eq 0 ]]; then
         # start celery worker in the background
-        run_invenio_cli run ${extra_options[@]}
+        run_invenio_cli run "${extra_options[@]}"
     else
         export FLASK_DEBUG=1 
         export PYTHONWARNINGS=ignore
         activate_venv
-        invenio run --cert ./docker/development.crt --key ./docker/development.key ${extra_options[@]}
+        invenio run --cert ./docker/development.crt --key ./docker/development.key "${extra_options[@]}"
     fi
 }
 
