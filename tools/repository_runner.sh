@@ -471,7 +471,7 @@ create_model() {
         install_repository
     fi
 
-    echo_success "Model '${model_name}' created successfully."
+    echo_success "Model created successfully."
     echo ""
     echo_warning "To create the necessary database tables and search indices for your new model,"
     echo_warning "you need to run: ./run.sh reset"
