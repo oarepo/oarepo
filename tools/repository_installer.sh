@@ -151,3 +151,14 @@ echo "Removing previous containers"
     docker compose down || true
     rm .env
 )
+
+echo "Initializing git repository"
+(
+    cd "${repository_name}"
+    git init
+    git add .
+    git commit -m "Initial commit"
+)
+
+echo "Repository '${repository_name}' created and git initialized successfully."
+
