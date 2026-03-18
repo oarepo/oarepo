@@ -455,14 +455,14 @@ create_model() {
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
-                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
-                --answers-file "${model_config_file}" \
+                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
+                --data-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         else
             echo_progress "Using local template: ${MODEL_TEMPLATE}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions\
-                copier copy --trust\
-                --answers-file "${model_config_file}" \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
+                copier copy --trust \
+                --data-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         fi
     fi
