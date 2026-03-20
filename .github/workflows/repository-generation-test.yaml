@@ -26,6 +26,10 @@ on:
         type: string
         required: false
         default: ""
+      python_version:
+        type: string
+        required: false
+        default: "3.14"
 permissions:
   contents: read
 jobs:
@@ -42,6 +46,7 @@ jobs:
       # MODEL_TEMPLATE and MODEL_TEMPLATE_VERSION are exported and used by repository_runner.sh
       MODEL_TEMPLATE: ${{ inputs.model_template || 'https://github.com/oarepo/nrp-model-copier' }}
       MODEL_TEMPLATE_VERSION: ${{ inputs.model_template_version || 'rdm-14' }}
+      PYTHON_VERSION: ${{ inputs.python_version || '3.14' }}
 
     steps:
       - name: Checkout oarepo (for tools reference)
@@ -52,10 +57,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Setup Python 3.13
+      - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -73,7 +78,7 @@ jobs:
 
       - name: Display environment info
         run: |
-          echo "Python version: $(python3.13 --version)"
+          echo "Python version: $(python${{ env.PYTHON_VERSION }} --version)"
           echo "Node version: $(node --version)"
           echo "pnpm version: $(pnpm --version)"
           echo "uv version: $(uv --version)"
@@ -99,6 +104,7 @@ jobs:
             "languages: cs" > repo_config.yaml
 
           bash repository_installer.sh \
+            --python "python$PYTHON_VERSION" \
             --template "$APP_TEMPLATE" \
             --version "$APP_TEMPLATE_VERSION" \
             --config repo_config.yaml \
@@ -107,36 +113,41 @@ jobs:
       - name: Create all models
         working-directory: testrepo
         run: |
-          # Create config files for each model type (using printf to avoid heredoc indentation issues)
-          printf '%s\n' \
-            "model_name: ccmm_model" \
-            "model_human_name: CCMM Model" \
-            "model_description: Test model using Czech Core Metadata Model" \
-            "base_model: ccmm" > model_ccmm.yaml
+          # Create config files for each model type
+          cat << 'EOF' > model_ccmm.yaml
+          model_name: ccmm_model
+          model_human_name: CCMM Model
+          model_description: Test model using Czech Core Metadata Model
+          base_model: ccmm
+          EOF
 
-          printf '%s\n' \
-            "model_name: rdm_complete_model" \
-            "model_human_name: Complete RDM Model" \
-            "model_description: Test model using Complete RDM preset" \
-            "base_model: rdm_complete" > model_rdm_complete.yaml
+          cat << 'EOF' > model_rdm_complete.yaml
+          model_name: rdm_complete_model
+          model_human_name: Complete RDM Model
+          model_description: Test model using Complete RDM preset
+          base_model: rdm_complete
+          EOF
 
-          printf '%s\n' \
-            "model_name: rdm_basic_model" \
-            "model_human_name: Basic RDM Model" \
-            "model_description: Test model using Basic RDM preset" \
-            "base_model: rdm_basic" > model_rdm_basic.yaml
+          cat << 'EOF' > model_rdm_basic.yaml
+          model_name: rdm_basic_model
+          model_human_name: Basic RDM Model
+          model_description: Test model using Basic RDM preset
+          base_model: rdm_basic
+          EOF
 
-          printf '%s\n' \
-            "model_name: rdm_minimal_model" \
-            "model_human_name: Minimal RDM Model" \
-            "model_description: Test model using Minimal RDM preset" \
-            "base_model: rdm_minimal" > model_rdm_minimal.yaml
+          cat << 'EOF' > model_rdm_minimal.yaml
+          model_name: rdm_minimal_model
+          model_human_name: Minimal RDM Model
+          model_description: Test model using Minimal RDM preset
+          base_model: rdm_minimal
+          EOF
 
-          printf '%s\n' \
-            "model_name: empty_model" \
-            "model_human_name: Empty Model" \
-            "model_description: Test model using Empty preset" \
-            "base_model: empty" > model_empty.yaml
+          cat << 'EOF' > model_empty.yaml
+          model_name: empty_model
+          model_human_name: Empty Model
+          model_description: Test model using Empty preset
+          base_model: empty
+          EOF
 
           # Create each model (passing --data-file as extra arg)
           echo "Creating CCMM model..."
