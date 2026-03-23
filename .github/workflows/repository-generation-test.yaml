@@ -87,7 +87,7 @@ jobs:
       - name: Download repository_installer.sh (as a user would)
         run: |
           curl -o repository_installer.sh \
-            "https://raw.githubusercontent.com/oarepo/oarepo/refs/heads/${OAREPO_REF}/tools/repository_installer.sh"
+            "https://raw.githubusercontent.com/oarepo/oarepo/${OAREPO_REF}/tools/repository_installer.sh"
           chmod +x repository_installer.sh
 
       - name: Create test repository
