@@ -152,13 +152,17 @@ echo "Removing previous containers"
     rm .env
 )
 
-echo "Initializing git repository"
-(
-    cd "${repository_name}"
-    git init
-    git add .
-    git commit -m "Initial commit"
-)
-
-echo "Repository '${repository_name}' created and git initialized successfully."
+# Initialize git repository (only outside CI and if git is installed)
+if [[ -z "${CI:-}" ]] && command -v git &> /dev/null; then
+    echo "Initializing git repository"
+    (
+        cd "${repository_name}"
+        git init -b main
+        git add .
+        git commit -m "Initial commit"
+    )
+    echo "Repository '${repository_name}' created and git initialized successfully."
+else
+    echo "Repository '${repository_name}' created successfully."
+fi
 
