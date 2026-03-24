@@ -65,9 +65,9 @@ Commands:
   translations      Run the make-translations command
 
 Environment variables:
-  OAREPO_VERSION    The version of OARepo to use (default: 13)
-  PYTHON_VERSION    The Python interpreter to use (default: 3.13)
-  PYTHON            The Python executable to use (default: python3.13)
+  OAREPO_VERSION    The version of OARepo to use (default: 14)
+  PYTHON_VERSION    The Python interpreter to use (default: 3.14)
+  PYTHON            The Python executable to use (default: python3.14)
 ```
 
 To use the command-line tools, please create a `run.sh` script inside

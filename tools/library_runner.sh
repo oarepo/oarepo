@@ -311,7 +311,6 @@ get_python_versions() {
     oarepo_versions="$1"
     python_versions=()
     if [[ "$oarepo_versions" == *"14"* ]]; then
-        python_versions+=("\"3.13\"")
         python_versions+=("\"3.14\"")
     else
         echo "Unknown oarepo version(s) $oarepo_versions, cannot determine python versions." >&2
@@ -1023,8 +1022,8 @@ docstring-code-format = true
 docstring-code-line-length = 40
 EOF
 
-    uvx -p python3.13 ruff check --exclude pyproject.toml
-    uvx -p python3.13 ruff format --check --exclude pyproject.toml
+    uvx -p python3.14 ruff check --exclude pyproject.toml
+    uvx -p python3.14 ruff format --check --exclude pyproject.toml
     check_license_headers
     check_future_annotations
 
