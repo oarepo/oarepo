@@ -311,7 +311,6 @@ get_python_versions() {
     oarepo_versions="$1"
     python_versions=()
     if [[ "$oarepo_versions" == *"14"* ]]; then
-        python_versions+=("\"3.13\"")
         python_versions+=("\"3.14\"")
     else
         echo "Unknown oarepo version(s) $oarepo_versions, cannot determine python versions." >&2
