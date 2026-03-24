@@ -120,4 +120,5 @@ def configure_ui(
     THEME_SEARCH_ENDPOINT = theme_config.THEME_SEARCH_ENDPOINT
     SEARCH_UI_SEARCH_VIEW = search_ui_config.SEARCH_UI_SEARCH_VIEW
 
+    OAISERVER_REPOSITORY_NAME = name
     set_constants_in_caller(locals())
