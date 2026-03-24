@@ -7,7 +7,7 @@
 #
 # Options:
 #
-# --python <python_binary>  Specify the Python binary to use (default: python3.13)
+# --python <python_binary>  Specify the Python binary to use (default: python3.14)
 # --template <template>     Default is https://github.com/oarepo/nrp-app-copier . 
 #                           Specify either a https github URL or a local path to a template.
 # --version <rdm-14>        Specify the version of the template if it is a github URL.
@@ -16,7 +16,7 @@
 
 set -euo pipefail
 
-python_binary="python3.13"
+python_binary="python3.14"
 template="https://github.com/oarepo/nrp-app-copier"
 version="rdm-14"
 uv_binary="uv"
@@ -103,7 +103,7 @@ show_help() {
     echo "Options:"
     echo "  --config config_file      Specify initial config"
     echo
-    echo "  --python <python_binary>  Specify the Python binary to use (default: python3.13)"
+    echo "  --python <python_binary>  Specify the Python binary to use (default: python3.14)"
     echo "  --template <template>     Default is https://github.com/oarepo/nrp-app-copier"
     echo "  --version <rdm-14>        Specify the version of the template if it is a github URL."
     echo "  --uv <uv_binary>          Specify the uv binary to use (default: uv)."

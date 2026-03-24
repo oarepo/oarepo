@@ -1022,8 +1022,8 @@ docstring-code-format = true
 docstring-code-line-length = 40
 EOF
 
-    uvx -p python3.13 ruff check --exclude pyproject.toml
-    uvx -p python3.13 ruff format --check --exclude pyproject.toml
+    uvx -p python3.14 ruff check --exclude pyproject.toml
+    uvx -p python3.14 ruff format --check --exclude pyproject.toml
     check_license_headers
     check_future_annotations
 
