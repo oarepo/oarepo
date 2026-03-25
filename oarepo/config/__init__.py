@@ -33,6 +33,7 @@ from .datastreams import configure_datastreams
 from .einfra import configure_einfra_oidc
 from .jobs import configure_jobs
 
+
 try:
     from oarepo_glitchtip import initialize_glitchtip
 except ImportError:
@@ -41,7 +42,6 @@ except ImportError:
         dsn: str | None = None, deployment_version: str | None = None
     ) -> None:
         raise ImportError("oarepo-glitchtip is not installed")
-
 
 from .base import load_configuration_variables, override_configuration
 from .communities import configure_communities
@@ -53,6 +53,7 @@ from .i18n import initialize_i18n
 from .models import add_model
 from .vocabulary import configure_vocabulary
 from .workflows import register_workflow
+from .oai import configure_oai
 
 __all__ = [
     "configure_generic_parameters",
@@ -70,4 +71,5 @@ __all__ = [
     "configure_einfra_oidc",
     "configure_datastreams",
     "configure_jobs",
+    "configure_oai",
 ]
