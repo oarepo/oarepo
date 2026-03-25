@@ -4,7 +4,7 @@ inputs:
   python_version:
     description: "The version of Python to install"
     required: true
-    default: "3.13"
+    default: "3.14"
   pnpm_version:
     description: "The version of PNPM package manager"
     required: true
