@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.2.1b9.dev0+1.rdm.14.0.0b9.dev0"
+version = "14.2.1b9.dev0+2.rdm.14.0.0b9.dev0"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [
     "oarepo",
@@ -124,7 +124,7 @@ dependencies = [
     "invenio-accounts==7.1.0",
     "invenio-administration==5.2.0+oarepo.1.aohhqqugjj2eb47t",
     "invenio-app==3.0.0",
-    "invenio-app-rdm==14.0.0b9.dev0+oarepo.1.w3guzmx4gxlpg3qh",
+    "invenio-app-rdm==14.0.0b9.dev0+oarepo.2.z3lm7qrr7vkxdvxb",
     "invenio-assets==4.2.1",
     "invenio-audit-logs==1.1.0",
     "invenio-banners==6.0.0",
