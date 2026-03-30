@@ -4,6 +4,7 @@ import json
 import os
 import re
 import sys
+from collections.abc import Mapping, Sequence, Set
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -85,6 +86,30 @@ def get_constant_from_caller(name, default=None):
 
     return caller_globals.get(name, default)
 
+def merge_with_caller(name, to_merge):
+    current_frame = inspect.currentframe()
+    assert current_frame is not None, "Cannot get the current frame"
+
+    config_func_frame = current_frame.f_back
+    assert config_func_frame is not None, "Cannot get the config function frame"
+
+    invenio_cfg_frame = config_func_frame.f_back
+    assert invenio_cfg_frame is not None, "Cannot get the invenio.cfg frame"
+
+    caller_globals = invenio_cfg_frame.f_globals
+    del invenio_cfg_frame
+    del config_func_frame
+    del current_frame
+
+    if name not in caller_globals:
+        return to_merge
+    existing = caller_globals[name]
+    if isinstance(to_merge, Mapping):
+        return type(to_merge)({**existing, **to_merge})
+    elif isinstance(to_merge, Set):
+        return type(to_merge)(existing | to_merge)
+    elif isinstance(to_merge, Sequence):
+        return type(to_merge)([*existing, *to_merge])
 
 def get_invenio_cfg_path():
     if os.environ.get("INVENIO_INSTANCE_PATH"):
