@@ -470,6 +470,14 @@ create_model() {
     if [ -d ".venv" ]; then
         install_repository
     fi
+
+    echo_success "Model created successfully."
+    echo ""
+    echo_warning "To create the necessary database tables and search indices for your new model,"
+    echo_warning "you need to run: ./run.sh reset"
+    echo ""
+    echo_warning "NOTE: This will PURGE ALL EXISTING DATA in your containers!"
+    echo ""
 }
 
 # update model works based on .copier-answers.yml, so if you wish to use a local template
