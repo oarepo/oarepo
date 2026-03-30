@@ -8,7 +8,7 @@ from .base import merge_with_caller, set_constants_in_caller
 
 
 def configure_cron(**extra_cron_items: Any) -> None:
-    CELERY_BEAT_SCHEDULE = merge_with_caller({
+    CELERY_BEAT_SCHEDULE = merge_with_caller("CELERY_BEAT_SCHEDULE", {
         "indexer": {
             "task": "invenio_records_resources.tasks.manage_indexer_queues",
             "schedule": timedelta(seconds=10),

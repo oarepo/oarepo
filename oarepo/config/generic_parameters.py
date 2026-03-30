@@ -241,7 +241,7 @@ def configure_generic_parameters(
 
     from invenio_vocabularies import config as vocab_config
 
-    VOCABULARIES_NAMES_SCHEMES = merge_with_caller({
+    VOCABULARIES_NAMES_SCHEMES = merge_with_caller("VOCABULARIES_NAMES_SCHEMES", {
         **vocab_config.VOCABULARIES_NAMES_SCHEMES,
         "vedidk": {"label": "VEDIDK", "validator": is_vedidk},
         "scopusId": {"label": "Scopus ID", "validator": is_scopus_id},
@@ -249,7 +249,7 @@ def configure_generic_parameters(
     })
 
     # adding crossrefFunderId to funder schemes
-    VOCABULARIES_FUNDER_SCHEMES = merge_with_caller({
+    VOCABULARIES_FUNDER_SCHEMES = merge_with_caller("VOCABULARIES_FUNDER_SCHEMES", {
         **vocab_config.VOCABULARIES_FUNDER_SCHEMES,
         "crossrefFunderId": {
             "label": "CrossrefFunderID",
@@ -258,7 +258,7 @@ def configure_generic_parameters(
     })
 
     # List of affiliations is curated, validators are not needed.
-    VOCABULARIES_AFFILIATION_SCHEMES = merge_with_caller({
+    VOCABULARIES_AFFILIATION_SCHEMES = merge_with_caller("VOCABULARIES_AFFILIATION_SCHEMES", {
         **vocab_config.VOCABULARIES_AFFILIATION_SCHEMES,
         "ico": {"label": "ICO", "validator": lambda identifier: True},
         "url": {"label": "URL", "validator": lambda identifier: True},
@@ -267,7 +267,7 @@ def configure_generic_parameters(
     from invenio_app_rdm import config as app_rdm_config
     from invenio_rdm_records import config as rdm_config
 
-    RDM_RECORDS_PERSONORG_SCHEMES = merge_with_caller({
+    RDM_RECORDS_PERSONORG_SCHEMES = merge_with_caller("RDM_RECORDS_PERSONORG_SCHEMES", {
         **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
         "scopusid": {
             "label": _("Scopus Author ID"),
@@ -293,16 +293,16 @@ def configure_generic_parameters(
         "url": {"label": _("URL"), "validator": lambda identifier: True},
     })
 
-    RDM_RECORDS_IDENTIFIERS_SCHEMES = merge_with_caller({
+    RDM_RECORDS_IDENTIFIERS_SCHEMES = merge_with_caller("RDM_RECORDS_IDENTIFIERS_SCHEMES", {
         **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
     })
     RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
     """This variable is used to separate related identifiers."""
-    RDM_RECORDS_LOCATION_SCHEMES = merge_with_caller({
+    RDM_RECORDS_LOCATION_SCHEMES = merge_with_caller("RDM_RECORDS_LOCATION_SCHEMES", {
         **rdm_config.RDM_RECORDS_LOCATION_SCHEMES
     })
 
-    RDM_CITATION_STYLES = merge_with_caller([
+    RDM_CITATION_STYLES = merge_with_caller("RDM_CITATION_STYLES", [
         *app_rdm_config.RDM_CITATION_STYLES,
         ("iso690-author-date-cs", _("ČSN ISO 690")),
     ])
@@ -333,9 +333,9 @@ def configure_generic_parameters(
         },
     }
 
-    VOCABULARIES_DATASTREAM_READERS = merge_with_caller(app_rdm_config.VOCABULARIES_DATASTREAM_READERS)
-    VOCABULARIES_DATASTREAM_WRITERS = merge_with_caller(app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS)
-    VOCABULARIES_DATASTREAM_TRANSFORMERS = merge_with_caller(app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS)
+    VOCABULARIES_DATASTREAM_READERS = merge_with_caller("VOCABULARIES_DATASTREAM_READERS", app_rdm_config.VOCABULARIES_DATASTREAM_READERS)
+    VOCABULARIES_DATASTREAM_WRITERS = merge_with_caller("VOCABULARIES_DATASTREAM_WRITERS", app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS)
+    VOCABULARIES_DATASTREAM_TRANSFORMERS = merge_with_caller("VOCABULARIES_DATASTREAM_TRANSFORMERS", app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS)
 
     if use_path_pid_ids:
         from invenio_rdm_records.resources.config import (

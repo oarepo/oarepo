@@ -86,20 +86,12 @@ def get_constant_from_caller(name, default=None):
 
     return caller_globals.get(name, default)
 
-def merge_with_caller(to_merge):
+def merge_with_caller(name, to_merge):
     current_frame = inspect.currentframe()
     assert current_frame is not None, "Cannot get the current frame"
 
     config_func_frame = current_frame.f_back
     assert config_func_frame is not None, "Cannot get the config function frame"
-
-    # Extract variable name from the assignment in the caller's source line,
-    # e.g. "VOCABULARIES_DATASTREAM_READERS = default_or_merge(...)"
-    frame_info = inspect.getframeinfo(config_func_frame)
-    source_line = (frame_info.code_context or [""])[0].strip()
-    match = re.match(r"^([A-Z_][A-Z0-9_]*)\s*=\s*default_or_merge\(", source_line)
-    assert match, f"default_or_merge() must be called as 'NAME = default_or_merge(...)', got: {source_line}"
-    name = match.group(1)
 
     invenio_cfg_frame = config_func_frame.f_back
     assert invenio_cfg_frame is not None, "Cannot get the invenio.cfg frame"
