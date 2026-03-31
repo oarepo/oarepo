@@ -28,4 +28,4 @@ echo ""
 echo -e "\nsearch-service GET:"
 wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200
 
-pytest
+pytest tests

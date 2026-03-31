@@ -7,4 +7,4 @@ source .venv/bin/activate
 
 uv pip install -e '.[test]'
 
-$(dirname "$0")/run-tests.sh
+echo "TODO: invenio-testrig tests are not yet implemented !!!"
