@@ -142,11 +142,11 @@ jobs:
             echo "Ok, Major versions match for: actual: $actual_version == new: $new_version"
           fi
 
-          echo "Checking if new version ('$new_version') is greater than the current version ('$actual_version')"
-          python -c "from packaging.version import parse; exit(0 if parse('$new_version') > parse('$actual_version') else 1)" && {
-              echo "$new_version is greater than $actual_version, continuing."
+          echo "Checking if new version ('$new_version') is greater than or equal to the current version ('$actual_version')"
+          python -c "from packaging.version import parse; exit(0 if parse('$new_version') >= parse('$actual_version') else 1)" && {
+              echo "$new_version is greater than or equal to $actual_version, continuing."
           } || {
-              echo "$new_version is lower than or equal to $actual_version, exiting."
+              echo "$new_version is lower than $actual_version, exiting."
               exit 1
           }
 
