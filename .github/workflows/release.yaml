@@ -71,16 +71,24 @@ jobs:
       - name: Get location of the module including the version variable
         shell: "bash"
         run: |
-          if [ -d src ]; then
+          # if the version is in pyproject.toml, use it
+          if [ -f pyproject.toml ] && grep -Eq '^version = "[0-9]+' pyproject.toml ; then
+            file_with_version=pyproject.toml
+            echo "file_with_version=$file_with_version" > $GITHUB_ENV
+            echo "version_in_python=false" >> $GITHUB_ENV
+            echo "Using pyproject.toml for version bump"
+          elif [ -d src ]; then
             # if there is a src directory, there should be a single subdirectory
             # containing the __init__.py file
             file_with_version=$(ls src/*/__init__.py)
             echo "file_with_version=$file_with_version" > $GITHUB_ENV
+            echo "version_in_python=true" >> $GITHUB_ENV
             echo "Using the following file for version bump: $file_with_version"
           else
             # need to handle the case where there is no src directory
             file_with_version=$(ls */__init__.py | grep -v tests | head -n 1)
             echo "file_with_version=$file_with_version" > $GITHUB_ENV
+            echo "version_in_python=true" >> $GITHUB_ENV
             echo "Using the following file for version bump: $file_with_version"
           fi
 
@@ -88,6 +96,13 @@ jobs:
         shell: "bash"
         run: |
           new_version=${{ github.ref_name }}
+          # if the new version does not start with "v", raise error
+          if [[ "$new_version" != v* ]]; then
+            echo "Error: version must start with 'v'"
+            exit 1
+          fi
+          new_version=${new_version#v}
+
           source .venv/bin/activate
 
           echo "Bumping version to $new_version"
@@ -97,13 +112,23 @@ jobs:
           cat $file_with_version
           echo "==========================="
 
-          actual_version=$(
-            cat "${file_with_version}"        \
-            | egrep '__version__ = '           \
-            | head -n 1                        \
-            | sed 's/__version__ = "//'        \
-            | sed 's/"$//'
-          )
+          if [[ "$version_in_python" == "true" ]]; then
+            actual_version=$(
+              cat "${file_with_version}"        \
+              | egrep '__version__ = '           \
+              | head -n 1                        \
+              | sed 's/__version__ = "//'        \
+              | sed 's/"$//' | tr -d '\n'
+            )
+          else
+            actual_version=$(
+              cat "${file_with_version}"        \
+              | egrep '^version = '           \
+              | head -n 1                        \
+              | sed 's/^version = "//'        \
+              | sed 's/"$//' | tr -d '\n'
+            )
+          fi
           echo "Current package version: $actual_version"
 
           echo "Checking if major versions are the same"
@@ -126,7 +151,11 @@ jobs:
           }
 
           echo "Bumping version in $file_with_version to $new_version"
-          cat $file_with_version | sed "s/^__version__ = .*\"/__version__ = \"$new_version\"/" > $file_with_version.tmp
+          if [[ "$version_in_python" == "true" ]]; then
+            cat $file_with_version | sed "s/^__version__ = .*\"/__version__ = \"$new_version\"/" > $file_with_version.tmp
+          else
+            cat $file_with_version | sed "s/^version = .*\"/version = \"$new_version\"/" > $file_with_version.tmp
+          fi
           mv $file_with_version.tmp $file_with_version
 
           echo "Version bumped to $new_version:"
