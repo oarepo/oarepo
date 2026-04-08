@@ -224,7 +224,6 @@ local_sources_cmd() {
     fi
     case "$subcmd" in
         add)
-            shift
             if [ $# -lt 1 ]; then
                 echo_error "Usage: $0 local add <path>"
                 exit 1
