@@ -1,0 +1,48 @@
+name: OARepo testrig
+
+github:
+  - org: "oarepo"
+    include:
+      - "oarepo-.*"
+      - "pytest-oarepo"
+    exclude:
+      - "oarepo-reference-repo"
+    install: ["./run.sh", "venv"]
+    test: ["./run.sh", "test"]
+    extras:
+      - tests
+      - oarepo14
+    freeze:
+      - setuptools<82.0.0
+    package_map:
+      oarepo-invenio-typing-stubs: invenio-typing-stubs
+  - org: "oarepo"
+    include:
+      - "oarepo"
+    install: ["./run.sh", "venv"]
+    test: ["./run.sh", "test"]
+    extras:
+      - tests
+      - oarepo14
+    freeze:
+      - setuptools<82.0.0
+    default_branch: rdm-14
+  - org: "nrp-cz"
+    include:
+      - "ccmm-invenio"
+    install: ["./run.sh", "venv"]
+    test: ["./run.sh", "test"]
+    extras:
+      - tests
+      - oarepo14
+    freeze:
+      - setuptools<82.0.0
+seed_repository:
+  git: oarepo/oarepo-reference-repo@main
+  e2e:
+  test: []
+env:
+  UV_EXTRA_INDEX_URL: https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple
+  PIP_EXTRA_INDEX_URL: https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple
+  UV_PRERELEASE: allow
+test_timeout: 90
