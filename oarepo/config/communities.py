@@ -42,7 +42,7 @@ except ImportError:
 
 
 def configure_communities(communities_roles=None):
-    COMMUNITIES_REGISTER_UI_BLUEPRINT = False
+    COMMUNITIES_REGISTER_UI_BLUEPRINT = True
     COMMUNITIES_PERMISSION_POLICY = DefaultCommunitiesPermissionPolicy
     COMMUNITIES_ROLES = communities_roles or [
         # note: order matters, roles should be sorted by importance
