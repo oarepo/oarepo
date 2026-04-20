@@ -112,10 +112,7 @@ def configure_ui(
 
     from invenio_theme import config as theme_config
     from invenio_search_ui import config as search_ui_config
-    # Communities not supported in this release
     THEME_LOGO = "images/theme-logo.png"
-
-    COMMUNITIES_REGISTER_UI_BLUEPRINT = False
 
     THEME_SEARCH_ENDPOINT = theme_config.THEME_SEARCH_ENDPOINT
     SEARCH_UI_SEARCH_VIEW = search_ui_config.SEARCH_UI_SEARCH_VIEW
