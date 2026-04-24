@@ -198,6 +198,12 @@ show_help() {
     echo -e "      ${C}[--no-services]${R}        Do not start docker services"
     echo -e "      ${C}[--no-celery]${R}          Do not start background tasks"
     echo -e "  ${Y}cli${R} ${C}[subcommand]${R}           Run the invenio-cli command"
+    echo -e "  ${Y}test${R}                       Run the tests (uses ephemeral docker services)"
+    echo -e "      ${C}[--skip-services]${R}      Do not start/stop test services"
+    echo -e "      ${C}[--with-coverage]${R}      Run tests with coverage enabled"
+    echo -e "  ${Y}lint${R}                       Run linters on the codebase (ruff, mypy, pyright)"
+    echo -e "  ${Y}format${R}                     Format the codebase using ruff"
+    echo -e "  ${Y}license-headers${R}            Add license headers in the codebase"
     echo
     echo -e "  ${Y}self-update${R}                Update the runner script to the latest version"
     echo -e "  ${Y}translations${R}               Manage backend translations"
@@ -814,6 +820,326 @@ reset_repository() {
     echo ""
 }
 
+# region: Code directory detection
+detect_code_directories() {
+    local include_tests="${1:-true}"
+
+    code_directories=()
+
+    if grep -q '^\[tool.uv.build-backend\]' pyproject.toml; then
+        # Parse module-name list from [tool.uv.build-backend]
+        local modules
+        modules=$(
+            python3 -c "
+import tomllib, pathlib
+data = tomllib.loads(pathlib.Path('pyproject.toml').read_text())
+for m in data.get('tool', {}).get('uv', {}).get('build-backend', {}).get('module-name', []):
+    print(m)
+"
+        )
+        if [ -n "$modules" ]; then
+            while IFS= read -r mod; do
+                if [ -d "$mod" ]; then
+                    code_directories+=("$mod")
+                fi
+            done <<< "$modules"
+        fi
+    elif grep -q '^\[tool.hatch.build.targets.wheel\]' pyproject.toml; then
+        local top_level
+        top_level=$(
+            cat pyproject.toml |
+            tr '\n' '$$$' |
+            sed 's/.*\[tool.hatch.build.targets.wheel\]//' |
+            tr '$$$' '\n' |
+            grep '^packages' |
+            sed 's/packages *= *\[ *"//' | sed 's/".*//'
+        )
+        if [ -d "${top_level}" ]; then
+            code_directories+=("${top_level}")
+        fi
+    else
+        # Fallback: try package name as directory
+        local pkg_name
+        pkg_name=$(
+            egrep '^name' "pyproject.toml" |
+            head -n 1 |
+            sed 's/[^"]*"//' |
+            sed 's/".*//'
+        )
+        local top_level
+        top_level=$(echo "${pkg_name}" | tr '-' '_')
+        if [ -d "${top_level}" ]; then
+            code_directories+=("${top_level}")
+        fi
+    fi
+
+    if [ "$include_tests" = "true" ] && [ -d "tests" ]; then
+        code_directories+=("tests")
+    fi
+
+    if [ ${#code_directories[@]} -eq 0 ]; then
+        echo_error "No code directories found. Check your pyproject.toml and directory structure."
+        exit 1
+    fi
+}
+# endregion: Code directory detection
+
+# region: Linting and formatting
+run_linters() {
+    set -euo pipefail
+
+    detect_code_directories true
+    activate_venv
+
+    cat <<EOF >.ruff.toml
+target-version = "py313"
+line-length = 120
+indent-width = 4
+
+[lint]
+select = [ "ALL" ]
+ignore = [
+    "FIX002",  # exclude TODO comments
+    "TD003",   # Missing issue link for this TODO
+    "TD002",   # Missing author in TODO
+    "N806",    # Variable name should be lowercase as we dynamically create classes
+    "ANN204",  # Missing return type annotation for __init__
+    "ANN401",  # Any in *args/**kwargs
+    "TRY003",  # Avoid long exception messages
+    "EM101",   # Avoid using string literal in exception
+    "EM102",   # Avoid using f-string literal in exception
+    "TRY301",  # Avoid raising/catching the same exception type
+    "PLC0415",  # Place imports to the top of the file
+    "PGH004",  # Use specific noqa for pylint
+    "TID252",  # Prefer absolute imports
+    "D203",    # Using D211
+    "D213",    # Using D212 (multi-line-summary-first-line) instead
+    "COM812",
+    "FBT001",  # Avoid using boolean function parameters
+    "FBT002",  # Avoid using boolean function parameters
+]
+
+[lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = [
+    "E402",
+    "S101",
+    "ANN001",
+    "ARG001",
+    "D103",
+    "ANN201",
+    "D100",
+    "INP",
+    "PLR",
+    "PLC"
+    ]
+
+[format]
+docstring-code-format = true
+docstring-code-line-length = 40
+EOF
+
+    uvx -p python3.14 ruff check --exclude pyproject.toml
+    uvx -p python3.14 ruff format --check --exclude pyproject.toml
+    check_license_headers
+    check_future_annotations
+
+    cat <<EOF >.mypy.ini
+[mypy]
+warn_return_any = True
+warn_unused_configs = True
+warn_unreachable = True
+follow_untyped_imports = True
+EOF
+
+    local venv_python="${UV_PROJECT_ENVIRONMENT:-.venv}/bin/python"
+    uvx --with types-PyYAML --with types-requests -p "$venv_python" mypy "${code_directories[0]}" --ignore-missing-imports --exclude os-v2
+    uvx pyright --pythonpath "$venv_python" "${code_directories[0]}"
+}
+
+format_code() {
+    set -euo pipefail
+
+    uvx ruff format --exclude pyproject.toml
+    uvx ruff check --fix --exclude pyproject.toml
+}
+
+add_license_headers() {
+    set -e
+    set -o pipefail
+
+    detect_code_directories true
+
+    local current_year home_page package_name
+    current_year=$(date +%Y)
+    ORGANIZATION=${ORGANIZATION:-"CESNET z.s.p.o"}
+    home_page=$(
+        egrep '^Homepage' "pyproject.toml" |
+        head -n 1 |
+        sed 's/[^"]*"//' |
+        sed 's/".*//' || true
+    )
+    package_name=$(
+        egrep '^name' "pyproject.toml" |
+        head -n 1 |
+        sed 's/[^"]*"//' |
+        sed 's/".*//'
+    )
+
+    if [ -n "$home_page" ]; then
+        cat <<'EOF' > /tmp/license-header.txt
+Copyright (c) ${years} ${owner}.
+
+This file is a part of ${projectname} (see ${projecturl}).
+
+${projectname} is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+EOF
+    else
+        cat <<'EOF' > /tmp/license-header.txt
+Copyright (c) ${years} ${owner}.
+
+${projectname} is free software; you can redistribute it and/or modify it
+under the terms of the MIT License; see LICENSE file for more details.
+EOF
+    fi
+
+    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if ! grep -iq "Copyright (C)" "$file"; then
+            uvx licenseheaders -t /tmp/license-header.txt -y "$current_year" \
+                -o "$ORGANIZATION" -n "$package_name" \
+                ${home_page:+-u "$home_page"} -f "$file"
+        fi
+    done
+}
+
+check_license_headers() {
+    set -e
+    set -o pipefail
+
+    if [ -f .check_ok.txt ]; then rm .check_ok.txt; fi
+    if [ -f .check_errors.txt ]; then rm .check_errors.txt; fi
+    touch .check_ok.txt
+    touch .check_errors.txt
+
+    find "${code_directories[@]}" -name "*.py" | while read -r file; do
+        if grep -iq "Copyright (c)" "$file"; then
+            echo "$file" >>.check_ok.txt
+        else
+            echo "Missing license header in $file"
+            grep -i "Copyright (c)" "$file" || true
+            echo "$file" >>.check_errors.txt
+        fi
+    done
+
+    local errors
+    errors=$(wc -l < .check_errors.txt)
+    rm .check_ok.txt .check_errors.txt
+
+    if [ "$errors" -gt 0 ]; then
+        echo "${errors} file(s) are missing license headers." >&2
+        return 1
+    fi
+}
+
+check_future_annotations() {
+    set -e
+    set -o pipefail
+
+    if [ -f .check_ok.txt ]; then rm .check_ok.txt; fi
+    if [ -f .check_errors.txt ]; then rm .check_errors.txt; fi
+    touch .check_ok.txt
+    touch .check_errors.txt
+
+    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
+        if grep "from __future__" "$file" | grep -q "annotations"; then
+            echo "$file" >>.check_ok.txt
+        else
+            echo "Missing 'from __future__ import annotations' in $file" >&2
+            echo "$file" >>.check_errors.txt
+        fi
+    done
+
+    local errors
+    errors=$(wc -l < .check_errors.txt)
+    rm .check_ok.txt .check_errors.txt
+
+    if [ "$errors" -gt 0 ]; then
+        echo "${errors} file(s) are missing future annotations." >&2
+        return 1
+    fi
+}
+
+start_test_services() {
+    set -euo pipefail
+
+    echo_progress "Starting ephemeral test services..."
+    uvx --with setuptools docker-services-cli up \
+        --db "${DB:-postgresql}" --search "${SEARCH:-opensearch}" \
+        --mq "${MQ:-rabbitmq}" --cache "${CACHE:-redis}" --s3 "${S3:-minio}" --env \
+    > .env-test-services
+
+    source .env-test-services
+}
+
+stop_test_services() {
+    set -euo pipefail
+
+    echo_progress "Stopping test services..."
+    eval "$(uvx --with setuptools docker-services-cli down --env)"
+    if [ -f .env-test-services ]; then
+        rm .env-test-services
+    fi
+}
+
+run_tests() {
+    set -euo pipefail
+
+    local test_args=()
+    local skip_services=0
+    local with_coverage=0
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                skip_services=1
+                shift
+                ;;
+            --with-coverage)
+                with_coverage=1
+                shift
+                ;;
+            *)
+                test_args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    activate_venv
+
+    if [ "$skip_services" -eq 0 ]; then
+        start_test_services
+    fi
+
+    if [ "$with_coverage" -eq 1 ]; then
+        detect_code_directories true
+        uv pip install pytest-cov
+        export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-branch --cov-report=json --cov-report=html --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=junit.xml -o junit_family=legacy"
+        echo_progress "Running tests with coverage enabled"
+    fi
+
+    local exit_code=0
+    uv run pytest "${test_args[@]}" || exit_code=$?
+
+    if [ "$skip_services" -eq 0 ]; then
+        stop_test_services
+    fi
+
+    return $exit_code
+}
+# endregion: Linting and formatting
+
 run() {
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -884,6 +1210,26 @@ run() {
                 ;;
             reset)
                 reset_repository
+                exit 0
+                ;;
+            test)
+                shift
+                run_tests "$@"
+                exit 0
+                ;;
+            lint)
+                shift
+                run_linters "$@"
+                exit 0
+                ;;
+            format)
+                shift
+                format_code "$@"
+                exit 0
+                ;;
+            license-headers)
+                shift
+                add_license_headers "$@"
                 exit 0
                 ;;
             check-script-working)
