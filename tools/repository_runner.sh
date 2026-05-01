@@ -797,6 +797,20 @@ reset_repository() {
         return 1
     fi
 
+    # Ensure all search index aliases exist. invenio-cli services setup creates
+    # the versioned indices but does not always create the alias entries that
+    # InvenioRDM uses to resolve index names. Any missing alias causes a 404 on
+    # every search query. Running index init here is idempotent: it skips index
+    # creation for indices that already exist (ignore 400) but still registers
+    # any missing aliases.
+    echo_progress "Initialising search index aliases..."
+    activate_venv
+    invenio index init
+    if [ $? -ne 0 ]; then
+        echo_error "Search index alias initialisation failed. Aborting reset."
+        return 1
+    fi
+
     echo_progress "Creating administration group and a sample user@demo.org"
     activate_venv
     invenio roles create administration
