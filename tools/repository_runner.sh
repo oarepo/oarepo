@@ -277,10 +277,11 @@ show_info() {
     
     # Find all directories containing .copier-answers.yml
     local found_models=0
-    for dir in */; do
+    for dir in models/*/; do
         if [ -f "${dir}.copier-answers.yml" ] && [ -f "${dir}model.py" ]; then
             found_models=1
-            local model_name="${dir%/}"
+            local model_name="${dir#models/}"
+            model_name="${model_name%/}"
             
             # Extract version from model.py
             local version
@@ -492,12 +493,12 @@ update_model() {
     model_name="$1"
     shift
 
-    if [ ! -d "${model_name}" ]; then
-        echo_error "Model directory '${model_name}' does not exist."
+    if [ ! -d "models/${model_name}" ]; then
+        echo_error "Model directory 'models/${model_name}' does not exist."
         exit 1
     fi
 
-    answers_file="./${model_name}/.copier-answers.yml"
+    answers_file="./models/${model_name}/.copier-answers.yml"
 
     if [ $# -ge 1 ]; then
          model_config_file="$1"
