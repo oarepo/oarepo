@@ -2,7 +2,7 @@
 #
 # This script is used as a high-level tool that builds and runs an Invenio NRP
 # (Czech National Repository Platform) repository.
-# 
+#
 # Usage: ./run --help
 #
 # Note: To ensure consistency, this script is never committed to the repository.
@@ -16,6 +16,26 @@
 #
 
 set -euo pipefail
+
+# Source common functions (echo, linting, formatting, etc.)
+# When in the source repo: common.sh is next to this file.
+# When deployed: .runner-common.sh is next to .runner.sh.
+_runner_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "${_runner_dir}/common.sh" ]; then
+    # shellcheck disable=SC1091
+    source "${_runner_dir}/common.sh"
+elif [ -f "${_runner_dir}/.runner-common.sh" ]; then
+    # shellcheck disable=SC1091
+    source "${_runner_dir}/.runner-common.sh"
+else
+    echo "Downloading .runner-common.sh from oarepo repository..." >&2
+    curl --fail -o "${_runner_dir}/.runner-common.sh" \
+        https://raw.githubusercontent.com/oarepo/oarepo/main/tools/common.sh
+    chmod +x "${_runner_dir}/.runner-common.sh"
+    # shellcheck disable=SC1091
+    source "${_runner_dir}/.runner-common.sh"
+fi
+unset _runner_dir
 
 # needed for osx to get DYLD_LIBRARY_PATH working
 if [ -f ~/.envrc.local ] ; then
@@ -38,32 +58,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export INVENIO_CELERY_WORKER_CONCURRENCY=${INVENIO_CELERY_WORKER_CONCURRENCY:-10}
 fi
 
-# region: Colored echo functions
-echo_progress() {
-    echo -e "\033[0;37m→ $*\033[0m"
-}
-
-echo_success() {
-    echo
-    echo -e "\033[0;32m✓ $*\033[0m"
-}
-
-echo_warning() {
-    echo
-    echo -e "\033[0;33m⚠ $*\033[0m"
-}
-
-echo_error() {
-    echo
-    echo -e "\033[0;31m✗ $*\033[0m" >&2
-}
-
-echo_user() {
-    echo
-    echo -e "\033[0;36m➜ $*\033[0m"
-}
-# endregion: Colored echo functions
-
 # region: Python version detection
 get_python_versions_from_pyproject() {
     # Parse requires-python from pyproject.toml to get supported Python versions
@@ -71,22 +65,22 @@ get_python_versions_from_pyproject() {
         echo_error "No pyproject.toml found in the current directory."
         exit 1
     fi
-    
+
     local requires_python
     requires_python=$(grep 'requires-python' pyproject.toml | head -n 1 || echo "")
-    
+
     if [ -z "$requires_python" ]; then
         echo_error "No 'requires-python' field found in pyproject.toml."
         exit 1
     fi
-    
+
     # Extract version constraints (e.g., ">=3.12,<3.15" or ">=3.12")
     local version_string
     version_string=$(echo "$requires_python" | sed 's/.*>=//' | sed 's/["<].*//')
-    
+
     local lower_bound
     lower_bound=$(echo "$version_string" | cut -d',' -f1 | sed 's/3\.//')
-    
+
     # Check if there's an upper bound
     local upper_bound
     if echo "$requires_python" | grep -q '<'; then
@@ -96,13 +90,13 @@ get_python_versions_from_pyproject() {
         echo_error "No upper bound found; please add <3.15 into the requires-python field in pyproject.toml."
         exit 1
     fi
-    
+
     # Generate list of versions
     local versions=()
     for minor in $(seq "$lower_bound" "$upper_bound"); do
         versions+=("3.$minor")
     done
-    
+
     echo "${versions[@]}"
 }
 
@@ -110,7 +104,7 @@ get_highest_available_python() {
     # Get python versions from pyproject.toml
     local python_versions
     python_versions=$(get_python_versions_from_pyproject)
-    
+
     # Temporarily deactivate virtual environment if active to check system Python versions
     local was_in_venv=0
     local old_path="$PATH"
@@ -120,11 +114,11 @@ get_highest_available_python() {
         PATH=$(echo "$PATH" | tr ':' '\n' | grep -v "$VIRTUAL_ENV" | tr '\n' ':' | sed 's/:$//')
         unset VIRTUAL_ENV
     fi
-    
+
     # Try each version from highest to lowest
     local highest_version=""
     local highest_minor=0
-    
+
     for version in $python_versions; do
         # Check if this python version exists on the system
         if command -v "python${version}" >/dev/null 2>&1; then
@@ -137,19 +131,19 @@ get_highest_available_python() {
             fi
         fi
     done
-    
+
     # Restore PATH if we modified it
     if [ "$was_in_venv" -eq 1 ]; then
         PATH="$old_path"
     fi
-    
+
     if [ -z "$highest_version" ]; then
         echo_error "No compatible Python version found on the system."
         echo_error "Required versions according to pyproject.toml: $python_versions"
         echo_user "Please install one of the required Python versions."
         exit 1
     fi
-    
+
     echo "python${highest_version}"
 }
 
@@ -173,7 +167,7 @@ show_help() {
     local C="\033[0;36m"  # Cyan for arguments
     local Y="\033[0;33m"  # Yellow for commands
     local R="\033[0m"     # Reset color
-    
+
     echo "Usage: run.sh command [options]"
     echo ""
     echo "Commands:"
@@ -198,6 +192,13 @@ show_help() {
     echo -e "      ${C}[--no-services]${R}        Do not start docker services"
     echo -e "      ${C}[--no-celery]${R}          Do not start background tasks"
     echo -e "  ${Y}cli${R} ${C}[subcommand]${R}           Run the invenio-cli command"
+    echo -e "  ${Y}test${R}                       Run the tests (uses isolated test containers)"
+    echo -e "      ${C}[--skip-services]${R}      Do not start docker services"
+    echo -e "      ${C}[--with-coverage]${R}      Run tests with coverage enabled"
+    echo -e "  ${Y}lint${R}                       Run linters on the codebase"
+    echo -e "  ${Y}format${R}                     Format the codebase using ruff"
+    echo -e "  ${Y}license-headers${R}            Add license headers in the codebase"
+    echo -e "  ${Y}jslint${R}                     Run JavaScript linters (ESLint and Prettier)"
     echo
     echo -e "  ${Y}self-update${R}                Update the runner script to the latest version"
     echo -e "  ${Y}translations${R}               Manage backend translations"
@@ -243,7 +244,7 @@ local_sources_cmd() {
             echo_user "and then run ./run.sh upgrade"
             exit 1
             ;;
-        *)  
+        *)
             echo_error "Usage: $0 local [add <path>|remove]"
             exit 1
             ;;
@@ -254,16 +255,17 @@ self_update() {
     set -euo pipefail
 
     echo_progress "Updating runner script..."
-    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/repository_runner.sh
+    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/extract-common-functions/tools/repository_runner.sh
     chmod +x "./.runner-new.sh"
     if "./.runner-new.sh" check-script-working ; then
         mv "./.runner-new.sh" "./.runner.sh"
+        self_update_common
         echo_success "Runner script updated successfully."
     else
         echo_error "New runner script is not working, keeping the old one."
         rm "./.runner-new.sh"
     fi
-    return 0    
+    return 0
 }
 
 show_info() {
@@ -313,21 +315,11 @@ in_invenio_shell() {
 }
 
 
-run_invenio_cli() {
-    set -euo pipefail
-
-    # temporary implementation until release
-    uvx --python="$PYTHON" \
-        --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
-        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
-        invenio-cli "$@"
-}
-
 install_repository() {
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
-    uv sync --python="$PYTHON" 
+    uv sync --python="$PYTHON"
 
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
@@ -374,27 +366,27 @@ upgrade_repository() {
     set -euo pipefail
 
     echo_progress "Upgrading repository..."
-    
+
     # Remove .venv if it exists
     if [ -d .venv ]; then
         echo_progress "Removing virtual environment..."
         rm -rf .venv
     fi
-    
+
     # Remove uv.lock if it exists
     if [ -f uv.lock ]; then
         echo_progress "Removing uv.lock..."
         rm -f uv.lock
     fi
-    
+
     # Clean uv cache
     echo_progress "Cleaning uv cache..."
     uv cache clean --force
-    
+
     # Reinstall repository
     echo_progress "Reinstalling repository..."
     install_repository
-    
+
     echo_success "Upgrade completed successfully."
 }
 
@@ -417,7 +409,7 @@ model() {
                 exit 1
         esac
     done
-} 
+}
 
 create_model() {
     set -euo pipefail
@@ -434,13 +426,13 @@ create_model() {
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
                 -d model_name="${model_name}" \
-                "${MODEL_TEMPLATE}" . 
+                "${MODEL_TEMPLATE}" .
         else
             echo_progress "Using local template: ${MODEL_TEMPLATE}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
                 copier copy --trust \
                 -d model_name="${model_name}" \
-                "${MODEL_TEMPLATE}" . 
+                "${MODEL_TEMPLATE}" .
         fi
     else
         model_config_file="$1"
@@ -508,7 +500,7 @@ update_model() {
         exit 1
         fi
     fi
-    
+
     echo_progress "answers file: ${answers_file}"
     if [ ! -f "${answers_file}" ]; then
         echo_error "Answers file '${answers_file}' does not exist."
@@ -519,7 +511,7 @@ update_model() {
     echo_progress "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
     uvx --python="$PYTHON" --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
         copier update --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} --conflict inline \
-        --answers-file "${answers_file}" 
+        --answers-file "${answers_file}"
 
 }
 
@@ -692,7 +684,7 @@ run_server() {
         # start celery worker in the background
         run_invenio_cli run "${extra_options[@]}"
     else
-        export FLASK_DEBUG=1 
+        export FLASK_DEBUG=1
         export PYTHONWARNINGS=ignore
         activate_venv
         invenio run --cert ./docker/development.crt --key ./docker/development.key "${extra_options[@]}"
@@ -754,7 +746,7 @@ reset_repository() {
         echo_warning "Reset cancelled."
         exit 0
     fi
-    
+
     # Stop services
     echo_progress "Stopping and removing services (if they are running)..."
     services destroy || true
@@ -813,6 +805,82 @@ reset_repository() {
     echo ""
     echo ""
 }
+
+# region: Testing
+run_tests() {
+    set -euo pipefail
+
+    local test_args=()
+    local skip_services=0
+    local with_coverage=0
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --skip-services)
+                skip_services=1
+                shift
+                ;;
+            --with-coverage)
+                with_coverage=1
+                shift
+                ;;
+            *)
+                test_args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    if [ "$skip_services" -eq 0 ]; then
+        start_test_services
+    fi
+
+    # unset all INVENIO_ environment variables to avoid interference with tests
+    unset $(env | grep ^INVENIO_ | sed 's/=.*//')
+
+    if [ "$with_coverage" -eq 1 ]; then
+        detect_code_directories true
+        setup_test_coverage
+    fi
+
+    uv run pytest "${test_args[@]}"
+
+    if [ "$skip_services" -eq 0 ]; then
+        stop_test_services
+    fi
+}
+# endregion: Testing
+
+# region: Linting (wrappers around common.sh functions)
+repo_lint() {
+    set -euo pipefail
+
+    detect_code_directories true
+    activate_venv
+    run_linters "$@"
+}
+
+repo_format() {
+    set -euo pipefail
+
+    detect_code_directories true
+    format_code "$@"
+}
+
+repo_license_headers() {
+    set -euo pipefail
+
+    detect_code_directories true
+    add_license_headers "$@"
+}
+
+repo_jslint() {
+    set -euo pipefail
+
+    detect_code_directories false
+    run_jslint "$@"
+}
+# endregion: Linting
 
 run() {
     while [[ $# -gt 0 ]]; do
@@ -884,6 +952,31 @@ run() {
                 ;;
             reset)
                 reset_repository
+                exit 0
+                ;;
+            test)
+                shift
+                run_tests "$@"
+                exit 0
+                ;;
+            lint)
+                shift
+                repo_lint "$@"
+                exit 0
+                ;;
+            format)
+                shift
+                repo_format "$@"
+                exit 0
+                ;;
+            license-headers)
+                shift
+                repo_license_headers "$@"
+                exit 0
+                ;;
+            jslint)
+                shift
+                repo_jslint "$@"
                 exit 0
                 ;;
             check-script-working)
