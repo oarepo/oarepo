@@ -18,6 +18,26 @@
 
 set -euo pipefail
 
+# Source common functions (echo, linting, formatting, etc.)
+# When in the source repo: common.sh is next to this file.
+# When deployed: .runner-common.sh is next to .runner.sh.
+_runner_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "${_runner_dir}/common.sh" ]; then
+    # shellcheck disable=SC1091
+    source "${_runner_dir}/common.sh"
+elif [ -f "${_runner_dir}/.runner-common.sh" ]; then
+    # shellcheck disable=SC1091
+    source "${_runner_dir}/.runner-common.sh"
+else
+    echo "Downloading .runner-common.sh from oarepo repository..." >&2
+    curl --fail -o "${_runner_dir}/.runner-common.sh" \
+        https://raw.githubusercontent.com/oarepo/oarepo/main/tools/common.sh
+    chmod +x "${_runner_dir}/.runner-common.sh"
+    # shellcheck disable=SC1091
+    source "${_runner_dir}/.runner-common.sh"
+fi
+unset _runner_dir
+
 # needed for osx to get DYLD_LIBRARY_PATH working
 if [ -f ~/.envrc.local ] ; then
     # shellcheck disable=SC1090
@@ -50,74 +70,16 @@ if [ -f setup.cfg ]; then
     exit 1
 fi
 
-get_package_name() {
-    local name
-    name=$(
-        egrep '^name' "pyproject.toml" |
-        head -n 1 |
-        sed 's/[^"]*"//' |
-        sed 's/".*//'
-    )
-
-    if [ -z "$name" ]; then
-        echo "No package name found in pyproject.toml, please add one."  >&2
-        exit 1
-    else
-        echo "$name"
-    fi
-}
-
-get_home_page() {
-    local hp
-    hp=$(
-        egrep '^Homepage' "pyproject.toml" |
-        head -n 1 |
-        sed 's/[^"]*"//' |
-        sed 's/".*//'
-    )
-    if [ -z "$hp" ]; then
-        echo "No homepage found in pyproject.toml, please add one."  >&2
-        exit 1
-    else
-        echo "$hp"
-    fi
-}
-
 package_name=$(get_package_name)
-code_directories=()
-
-if [ -d "src" ]; then
-    code_directories+=("src")
-else
-    top_level=$(echo "${package_name}" | tr '-' '_')
-    if [ -d "${top_level}" ]; then
-        code_directories+=("${top_level}")
-    else
-        # check [tool.hatch.build.targets.wheel] packages = ["oarepo_oaipmh_harvester"]
-
-        if grep -q '^\[tool.hatch.build.targets.wheel\]' pyproject.toml; then
-            top_level=$(
-                cat pyproject.toml |
-                tr '\n' '$$$' |
-                sed 's/.*\[tool.hatch.build.targets.wheel\]//' |
-                tr '$$$' '\n' |
-                grep '^packages' |
-                sed 's/packages *= *\[ *"//' | sed 's/".*//'
-            )
-            code_directories+=("${top_level}")
-        else
-            echo "No src/ or ${top_level}/ directory found, please ensure your package structure is correct."  >&2
-            exit 1
-        fi
-    fi
-fi
-
-if [ -d "tests" ] && [ "${1:-''}" != "jslint" ]; then
-    code_directories+=("tests")
-fi
 
 export package_name
-export code_directories
+
+# Detect code directories (exclude tests for jslint)
+if [ "${1:-''}" = "jslint" ]; then
+    detect_code_directories false
+else
+    detect_code_directories true
+fi
 # endregion: Initial setup
 
 # region: Main command dispatcher and help output
@@ -182,6 +144,7 @@ run_tools() {
                 ;;
             lint)
                 shift
+                setup_venv
                 run_linters "$@"
                 return 0
                 ;;
@@ -323,32 +286,20 @@ get_python_versions() {
 # endregion: Version commands
 
 # region: Services management
+# Test services (start_test_services, stop_test_services) are provided by common.sh.
+# Keep these wrappers for backward compatibility with other functions that use them.
 stop_services() {
     if [ -n "$SKIP_SERVICES" ]; then
         return 0
     fi
-    set -e
-    set -o pipefail
-
-    eval "$(uvx --with setuptools docker-services-cli down --env)"
-    if [ -f .env-services ]; then
-        rm .env-services
-    fi
+    stop_test_services
 }
 
 start_services() {
     if [ -n "$SKIP_SERVICES" ]; then
         return 0
     fi
-    set -e
-    set -o pipefail
-
-    uvx --with setuptools docker-services-cli up \
-        --db "${DB:-postgresql}" --search "${SEARCH:-opensearch}" \
-        --mq "${MQ:-rabbitmq}" --cache "${CACHE:-redis}" --s3 "${S3:-minio}" --env \
-    > .env-services
-
-    source .env-services
+    start_test_services
 }
 # endregion: Services management
 
@@ -524,33 +475,25 @@ in_invenio_shell() {
     run_command invenio shell --no-term-title ${SKIP_SERVICES:+--skip-services} -c "${cmd}"
 }
 
-run_invenio_cli() {
-    set -euo pipefail
-
-    # temporary implementation until release
-    uvx --with git+https://github.com/oarepo/oarepo-cli@rdm-14 \
-        --from git+https://github.com/oarepo/invenio-cli@oarepo-feature-docker-environment \
-        invenio-cli "$@"
-}
-
 # endregion: Run commands in the virtual environment (invenio, cli, with services, ...)
 
 # region: Python and javascript tests
 
 run_tests() {
-    set -e
-    set -o pipefail
+    set -euo pipefail
 
     local test_args=()
+    local skip_services=0
+    local with_coverage=0
 
     while [[ $# -gt 0 ]]; do
         case $1 in
             --skip-services)
-                SKIP_SERVICES=1
+                skip_services=1
                 shift
                 ;;
             --with-coverage)
-                WITH_COVERAGE=1
+                with_coverage=1
                 shift
                 ;;
             *)
@@ -563,28 +506,27 @@ run_tests() {
     setup_venv
 
     if [ -f ./test-setup.sh ]; then
-        echo "Sourcing test setup script..."  >&2
+        echo_progress "Sourcing test setup script..."
         source ./test-setup.sh
-    else
-        echo "No test-setup.sh found, skipping extra test setup."  >&2
     fi
 
     # unset all INVENIO_ environment variables to avoid interference with tests
     unset $(env | grep ^INVENIO_ | sed 's/=.*//')
 
-    if [ -z "${SKIP_SERVICES:-}" ]; then
-        start_services
+    if [ "$skip_services" -eq 0 ]; then
+        start_test_services
     fi
 
-    if [ -n "$WITH_COVERAGE" ]; then
-        echo "Enabling coverage for tests..."  >&2
-        uv pip install pytest-cov
-        export PYTEST_ADDOPTS="--cov=${code_directories[0]} --cov-branch --cov-report=json --cov-report=html --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=junit.xml -o junit_family=legacy"
-        echo "Running tests with coverage enabled, opts are: $PYTEST_ADDOPTS"  >&2
+    if [ "$with_coverage" -eq 1 ]; then
+        setup_test_coverage
     fi
+
     source .venv/bin/activate
-    source .env-services
     pytest "${test_args[@]}"
+
+    if [ "$skip_services" -eq 0 ]; then
+        stop_test_services
+    fi
 }
 
 setup_jstests() {
@@ -968,236 +910,6 @@ EOF
 }
 # endregion: Python and javascript tests
 
-# region: Linters and code formatters
-
-run_linters() {
-    set -e
-    set -o pipefail
-
-    setup_venv
-
-    cat <<EOF >.ruff.toml
-target-version = "py314"
-line-length = 120
-indent-width = 4
-
-[lint]
-select = [ "ALL" ]
-ignore = [
-    "FIX002",  # exclude TODO comments
-    "TD003",   # Missing issue link for this TODO
-    "TD002",   # Missing author in TODO
-    "N806",    # Variable name should be lowercase as we dynamically create classes
-    "ANN204",  # Missing return type annotation for __init__
-    "ANN401",  # Any in *args/**kwargs
-    "TRY003",  # Avoid long exception messages
-    "EM101",   # Avoid using string literal in exception
-    "EM102",   # Avoid using f-string literal in exception
-    "TRY301",  # Avoid raising/catching the same exception type
-    "PLC0415",  # Place imports to the top of the file
-    "PGH004",  # Use specific noqa for pylint
-    "TID252",  # Prefer absolute imports
-    "D203",    # Using D211
-    "D213",    # Using D212 (multi-line-summary-first-line) instead
-    "COM812",
-    "FBT001",  # Avoid using boolean function parameters
-    "FBT002",  # Avoid using boolean function parameters
-]
-
-[lint.per-file-ignores]
-"__init__.py" = ["E402"]
-"**/{tests,docs,tools}/*" = [
-    "E402",
-    "S101",
-    "ANN001",
-    "ARG001",
-    "D103",
-    "ANN201",
-    "D100",
-    "INP",
-    "PLR",
-    "PLC"
-    ]
-
-[format]
-docstring-code-format = true
-docstring-code-line-length = 40
-EOF
-
-    uvx -p python3.14 ruff check --exclude pyproject.toml
-    uvx -p python3.14 ruff format --check --exclude pyproject.toml
-    check_license_headers
-    check_future_annotations
-
-    cat <<EOF >.mypy.ini
-[mypy]
-warn_return_any = True
-warn_unused_configs = True
-warn_unreachable = True
-follow_untyped_imports = True
-EOF
-    uvx --with types-PyYAML --with types-requests -p .venv/bin/python mypy "${code_directories[0]}" --ignore-missing-imports --exclude os-v2
-    uvx pyright --pythonpath .venv/bin/python "${code_directories[0]}"
-}
-
-format_code() {
-    set -e
-    set -o pipefail
-
-    uvx ruff format --exclude pyproject.toml
-    uvx ruff check --fix --exclude pyproject.toml
-}
-
-run_jslint() {
-    set -e
-    set -o pipefail
-
-    if [ ! -f package.json ]; then
-        echo "No package.json found, skipping JavaScript linting."
-        return 0
-    fi
-
-    if ! jq -e '.devDependencies."@inveniosoftware/eslint-config-invenio"' package.json > /dev/null; then
-        echo "Adding @inveniosoftware/eslint-config-invenio to dev dependencies..."
-        pnpm add -D @inveniosoftware/eslint-config-invenio@2
-    fi
-
-    if [ ! -x node_modules/.bin/eslint ] ; then
-        echo "Installing ESLint..."
-        pnpm install
-    fi
-
-    echo "Copying ESLint configuration files..."
-    # create eslint config file
-    cat <<'EOF' >.eslintrc.yaml
-extends:
-- '@inveniosoftware/eslint-config-invenio'
-- '@inveniosoftware/eslint-config-invenio/prettier'
-
-rules:
-  react/require-default-props: 'off'
-
-settings:
-  react:
-    version: "16"
-
-parser: '@babel/eslint-parser'
-EOF
-
-    # run eslint
-    echo "Running ESLint..."
-    node_modules/.bin/eslint --ext .js,.jsx --fix "${code_directories[@]}"
-
-    # run prettier. Locally do --write and in CI just --check
-   echo "Running Prettier..."
-    if [ "${CI:-false}" = "true" ]; then
-        prettier_flag="--check"
-    else
-        prettier_flag="--write"
-    fi
-
-    # Run prettier on only .js/.jsx files within the specified directories
-    node_modules/.bin/prettier "$prettier_flag" "${code_directories[@]/%//**/*.{js,jsx}}"
-
-    return 0
-}
-
-add_license_headers() {
-    set -e
-    set -o pipefail
-
-    local current_year home_page
-    current_year=$(date +%Y)
-    ORGANIZATION=${ORGANIZATION:-"CESNET z.s.p.o"}
-    home_page=$(get_home_page)
-
-    cat <<'EOF' > /tmp/license-header.txt
-Copyright (c) ${years} ${owner}.
-
-This file is a part of ${projectname} (see ${projecturl}).
-
-${projectname} is free software; you can redistribute it and/or modify it
-under the terms of the MIT License; see LICENSE file for more details.
-EOF
-
-    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
-        if ! grep -iq "Copyright (C)" "$file"; then
-            uvx licenseheaders -t /tmp/license-header.txt -y "$current_year" \
-                -o "$ORGANIZATION" -n "$package_name" \
-                -u "$home_page" -f "$file"
-        fi
-    done
-}
-check_future_annotations() {
-    set -e
-    set -o pipefail
-
-    if [ -f .check_ok.txt ]; then
-        rm .check_ok.txt
-    fi
-    if [ -f .check_errors.txt ]; then
-        rm .check_errors.txt
-    fi
-    touch .check_ok.txt
-    touch .check_errors.txt
-
-    # Check for future annotations in Python files
-    find "${code_directories[@]}" -name "*.py" -not -path "./.venv/*" | while read -r file; do
-        if grep "from __future__" "$file" | grep -q "annotations"; then
-            echo "$file" >>.check_ok.txt
-        else
-            echo "Missing 'from __future__ import annotations' in $file"  >&2
-            echo "$file" >>.check_errors.txt
-        fi
-    done
-
-    local errors
-    errors=$(wc -l < .check_errors.txt)
-
-    rm .check_ok.txt
-    rm .check_errors.txt
-
-    if [ "$errors" -gt 0 ]; then
-        echo "${errors} file(s) are missing future annotations."  >&2
-        return 1
-    fi
-}
-
-check_license_headers() {
-    set -e
-    set -o pipefail
-
-    if [ -f .check_ok.txt ]; then
-        rm .check_ok.txt
-    fi
-    if [ -f .check_errors.txt ]; then
-        rm .check_errors.txt
-    fi
-    touch .check_ok.txt
-    touch .check_errors.txt
-    # Check for license headers in Python files
-    find "${code_directories[@]}" -name "*.py" | while read -r file; do
-        if grep -iq "Copyright (c)" "$file"; then
-            echo "$file" >>.check_ok.txt
-        else
-            echo "Missing license header in $file"
-            grep -i "Copyright (c)" "$file" || true
-            echo "$file" >>.check_errors.txt
-        fi
-    done
-
-    local errors
-    errors=$(wc -l < .check_errors.txt)
-
-    rm .check_ok.txt
-    rm .check_errors.txt
-
-    if [ "$errors" -gt 0 ]; then
-        echo "${errors} file(s) are missing license headers."  >&2
-        return 1
-    fi
-}
-# endregion: Linters and code formatters
 
 # region: Housekeeping
 cleanup() {
@@ -1228,6 +940,7 @@ self_update() {
     chmod +x "./.runner-new.sh"
     if "./.runner-new.sh" check-script-working ; then
         mv "./.runner-new.sh" "./.runner.sh"
+        self_update_common
         echo "Runner script updated successfully."  >&2
     else
         echo "New runner script is not working, keeping the old one."  >&2
