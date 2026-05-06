@@ -1,0 +1,210 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2025 CESNET z.s.p.o.
+# OARepo is free software; you can redistribute it and/or modify
+# it under the terms of the MIT License; see LICENSE file for more details.
+
+name: Integration Test
+
+on:
+  # Reusable workflow (can be called from other workflows)
+  workflow_call:
+    inputs:
+      app_template:
+        type: string
+        required: false
+        default: ""
+      app_template_version:
+        type: string
+        required: false
+        default: ""
+      model_template:
+        type: string
+        required: false
+        default: ""
+      model_template_version:
+        type: string
+        required: false
+        default: ""
+      python_version:
+        type: string
+        required: false
+        default: "3.14"
+      oarepo_ref:
+        type: string
+        required: false
+        default: "main"
+        description: "Git ref (branch/tag) for oarepo tools."
+permissions:
+  contents: read
+jobs:
+  integration-test:
+    name: Repository Integration Test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    env:
+      # Use inputs if provided, otherwise use defaults
+      # APP_TEMPLATE and APP_TEMPLATE_VERSION are used by repository_installer.sh
+      APP_TEMPLATE: ${{ inputs.app_template || 'https://github.com/oarepo/nrp-app-copier' }}
+      APP_TEMPLATE_VERSION: ${{ inputs.app_template_version || 'rdm-14' }}
+      # MODEL_TEMPLATE and MODEL_TEMPLATE_VERSION are exported and used by repository_runner.sh
+      MODEL_TEMPLATE: ${{ inputs.model_template || 'https://github.com/oarepo/nrp-model-copier' }}
+      MODEL_TEMPLATE_VERSION: ${{ inputs.model_template_version || 'rdm-14' }}
+      PYTHON_VERSION: ${{ inputs.python_version || '3.14' }}
+      OAREPO_REF: ${{ inputs.oarepo_ref }}
+
+    steps:
+      - name: Checkout oarepo (for tools reference)
+        uses: actions/checkout@v5
+        with:
+          repository: oarepo/oarepo
+          ref: ${{ inputs.oarepo_ref }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: ${{ env.PYTHON_VERSION }}
+
+      - name: Display environment info
+        run: |
+          echo "Python version: $(python${{ env.PYTHON_VERSION }} --version)"
+          echo "Node version: $(node --version)"
+          echo "pnpm version: $(pnpm --version)"
+          echo "uv version: $(uv --version)"
+          echo ""
+          echo "App template: $APP_TEMPLATE"
+          echo "App template version: $APP_TEMPLATE_VERSION"
+          echo "Model template: $MODEL_TEMPLATE"
+          echo "Model template version: $MODEL_TEMPLATE_VERSION"
+          echo "OARepo ref: $OAREPO_REF"
+
+      - name: Download repository_installer.sh (as a user would)
+        run: |
+          curl -o repository_installer.sh \
+            "https://raw.githubusercontent.com/oarepo/oarepo/${OAREPO_REF}/tools/repository_installer.sh"
+          chmod +x repository_installer.sh
+
+      - name: Create test repository
+        run: |
+          # Create config file for repository scaffolding
+          printf '%s\n' \
+            "repository_name: testrepo" \
+            "repository_human_name: Test Repository" \
+            "repository_description: Integration test repository" \
+            "languages: cs" > repo_config.yaml
+
+          bash repository_installer.sh \
+            --python "python$PYTHON_VERSION" \
+            --template "$APP_TEMPLATE" \
+            --version "$APP_TEMPLATE_VERSION" \
+            --config repo_config.yaml \
+            testrepo
+
+      - name: Create all models
+        working-directory: testrepo
+        run: |
+          # Create config files for each model type
+          cat << 'EOF' > model_ccmm.yaml
+          model_name: ccmm_model
+          model_human_name: CCMM Model
+          model_description: Test model using Czech Core Metadata Model
+          base_model: ccmm
+          EOF
+
+          cat << 'EOF' > model_rdm_complete.yaml
+          model_name: rdm_complete_model
+          model_human_name: Complete RDM Model
+          model_description: Test model using Complete RDM preset
+          base_model: rdm_complete
+          EOF
+
+          cat << 'EOF' > model_rdm_basic.yaml
+          model_name: rdm_basic_model
+          model_human_name: Basic RDM Model
+          model_description: Test model using Basic RDM preset
+          base_model: rdm_basic
+          EOF
+
+          cat << 'EOF' > model_rdm_minimal.yaml
+          model_name: rdm_minimal_model
+          model_human_name: Minimal RDM Model
+          model_description: Test model using Minimal RDM preset
+          base_model: rdm_minimal
+          EOF
+
+          cat << 'EOF' > model_empty.yaml
+          model_name: empty_model
+          model_human_name: Empty Model
+          model_description: Test model using Empty preset
+          base_model: empty
+          EOF
+
+          # Create each model (passing --data-file as extra arg)
+          echo "Creating CCMM model..."
+          ./run.sh model create ccmm_model model_ccmm.yaml --data-file model_ccmm.yaml
+          # TODO: use just --data-file once we merge https://github.com/oarepo/oarepo/pull/214
+          echo "Creating Complete RDM model..."
+          ./run.sh model create rdm_complete_model model_rdm_complete.yaml --data-file model_rdm_complete.yaml
+
+          echo "Creating Basic RDM model..."
+          ./run.sh model create rdm_basic_model model_rdm_basic.yaml --data-file model_rdm_basic.yaml
+
+          echo "Creating Minimal RDM model..."
+          ./run.sh model create rdm_minimal_model model_rdm_minimal.yaml --data-file model_rdm_minimal.yaml
+
+          echo "Creating Empty model..."
+          ./run.sh model create empty_model model_empty.yaml --data-file model_empty.yaml
+
+      - name: Show repository structure
+        working-directory: testrepo
+        run: |
+          echo "=== Repository structure ==="
+          ls -la
+          echo ""
+          echo "=== Models created ==="
+          ls -la models/ 2>/dev/null || ls -la */model.py 2>/dev/null || echo "No models directory found"
+          echo ""
+          echo "=== pyproject.toml entry points ==="
+          grep -A 20 '\[project.entry-points' pyproject.toml || true
+
+      - name: Install repository
+        working-directory: testrepo
+        run: |
+          ./run.sh install
+
+      - name: Verify installation
+        working-directory: testrepo
+        run: |
+          echo "=== Checking virtual environment ==="
+          test -d .venv && echo "Virtual environment exists" || (echo "Virtual environment missing!" && exit 1)
+
+          echo ""
+          echo "=== Checking installed packages ==="
+          .venv/bin/pip list | grep -E "(oarepo|invenio)" | head -20
+
+          echo ""
+          echo "=== Repository info ==="
+          ./run.sh info
+      # just so that we can run the repo
+      - name: Setup services
+        working-directory: testrepo
+        run: |
+          ./run.sh services setup
+      # running the repo, just so we can see if there is some crash while the app is loading (for example wrong configuration
+      # in some packages or similar issues that can arise while the app is being loaded)
+      - name: Run repository
+        working-directory: testrepo
+        run: |
+          ./run.sh run &
+          curl -skf --retry 10 --retry-connrefused --retry-delay 3 --retry-max-time 60 https://localhost:5000/ && echo "Repository is running"
+          # Kill background processes to release uv cache lock
+          pkill -f "uv run" || true
+          pkill -f "invenio" || true
+          pkill -f "celery" || true
+          sleep 2
