@@ -975,7 +975,7 @@ run_linters() {
     setup_venv
 
     cat <<EOF >.ruff.toml
-target-version = "py313"
+target-version = "py314"
 line-length = 120
 indent-width = 4
 
