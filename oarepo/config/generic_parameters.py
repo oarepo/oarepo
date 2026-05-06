@@ -10,8 +10,29 @@ from invenio_i18n import lazy_gettext as _
 from invenio_oauthclient.views.client import auto_redirect_login
 from werkzeug.local import LocalProxy
 
-from .base import load_configuration_variables, set_constants_in_caller, merge_with_caller
+from .base import (
+    load_configuration_variables,
+    merge_with_caller,
+    set_constants_in_caller,
+)
 
+
+def configure_global_logging():
+    import logging
+    import os
+
+    log_level = os.environ.get("PYTHON_DEFAULT_LOG_LEVEL", None)
+    if log_level is not None:
+        try:
+            normalized_log_level = log_level.upper().strip()
+            logging.basicConfig(level=normalized_log_level)
+            logging.getLogger().setLevel(normalized_log_level)
+        except ValueError:
+            logging.basicConfig(level=logging.INFO)
+            logging.getLogger().setLevel(logging.INFO)
+            logging.getLogger().error(
+                "Invalid log level: %s, setting to INFO", log_level
+            )
 
 
 def configure_generic_parameters(
@@ -22,6 +43,7 @@ def configure_generic_parameters(
     # of the variables here
 
     env = load_configuration_variables()
+    configure_global_logging()
 
     # generic
     APP_ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
@@ -241,71 +263,89 @@ def configure_generic_parameters(
 
     from invenio_vocabularies import config as vocab_config
 
-    VOCABULARIES_NAMES_SCHEMES = merge_with_caller("VOCABULARIES_NAMES_SCHEMES", {
-        **vocab_config.VOCABULARIES_NAMES_SCHEMES,
-        "vedidk": {"label": "VEDIDK", "validator": is_vedidk},
-        "scopusId": {"label": "Scopus ID", "validator": is_scopus_id},
-        "researcherId": {"label": "Researcher ID", "validator": is_researcher_id},
-    })
+    VOCABULARIES_NAMES_SCHEMES = merge_with_caller(
+        "VOCABULARIES_NAMES_SCHEMES",
+        {
+            **vocab_config.VOCABULARIES_NAMES_SCHEMES,
+            "vedidk": {"label": "VEDIDK", "validator": is_vedidk},
+            "scopusId": {"label": "Scopus ID", "validator": is_scopus_id},
+            "researcherId": {"label": "Researcher ID", "validator": is_researcher_id},
+        },
+    )
 
     # adding crossrefFunderId to funder schemes
-    VOCABULARIES_FUNDER_SCHEMES = merge_with_caller("VOCABULARIES_FUNDER_SCHEMES", {
-        **vocab_config.VOCABULARIES_FUNDER_SCHEMES,
-        "crossrefFunderId": {
-            "label": "CrossrefFunderID",
-            "validator": lambda identifier: True,
+    VOCABULARIES_FUNDER_SCHEMES = merge_with_caller(
+        "VOCABULARIES_FUNDER_SCHEMES",
+        {
+            **vocab_config.VOCABULARIES_FUNDER_SCHEMES,
+            "crossrefFunderId": {
+                "label": "CrossrefFunderID",
+                "validator": lambda identifier: True,
+            },
         },
-    })
+    )
 
     # List of affiliations is curated, validators are not needed.
-    VOCABULARIES_AFFILIATION_SCHEMES = merge_with_caller("VOCABULARIES_AFFILIATION_SCHEMES", {
-        **vocab_config.VOCABULARIES_AFFILIATION_SCHEMES,
-        "ico": {"label": "ICO", "validator": lambda identifier: True},
-        "url": {"label": "URL", "validator": lambda identifier: True},
-    })
+    VOCABULARIES_AFFILIATION_SCHEMES = merge_with_caller(
+        "VOCABULARIES_AFFILIATION_SCHEMES",
+        {
+            **vocab_config.VOCABULARIES_AFFILIATION_SCHEMES,
+            "ico": {"label": "ICO", "validator": lambda identifier: True},
+            "url": {"label": "URL", "validator": lambda identifier: True},
+        },
+    )
 
     from invenio_app_rdm import config as app_rdm_config
     from invenio_rdm_records import config as rdm_config
 
-    RDM_RECORDS_PERSONORG_SCHEMES = merge_with_caller("RDM_RECORDS_PERSONORG_SCHEMES", {
-        **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
-        "scopusid": {
-            "label": _("Scopus Author ID"),
-            "validator": is_scopus_id,
-            "datacite": "Scopus Author ID",
+    RDM_RECORDS_PERSONORG_SCHEMES = merge_with_caller(
+        "RDM_RECORDS_PERSONORG_SCHEMES",
+        {
+            **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
+            "scopusid": {
+                "label": _("Scopus Author ID"),
+                "validator": is_scopus_id,
+                "datacite": "Scopus Author ID",
+            },
+            "researcherid": {
+                "label": _("Researcher ID"),
+                "validator": is_researcher_id,
+                "datacite": "ResearcherID",
+            },
+            "czenasautid": {
+                "label": _("CzenasAutID"),
+                "validator": lambda identifier: True,
+            },
+            "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
+            "institutionalid": {
+                "label": _("InstitutionalID"),
+                "validator": lambda identifier: True,
+            },
+            "ico": {"label": _("ICO"), "validator": lambda identifier: True},
+            "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},
+            "url": {"label": _("URL"), "validator": lambda identifier: True},
         },
-        "researcherid": {
-            "label": _("Researcher ID"),
-            "validator": is_researcher_id,
-            "datacite": "ResearcherID",
-        },
-        "czenasautid": {
-            "label": _("CzenasAutID"),
-            "validator": lambda identifier: True,
-        },
-        "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
-        "institutionalid": {
-            "label": _("InstitutionalID"),
-            "validator": lambda identifier: True,
-        },
-        "ico": {"label": _("ICO"), "validator": lambda identifier: True},
-        "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},
-        "url": {"label": _("URL"), "validator": lambda identifier: True},
-    })
+    )
 
-    RDM_RECORDS_IDENTIFIERS_SCHEMES = merge_with_caller("RDM_RECORDS_IDENTIFIERS_SCHEMES", {
-        **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
-    })
+    RDM_RECORDS_IDENTIFIERS_SCHEMES = merge_with_caller(
+        "RDM_RECORDS_IDENTIFIERS_SCHEMES",
+        {
+            **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
+        },
+    )
     RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
     """This variable is used to separate related identifiers."""
-    RDM_RECORDS_LOCATION_SCHEMES = merge_with_caller("RDM_RECORDS_LOCATION_SCHEMES", {
-        **rdm_config.RDM_RECORDS_LOCATION_SCHEMES
-    })
+    RDM_RECORDS_LOCATION_SCHEMES = merge_with_caller(
+        "RDM_RECORDS_LOCATION_SCHEMES", {**rdm_config.RDM_RECORDS_LOCATION_SCHEMES}
+    )
 
-    RDM_CITATION_STYLES = merge_with_caller("RDM_CITATION_STYLES", [
-        *app_rdm_config.RDM_CITATION_STYLES,
-        ("iso690-author-date-cs", _("ČSN ISO 690")),
-    ])
+    RDM_CITATION_STYLES = merge_with_caller(
+        "RDM_CITATION_STYLES",
+        [
+            *app_rdm_config.RDM_CITATION_STYLES,
+            ("iso690-author-date-cs", _("ČSN ISO 690")),
+        ],
+    )
     RDM_CITATION_STYLES_DEFAULT = "iso690-author-date-cs"
 
     FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
@@ -333,9 +373,18 @@ def configure_generic_parameters(
         },
     }
 
-    VOCABULARIES_DATASTREAM_READERS = merge_with_caller("VOCABULARIES_DATASTREAM_READERS", app_rdm_config.VOCABULARIES_DATASTREAM_READERS)
-    VOCABULARIES_DATASTREAM_WRITERS = merge_with_caller("VOCABULARIES_DATASTREAM_WRITERS", app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS)
-    VOCABULARIES_DATASTREAM_TRANSFORMERS = merge_with_caller("VOCABULARIES_DATASTREAM_TRANSFORMERS", app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS)
+    VOCABULARIES_DATASTREAM_READERS = merge_with_caller(
+        "VOCABULARIES_DATASTREAM_READERS",
+        app_rdm_config.VOCABULARIES_DATASTREAM_READERS,
+    )
+    VOCABULARIES_DATASTREAM_WRITERS = merge_with_caller(
+        "VOCABULARIES_DATASTREAM_WRITERS",
+        app_rdm_config.VOCABULARIES_DATASTREAM_WRITERS,
+    )
+    VOCABULARIES_DATASTREAM_TRANSFORMERS = merge_with_caller(
+        "VOCABULARIES_DATASTREAM_TRANSFORMERS",
+        app_rdm_config.VOCABULARIES_DATASTREAM_TRANSFORMERS,
+    )
 
     if use_path_pid_ids:
         from invenio_rdm_records.resources.config import (
