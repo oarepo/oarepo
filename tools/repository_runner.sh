@@ -149,7 +149,8 @@ get_highest_available_python() {
 
 # Detect and set Python version
 if [ -z "${PYTHON:-}" ]; then
-    export PYTHON=$(get_highest_available_python)
+    PYTHON=$(get_highest_available_python)
+    export PYTHON
 fi
 # endregion: Python version detection
 
@@ -255,7 +256,7 @@ self_update() {
     set -euo pipefail
 
     echo_progress "Updating runner script..."
-    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/extract-common-functions/tools/repository_runner.sh
+    curl --fail -o "./.runner-new.sh" https://raw.githubusercontent.com/oarepo/oarepo/main/tools/repository_runner.sh
     chmod +x "./.runner-new.sh"
     if "./.runner-new.sh" check-script-working ; then
         mv "./.runner-new.sh" "./.runner.sh"
@@ -327,12 +328,12 @@ install_repository() {
     echo_progress "Installing repository in virtual environment: ${UV_PROJECT_ENVIRONMENT}"
     echo_progress "Instance path: ${instance_path}"
     echo_progress "Assets path: ${assets_path}"
-    if [ ! -d ${instance_path} ]; then
+    if [ ! -d "${instance_path}" ]; then
         echo_progress "Creating instance path: ${instance_path}"
         mkdir -p "${instance_path}"
     fi
-    if [ ! -f ${instance_path}/invenio.cfg ]; then
-        ln -s $PWD/invenio.cfg "${instance_path}/invenio.cfg" || true
+    if [ ! -f "${instance_path}/invenio.cfg" ]; then
+        ln -s "$PWD/invenio.cfg" "${instance_path}/invenio.cfg" || true
     fi
 
     run_invenio_cli install
@@ -424,7 +425,7 @@ create_model() {
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
             uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
-                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
+                copier copy --trust --vcs-ref "${MODEL_TEMPLATE_VERSION}" \
                 -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" .
         else
@@ -510,7 +511,7 @@ update_model() {
 
     echo_progress "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
     uvx --python="$PYTHON" --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
-        copier update --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} --conflict inline \
+        copier update --trust --vcs-ref "${MODEL_TEMPLATE_VERSION}" --conflict inline \
         --answers-file "${answers_file}"
 
 }
@@ -775,16 +776,14 @@ reset_repository() {
 
     # Reinstall repository
     echo_progress "Reinstalling repository..."
-    ( install_repository )
-    if [ $? -ne 0 ]; then
+    if ! ( install_repository ); then
         echo_error "Repository installation failed. Aborting reset."
         return 1
     fi
 
     # setting up services
     echo_progress "Setting up services..."
-    ( services setup -N )
-    if [ $? -ne 0 ]; then
+    if ! ( services setup -N ); then
         echo_error "Service setup failed. Aborting reset."
         return 1
     fi
@@ -795,7 +794,7 @@ reset_repository() {
     invenio access allow administration-access role administration
     invenio access allow administration-moderation role administration
 
-    invenio users create -a -c user@demo.org --password ${DEMO_USER_PASSWORD:-123456}
+    invenio users create -a -c user@demo.org --password "${DEMO_USER_PASSWORD:-123456}"
     invenio roles add user@demo.org administration
 
     echo ""
@@ -836,7 +835,7 @@ run_tests() {
     fi
 
     # unset all INVENIO_ environment variables to avoid interference with tests
-    unset $(env | grep ^INVENIO_ | sed 's/=.*//')
+    unset $(env | grep ^INVENIO_ | sed 's/=.*//') 2>/dev/null || true
 
     if [ "$with_coverage" -eq 1 ]; then
         detect_code_directories true

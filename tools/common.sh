@@ -40,7 +40,7 @@ echo_user() {
 get_package_name() {
     local name
     name=$(
-        egrep '^name' "pyproject.toml" |
+        grep -E '^name' "pyproject.toml" |
         head -n 1 |
         sed 's/[^"]*"//' |
         sed 's/".*//'
@@ -57,7 +57,7 @@ get_package_name() {
 get_home_page() {
     local hp
     hp=$(
-        egrep '^Homepage' "pyproject.toml" |
+        grep -E '^Homepage' "pyproject.toml" |
         head -n 1 |
         sed 's/[^"]*"//' |
         sed 's/".*//'
@@ -174,7 +174,7 @@ run_linters() {
     fi
 
     cat <<EOF >.ruff.toml
-target-version = "py313"
+target-version = "py314"
 line-length = 120
 indent-width = 4
 
@@ -411,8 +411,10 @@ stop_test_services() {
     set -euo pipefail
 
     echo_progress "Stopping test services..."
-    eval "$(uvx --with setuptools docker-services-cli down --env)"
+    uvx --with setuptools docker-services-cli down --env > .env-services
     if [ -f .env-services ]; then
+        # shellcheck disable=SC1091
+        source .env-services
         rm .env-services
     fi
 }

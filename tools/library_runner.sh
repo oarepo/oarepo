@@ -89,7 +89,8 @@ run_tools() {
 
     # Parse the commandline according to the options defined above.
 
-    export FIRST_OAREPO_VERSION=$(first_oarepo_version)
+    FIRST_OAREPO_VERSION=$(first_oarepo_version)
+    export FIRST_OAREPO_VERSION
     export OAREPO_VERSION=${OAREPO_VERSION:-${FIRST_OAREPO_VERSION}}
     export NO_EDITABLE=${NO_EDITABLE:-""}
     export SKIP_SERVICES=${SKIP_SERVICES:-""}
@@ -235,7 +236,7 @@ show_help() {
 }
 
 first_oarepo_version() {
-    egrep '^oarepo[0-9][0-9]\s*=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/\s*=.*//'
+    grep -E '^oarepo[0-9][0-9]\s*=' pyproject.toml | head -n1 | sed 's/oarepo//' | sed 's/\s*=.*//'
 }
 # endregion: Main command dispatcher and help output
 
@@ -250,8 +251,7 @@ list_oarepo_versions() {
         get_oarepo_versions
         echo -n ", "
         echo -n "\"python_versions\": "
-        python_version_string=$(grep 'requires-python' pyproject.toml | head -n 1)
-        get_python_versions $(get_oarepo_versions)
+        get_python_versions "$(get_oarepo_versions)"
         echo -n ", "
         echo -n "\"node_versions\": [\"24\"]"
         echo "}"
@@ -264,13 +264,14 @@ list_oarepo_versions() {
 
 get_oarepo_versions()
 {
-    versions=$(egrep "^oarepo[0-9]{2}\s*=" pyproject.toml | sed "s/oarepo\([0-9][0-9]\)\s*=.*/\"\1\"/" | sort -n |tr '\n' ',' | sed 's/,$//')
+    versions=$(grep -E "^oarepo[0-9]{2}\s*=" pyproject.toml | sed "s/oarepo\([0-9][0-9]\)\s*=.*/\"\1\"/" | sort -n |tr '\n' ',' | sed 's/,$//')
     echo -n "[$versions]"
 }
 
 
 get_python_versions() {
-    local oarepo_versions python_versions
+    local oarepo_versions
+    local -a python_versions
     oarepo_versions="$1"
     python_versions=()
     if [[ "$oarepo_versions" == *"14"* ]]; then
@@ -279,9 +280,10 @@ get_python_versions() {
         echo "Unknown oarepo version(s) $oarepo_versions, cannot determine python versions." >&2
         exit 1
     fi
-    python_versions=$(echo "${python_versions[@]}" | tr ' ' ',' )
+    local python_versions_str
+    python_versions_str=$(IFS=,; echo "${python_versions[*]}")
     # return concatenated string of python versions as json array of strings
-    echo -n "[$python_versions]"
+    echo -n "[$python_versions_str]"
 }
 # endregion: Version commands
 
@@ -307,7 +309,8 @@ start_services() {
 
 get_highest_available_python() {
     # Get python versions from oarepo-versions
-    local python_versions=$(list_oarepo_versions | grep -o '"python_versions":[^]]*]' | sed 's/"python_versions"://' | sed 's/[][]//g' | sed 's/"//g' | tr ',' ' ')
+    local python_versions
+    python_versions=$(list_oarepo_versions | grep -o '"python_versions":[^]]*]' | sed 's/"python_versions"://' | sed 's/[][]//g' | sed 's/"//g' | tr ',' ' ')
 
     # Try each version from highest to lowest
     local highest_version=""
@@ -317,7 +320,8 @@ get_highest_available_python() {
         # Check if this python version exists on the system
         if command -v "python${version}" >/dev/null 2>&1; then
             # Extract minor version number for comparison (e.g., "3.14" -> 14)
-            local minor=$(echo "$version" | cut -d'.' -f2)
+            local minor
+                minor=$(echo "$version" | cut -d'.' -f2)
             if [ "$minor" -gt "$highest_minor" ]; then
                 highest_minor=$minor
                 highest_version=$version
@@ -369,7 +373,8 @@ setup_venv() {
 
     # If PYTHON is set, use it directly. Otherwise, find the highest available version.
     if [ -z "${PYTHON:-}" ]; then
-        export PYTHON_VERSION=$(get_highest_available_python)
+        PYTHON_VERSION=$(get_highest_available_python)
+        export PYTHON_VERSION
         export PYTHON="python${PYTHON_VERSION}"
     fi
 
@@ -511,7 +516,7 @@ run_tests() {
     fi
 
     # unset all INVENIO_ environment variables to avoid interference with tests
-    unset $(env | grep ^INVENIO_ | sed 's/=.*//')
+    unset $(env | grep ^INVENIO_ | sed 's/=.*//') 2>/dev/null || true
 
     if [ "$skip_services" -eq 0 ]; then
         start_test_services
@@ -577,7 +582,7 @@ EOF
 
     webpack_entries=$(get_webpack_entries)
     coverage_roots=$(echo "$webpack_entries" | tr ',' '\n' | sed 's|$|/**/*.{js,jsx}|' | sed 's/^\./"**/; s/$/"/' | paste -sd, -)
-    test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath ${assets_path}/{} | sed 's/^/"/; s/$/"/' | paste -sd, -)
+    test_roots=$(echo "$webpack_entries" | tr ',' '\n' | xargs -I{} realpath "${assets_path}/{}" | sed 's/^/"/; s/$/"/' | paste -sd, -)
 
     cat <<EOF >"${assets_path}/jest.config.js"
 /**
@@ -695,6 +700,7 @@ print(" ".join(f"{name}@{version}" for name, version in dev_deps.items()))
 EOF
     )
 
+    # shellcheck disable=SC2086
     pnpm add -C "$assets_path" -w -D $rdm_dev_dependencies
 
     if [ -n "${WITH_STORYBOOK:-}" ]; then
