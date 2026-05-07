@@ -427,44 +427,52 @@ create_model() {
     fi
     model_name="$1"
     shift
-    if [ $# -eq 0 ]; then
-        # if template starts with https, it is a github url
-        if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
-            echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
-                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
-                -d model_name="${model_name}" \
-                "${MODEL_TEMPLATE}" . 
-        else
-            echo_progress "Using local template: ${MODEL_TEMPLATE}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
-                copier copy --trust \
-                -d model_name="${model_name}" \
-                "${MODEL_TEMPLATE}" . 
-        fi
+
+    local extra_args=()
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --data-file)
+                shift
+                if [ $# -eq 0 ]; then
+                    echo_error "--data-file requires a path argument."
+                    exit 1
+                fi
+                if [ ! -f "$1" ]; then
+                    echo_error "Data file does not exist: $1"
+                    exit 1
+                fi
+                extra_args+=(--data-file "$1")
+                shift
+                ;;
+            --answers-file)
+                shift
+                if [ $# -eq 0 ]; then
+                    echo_error "--answers-file requires a path argument."
+                    exit 1
+                fi
+                extra_args+=(--answers-file "$1")
+                shift
+                ;;
+            *)
+                echo_error "Unknown option: $1"
+                exit 1
+                ;;
+        esac
+    done
+
+    # if template starts with https, it is a github url
+    if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
+        echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
+        uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
+            copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
+            -d model_name="${model_name}" \
+            "${extra_args[@]}" "${MODEL_TEMPLATE}" .
     else
-        model_config_file="$1"
-        shift
-
-        if [ ! -f "${model_config_file}" ]; then
-            echo_error "Missing model config file: ${model_config_file}"
-            exit 1
-        fi
-
-        # if template starts with https, it is a github url
-        if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
-            echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
-                copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
-                --answers-file "${model_config_file}" \
-                "${MODEL_TEMPLATE}" . "${@}"
-        else
-            echo_progress "Using local template: ${MODEL_TEMPLATE}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions\
-                copier copy --trust\
-                --answers-file "${model_config_file}" \
-                "${MODEL_TEMPLATE}" . "${@}"
-        fi
+        echo_progress "Using local template: ${MODEL_TEMPLATE}"
+        uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
+            copier copy --trust \
+            -d model_name="${model_name}" \
+            "${extra_args[@]}" "${MODEL_TEMPLATE}" .
     fi
 
     if [ -d ".venv" ]; then
