@@ -177,7 +177,7 @@ run_tools() {
                 ;;
             translations)
                 shift
-                uvx --from oarepo-tools make-translations
+                uvx --from oarepo-tools make-translations "$@"
                 return 0
                 ;;
             lint)
