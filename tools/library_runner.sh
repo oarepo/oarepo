@@ -97,11 +97,11 @@ else
 
         if grep -q '^\[tool.hatch.build.targets.wheel\]' pyproject.toml; then
             top_level=$(
-                cat pyproject.toml | 
-                tr '\n' '$$$' | 
-                sed 's/.*\[tool.hatch.build.targets.wheel\]//' | 
-                tr '$$$' '\n' | 
-                grep '^packages' | 
+                cat pyproject.toml |
+                tr '\n' '$$$' |
+                sed 's/.*\[tool.hatch.build.targets.wheel\]//' |
+                tr '$$$' '\n' |
+                grep '^packages' |
                 sed 's/packages *= *\[ *"//' | sed 's/".*//'
             )
             code_directories+=("${top_level}")
@@ -357,11 +357,11 @@ start_services() {
 get_highest_available_python() {
     # Get python versions from oarepo-versions
     local python_versions=$(list_oarepo_versions | grep -o '"python_versions":[^]]*]' | sed 's/"python_versions"://' | sed 's/[][]//g' | sed 's/"//g' | tr ',' ' ')
-    
+
     # Try each version from highest to lowest
     local highest_version=""
     local highest_minor=0
-    
+
     for version in $python_versions; do
         # Check if this python version exists on the system
         if command -v "python${version}" >/dev/null 2>&1; then
@@ -373,13 +373,13 @@ get_highest_available_python() {
             fi
         fi
     done
-    
+
     if [ -z "$highest_version" ]; then
         echo "No compatible Python version found on the system." >&2
         echo "Available versions according to oarepo-versions: $python_versions" >&2
         exit 1
     fi
-    
+
     echo "$highest_version"
 }
 
@@ -429,9 +429,11 @@ setup_venv() {
     uv pip install setuptools
     uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$((OAREPO_VERSION + 1))"
 
+    default_extras=$(cat pyproject.toml | grep default_extras | awk -F'"' '{print $2}')
+
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
-        uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION}]"
+        uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION},${default_extras}]"
     else
         echo "Building and Installing the package."  >&2
         if [ -d dist ]; then
@@ -440,7 +442,7 @@ setup_venv() {
         fi
         uv build --wheel
         wheel_package=$(ls dist/*.whl | head -n 1)
-        uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}]"
+        uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION},${default_extras}]"
     fi
 }
 
@@ -449,25 +451,25 @@ upgrade_environment() {
     set -o pipefail
 
     echo "Upgrading environment..."  >&2
-    
+
     # Stop services if running
     echo "Stopping services..."  >&2
     stop_services || true
-    
+
     # Remove .venv if it exists
     if [ -d .venv ]; then
         echo "Removing virtual environment..."  >&2
         rm -rf .venv
     fi
-    
+
     # Clean uv cache
     echo "Cleaning uv cache..."  >&2
     uv cache clean
-    
+
     # Recreate virtual environment
     echo "Setting up virtual environment..."  >&2
     setup_venv --force
-    
+
     echo "Upgrade completed successfully."  >&2
 }
 # endregion: Python Virtual Environment Management
