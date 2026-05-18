@@ -429,11 +429,11 @@ setup_venv() {
     uv pip install setuptools
     uv pip install --prerelease allow "oarepo[rdm,tests]>=${OAREPO_VERSION},<$((OAREPO_VERSION + 1))"
 
-    default_extras=$(cat pyproject.toml | grep default_extras | awk -F'"' '{print $2}')
+    default_extras=$(grep '^default_extras' pyproject.toml | awk -F'"' '{print $2}' || true)
 
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
-        uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION},${default_extras}]"
+        uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]"
     else
         echo "Building and Installing the package."  >&2
         if [ -d dist ]; then
@@ -442,7 +442,7 @@ setup_venv() {
         fi
         uv build --wheel
         wheel_package=$(ls dist/*.whl | head -n 1)
-        uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION},${default_extras}]"
+        uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]"
     fi
 }
 
