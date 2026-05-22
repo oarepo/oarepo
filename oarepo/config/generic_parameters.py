@@ -324,6 +324,7 @@ def configure_generic_parameters(
             "ico": {"label": _("ICO"), "validator": lambda identifier: True},
             "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},
             "url": {"label": _("URL"), "validator": lambda identifier: True},
+            "grid": {"label": _("GRID"), "validator": lambda identifier: True},
         },
     )
 
