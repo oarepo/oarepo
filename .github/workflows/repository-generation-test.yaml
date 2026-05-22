@@ -35,6 +35,10 @@ on:
         required: false
         default: "main"
         description: "Git ref (branch/tag) for oarepo tools."
+      oarepo_app_ref:
+        type: string
+        required: false
+        description: "Git ref (branch/tag) for oarepo app."
 permissions:
   contents: read
 jobs:
@@ -53,6 +57,7 @@ jobs:
       MODEL_TEMPLATE_VERSION: ${{ inputs.model_template_version || 'rdm-14' }}
       PYTHON_VERSION: ${{ inputs.python_version || '3.14' }}
       OAREPO_REF: ${{ inputs.oarepo_ref }}
+      OAREPO_APP_REF: ${{ inputs.oarepo_app_ref }}
 
     steps:
       - name: Checkout oarepo (for tools reference)
@@ -83,6 +88,7 @@ jobs:
           echo "Model template: $MODEL_TEMPLATE"
           echo "Model template version: $MODEL_TEMPLATE_VERSION"
           echo "OARepo ref: $OAREPO_REF"
+          echo "OARepo app ref: $OAREPO_APP_REF"
 
       - name: Download repository_installer.sh (as a user would)
         run: |
@@ -105,6 +111,16 @@ jobs:
             --version "$APP_TEMPLATE_VERSION" \
             --config repo_config.yaml \
             testrepo
+
+          # if OAREPO_APP_REF is set, add it to the pyproject.toml
+          if [ -n "$OAREPO_APP_REF" ]; then
+            # if there is no [tool.uv.sources] section, add it
+            if ! grep -q "\[tool.uv.sources\]" testrepo/pyproject.toml; then
+              echo "[tool.uv.sources]" >> testrepo/pyproject.toml
+            fi
+            # locate the tool.uv.sources and add github reference to github.com/oarepo/oarepo-app with the specified branch name
+            sed -i "/\[tool\.uv\.sources\]/a oarepo-app = { git = \"https://github.com/oarepo/oarepo-app\", branch = \"${OAREPO_APP_REF}\" }" testrepo/pyproject.toml
+          fi
 
       - name: Create all models
         working-directory: testrepo
