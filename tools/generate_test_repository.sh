@@ -229,6 +229,8 @@ step "Setting up services"
 
 step "Running repository (smoke test)"
 ./run.sh run &
+sleep 60
+
 curl -skf --retry 10 --retry-connrefused --retry-delay 3 --retry-max-time 60 \
   https://localhost:5000/ && echo "Repository is running"
 
