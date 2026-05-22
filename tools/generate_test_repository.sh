@@ -210,7 +210,7 @@ test -d .venv && echo "Virtual environment exists" || (echo "Virtual environment
 
 echo ""
 echo "=== Checking installed packages ==="
-.venv/bin/pip list | grep -E "(oarepo|invenio)" | head -20
+(source .venv/bin/activate && uv pip list) | grep -E "(oarepo|invenio)" | head -20
 
 echo ""
 echo "=== Repository info ==="
