@@ -89,7 +89,8 @@ printf '%s\n' \
   "repository_name: testrepo" \
   "repository_human_name: Test Repository" \
   "repository_description: Integration test repository" \
-  "languages: cs" > repo_config.yaml
+  "languages: cs" \
+  "use_ccmm: true" > repo_config.yaml
 
 bash repository_installer.sh \
   --python "python${PYTHON_VERSION}" \
