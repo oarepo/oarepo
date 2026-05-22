@@ -210,7 +210,7 @@ test -d .venv && echo "Virtual environment exists" || (echo "Virtual environment
 
 echo ""
 echo "=== Checking installed packages ==="
-.venv/bin/pip list | grep -E "(oarepo|invenio)" | head -20
+(source .venv/bin/activate && uv pip list) | grep -E "(oarepo|invenio)" | head -20
 
 echo ""
 echo "=== Repository info ==="
@@ -229,6 +229,8 @@ step "Setting up services"
 
 step "Running repository (smoke test)"
 ./run.sh run &
+sleep 60
+
 curl -skf --retry 10 --retry-connrefused --retry-delay 3 --retry-max-time 60 \
   https://localhost:5000/ && echo "Repository is running"
 
