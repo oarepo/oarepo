@@ -59,10 +59,10 @@ find_python_sources() {
 #
 # Emits names like:  invenio_records_resources  pytest_invenio
 extract_invenio_modules() {
-    grep -hE '^\s*(import|from)\s+(invenio[a-zA-Z0-9_]*|pytest_invenio)' \
+    grep -hE '^[[:space:]]*(import|from)[[:space:]]+(invenio[a-zA-Z0-9_]*|pytest_invenio)' \
             "$@" 2>/dev/null \
         | sed -E \
-            -e 's/^\s*(import|from)\s+//' \
+            -e 's/^[[:space:]]*(import|from)[[:space:]]+//' \
             -e 's/[.([:space:]].*//'       \
         | grep -E '^(invenio|pytest_invenio)' \
         | sort -u \
