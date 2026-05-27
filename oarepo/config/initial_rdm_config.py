@@ -6,7 +6,9 @@
 # oarepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 #
-"""Initial configuration which replaces RDM service with oarepo extensions."""
+"""Initial configuration which replaces RDM service with oarepo extensions. This is the place where we will keep
+most RDM related configuration (all that is possible) in order to avoid keeping it in oarepo-rdm which then creates
+a problem, where every package needs to depend on oarepo-rdm."""
 
 from __future__ import annotations
 
@@ -123,11 +125,7 @@ COMMUNITIES_RECORDS_SEARCH = {
 """Communities records search configuration."""
 
 
-RDM_REQUESTS_ROUTES = {
-    "user-dashboard-request-details": "/me/requests/<uuid:request_pid_value>",
-    "community-dashboard-request-details": "/communities/<pid_value>/requests/<uuid:request_pid_value>",
-    "community-dashboard-invitation-details": "/communities/<pid_value>/invitations/<uuid:request_pid_value>",
-}
+RDM_REQUESTS_ROUTES = rdm_config.RDM_REQUESTS_ROUTES
 """Routes for requests in RDM."""
 
 
