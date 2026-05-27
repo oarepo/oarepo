@@ -9,9 +9,12 @@ name: Release Workflow
 on:
   workflow_call:
     inputs:
-      skip_tests:
+      lint_enabled:
         type: boolean
-        default: false
+        default: true
+      tests_enabled:
+        type: boolean
+        default: true
     secrets:
       OAREPO_BUMP_VERSION_CLIENT_ID:
         required: true
@@ -25,7 +28,9 @@ jobs:
   test:
     name: Run Tests
     uses: oarepo/oarepo/.github/workflows/test.yaml@main
-    if: ${{ !inputs.skip_tests }}
+    with:
+      lint_enabled: ${{ inputs.lint_enabled }}
+      tests_enabled: ${{ inputs.tests_enabled }}
 
   prepare_release:
     name: Prepare Release
