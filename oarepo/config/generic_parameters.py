@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import re
-from datetime import timedelta
 from typing import Any
 from urllib.parse import urlparse
 
@@ -222,20 +220,6 @@ def configure_generic_parameters(
     RECORD_ROUTES = {}
     RECORDS_REST_ENDPOINTS = {}
 
-    # RDM
-    INVENIO_RDM_ENABLED = True
-    RDM_PERSISTENT_IDENTIFIERS: dict = {}
-    RDM_PARENT_PERSISTENT_IDENTIFIERS: dict = {}
-    RDM_USER_MODERATION_ENABLED = False
-    RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD = False
-    RDM_ALLOW_METADATA_ONLY_RECORDS = True
-    # Files enabled will be default in our repositories
-    RDM_DEFAULT_FILES_ENABLED = True
-    RDM_SEARCH_SORT_BY_VERIFIED = False
-    RDM_RECORDS_RESTRICTION_GRACE_PERIOD = timedelta(days=30)
-    """Grace period for changing record access to restricted."""
-    RDM_ARCHIVE_DOWNLOAD_ENABLED = True
-
     # datacite & dois default
     DATACITE_TEST_MODE = True
 
@@ -248,20 +232,9 @@ def configure_generic_parameters(
         MAIL_SUPPRESS_SEND = env.get("INVENIO_MAIL_SUPPRESS_SEND", True)
 
     # default schemes for identifiers
-    import idutils
-
-    def is_researcher_id(identifier):
-        pattern = r"^[A-Za-z]+-\d{4}-\d{4}$"
-        return bool(re.match(pattern, identifier))
-
-    def is_vedidk(identifier):
-        cleaned_identifier = identifier.strip()
-        return cleaned_identifier.isdigit() and len(cleaned_identifier) == 7
-
-    def is_scopus_id(identifier):
-        return identifier.replace(".0", "").isdigit()
-
     from invenio_vocabularies import config as vocab_config
+
+    from .initial_rdm_config import is_researcher_id, is_scopus_id, is_vedidk
 
     VOCABULARIES_NAMES_SCHEMES = merge_with_caller(
         "VOCABULARIES_NAMES_SCHEMES",
@@ -296,57 +269,6 @@ def configure_generic_parameters(
     )
 
     from invenio_app_rdm import config as app_rdm_config
-    from invenio_rdm_records import config as rdm_config
-
-    RDM_RECORDS_PERSONORG_SCHEMES = merge_with_caller(
-        "RDM_RECORDS_PERSONORG_SCHEMES",
-        {
-            **rdm_config.RDM_RECORDS_PERSONORG_SCHEMES,
-            "scopusid": {
-                "label": _("Scopus Author ID"),
-                "validator": is_scopus_id,
-                "datacite": "Scopus Author ID",
-            },
-            "researcherid": {
-                "label": _("Researcher ID"),
-                "validator": is_researcher_id,
-                "datacite": "ResearcherID",
-            },
-            "czenasautid": {
-                "label": _("CzenasAutID"),
-                "validator": lambda identifier: True,
-            },
-            "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
-            "institutionalid": {
-                "label": _("InstitutionalID"),
-                "validator": lambda identifier: True,
-            },
-            "ico": {"label": _("ICO"), "validator": lambda identifier: True},
-            "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},
-            "url": {"label": _("URL"), "validator": lambda identifier: True},
-        },
-    )
-
-    RDM_RECORDS_IDENTIFIERS_SCHEMES = merge_with_caller(
-        "RDM_RECORDS_IDENTIFIERS_SCHEMES",
-        {
-            **rdm_config.RDM_RECORDS_IDENTIFIERS_SCHEMES,
-        },
-    )
-    RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
-    """This variable is used to separate related identifiers."""
-    RDM_RECORDS_LOCATION_SCHEMES = merge_with_caller(
-        "RDM_RECORDS_LOCATION_SCHEMES", {**rdm_config.RDM_RECORDS_LOCATION_SCHEMES}
-    )
-
-    RDM_CITATION_STYLES = merge_with_caller(
-        "RDM_CITATION_STYLES",
-        [
-            *app_rdm_config.RDM_CITATION_STYLES,
-            ("iso690-author-date-cs", _("ČSN ISO 690")),
-        ],
-    )
-    RDM_CITATION_STYLES_DEFAULT = "iso690-author-date-cs"
 
     FILES_REST_DEFAULT_QUOTA_SIZE = 10**10
 
@@ -408,6 +330,8 @@ def configure_generic_parameters(
     # ROR client id - not used for authentication, just to increase rate limits
     ROR_CLIENT_ID = "3764CLXJ4R9GT9L496QSKU2G3ZWVF71A"
     SESSION_COOKIE_DOMAIN = None
+    # Flask-Collect configured to not use symlinks, as they can break the build due to duplicate static assets.
+    COLLECT_STORAGE = "flask_collect.storage.file"
 
     import os
     import platform
