@@ -12,34 +12,19 @@ a problem, where every package needs to depend on oarepo-rdm."""
 
 from __future__ import annotations
 
+import re
+from datetime import timedelta
 from typing import TYPE_CHECKING, Any, TypedDict
 
-from invenio_app_rdm import config as rdm_config  # noqa
+import idutils
+from invenio_app_rdm import config as app_rdm_config
+from invenio_i18n import lazy_gettext as _
+from invenio_rdm_records import config as rdm_records_config
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-# TODO: Why not to add other RDM routes here?
-APP_RDM_ROUTES = {
-    "index": "/",
-    "robots": "/robots.txt",
-    "help_search": "/help/search",
-    "help_statistics": "/help/statistics",
-    # "help_versioning": "/help/versioning", #noqa
-    "record_search": "/search",
-    "record_detail": "/records/<pid_value>",
-    "record_export": "/records/<pid_value>/export/<export_format>",
-    "record_file_preview": "/records/<pid_value>/preview/<path:filename>",
-    "record_file_download": "/records/<pid_value>/files/<path:filename>",
-    "record_thumbnail": "/records/<pid_value>/thumb<int:size>",
-    "record_media_file_download": "/records/<pid_value>/media-files/<path:filename>",
-    "record_from_pid": "/<any({schemes}):pid_scheme>/<path:pid_value>",
-    "record_latest": "/records/<pid_value>/latest",
-    # "dashboard_home": "/me", #noqa
-    # "deposit_create": "/uploads/new", #noqa
-    "deposit_edit": "/uploads/<pid_value>",
-}
-
+APP_RDM_ROUTES = app_rdm_config.APP_RDM_ROUTES
 # OAI-PMH
 # =======
 # See https://github.com/inveniosoftware/invenio-oaiserver/blob/master/invenio_oaiserver/config.py
@@ -85,22 +70,15 @@ OAISERVER_DELETE_PERCOLATOR_FUNCTION = "invenio_oaiserver.percolator:_delete_per
 # cleared rest endpoints
 RECORDS_REST_ENDPOINTS: list[Any] = []
 
-APP_RDM_USER_DASHBOARD_ROUTES = {
-    "uploads": "/me/uploads",
-    "communities": "/me/communities",
-    "requests": "/me/requests",
-}
+APP_RDM_USER_DASHBOARD_ROUTES = app_rdm_config.APP_RDM_USER_DASHBOARD_ROUTES
 """Routes for user dashboard"""
 
 USER_DASHBOARD_MENU_OVERRIDES: dict[str, str] = {}
 """Menu overrides for user dashboard"""
 
-RDM_SEARCH_USER_COMMUNITIES = {
-    "facets": ["visibility", "type"],
-    "sort": ["bestmatch", "newest", "oldest"],
-}
+RDM_SEARCH_USER_COMMUNITIES = app_rdm_config.RDM_SEARCH_USER_COMMUNITIES
 """User communities search configuration"""
-
+# TODO: invenio's config is different, should we use theirs?
 RDM_SEARCH_USER_REQUESTS = {
     "facets": ["type", "status"],
     "sort": ["bestmatch", "newest", "oldest"],
@@ -108,24 +86,15 @@ RDM_SEARCH_USER_REQUESTS = {
 """User requests search configuration"""
 
 
-RDM_COMMUNITIES_ROUTES = {
-    "community-detail": "/communities/<pid_value>/records",
-    "community-home": "/communities/<pid_value>/",
-    "community-browse": "/communities/<pid_value>/browse",
-    "community-static-page": "/communities/<pid_value>/pages/<path:page_slug>",
-    "community-collection": "/communities/<pid_value>/collections/<tree_slug>/<collection_slug>",
-}
+RDM_COMMUNITIES_ROUTES = app_rdm_config.RDM_COMMUNITIES_ROUTES
 """Communities routes from app RDM."""
 
 
-COMMUNITIES_RECORDS_SEARCH = {
-    "facets": ["access_status", "resource_type", "language"],
-    "sort": ["bestmatch", "newest", "oldest", "version"],
-}
+COMMUNITIES_RECORDS_SEARCH = app_rdm_config.COMMUNITIES_RECORDS_SEARCH
 """Communities records search configuration."""
 
 
-RDM_REQUESTS_ROUTES = rdm_config.RDM_REQUESTS_ROUTES
+RDM_REQUESTS_ROUTES = app_rdm_config.RDM_REQUESTS_ROUTES
 """Routes for requests in RDM."""
 
 
@@ -138,3 +107,77 @@ class ExternalLinkConfig(TypedDict):
 
 APP_RDM_RECORD_LANDING_PAGE_EXTERNAL_LINKS: list[ExternalLinkConfig] = []
 """External links to be shown on record landing page."""
+
+
+def is_researcher_id(identifier: str) -> bool:
+    """Validate ResearcherID format: letters, dash, 4 digits, dash, 4 digits."""
+    pattern = r"^[A-Za-z]+-\d{4}-\d{4}$"
+    return bool(re.fullmatch(pattern, identifier))
+
+
+def is_vedidk(identifier: str) -> bool:
+    """Validate vedIDK: 7-digit numeric string (whitespace ignored)."""
+    cleaned_identifier = identifier.strip()
+    return cleaned_identifier.isdigit() and len(cleaned_identifier) == 7  # noqa: PLR2004
+
+
+def is_scopus_id(identifier: str) -> bool:
+    """Validate Scopus Author ID: numeric, tolerating a trailing ``.0``."""
+    return bool(re.fullmatch(r"\d+(?:\.0)?", identifier))
+
+
+RDM_RECORDS_PERSONORG_SCHEMES = {
+    **rdm_records_config.RDM_RECORDS_PERSONORG_SCHEMES,
+    "scopusid": {
+        "label": _("Scopus Author ID"),
+        "validator": is_scopus_id,
+        "datacite": "Scopus Author ID",
+    },
+    "researcherid": {
+        "label": _("Researcher ID"),
+        "validator": is_researcher_id,
+        "datacite": "ResearcherID",
+    },
+    "czenasautid": {
+        "label": _("CzenasAutID"),
+        "validator": lambda _: True,
+    },
+    "vedidk": {"label": _("vedIDK"), "validator": is_vedidk},
+    "institutionalid": {
+        "label": _("InstitutionalID"),
+        "validator": lambda _: True,
+    },
+    "ico": {"label": _("ICO"), "validator": lambda _: True},
+    "doi": {"label": _("DOI"), "validator": idutils.is_doi, "datacite": "DOI"},  # pyright: ignore[reportAttributeAccessIssue]
+    "url": {"label": _("URL"), "validator": lambda _: True},
+    "grid": {"label": _("GRID"), "validator": lambda _: True},
+}
+"""Default values for person/org schemes."""
+
+RDM_RECORDS_IDENTIFIERS_SCHEMES = rdm_records_config.RDM_RECORDS_IDENTIFIERS_SCHEMES
+"""Default values for identifiers schemes."""
+RDM_RECORDS_RELATED_IDENTIFIERS_SCHEMES = RDM_RECORDS_IDENTIFIERS_SCHEMES
+"""This variable is used to separate related identifiers."""
+INVENIO_RDM_ENABLED = True
+RDM_PERSISTENT_IDENTIFIERS: dict = {}
+RDM_PARENT_PERSISTENT_IDENTIFIERS: dict = {}
+RDM_USER_MODERATION_ENABLED = False
+RDM_RECORDS_ALLOW_RESTRICTION_AFTER_GRACE_PERIOD = False
+RDM_ALLOW_METADATA_ONLY_RECORDS = True
+RDM_DEFAULT_FILES_ENABLED = True
+RDM_SEARCH_SORT_BY_VERIFIED = False
+RDM_RECORDS_RESTRICTION_GRACE_PERIOD = timedelta(days=30)
+"""Grace period for changing record access to restricted."""
+RDM_ARCHIVE_DOWNLOAD_ENABLED = True
+
+
+RDM_RECORDS_LOCATION_SCHEMES = rdm_records_config.RDM_RECORDS_LOCATION_SCHEMES
+"""Default values for location schemes."""
+
+RDM_CITATION_STYLES = [
+    *app_rdm_config.RDM_CITATION_STYLES,
+    ("iso690-author-date-cs", _("ČSN ISO 690")),
+]
+"""Available citation styles for records."""
+RDM_CITATION_STYLES_DEFAULT = "iso690-author-date-cs"
+"""Default citation style for records."""

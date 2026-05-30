@@ -1,9 +1,14 @@
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
-from invenio_app_rdm.config import APP_RDM_DETAIL_SIDE_BAR_TEMPLATES
 from invenio_i18n import lazy_gettext as _
-from .base import get_constant_from_caller, load_configuration_variables, set_constants_in_caller
+
+from .base import (
+    get_constant_from_caller,
+    load_configuration_variables,
+    set_constants_in_caller,
+)
 
 if TYPE_CHECKING:
     from typing import Any
@@ -22,8 +27,8 @@ def configure_ui(
     languages=(("cs", _("Czech")),),
 ) -> None:
     env = load_configuration_variables()
-    
-    DEPLOYMENT_VERSION = env.get("INVENIO_DEPLOYMENT_VERSION", "local development") 
+
+    DEPLOYMENT_VERSION = env.get("INVENIO_DEPLOYMENT_VERSION", "local development")
 
     APP_THEME = [code, "oarepo", "semantic-ui"]
     APP_DEFAULT_SECURE_HEADERS: dict[str, Any] = get_constant_from_caller(
@@ -44,7 +49,7 @@ def configure_ui(
     THEME_JAVASCRIPT_TEMPLATE = "javascript.html"
     HEADER_TEMPLATE = "header.html"
     THEME_HEADER_TEMPLATE = "header.html"
-    THEME_HEADER_LOGIN_TEMPLATE="invenio_app_rdm/header_login.html"
+    THEME_HEADER_LOGIN_TEMPLATE = "invenio_app_rdm/header_login.html"
     THEME_FOOTER_TEMPLATE = "footer.html"
     THEME_TRACKINGCODE_TEMPLATE = "oarepo_ui/trackingcode.html"
     THEME_FRONTPAGE_TEMPLATE = "frontpage.html"
@@ -61,14 +66,17 @@ def configure_ui(
     HEADER_TEMPLATE = "invenio_theme/header.html"
     SEARCH_UI_SEARCH_TEMPLATE = "invenio_app_rdm/records/search.html"
 
-    if analytics and analytics == "matomo" and DEPLOYMENT_VERSION != "local development":
+    if (
+        analytics
+        and analytics == "matomo"
+        and DEPLOYMENT_VERSION != "local development"
+    ):
         MATOMO_ANALYTICS_TEMPLATE = "oarepo_ui/matomo_analytics.html"
         MATOMO_ANALYTICS_URL = env.INVENIO_MATOMO_ANALYTICS_URL
         MATOMO_ANALYTICS_SITE_ID = env.INVENIO_MATOMO_ANALYTICS_SITE_ID
         APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
             env.INVENIO_MATOMO_ANALYTICS_URL
         )
-
 
     # UI Branding & copywriting
     THEME_FRONTPAGE = use_default_frontpage
@@ -93,25 +101,27 @@ def configure_ui(
 
     # Do not add default records UI as we provide our own compatibility layer
     RECORDS_UI_ENDPOINTS = []
-    #UPPY uploader is default for us
+    # UPPY uploader is default for us
     APP_RDM_DEPOSIT_NG_FILES_UI_ENABLED = True
 
     WEBPACKEXT_NPM_PKG_CLS = "pynpm:PNPMPackage"
     DASHBOARD_RECORD_CREATE_URL = "/uploads/new"
 
     # todo: consult using app_rdm ones @mirekys
-    APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = ["invenio_app_rdm/records/details/side_bar/manage_menu.html",
-     "invenio_app_rdm/records/details/side_bar/external_resources.html",
-     "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
-     "invenio_app_rdm/records/details/side_bar/details.html",
-     "invenio_app_rdm/records/details/side_bar/licenses.html",
-     "oarepo_ui/record_detail/side_bar/export.html",
-     "invenio_app_rdm/records/details/side_bar/technical_metadata.html",
-     ]
+    APP_RDM_DETAIL_SIDE_BAR_TEMPLATES = [
+        "invenio_app_rdm/records/details/side_bar/external_resources.html",
+        "invenio_app_rdm/records/details/side_bar/keywords_subjects.html",
+        "invenio_app_rdm/records/details/side_bar/details.html",
+        "invenio_app_rdm/records/details/side_bar/licenses.html",
+        "oarepo_ui/record_detail/side_bar/export.html",
+        "invenio_app_rdm/records/details/side_bar/citations.html",
+        "invenio_app_rdm/records/details/side_bar/manage_menu.html",
+        "invenio_app_rdm/records/details/side_bar/technical_metadata.html",
+    ]
 
-
-    from invenio_theme import config as theme_config
     from invenio_search_ui import config as search_ui_config
+    from invenio_theme import config as theme_config
+
     THEME_LOGO = "images/theme-logo.png"
 
     THEME_SEARCH_ENDPOINT = theme_config.THEME_SEARCH_ENDPOINT
