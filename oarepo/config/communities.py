@@ -9,31 +9,34 @@ from invenio_records_permissions.generators import Disable, SystemProcess
 from .base import set_constants_in_caller
 
 try:
-    from oarepo_communities.services.permissions.generators import PrimaryCommunityRole
+    from oarepo_communities.services.permissions.generators import (
+        CanSubmitRecordInCommunity,
+        PrimaryCommunityRole,
+    )
 
     class DefaultCommunitiesPermissionPolicy(CommunityPermissionPolicy):
         """Default Permissions for Community CRUD operations for workflow scenarios."""
 
-        can_create = [Administration(), SystemProcess()]
-        can_submit_record = [SystemProcess()]
-        can_include_directly = [SystemProcess()]
-        can_members_add = [SystemProcess()]
-        can_members_search = [
+        can_create = (Administration(), SystemProcess())
+        can_submit_record = (CanSubmitRecordInCommunity(), SystemProcess())
+        can_include_directly = (SystemProcess(),)
+        can_members_add = (SystemProcess(),)
+        can_members_search = (
             PrimaryCommunityRole("owner"),
             PrimaryCommunityRole("curator"),
             SystemProcess(),
-        ]
-        can_members_search_public = [
+        )
+        can_members_search_public = (
             PrimaryCommunityRole("owner"),
             PrimaryCommunityRole("curator"),
             SystemProcess(),
-        ]
-        can_members_update = [
+        )
+        can_members_update = (
             CommunityManagersForRole(),
             SystemProcess(),
-        ]
+        )
         can_members_delete = can_members_update
-        can_request_membership = [Disable()]
+        can_request_membership = (Disable(),)
 
 except ImportError:
     from invenio_communities.permissions import CommunityPermissionPolicy
