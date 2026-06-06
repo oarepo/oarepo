@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.2.1b11.dev4+1.rdm.14.0.0b11.dev4"
+version = "14.2.1b11.dev4+2.rdm.14.0.0b11.dev4"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [
     "oarepo",
@@ -37,7 +37,7 @@ dependencies = [
     "attrs==26.1.0",
     "babel==2.18.0",
     "babel-edtf==1.2.1",
-    "backports-zstd==1.5.0 ; python_version<'3.14'",
+    "backports-zstd==1.5.0; python_version < '3.14'",
     "base32-lib==1.0.2",
     "beautifulsoup4==4.14.3",
     "bibtexparser==1.4.4",
@@ -61,7 +61,7 @@ dependencies = [
     "click-plugins==1.1.1.2",
     "click-repl==0.3.0",
     "colorama==0.4.6",
-    "commonmeta-py==0.220",
+    "commonmeta-py==0.223",
     "counter-robots==2025.11",
     "cryptography==48.0.0",
     "cssselect2==0.9.0",
