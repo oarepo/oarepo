@@ -37,7 +37,7 @@ dependencies = [
     "attrs==26.1.0",
     "babel==2.18.0",
     "babel-edtf==1.2.1",
-    "backports-zstd==1.5.0",
+    "backports-zstd==1.5.0 ; python_version<'3.14'",
     "base32-lib==1.0.2",
     "beautifulsoup4==4.14.3",
     "bibtexparser==1.4.4",
