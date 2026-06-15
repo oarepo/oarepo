@@ -13,8 +13,13 @@ try:
         CanSubmitRecordInCommunity,
         PrimaryCommunityRole,
     )
+    from oarepo_workflows.services.permissions.composite import (
+        BooleanPermissionPolicyMixin,
+    )
 
-    class DefaultCommunitiesPermissionPolicy(CommunityPermissionPolicy):
+    class DefaultCommunitiesPermissionPolicy(
+        BooleanPermissionPolicyMixin, CommunityPermissionPolicy
+    ):
         """Default Permissions for Community CRUD operations for workflow scenarios."""
 
         can_create = (Administration(), SystemProcess())
