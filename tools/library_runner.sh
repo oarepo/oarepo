@@ -433,16 +433,16 @@ setup_venv() {
 
     if [ -z "$NO_EDITABLE" ]; then
         echo "Installing the package in editable mode."  >&2
-        uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]"
+        uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]" || uv pip install --prerelease allow -e ".[dev,tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]"
     else
         echo "Building and Installing the package."  >&2
         if [ -d dist ]; then
             echo "Removing existing dist directory..."  >&2
             rm -rf dist
         fi
-        uv build --wheel
+        uv build --wheel || uv build --wheel
         wheel_package=$(ls dist/*.whl | head -n 1)
-        uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]"
+        uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]" || uv pip install --prerelease allow "${wheel_package}[tests,oarepo${OAREPO_VERSION}${default_extras:+,${default_extras}}]"
     fi
 }
 
