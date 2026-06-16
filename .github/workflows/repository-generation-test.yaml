@@ -220,7 +220,7 @@ jobs:
       - name: Setup services
         working-directory: testrepo
         run: |
-          ./run.sh services setup
+          ./run.sh services setup --no-demo-data
       # running the repo, just so we can see if there is some crash while the app is loading (for example wrong configuration
       # in some packages or similar issues that can arise while the app is being loaded)
       - name: Run repository
