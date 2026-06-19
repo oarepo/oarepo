@@ -19,6 +19,9 @@ env:
   PIP_EXTRA_INDEX_URL: https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple
   UV_EXTRA_INDEX_URL: https://gitlab.cesnet.cz/api/v4/projects/1408/packages/pypi/simple
 
+permissions:
+  contents: write
+
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -41,7 +44,10 @@ jobs:
       OAR_BOT: "${{ secrets.OAR_BOT }}"
     steps:
       - name: Checkout oarepo/oarepo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+
       - name: Set up Python ver.${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -94,3 +100,32 @@ jobs:
         shell: bash
         run: |
           twine upload --verbose --repository-url ${CESNET_GITLAB_PYPI_URL} dist/*
+
+      - name: Create and push repository tag
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        shell: bash
+        run: |
+          PACKAGE_VERSION="$(python - <<'PY'
+          import tomllib
+
+          with open("pyproject.toml", "rb") as f:
+              print(tomllib.load(f)["project"]["version"])
+          PY
+          )"
+          TARGET_TAG="v${PACKAGE_VERSION}"
+
+          if [ "${GITHUB_REF_NAME}" = "${TARGET_TAG}" ]; then
+            echo "Current ref already matches ${TARGET_TAG}, nothing to do."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git rev-parse "${TARGET_TAG}" >/dev/null 2>&1; then
+            echo "Tag ${TARGET_TAG} already exists locally."
+          else
+            git tag "${TARGET_TAG}" "${GITHUB_SHA}"
+          fi
+
+          git push origin "refs/tags/${TARGET_TAG}" -o ci.skip
