@@ -323,11 +323,35 @@ run_invenio_cli() {
         invenio-cli "$@"
 }
 
+copy_translations() {
+    set -euo pipefail
+
+    local src="${COLLECTED_TRANSLATIONS_DIR:-}"
+    local site_packages
+    site_packages=$(uv run --no-sync python -c "import site; print(site.getsitepackages()[0])")
+
+    if [ -z "$src" ]; then
+        src="${site_packages}/oarepo/collected_translations"
+    fi
+
+    if [ ! -d "$src" ]; then
+        echo_warning "No translations to overlay (looked at: $src), skipping"
+        return 0
+    fi
+
+    echo_progress "Overlaying translations from $src onto $site_packages"
+    # /. on the source copies contents and merges into existing dirs (BSD + GNU cp).
+    cp -R "$src"/. "$site_packages/"
+    echo_success "Translation overlay applied"
+}
+
 install_repository() {
     # TODO: need to sync before the installation as I need to call invenio to register
     # less components. This should be put directly into the install as an extra step
     # after the project is installed and before the collect is called.
-    uv sync --python="$PYTHON" 
+    uv sync --python="$PYTHON"
+
+    copy_translations
 
     instance_path=$(echo "print(app.instance_path, end='')" | in_invenio_shell | tail -n1)
     assets_path="${instance_path}/assets"
