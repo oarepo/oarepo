@@ -51,10 +51,11 @@ download_module_translations() {
     done
 }
 
+# added ||, because if transifex setup is missing in a package nothing gets put to collected_translations
 cat invenio_modules_with_translations.txt | while read module; do
     (
         download_module_translations $module
-    )
+    ) || echo "⚠️  Skipping $module (failed, likely missing .tx/config upstream)"
 done
 
 (
