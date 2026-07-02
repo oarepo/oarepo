@@ -200,13 +200,8 @@ show_help() {
     echo -e "  ${Y}cli${R} ${C}[subcommand]${R}           Run the invenio-cli command"
     echo
     echo -e "  ${Y}self-update${R}                Update the runner script to the latest version"
-    echo -e "  ${Y}translations${R}               Manage backend translations"
-    echo -e "      ${Y}init${R} ${C}<lang>${R}            Initialize backend translations for the given language"
-    echo -e "      ${Y}extract${R}                Extract backend translations"
-    echo -e "      ${Y}update${R}                 Update backend translations"
-    echo -e "      ${Y}compile${R}                Compile backend translations"
-    echo -e "  ${Y}jstranslations${R}             Manage frontend (JS) translations"
-    echo -e "      ${Y}extract${R}                Extract frontend (JS) translations"
+    echo -e "  ${Y}translations${R}               Extract, merge and compile translations (BE + JS) via oarepo-tools"
+    echo -e "      ${Y}compile${R}                Compile backend translations only (no extraction)"
     echo -e "  ${Y}index${R}                      Index management commands"
     echo -e "      ${Y}rebuild${R}                Rebuild the search index (drops and recreates)"
     echo -e "  ${Y}reset${R}                      Perform a full reset of the repository (removes all data and re-installs)"
@@ -360,12 +355,9 @@ install_repository() {
     mv .invenio.private.tmp .invenio.private
 
     # compile translations after installation so that they are symlinked correctly
-    # necessary to extract and initialize, otherwise, compile crashes
-    if [ ! -f translations/messages.pot ]; then
-        extract_be_translations
-    fi
-    if [ ! -d translations/en/LC_MESSAGES ]; then
-        initialize_be_translations en
+    # necessary to bootstrap message catalogues first, otherwise compile crashes
+    if [ ! -f translations/messages.pot ] || [ ! -d translations/en/LC_MESSAGES ]; then
+        uvx --from oarepo-tools make-translations
     fi
     compile_be_translations
 }
@@ -563,98 +555,16 @@ compile_be_translations() {
     run_invenio_cli translations compile
 }
 
-extract_be_translations() {
-    set -euo pipefail
-
-    activate_venv
-    run_invenio_cli translations extract
-}
-
-update_be_translations() {
-    set -euo pipefail
-
-    activate_venv
-    run_invenio_cli translations update
-}
-
-initialize_be_translations() {
-    set -euo pipefail
-
-    if [ $# -eq 0 ]; then
-        echo_error "Language code is required."
-        echo "Usage: ./run.sh translations init <language-code>"
-        echo "Example: ./run.sh translations init cs"
-        exit 1
-    fi
-
-    activate_venv
-    run_invenio_cli translations init -l "$1"
-}
-
-extract_js_translations() {
-    set -euo pipefail
-    cd i18n/semantic-ui/translations
-    npm install
-    npm run extract_messages
-}
-
 translations() {
     set -euo pipefail
 
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            init)
-                shift
-                initialize_be_translations "$@"
-                return 0
-                ;;
-            extract)
-                shift
-                extract_be_translations
-                return 0
-                ;;
-            update)
-                shift
-                update_be_translations
-                return 0
-                ;;
-            compile)
-                shift
-                compile_be_translations
-                return 0
-                ;;
-            *)
-                echo "Unknown translations option: $1"
-                echo "Usage: ./run.sh translations [init <lang>|extract|update|compile]"
-                exit 1
-                ;;
-        esac
-    done
+    if [[ $# -gt 0 && "$1" == "compile" ]]; then
+        shift
+        compile_be_translations
+        return 0
+    fi
 
-    echo "Usage: ./run.sh translations [init <lang>|extract|update|compile]"
-    exit 1
-}
-
-jstranslations() {
-    set -euo pipefail
-
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            extract)
-                shift
-                extract_js_translations
-                return 0
-                ;;
-            *)
-                echo "Unknown jstranslations option: $1"
-                echo "Usage: ./run.sh jstranslations extract"
-                exit 1
-                ;;
-        esac
-    done
-
-    echo "Usage: ./run.sh jstranslations extract"
-    exit 1
+    uvx --from oarepo-tools make-translations "$@"
 }
 
 
@@ -832,11 +742,6 @@ run() {
             translations)
                 shift
                 translations "$@"
-                exit 0
-                ;;
-            jstranslations)
-                shift
-                jstranslations "$@"
                 exit 0
                 ;;
             info)
