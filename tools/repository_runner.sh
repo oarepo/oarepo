@@ -381,9 +381,9 @@ install_repository() {
     # compile translations after installation so that they are symlinked correctly
     # necessary to bootstrap message catalogues first, otherwise compile crashes
     if [ ! -f translations/messages.pot ] || [ ! -d translations/en/LC_MESSAGES ]; then
-        uvx --from oarepo-tools make-translations
+        uvx --from oarepo-tools make-translations || echo "Warning: make-translations failed, translations not compiled!"
     fi
-    compile_be_translations
+    compile_be_translations || echo "Warning: invenio-cli failed to compile backend translations!"
 }
 
 upgrade_repository() {
