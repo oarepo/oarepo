@@ -4,6 +4,7 @@ invenio-accounts
 invenio-administration
 invenio-app-rdm
 invenio-banners
+invenio-collections
 invenio-communities
 invenio-drafts-resources
 invenio-files-rest
