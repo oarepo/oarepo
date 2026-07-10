@@ -342,6 +342,11 @@ s3 = []
 [project.entry-points."invenio_assets.webpack"]
 oarepo = "oarepo.webpack:theme"
 
+
+[project.entry-points."invenio_config.module"]
+0000-initial-oarepo-config = "oarepo.initial_rdm_config"
+
+
 [build-system]
 requires = [
     "setuptools",
