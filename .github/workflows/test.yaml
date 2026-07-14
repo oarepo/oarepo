@@ -98,7 +98,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oarepo/oarepo
-          ref: main
+          ref: krb-in-install-dependencies
           path: _oarepo
 
       - name: Install actions
@@ -156,7 +156,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oarepo/oarepo
-          ref: main
+          ref: krb-in-install-dependencies
           path: _oarepo
 
       - name: Install actions
@@ -218,7 +218,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oarepo/oarepo
-          ref: main
+          ref: krb-in-install-dependencies
           path: _oarepo
 
       - name: Install actions
@@ -251,7 +251,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oarepo/oarepo
-          ref: main
+          ref: krb-in-install-dependencies
           path: _oarepo
 
       - name: Install actions
@@ -283,7 +283,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oarepo/oarepo
-          ref: main
+          ref: krb-in-install-dependencies
           path: _oarepo
 
       - name: Install actions
