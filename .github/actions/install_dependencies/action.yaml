@@ -29,6 +29,12 @@ runs:
       if [ ! -d .tools/bin ] ; then mkdir .tools/bin ; fi
       echo "${{ github.workspace }}/.tools/bin" >> $GITHUB_PATH
 
+  - name: "Install Kerberos client tools and headers"
+    shell: "bash"
+    run: |
+      sudo DEBIAN_FRONTEND=noninteractive apt-get update
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev
+
   - name: "Set up Python ${{ inputs.python_version }}"
     uses: "actions/setup-python@v5"
     with:
