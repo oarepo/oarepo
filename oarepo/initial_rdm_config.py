@@ -219,3 +219,7 @@ NOTIFICATIONS_BACKENDS = app_rdm_config.NOTIFICATIONS_BACKENDS
 NOTIFICATIONS_BUILDERS = app_rdm_config.NOTIFICATIONS_BUILDERS
 
 NOTIFICATIONS_ENTITY_RESOLVERS = app_rdm_config.NOTIFICATIONS_ENTITY_RESOLVERS
+
+# required for share notifications, otherwise they fail
+NOTIFICATIONS_SETTINGS_VIEW_FUNCTION = app_rdm_config.notification_settings
+"""View function for notification settings."""
