@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.2.1rc4+2.rdm.14.0.0rc4"
+version = "14.2.1rc4+3.rdm.14.0.0rc4"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [
     "oarepo",
@@ -133,7 +133,7 @@ dependencies = [
     "invenio-celery==2.2.1",
     "invenio-checks==10.2.0",
     "invenio-collections==9.1.0",
-    "invenio-communities==28.2.0+oarepo.1.drv6lra4uxdnzakq",
+    "invenio-communities==28.2.0+oarepo.2.7e7krj64pazvzmdl",
     "invenio-config==1.1.1",
     "invenio-db==2.5.2",
     "invenio-drafts-resources==10.1.0+oarepo.1.kdcxzkknwebr4cfn",
