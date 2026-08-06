@@ -58,7 +58,8 @@ runs:
       run: |
         export PYTHONWARNINGS="ignore"
         export LINES=25
-        export COLUMNS=80
+        export COLUMNS=200
+        export TERMINAL_WIDTH=200
         if [ "${{ inputs.use_coverage }}" == "true" ]; then
           ./run.sh test --with-coverage
         else
