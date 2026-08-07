@@ -67,6 +67,15 @@ jobs:
         with:
           python-version-file: "pyproject.toml"
 
+      # should skip the steps here and call install_dependencies, but don't know
+      # python and node version (those are normally run in matrix
+      # should we store them and load from an artifact?
+      - name: "Install kerberos"
+        shell: "bash"
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev
+
       - name: Install the project
         shell: "bash"
         run: |
