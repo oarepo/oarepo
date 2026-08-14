@@ -268,6 +268,11 @@ jobs:
           python_version: ${{ inputs.lint_python_version }}
           node_version: ${{ inputs.lint_node_version }}
 
+      - name: Set up virtual environment
+        shell: "bash"
+        run: |
+          ./run.sh venv
+
       - name: Run linter
         shell: "bash"
         run: |
