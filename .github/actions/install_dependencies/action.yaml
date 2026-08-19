@@ -33,7 +33,7 @@ runs:
     shell: "bash"
     run: |
       sudo DEBIAN_FRONTEND=noninteractive apt-get update
-      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev libcrypt-dev
 
   - name: "Set up Python ${{ inputs.python_version }}"
     uses: "actions/setup-python@v5"
@@ -46,8 +46,8 @@ runs:
       if [ ! -d .tools ] ; then mkdir .tools ; fi
       ${PYTHON} -m venv .tools/uv
       .tools/uv/bin/pip install -U uv
-      
-      ln -s ${{ github.workspace }}/.tools/uv/bin/uv ${{ github.workspace }}/.tools/bin/uv 
+
+      ln -s ${{ github.workspace }}/.tools/uv/bin/uv ${{ github.workspace }}/.tools/bin/uv
       ln -s ${{ github.workspace }}/.tools/uv/bin/uvx ${{ github.workspace }}/.tools/bin/uvx
 
       uv --version

@@ -74,7 +74,7 @@ jobs:
         shell: "bash"
         run: |
           sudo DEBIAN_FRONTEND=noninteractive apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev libcrypt-dev
 
       - name: Install the project
         shell: "bash"
