@@ -25,7 +25,7 @@ on:
 jobs:
   extract_dependencies:
     name: Extract dependencies
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       python_versions: ${{ steps.extract.outputs.python_versions }}
       oarepo_versions: ${{ steps.extract.outputs.oarepo_versions }}
@@ -78,7 +78,7 @@ jobs:
 
   tests:
     name: Tests [editable]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: extract_dependencies
     if: ${{ inputs.tests_enabled }}
     strategy:
@@ -136,7 +136,7 @@ jobs:
 
   tests_on_installed:
     name: Tests [installed]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: extract_dependencies
     if: ${{ inputs.tests_enabled }}
     strategy:
@@ -184,7 +184,7 @@ jobs:
   detect_js:
     name: Javascript support
     needs: extract_dependencies
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       supports_js: ${{ steps.detect.outputs.supports_js }}
     steps:
@@ -198,7 +198,7 @@ jobs:
 
   test_javascript:
     name: Run Javascript tests
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs:
       - detect_js
       - extract_dependencies
@@ -243,7 +243,7 @@ jobs:
 
   lint_python:
     name: Lint Python
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: extract_dependencies
     if: ${{ inputs.lint_enabled }}
     steps:
@@ -280,7 +280,7 @@ jobs:
 
   lint_javascript:
     name: Lint Javascript
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: detect_js
     if: ${{ needs.detect_js.outputs.supports_js == 'true' && inputs.lint_enabled }}
     steps:

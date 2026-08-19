@@ -34,7 +34,7 @@ jobs:
 
   prepare_release:
     name: Prepare Release
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: test
     steps:
       - name: Set up environment variables for release ${{ github.event.release.tag_name }}
