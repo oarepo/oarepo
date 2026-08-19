@@ -57,9 +57,9 @@ jobs:
           echo "versions.json content:"
           cat versions.json
           echo "========================="
-          PYTHON_VERSIONS=$(jq -r --indent 0 '.["python_versions"]' versions.json)
-          OAREPO_VERSIONS=$(jq -r --indent 0 '.["oarepo_versions"]' versions.json)
-          NODE_VERSIONS=$(jq -r --indent 0 '.["node_versions"]' versions.json)
+          PYTHON_VERSIONS=$(jq -c '.["python_versions"]' versions.json)
+          OAREPO_VERSIONS=$(jq -c '.["oarepo_versions"]' versions.json)
+          NODE_VERSIONS=$(jq -c '.["node_versions"]' versions.json)
 
           echo "Python versions: $PYTHON_VERSIONS"
           echo "OARepo versions: $OAREPO_VERSIONS"
