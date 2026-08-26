@@ -12,6 +12,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set up virtual environment
+      shell: "bash"
+      run: ./run.sh venv
     - name: Install JS dependencies & configure test environment
       shell: "bash"
       run: ./run.sh jstest --setup
