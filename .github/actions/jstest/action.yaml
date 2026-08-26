@@ -14,7 +14,7 @@ runs:
   steps:
     - name: Install JS dependencies & configure test environment
       shell: "bash"
-      run: ./run.sh jstest setup
+      run: ./run.sh jstest --setup
     - name: Run Jest tests
       shell: "bash"
       run: |
