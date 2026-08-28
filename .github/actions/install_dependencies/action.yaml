@@ -36,7 +36,7 @@ runs:
       sudo DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user libkrb5-dev libcrypt-dev
 
   - name: "Set up Python ${{ inputs.python_version }}"
-    uses: "actions/setup-python@v5"
+    uses: "actions/setup-python@v7"
     with:
       python-version: "${{ inputs.python_version }}"
 
@@ -54,12 +54,12 @@ runs:
       uvx --version
 
   - name: Install pnpm
-    uses: pnpm/action-setup@v4
+    uses: pnpm/action-setup@v6
     with:
       version: ${{ inputs.pnpm_version }}
       run_install: false
 
   - name: Set up Node.js ${{ inputs.node_version }}
-    uses: actions/setup-node@v4
+    uses: actions/setup-node@v7
     with:
       node-version: ${{ inputs.node_version }}
