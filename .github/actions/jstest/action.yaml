@@ -17,7 +17,9 @@ runs:
       run: ./run.sh venv
     - name: Install JS dependencies & configure test environment
       shell: "bash"
-      run: ./run.sh jstest --setup
+      # positional `setup` for now; oarepo-cli also accepts `--setup` and will
+      # switch to the flag once this action is updated in lockstep.
+      run: ./run.sh jstest setup
     - name: Run Jest tests
       shell: "bash"
       run: |
