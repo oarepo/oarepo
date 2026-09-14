@@ -330,7 +330,7 @@ stop_services() {
     set -e
     set -o pipefail
 
-    eval "$(uvx --with setuptools --from "docker-services-cli @ git+https://github.com/mesemus/docker-services-cli.git@rustfs" docker-services-cli down --env)"
+    eval "$(uvx --with setuptools --from "docker-services-cli[s3] @ git+https://github.com/mesemus/docker-services-cli.git@rustfs" docker-services-cli down --env)"
     if [ -f .env-services ]; then
         rm .env-services
     fi
@@ -344,7 +344,7 @@ start_services() {
     set -o pipefail
 
     uvx --with setuptools \
-        --from "docker-services-cli @ git+https://github.com/mesemus/docker-services-cli.git@rustfs" \
+        --from "docker-services-cli[s3] @ git+https://github.com/mesemus/docker-services-cli.git@rustfs" \
         docker-services-cli up \
         --db "${DB:-postgresql}" --search "${SEARCH:-opensearch}" \
         --mq "${MQ:-rabbitmq}" --cache "${CACHE:-redis}" --s3 "${S3:-rustfs}" --env \
