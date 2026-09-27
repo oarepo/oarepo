@@ -1,0 +1,28 @@
+name: "Build API documentation"
+description: >-
+  Builds API documentation via ./run.sh docs when the checked-out repository
+  contains a new-generation run.sh (one that exposes the "docs" command);
+  skips with a notice otherwise.
+outputs:
+  built:
+    description: "'true' when the documentation was built, 'false' otherwise"
+    value: ${{ steps.check.outputs.available }}
+runs:
+  using: "composite"
+  steps:
+    - name: Check that the docs command is available
+      id: check
+      shell: "bash"
+      run: |
+        if ./run.sh --help 2>/dev/null | grep -qE "^[[:space:]]*docs[[:space:]]"; then
+          echo "run.sh exposes the 'docs' command, documentation will be built."
+          echo "available=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "::notice::run.sh does not expose the 'docs' command (old run.sh version?) - skipping docs build."
+          echo "available=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Build API documentation with zensical
+      if: steps.check.outputs.available == 'true'
+      shell: "bash"
+      run: ./run.sh docs
