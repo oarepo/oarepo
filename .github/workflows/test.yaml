@@ -182,6 +182,52 @@ jobs:
           use_coverage: "false"
           install_editable: "false"
 
+  docs:
+    name: Build API documentation
+    runs-on: ubuntu-26.04
+    needs: extract_dependencies
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check out actions
+        uses: actions/checkout@v7
+        with:
+          repository: oarepo/oarepo
+          ref: main
+          path: _oarepo
+
+      - name: Install actions
+        shell: "bash"
+        run: |
+          cp -R _oarepo/.github/actions/ ./.github/actions/
+
+      - name: Install dependencies
+        uses: ./.github/actions/install_dependencies
+        with:
+          python_version: ${{ inputs.lint_python_version }}
+          node_version: ${{ inputs.lint_node_version }}
+
+      - name: Build API documentation
+        id: build_docs
+        uses: ./.github/actions/build_docs
+
+      - name: Prepare placeholder documentation
+        # The release workflow always downloads this artifact; a placeholder
+        # keeps it present even when run.sh does not support the docs command
+        # (deploy to Pages is skipped in that case).
+        if: steps.build_docs.outputs.built != 'true'
+        shell: "bash"
+        run: |
+          mkdir -p build/docs
+          echo "API documentation was not built (run.sh does not provide the 'docs' command)." > build/docs/README.txt
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v7
+        with:
+          name: apidocs
+          path: build/docs
+
   detect_js:
     name: Javascript support
     needs: extract_dependencies
