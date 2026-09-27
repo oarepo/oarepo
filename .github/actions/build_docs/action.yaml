@@ -14,7 +14,8 @@ runs:
       id: check
       shell: "bash"
       run: |
-        if ./run.sh --help 2>/dev/null | grep -qE "^[[:space:]]*docs[[:space:]]"; then
+        # Checking via 'docs --help' if the docs command is available.
+        if ./run.sh docs --help >/dev/null 2>&1; then
           echo "run.sh exposes the 'docs' command, documentation will be built."
           echo "available=true" >> "$GITHUB_OUTPUT"
         else
