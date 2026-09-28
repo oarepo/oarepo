@@ -21,6 +21,9 @@ on:
       tests_enabled:
         type: boolean
         default: true
+      build_docs:
+        type: boolean
+        default: true
 
 jobs:
   extract_dependencies:
@@ -186,6 +189,7 @@ jobs:
     name: Build API documentation
     runs-on: ubuntu-26.04
     needs: extract_dependencies
+    if: ${{ inputs.build_docs }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7

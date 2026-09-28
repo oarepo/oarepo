@@ -15,6 +15,9 @@ on:
       tests_enabled:
         type: boolean
         default: true
+      build_docs:
+        type: boolean
+        default: true
     secrets:
       OAREPO_BUMP_VERSION_CLIENT_ID:
         required: true
@@ -31,6 +34,7 @@ jobs:
     with:
       lint_enabled: ${{ inputs.lint_enabled }}
       tests_enabled: ${{ inputs.tests_enabled }}
+      build_docs: ${{ inputs.build_docs }}
 
   prepare_release:
     name: Prepare Release
@@ -200,6 +204,9 @@ jobs:
     name: Publish documentation to GitHub Pages
     runs-on: ubuntu-26.04
     needs: prepare_release
+    # Skipping the job also skips the github-pages environment and its
+    # deployment branch/tag protection rules.
+    if: ${{ inputs.build_docs }}
     permissions:
       contents: read
       pages: write
