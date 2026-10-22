@@ -1,6 +1,6 @@
 [project]
 name = "oarepo"
-version = "14.2.6+1.rdm.14.0.5"
+version = "14.2.6+2.rdm.14.0.5"
 description = "CESNET, UCT Prague and NTK wrapper around Invenio v3."
 keywords = [
     "oarepo",
@@ -46,7 +46,7 @@ dependencies = [
     "blinker==1.9.0",
     "botocore==1.41.5",
     "brotli==1.2.1",
-    "brotlicffi==1.2.0.2",
+    "brotlicffi==1.2.1.0",
     "cachelib==0.17.0",
     "cairocffi==1.7.1",
     "cairosvg==2.9.1",
