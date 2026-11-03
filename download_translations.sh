@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd $(dirname "$0")
+BABEL_CATALOG="$PWD/babel_catalog.py"
 
 set -e
 
@@ -27,7 +28,11 @@ download_module_translations() {
         tx --token $TRANSIFEX_TOKEN pull -a -f
     fi
 
-    python setup.py compile_catalog
+    if [ -f setup.py ] ; then
+        python setup.py compile_catalog
+    else
+        $BABEL_CATALOG compile
+    fi
 
 
     # remove all translations except for the ones in the locale folder
