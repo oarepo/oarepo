@@ -24,9 +24,11 @@ from __future__ import annotations
 
 import re
 from datetime import timedelta
+from importlib.metadata import PackageNotFoundError, version
 from typing import TYPE_CHECKING, Any, TypedDict
 
 import idutils
+from invenio_app import config as app_config
 from invenio_app_rdm import config as app_rdm_config
 from invenio_i18n import lazy_gettext as _
 from invenio_rdm_records import config as rdm_records_config
@@ -223,3 +225,109 @@ NOTIFICATIONS_ENTITY_RESOLVERS = app_rdm_config.NOTIFICATIONS_ENTITY_RESOLVERS
 # required for share notifications, otherwise they fail
 NOTIFICATIONS_SETTINGS_VIEW_FUNCTION = app_rdm_config.notification_settings
 """View function for notification settings."""
+
+# InvenioRDM flavour defaults
+# ===========================
+# Upstream applies the settings below through invenio_app_rdm.config, which is
+# not loaded in OARepo (it would bring back the stock RDM record UI, routes and
+# templates). They are inert or purely corrective, so they are safe as defaults
+# of every OARepo application, test suites included.
+#
+# Defaults that switch on enforcement (REST_CSRF_ENABLED, ACCESS_CACHE, the
+# ACCOUNTS_*_RATELIMIT limits) or depend on the deployment (the database
+# connection pool, the rate limiting storage) are applied by oarepo-config's
+# configure_generic_parameters instead.
+#
+# Deliberately not copied: DB_VERSIONING_USER_MODEL - it decides whether the
+# SQLAlchemy-Continuum `transaction` table has a `user_id` column, i.e. it is
+# part of the database schema of existing deployments.
+
+MAX_CONTENT_LENGTH = app_rdm_config.MAX_CONTENT_LENGTH
+"""Max size of form data (multipart/urlencoded) request bodies.
+
+Streamed file uploads are not affected, see invenio_files_rest.app.
+"""
+
+FILES_REST_PERMISSION_FACTORY = app_rdm_config.files_rest_permission_factory
+"""Deny the legacy invenio-files-rest REST API (/api/files).
+
+It does not honour record permissions; records-resources serves all files instead.
+"""
+
+FILES_REST_CHECKSUM_VERIFICATION_URI_PREFIXES: list[str] = []
+"""URI prefixes of the files whose checksums should be verified (empty = all)."""
+
+RATELIMIT_PER_ENDPOINT = {
+    **app_config.RATELIMIT_PER_ENDPOINT,
+    # external (OIDC/OAuth) login - same budget as the local login views
+    "invenio_oauthclient.login": "10 per minute",
+    "invenio_oauthclient.signup": "10 per minute",
+    # DOI/ARK badges are embedded in third-party pages
+    "invenio_formatter_badges.badge": "120 per minute",
+}
+"""Rate limits of individual endpoints, replacing the per-user limits there."""
+
+INDEXER_MQ_PUBLISH_KWARGS = {
+    "retry": True,
+    "retry_policy": {
+        "interval_start": 0,  # first retry immediately,
+        "interval_step": 2,  # then wait 2s longer after every retry,
+        "interval_max": 30,  # but never more than 30s between retries
+        "max_retries": 20,
+    },
+}
+"""Retry publishing to the indexing queue (for ~10 minutes at most) instead of losing the index update."""
+
+APP_RDM_RECORD_THUMBNAIL_SIZES = list(app_rdm_config.APP_RDM_RECORD_THUMBNAIL_SIZES)
+"""Allowed record thumbnail sizes; required by the record thumbnail view."""
+
+APP_RDM_DISPLAY_DECIMAL_FILE_SIZES = True
+"""Display file sizes in powers of 1000 (KB, ...), the unit quotas are defined in."""
+
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = app_rdm_config.APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES
+
+APP_RDM_DEPOSIT_FORM_CUSTOM_FIELD_DEFAULTS: dict[str, Any] = {}
+
+APP_RDM_RECORD_LANDING_PAGE_FAIR_SIGNPOSTING_LEVEL_1_ENABLED = False
+
+APP_RDM_SUBCOMMUNITIES_LABEL = app_rdm_config.APP_RDM_SUBCOMMUNITIES_LABEL
+
+APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE = app_rdm_config.APP_RDM_FILES_INTEGRITY_REPORT_TEMPLATE
+
+APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT = app_rdm_config.APP_RDM_FILES_INTEGRITY_REPORT_SUBJECT
+
+FORMATTER_BADGES_ALLOWED_TITLES = list(app_rdm_config.FORMATTER_BADGES_ALLOWED_TITLES)
+
+FORMATTER_BADGES_TITLE_MAPPING = dict(app_rdm_config.FORMATTER_BADGES_TITLE_MAPPING)
+
+COMMUNITIES_ERROR_HANDLERS = dict(app_rdm_config.COMMUNITIES_ERROR_HANDLERS)
+"""Report an invalid community visibility as HTTP 400 instead of an internal server error."""
+
+REQUESTS_ERROR_HANDLERS = dict(app_rdm_config.REQUESTS_ERROR_HANDLERS)
+"""Report invalid access restrictions as HTTP 400 instead of an internal server error."""
+
+COMMUNITIES_SUB_INVITATION_REQUEST_CLS = app_rdm_config.COMMUNITIES_SUB_INVITATION_REQUEST_CLS
+"""RDM specific request type for subcommunity invitations."""
+
+# The "Notifications" page of the user settings stores preferences.notifications;
+# without these schemas the value is neither validated on save nor exposed to
+# the notification recipient filters.
+ACCOUNTS_USER_PREFERENCES_SCHEMA = app_rdm_config.ACCOUNTS_USER_PREFERENCES_SCHEMA
+"""The schema used for validation of the user preferences."""
+
+USERS_RESOURCES_SERVICE_SCHEMA = app_rdm_config.USERS_RESOURCES_SERVICE_SCHEMA
+"""Schema used by the users service."""
+
+
+def _installed_versions(*packages: str) -> list[tuple[str, str]]:
+    versions = []
+    for package in packages:
+        try:
+            versions.append((package, f"v{version(package)}"))
+        except PackageNotFoundError:
+            pass
+    return versions
+
+
+ADMINISTRATION_DISPLAY_VERSIONS = _installed_versions("oarepo", "invenio-app-rdm")
+"""Show the OARepo and InvenioRDM versions in the administration panel."""
