@@ -97,7 +97,7 @@ jobs:
 
       - name: Build package to publish
         run: |
-          python setup.py sdist bdist_wheel
+          uv build
 
       - name: Debug
         run: |
