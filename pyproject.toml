@@ -357,13 +357,18 @@ oarepo = "oarepo.webpack:theme"
 
 [build-system]
 requires = [
-    "setuptools",
-    "setuptools-scm",
+    "hatchling",
 ]
-build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
 
-[tool.setuptools.package-data]
-oarepo = [
-    "oarepo/assets/semantic-ui/*",
-    "oarepo/collected_translations/*",
+[tool.hatch.build.targets.wheel]
+packages = [
+    "oarepo",
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "oarepo",
+    "LICENSE",
+    "README.md",
 ]
