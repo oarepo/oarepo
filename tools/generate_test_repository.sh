@@ -90,6 +90,7 @@ printf '%s\n' \
   "repository_human_name: Test Repository" \
   "repository_description: Integration test repository" \
   "languages: cs" \
+  "admin_email: admin@example.org" \
   "use_ccmm: true" > repo_config.yaml
 
 bash repository_installer.sh \
