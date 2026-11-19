@@ -29,6 +29,7 @@ fi
 # prepare sample Copier configs
 cat <<EOF >initial_repository_config.yaml
 languages: 'cs'
+admin_email: 'admin@example.org'
 repository_name: 'sample_repository'
 repository_description: 'Sample Repository'
 repository_human_name: Sample Repository
