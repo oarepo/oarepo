@@ -116,7 +116,7 @@ create_repository() {
     # if template starts with https, it is a github url
     if [[ "${template}" == https://* ]]; then
         echo "Using template from GitHub: ${template} with version ${version}"
-        uvx --python "${python_binary}" \
+        "${uvx_binary}" --python "${python_binary}" \
             --with copier-template-extensions --with pycountry --with tomlkit \
             copier copy --trust --vcs-ref "${version}" \
             "${copier_arguments[@]}" \
@@ -124,7 +124,7 @@ create_repository() {
             "${template}" "${repository_name}" "${@}"
     else
         echo "Using local template: ${template}"
-        uvx --python "${python_binary}" \
+        "${uvx_binary}" --python "${python_binary}" \
             --with copier-template-extensions --with pycountry --with tomlkit \
             copier copy --trust \
             "${copier_arguments[@]}" \
