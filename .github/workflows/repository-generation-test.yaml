@@ -55,6 +55,9 @@ jobs:
       # MODEL_TEMPLATE and MODEL_TEMPLATE_VERSION are exported and used by repository_runner.sh
       MODEL_TEMPLATE: ${{ inputs.model_template || 'https://github.com/oarepo/nrp-model-copier' }}
       MODEL_TEMPLATE_VERSION: ${{ inputs.model_template_version || 'rdm-14' }}
+      # oarepo-cli (used by the generated run.sh) reads the model template from these
+      OAREPO_MODEL_TEMPLATE_URL: ${{ inputs.model_template || 'https://github.com/oarepo/nrp-model-copier' }}
+      OAREPO_MODEL_TEMPLATE_VERSION: ${{ inputs.model_template_version || 'rdm-14' }}
       PYTHON_VERSION: ${{ inputs.python_version || '3.14' }}
       OAREPO_REF: ${{ inputs.oarepo_ref }}
       OAREPO_APP_REF: ${{ inputs.oarepo_app_ref }}
@@ -171,21 +174,20 @@ jobs:
           base_model: empty
           EOF
 
-          # Create each model (passing --data-file as extra arg)
+          # Create each model (the config file seeds all copier answers)
           echo "Creating CCMM model..."
-          ./run.sh model create ccmm_model model_ccmm.yaml --data-file model_ccmm.yaml
-          # TODO: use just --data-file once we merge https://github.com/oarepo/oarepo/pull/214
+          ./run.sh model create ccmm_model model_ccmm.yaml
           echo "Creating Complete RDM model..."
-          ./run.sh model create rdm_complete_model model_rdm_complete.yaml --data-file model_rdm_complete.yaml
+          ./run.sh model create rdm_complete_model model_rdm_complete.yaml
 
           echo "Creating Basic RDM model..."
-          ./run.sh model create rdm_basic_model model_rdm_basic.yaml --data-file model_rdm_basic.yaml
+          ./run.sh model create rdm_basic_model model_rdm_basic.yaml
 
           echo "Creating Minimal RDM model..."
-          ./run.sh model create rdm_minimal_model model_rdm_minimal.yaml --data-file model_rdm_minimal.yaml
+          ./run.sh model create rdm_minimal_model model_rdm_minimal.yaml
 
           echo "Creating Empty model..."
-          ./run.sh model create empty_model model_empty.yaml --data-file model_empty.yaml
+          ./run.sh model create empty_model model_empty.yaml
 
       - name: Show repository structure
         working-directory: testrepo
