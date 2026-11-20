@@ -447,13 +447,13 @@ create_model() {
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with tomlkit --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} \
                 -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
         else
             echo_progress "Using local template: ${MODEL_TEMPLATE}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with tomlkit --with copier-templates-extensions \
                 copier copy --trust \
                 -d model_name="${model_name}" \
                 "${MODEL_TEMPLATE}" . 
@@ -470,13 +470,13 @@ create_model() {
         # if template starts with https, it is a github url
         if [[ "${MODEL_TEMPLATE}" == https://* ]]; then
             echo_progress "Using template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions \
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with tomlkit --with copier-templates-extensions \
                 copier copy --trust --vcs-ref ${MODEL_TEMPLATE_VERSION}\
                 --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
         else
             echo_progress "Using local template: ${MODEL_TEMPLATE}"
-            uvx --python="$PYTHON" --with tomli --with tomli-w --with copier-templates-extensions\
+            uvx --python="$PYTHON" --with tomli --with tomli-w --with tomlkit --with copier-templates-extensions\
                 copier copy --trust\
                 --answers-file "${model_config_file}" \
                 "${MODEL_TEMPLATE}" . "${@}"
@@ -533,7 +533,7 @@ update_model() {
 
 
     echo_progress "Updating template from GitHub: ${MODEL_TEMPLATE} with version ${MODEL_TEMPLATE_VERSION} with answers file ${answers_file}"
-    uvx --python="$PYTHON" --with pycountry --with tomli --with tomli-w --with copier-templates-extensions \
+    uvx --python="$PYTHON" --with pycountry --with tomli --with tomli-w --with tomlkit --with copier-templates-extensions \
         copier update --trust --vcs-ref ${MODEL_TEMPLATE_VERSION} --conflict inline \
         --answers-file "${answers_file}" 
 

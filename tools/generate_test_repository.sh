@@ -29,6 +29,9 @@ APP_TEMPLATE_VERSION="rdm-14"
 # MODEL_TEMPLATE and MODEL_TEMPLATE_VERSION are exported and picked up by repository_runner.sh
 export MODEL_TEMPLATE="https://github.com/oarepo/nrp-model-copier"
 export MODEL_TEMPLATE_VERSION="rdm-14"
+# oarepo-cli (used by the generated run.sh) reads the model template from these
+export OAREPO_MODEL_TEMPLATE_URL="$MODEL_TEMPLATE"
+export OAREPO_MODEL_TEMPLATE_VERSION="$MODEL_TEMPLATE_VERSION"
 
 # Directory that will be created to hold the cloned oarepo repo and testrepo.
 # Must not exist yet (or be empty).
@@ -164,22 +167,21 @@ model_description: Test model using Empty preset
 base_model: empty
 EOF
 
-# Create each model (passing --data-file as extra arg)
-# TODO: use just --data-file once https://github.com/oarepo/oarepo/pull/214 is merged
+# Create each model (the config file seeds all copier answers)
 echo "Creating CCMM model..."
-./run.sh model create ccmm_model model_ccmm.yaml --data-file model_ccmm.yaml
+./run.sh model create ccmm_model model_ccmm.yaml
 
 echo "Creating Complete RDM model..."
-./run.sh model create rdm_complete_model model_rdm_complete.yaml --data-file model_rdm_complete.yaml
+./run.sh model create rdm_complete_model model_rdm_complete.yaml
 
 echo "Creating Basic RDM model..."
-./run.sh model create rdm_basic_model model_rdm_basic.yaml --data-file model_rdm_basic.yaml
+./run.sh model create rdm_basic_model model_rdm_basic.yaml
 
 echo "Creating Minimal RDM model..."
-./run.sh model create rdm_minimal_model model_rdm_minimal.yaml --data-file model_rdm_minimal.yaml
+./run.sh model create rdm_minimal_model model_rdm_minimal.yaml
 
 echo "Creating Empty model..."
-./run.sh model create empty_model model_empty.yaml --data-file model_empty.yaml
+./run.sh model create empty_model model_empty.yaml
 
 # ==============================================================================
 # Show repository structure
