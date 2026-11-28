@@ -84,7 +84,9 @@ jobs:
         shell: "bash"
         run: |
           uv venv
-          uv pip install -e .
+          # packaging: the version check below. Installed explicitly, because not
+          # every project pulls it in with its own dependencies.
+          uv pip install -e . packaging
 
       - name: Get location of the module including the version variable
         shell: "bash"
@@ -161,12 +163,21 @@ jobs:
           fi
 
           echo "Checking if new version ('$new_version') is greater than or equal to the current version ('$actual_version')"
-          python -c "from packaging.version import parse; exit(0 if parse('$new_version') >= parse('$actual_version') else 1)" && {
+          # exit code 2: the new version is lower; anything else but 0 (e.g. 1 for a Python
+          # error): the check itself failed
+          set +e
+          python -c "import sys; from packaging.version import parse; sys.exit(0 if parse('$new_version') >= parse('$actual_version') else 2)"
+          check=$?
+          set -e
+          if [[ $check -eq 0 ]]; then
               echo "$new_version is greater than or equal to $actual_version, continuing."
-          } || {
+          elif [[ $check -eq 2 ]]; then
               echo "$new_version is lower than $actual_version, exiting."
               exit 1
-          }
+          else
+              echo "Error: the version check failed (exit code $check, see above), exiting."
+              exit 1
+          fi
 
           echo "Bumping version in $file_with_version to $new_version"
           if [[ "$version_in_python" == "true" ]]; then
